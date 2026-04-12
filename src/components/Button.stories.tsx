@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
+import { Text } from './ui/text';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -7,49 +8,85 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outline'],
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: ['default', 'sm', 'lg', 'icon'],
+    },
+    disabled: {
+      control: 'boolean',
     },
   },
+  render: (args) => (
+    <Button {...args}>
+      <Text>{(args as any).label ?? 'Button'}</Text>
+    </Button>
+  ),
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Button & { label?: string }>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    title: 'Primary Button',
-    variant: 'primary',
-  },
+    variant: 'default',
+    label: 'Default',
+  } as any,
 };
 
-export const Secondary: Story = {
+export const Destructive: Story = {
   args: {
-    title: 'Secondary Button',
-    variant: 'secondary',
-  },
+    variant: 'destructive',
+    label: 'Destructive',
+  } as any,
 };
 
 export const Outline: Story = {
   args: {
-    title: 'Outline Button',
     variant: 'outline',
-  },
+    label: 'Outline',
+  } as any,
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    label: 'Secondary',
+  } as any,
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+    label: 'Ghost',
+  } as any,
+};
+
+export const Link: Story = {
+  args: {
+    variant: 'link',
+    label: 'Link',
+  } as any,
 };
 
 export const Small: Story = {
   args: {
-    title: 'Small',
     size: 'sm',
-  },
+    label: 'Small',
+  } as any,
 };
 
 export const Large: Story = {
   args: {
-    title: 'Large',
     size: 'lg',
-  },
+    label: 'Large',
+  } as any,
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    label: 'Disabled',
+  } as any,
 };

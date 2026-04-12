@@ -1,71 +1,112 @@
-import { Pressable, Text, StyleSheet } from 'react-native';
-import type { PressableProps } from 'react-native';
+import { Platform, Pressable } from 'react-native';
 
-export interface ButtonProps extends PressableProps {
-  title: string;
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
-}
+import { cva, type VariantProps } from 'class-variance-authority';
 
-export function Button({
-  title,
-  variant = 'primary',
-  size = 'md',
-  style,
-  ...props
-}: ButtonProps) {
+import { cn } from '../lib/utils';
+import { TextClassContext } from './ui/text';
+
+// NOTE: group-* is not supported yet by Uniwind
+
+const buttonVariants = cva(
+  cn(
+    'group shrink-0 flex-row items-center justify-center gap-2 rounded-md shadow-none',
+    Platform.select({
+      web: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+    })
+  ),
+  {
+    variants: {
+      variant: {
+        default: cn(
+          'bg-primary active:bg-primary/90 shadow-sm shadow-black/5',
+          Platform.select({ web: 'hover:bg-primary/90' })
+        ),
+        destructive: cn(
+          'bg-val-red active:bg-val-red/90 shadow-sm shadow-black/5',
+          Platform.select({
+            web: 'hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
+          })
+        ),
+        outline: cn(
+          'border-border bg-background active:bg-accent dark:bg-input/30 dark:border-input dark:active:bg-input/50 border shadow-sm shadow-black/5',
+          Platform.select({
+            web: 'hover:bg-accent dark:hover:bg-input/50',
+          })
+        ),
+        secondary: cn(
+          'bg-secondary active:bg-secondary/80 shadow-sm shadow-black/5',
+          Platform.select({ web: 'hover:bg-secondary/80' })
+        ),
+        ghost: cn(
+          'active:bg-accent dark:active:bg-accent/50',
+          Platform.select({ web: 'hover:bg-accent dark:hover:bg-accent/50' })
+        ),
+        link: '',
+      },
+      size: {
+        default: cn('h-10 px-4 py-2 sm:h-9', Platform.select({ web: 'has-[>svg]:px-3' })),
+        sm: cn('h-9 gap-1.5 rounded-md px-3 sm:h-8', Platform.select({ web: 'has-[>svg]:px-2.5' })),
+        lg: cn('h-11 rounded-md px-6 sm:h-10', Platform.select({ web: 'has-[>svg]:px-4' })),
+        icon: 'h-10 w-10 sm:h-9 sm:w-9',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+);
+
+const buttonTextVariants = cva(
+  cn(
+    'text-foreground text-sm font-medium',
+    Platform.select({ web: 'pointer-events-none transition-colors' })
+  ),
+  {
+    variants: {
+      variant: {
+        default: 'text-primary-foreground',
+        destructive: 'text-white',
+        outline: cn(
+          'group-active:text-accent-foreground',
+          Platform.select({ web: 'group-hover:text-accent-foreground' })
+        ),
+        secondary: 'text-secondary-foreground',
+        ghost: 'group-active:text-accent-foreground',
+        link: cn(
+          'text-primary group-active:underline',
+          Platform.select({ web: 'underline-offset-4 group-hover:underline hover:underline' })
+        ),
+      },
+      size: {
+        default: '',
+        sm: '',
+        lg: '',
+        icon: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+);
+
+type ButtonProps = React.ComponentProps<typeof Pressable> &
+  React.RefAttributes<typeof Pressable> &
+  VariantProps<typeof buttonVariants>;
+
+function Button({ className, variant, size, ...props }: ButtonProps) {
   return (
-    <Pressable
-      style={[styles.base, styles[variant], styles[size], style as any]}
-      {...props}
-    >
-      <Text
-        style={[
-          styles.text,
-          variant === 'outline' && styles.outlineText,
-        ]}
-      >
-        {title}
-      </Text>
-    </Pressable>
+    <TextClassContext.Provider value={buttonTextVariants({ variant, size })}>
+      <Pressable
+        className={cn(props.disabled && 'opacity-50', buttonVariants({ variant, size }), className)}
+        role="button"
+        {...props}
+      />
+    </TextClassContext.Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  base: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-  },
-  primary: {
-    backgroundColor: '#FF4655',
-  },
-  secondary: {
-    backgroundColor: '#1F2326',
-  },
-  outline: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#FF4655',
-  },
-  sm: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  md: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-  },
-  lg: {
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-  },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  outlineText: {
-    color: '#FF4655',
-  },
-});
+export { Button, buttonTextVariants, buttonVariants };
+export type { ButtonProps };
