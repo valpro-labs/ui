@@ -50,6 +50,15 @@ export type { MatchCardProps, MatchResult } from '@/components/blocks/match-card
 export { MatchCardSkeleton } from '@/components/blocks/match-card-skeleton';
 export type { MatchCardSkeletonProps } from '@/components/blocks/match-card-skeleton';
 
+export { OfferCard } from '@/components/blocks/offer-card';
+export type { OfferCardProps } from '@/components/blocks/offer-card';
+
+export { BundleCard } from '@/components/blocks/bundle-card';
+export type { BundleCardProps } from '@/components/blocks/bundle-card';
+
+export { AccessoryCard } from '@/components/blocks/accessory-card';
+export type { AccessoryCardProps } from '@/components/blocks/accessory-card';
+
 export { RewardItem } from '@/components/blocks/reward-item';
 export type { RewardItemProps } from '@/components/blocks/reward-item';
 
