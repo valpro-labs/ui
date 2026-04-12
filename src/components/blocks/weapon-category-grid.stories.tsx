@@ -10,8 +10,13 @@ import {
 const weaponIcon = (uuid: string) =>
   `https://media.valorant-api.com/weapons/${uuid}/displayicon.png`;
 
-const buddyIcon =
-  'https://media.valorant-api.com/buddies/levels/1b43fc4b-41a3-0b30-b8e0-65b67e2f2b14/displayicon.png';
+const buddyIcon = (levelUuid: string) =>
+  `https://media.valorant-api.com/buddylevels/${levelUuid}/displayicon.png`;
+
+// Task Force 809 Buddy
+const taskForceBuddy = buddyIcon('6c3b1a9e-4067-7ed6-fc6c-fea61e0a057c');
+// RGX 11z Pro Buddy
+const rgxBuddy = buddyIcon('a3043ec2-4a5b-ca46-d8f6-0399f1e52565');
 
 const SIDEARM = 'EEquippableCategory::Sidearm';
 const SMG = 'EEquippableCategory::SMG';
@@ -45,7 +50,7 @@ const sections: WeaponCategoryGridSection[] = [
         key: 'ghost',
         imageUrl: weaponIcon('1baa85b4-4c70-1284-64bb-6481dfc3bb4e'),
         widthPercent: WEAPON_CATEGORY_WIDTH_GRID[SIDEARM],
-        buddyIconUrl: buddyIcon,
+        buddyIconUrl: taskForceBuddy,
       },
       {
         key: 'sheriff',
@@ -62,6 +67,7 @@ const sections: WeaponCategoryGridSection[] = [
         key: 'stinger',
         imageUrl: weaponIcon('f7e1b454-4ad4-1063-ec0a-159e56b58941'),
         widthPercent: WEAPON_CATEGORY_WIDTH_GRID[SMG],
+        buddyIconUrl: rgxBuddy,
       },
       {
         key: 'spectre',
@@ -104,7 +110,7 @@ const sections: WeaponCategoryGridSection[] = [
         key: 'phantom',
         imageUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
         widthPercent: WEAPON_CATEGORY_WIDTH_GRID[RIFLE],
-        buddyIconUrl: buddyIcon,
+        buddyIconUrl: taskForceBuddy,
       },
       {
         key: 'vandal',
@@ -193,6 +199,48 @@ export const Loading: Story = {
 export const SingleCategory: Story = {
   args: {
     sections: [sections[3]!],
+    chevronIcon: <ChevronIcon />,
+  },
+};
+
+/**
+ * Every weapon has an equipped gun buddy — demonstrates the bottom-left
+ * buddy icon that the loadout screen shows when a charm is attached.
+ */
+export const WithBuddies: Story = {
+  args: {
+    sections: [
+      {
+        key: RIFLE,
+        title: 'Rifles',
+        items: [
+          {
+            key: 'vandal',
+            imageUrl: weaponIcon('9c82e19d-4575-0200-1a81-3eacf00cf872'),
+            widthPercent: WEAPON_CATEGORY_WIDTH_GRID[RIFLE],
+            buddyIconUrl: taskForceBuddy,
+          },
+          {
+            key: 'phantom',
+            imageUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
+            widthPercent: WEAPON_CATEGORY_WIDTH_GRID[RIFLE],
+            buddyIconUrl: rgxBuddy,
+          },
+          {
+            key: 'guardian',
+            imageUrl: weaponIcon('4ade7faa-4cf1-8376-95ef-39884480959b'),
+            widthPercent: WEAPON_CATEGORY_WIDTH_GRID[RIFLE],
+            buddyIconUrl: rgxBuddy,
+          },
+          {
+            key: 'bulldog',
+            imageUrl: weaponIcon('ae3de142-4d85-2547-dd26-4e90bed35cf7'),
+            widthPercent: WEAPON_CATEGORY_WIDTH_GRID[RIFLE],
+            buddyIconUrl: taskForceBuddy,
+          },
+        ],
+      },
+    ],
     chevronIcon: <ChevronIcon />,
   },
 };
