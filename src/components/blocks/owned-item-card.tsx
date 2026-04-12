@@ -63,7 +63,7 @@ function OwnedItemCard({
     <View
       className={cn(
         'bg-card relative aspect-square w-full items-center justify-center overflow-hidden rounded-xl',
-        isSelected && 'ring-val-red ring-2',
+        isSelected && 'ring-val-green-ui ring-2',
         isDepleted && 'opacity-30',
         className
       )}>
@@ -79,6 +79,10 @@ function OwnedItemCard({
       ) : (
         <View className="bg-muted h-full w-full" />
       )}
+
+      {isSelected ? (
+        <View className="bg-val-green-ui/20 absolute inset-0" pointerEvents="none" />
+      ) : null}
 
       {equippedBadge ? <View className="absolute top-1 left-1">{equippedBadge}</View> : null}
       {favoriteBadge ? (
