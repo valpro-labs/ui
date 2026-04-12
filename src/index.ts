@@ -8,6 +8,9 @@ export type { TextProps } from '@/components/ui/text';
 export { Image } from '@/components/ui/image';
 export type { ImageProps } from '@/components/ui/image';
 
+export { Separator } from '@/components/ui/separator';
+export type { SeparatorProps } from '@/components/ui/separator';
+
 // ── Tier 2: Blocks (blocks/) ──
 // (none yet)
 
