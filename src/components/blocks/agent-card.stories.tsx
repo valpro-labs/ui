@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Lock } from 'phosphor-react';
 import { View } from 'react-native';
 
 import { AgentCard } from '@/components/blocks/agent-card';
-import { Text } from '@/components/ui/text';
 
 // Stand-in for a real lock icon — the ui package ships no icons, so consumers
-// supply their own via `lockOverlay`. We use a text glyph here so the Story
-// actually shows something.
+// supply their own via `lockOverlay`. Phosphor is already used throughout the
+// storybook, so we lean on it here too.
 const LockBadge = () => (
   <View className="absolute right-1 bottom-1 z-20 size-5 items-center justify-center rounded-full bg-black/60">
-    <Text className="text-[10px] text-white">🔒</Text>
+    <Lock size={12} weight="fill" color="#ffffff" />
   </View>
 );
 
