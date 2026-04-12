@@ -31,25 +31,39 @@ const config: StorybookConfig = {
     };
 
     // `__DEV__` is a React Native global that Metro injects at build time.
-    // Vite doesn't know about it, but several RN-ecosystem packages (e.g. uniwind's
-    // web components) reference it directly. Define it here so we don't crash.
+    // Vite doesn't know about it, but uniwind's web components reference it
+    // at module load. Define it here so we don't crash.
     config.define = {
       ...(config.define || {}),
       __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
     };
 
+    // Several RN-ecosystem packages ship .js/.mjs files containing JSX (e.g.
+    // @rn-primitives/*). Tell Vite's dep pre-bundler to parse them as JSX.
+    // This only affects pre-bundled node_modules — source files are unaffected.
+    config.optimizeDeps = {
+      ...(config.optimizeDeps || {}),
+      esbuildOptions: {
+        ...(config.optimizeDeps?.esbuildOptions || {}),
+        loader: {
+          ...(config.optimizeDeps?.esbuildOptions?.loader || {}),
+          '.js': 'jsx',
+          '.mjs': 'jsx',
+        },
+      },
+    };
+
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
-      'react-native': 'react-native-web',
       // Mirror the `@/*` -> `./src/*` alias from tsconfig.json so Storybook
       // can resolve absolute imports the same way TypeScript does.
-      // Storybook runs from the project root, so cwd-based resolution is safe.
       '@': path.resolve(process.cwd(), 'src'),
     };
-    // Prefer `.web.tsx` / `.web.ts` / `.web.js` so platform-specific files
-    // (e.g. image.web.tsx) take precedence on the web target. Keeps the same
-    // behavior Metro gives us on native.
+    // Prefer `.web.tsx` etc. so platform-specific files take precedence on
+    // the web target. Same behaviour Metro gives us on native.
+    // Components that don't work on web (reanimated-backed, etc.) can ship a
+    // `.web.tsx` sibling that swaps in CSS / plain RNW implementations.
     config.resolve.extensions = [
       '.web.tsx',
       '.web.ts',
