@@ -60,4 +60,25 @@ function SvgText(props: TextProps) {
   return <text {...props} />;
 }
 
-export { Svg, Path, Rect, SvgText };
+type DefsProps = PropsWithChildren<Omit<ComponentPropsWithoutRef<'defs'>, 'ref'>>;
+function Defs(props: DefsProps) {
+  return <defs {...props} />;
+}
+
+type RadialGradientProps = PropsWithChildren<
+  Omit<ComponentPropsWithoutRef<'radialGradient'>, 'ref'>
+>;
+function RadialGradient(props: RadialGradientProps) {
+  return <radialGradient {...props} />;
+}
+
+type StopProps = {
+  offset?: number | string;
+  stopColor?: string;
+  stopOpacity?: number | string;
+};
+function Stop({ stopColor, stopOpacity, ...rest }: StopProps) {
+  return <stop {...rest} stopColor={stopColor} stopOpacity={stopOpacity} />;
+}
+
+export { Defs, Path, RadialGradient, Rect, Stop, Svg, SvgText };

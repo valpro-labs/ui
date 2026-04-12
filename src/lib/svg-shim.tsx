@@ -7,6 +7,13 @@
  * Consumers import `Svg`, `Path`, `Rect`, `SvgText` from `@/lib/svg-shim`
  * and get whichever renderer the current bundler picks up.
  */
-import Svg, { Path, Rect, Text as SvgText } from 'react-native-svg';
+import Svg, {
+  Defs,
+  Path,
+  RadialGradient,
+  Rect,
+  Stop,
+  Text as SvgText,
+} from 'react-native-svg';
 
-export { Svg, Path, Rect, SvgText };
+export { Defs, Path, RadialGradient, Rect, Stop, Svg, SvgText };
