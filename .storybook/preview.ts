@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/react';
+import { useEffect } from 'react';
+import { Uniwind } from 'uniwind';
 
 // Load Inter — the free SF-Pro-alike used by shadcn/Vercel/Figma.
 // Only loaded in Storybook; the real app uses whatever system font the
@@ -43,6 +45,34 @@ const customViewports = {
 };
 
 const preview: Preview = {
+  // Toolbar toggle between the light and dark theme variants defined in
+  // global.css. The decorator below reflects the current choice into
+  // Uniwind's runtime so every className driven by `@variant light/dark`
+  // re-renders with the right tokens.
+  globalTypes: {
+    theme: {
+      name: 'Theme',
+      description: 'Light / dark mode',
+      defaultValue: 'dark',
+      toolbar: {
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  decorators: [
+    (Story, context) => {
+      const theme = context.globals.theme as 'light' | 'dark';
+      useEffect(() => {
+        Uniwind.setTheme(theme);
+      }, [theme]);
+      return Story();
+    },
+  ],
   parameters: {
     controls: {
       matchers: {
@@ -50,12 +80,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    // No `default` — we let `body { background-color: var(--color-background) }`
+    // in global.css follow Uniwind's theme automatically. The entries stay so
+    // you can still force a specific colour from the toolbar when needed.
     backgrounds: {
-      default: 'dark',
-      values: [
-        { name: 'light', value: '#FFFFFF' },
-        { name: 'dark', value: '#1C1C1E' },
-      ],
+      disable: true,
     },
     viewport: {
       viewports: customViewports,
