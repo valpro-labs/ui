@@ -1,10 +1,7 @@
-import { useState } from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
 
 import { MissionList } from '@/components/blocks/mission-list';
-import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 
 const sampleMissions = [
@@ -58,33 +55,31 @@ export const AllComplete: Story = {
   },
 };
 
-export const Loading: Story = {
-  args: {
-    missions: [],
-    isLoading: true,
-    skeletonCount: 3,
-  },
-};
-
 /**
- * Interactive playground — tap the button to flip between loading and loaded
- * so you can see the two states share the same frame and don't shift.
+ * Side-by-side comparison of the loaded vs loading state. Useful when
+ * tweaking the skeleton to make sure it matches the real card frame —
+ * both lists should line up row-for-row.
+ *
+ * Opens in a desktop viewport so both columns have room to breathe. The
+ * other stories stay on the iPhone default.
  */
-export const Toggleable: Story = {
-  render: () => {
-    const [isLoading, setIsLoading] = useState(true);
-    return (
-      <View style={{ gap: 12 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-          <Button onPress={() => setIsLoading((prev) => !prev)} variant="secondary" size="sm">
-            <Text>{isLoading ? 'Load data' : 'Show skeleton'}</Text>
-          </Button>
-          <Text className="text-muted-foreground text-xs">
-            State: {isLoading ? 'loading' : 'loaded'}
-          </Text>
-        </View>
-        <MissionList missions={sampleMissions} isLoading={isLoading} skeletonCount={3} />
-      </View>
-    );
+export const LoadedVsLoading: Story = {
+  globals: {
+    viewport: { value: 'desktop', isRotated: false },
   },
+  parameters: {
+    viewport: { defaultViewport: 'desktop' },
+  },
+  render: () => (
+    <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+      <View style={{ flex: 1, gap: 8 }}>
+        <Text className="text-muted-foreground text-xs uppercase">Loaded</Text>
+        <MissionList missions={sampleMissions} />
+      </View>
+      <View style={{ flex: 1, gap: 8 }}>
+        <Text className="text-muted-foreground text-xs uppercase">Loading</Text>
+        <MissionList missions={[]} isLoading skeletonCount={3} />
+      </View>
+    </View>
+  ),
 };

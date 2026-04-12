@@ -42,6 +42,13 @@ const customViewports = {
     styles: { width: '744px', height: '1133px' },
     type: 'tablet' as const,
   },
+  desktop: {
+    name: 'Desktop',
+    // 100% fills the available Storybook canvas instead of a fixed width,
+    // so the preview responds to the browser window size.
+    styles: { width: '100%', height: '100%' },
+    type: 'desktop' as const,
+  },
 };
 
 const preview: Preview = {
