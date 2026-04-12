@@ -35,6 +35,11 @@ export type { PlayerCardProps } from '@/components/blocks/player-card';
 export { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
 export type { PlayerCardSkeletonProps } from '@/components/blocks/player-card-skeleton';
 
+export { AgentCard } from '@/components/blocks/agent-card';
+export type { AgentCardProps } from '@/components/blocks/agent-card';
+export { RoleCard } from '@/components/blocks/role-card';
+export type { RoleCardProps } from '@/components/blocks/role-card';
+
 export { SettingsRow } from '@/components/blocks/settings-row';
 export type { SettingsRowProps } from '@/components/blocks/settings-row';
 export { SettingsGroup } from '@/components/blocks/settings-group';
