@@ -13,6 +13,11 @@ interface DailyProgressSkeletonProps {
  * rotated square skeleton in each slot so the layout doesn't shift when
  * the diamond rings replace them.
  */
+// Real diamond's rendered tip-to-tip width = OUTER_R(42) * 2 * (SIZE/VIEWBOX)
+// = 84 * 0.76 = 64px. Rotated square's visible width is its diagonal, so the
+// skeleton side length = 64 / sqrt(2) ≈ 45.3.
+const SKELETON_SIZE = Math.round((42 * 2 * (76 / 100)) / Math.SQRT2);
+
 function DailyProgressSkeleton({ count = 4 }: DailyProgressSkeletonProps) {
   return (
     <View className="items-center justify-center">
@@ -25,7 +30,11 @@ function DailyProgressSkeleton({ count = 4 }: DailyProgressSkeletonProps) {
             style={{ width: 76, height: 76, alignItems: 'center', justifyContent: 'center' }}>
             <Skeleton
               className="rounded-md"
-              style={{ width: 54, height: 54, transform: [{ rotate: '45deg' }] }}
+              style={{
+                width: SKELETON_SIZE,
+                height: SKELETON_SIZE,
+                transform: [{ rotate: '45deg' }],
+              }}
             />
           </View>
         ))}
