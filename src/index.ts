@@ -45,5 +45,8 @@ export type { SettingsRowProps } from '@/components/blocks/settings-row';
 export { SettingsGroup } from '@/components/blocks/settings-group';
 export type { SettingsGroupProps } from '@/components/blocks/settings-group';
 
+export { MatchCard } from '@/components/blocks/match-card';
+export type { MatchCardProps, MatchResult } from '@/components/blocks/match-card';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
