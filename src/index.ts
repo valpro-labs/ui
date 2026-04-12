@@ -62,5 +62,8 @@ export type { AccessoryCardProps } from '@/components/blocks/accessory-card';
 export { RewardItem } from '@/components/blocks/reward-item';
 export type { RewardItemProps } from '@/components/blocks/reward-item';
 
+export { Wallet } from '@/components/blocks/wallet';
+export type { WalletProps, WalletBalance } from '@/components/blocks/wallet';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
