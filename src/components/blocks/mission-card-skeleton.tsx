@@ -18,10 +18,14 @@ interface MissionCardSkeletonProps {
 function MissionCardSkeleton({ className }: MissionCardSkeletonProps) {
   return (
     <View className={cn('w-full gap-y-1', className)}>
-      {/* Top: title placeholder + XP placeholder */}
+      {/* Top: title placeholder + XP placeholder.
+          Heights match the underlying Text line-heights so the row is the
+          same total height as the loaded card:
+          - title: `text-base` → 24px line-height → `h-6`
+          - XP:    `text-xs font-bold` → 16px line-height → `h-4` */}
       <View className="flex flex-row items-center justify-between gap-x-2">
-        <Skeleton className="h-5 w-3/4 rounded-md" />
-        <Skeleton className="h-3 w-14 shrink-0 rounded-md" />
+        <Skeleton className="h-6 w-3/4 rounded-md" />
+        <Skeleton className="h-4 w-14 shrink-0 rounded-md" />
       </View>
 
       {/* Bottom: progress bar placeholder + N / Total placeholder */}
