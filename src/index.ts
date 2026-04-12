@@ -81,5 +81,8 @@ export type { FriendRowSkeletonProps } from '@/components/blocks/friend-row-skel
 export { FriendPartyOthersRow } from '@/components/blocks/friend-party-others-row';
 export type { FriendPartyOthersRowProps } from '@/components/blocks/friend-party-others-row';
 
+export { OwnedItemCard } from '@/components/blocks/owned-item-card';
+export type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
