@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
 
-import { RankCard } from '@/components/blocks/rank-card';
+import { RankTierCard } from '@/components/blocks/rank-tier-card';
 
 const diamond2Tier =
   'https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/19/largeicon.png';
@@ -12,9 +12,9 @@ const immortal3Tier =
 const unrankedTier =
   'https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/0/largeicon.png';
 
-const meta: Meta<typeof RankCard> = {
-  title: 'Blocks/RankCard',
-  component: RankCard,
+const meta: Meta<typeof RankTierCard> = {
+  title: 'Blocks/RankTierCard',
+  component: RankTierCard,
   decorators: [
     (Story) => (
       <View className="bg-card rounded-2xl px-4 py-3">
@@ -25,7 +25,7 @@ const meta: Meta<typeof RankCard> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof RankCard>;
+type Story = StoryObj<typeof RankTierCard>;
 
 export const Default: Story = {
   args: {

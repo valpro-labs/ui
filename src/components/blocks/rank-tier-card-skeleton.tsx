@@ -3,17 +3,17 @@ import { View } from 'react-native';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
-interface RankCardSkeletonProps {
+interface RankTierCardSkeletonProps {
   /** Extra classes merged onto the outer column wrapper. */
   className?: string;
 }
 
 /**
- * Loading placeholder for `RankCard`. Mirrors the season label, 64×64 tier
+ * Loading placeholder for `RankTierCard`. Mirrors the season label, 64×64 tier
  * icon, tier name, and RR rows so the layout doesn't shift once rank data
  * resolves.
  */
-function RankCardSkeleton({ className }: RankCardSkeletonProps) {
+function RankTierCardSkeleton({ className }: RankTierCardSkeletonProps) {
   return (
     <View className={cn('items-center', className)}>
       <Skeleton className="mb-1 h-4 w-12 rounded-md" />
@@ -24,5 +24,5 @@ function RankCardSkeleton({ className }: RankCardSkeletonProps) {
   );
 }
 
-export { RankCardSkeleton };
-export type { RankCardSkeletonProps };
+export { RankTierCardSkeleton };
+export type { RankTierCardSkeletonProps };

@@ -35,10 +35,10 @@ export type { PlayerCardProps } from '@/components/blocks/player-card';
 export { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
 export type { PlayerCardSkeletonProps } from '@/components/blocks/player-card-skeleton';
 
-export { RankCard } from '@/components/blocks/rank-card';
-export type { RankCardProps } from '@/components/blocks/rank-card';
-export { RankCardSkeleton } from '@/components/blocks/rank-card-skeleton';
-export type { RankCardSkeletonProps } from '@/components/blocks/rank-card-skeleton';
+export { RankTierCard } from '@/components/blocks/rank-tier-card';
+export type { RankTierCardProps } from '@/components/blocks/rank-tier-card';
+export { RankTierCardSkeleton } from '@/components/blocks/rank-tier-card-skeleton';
+export type { RankTierCardSkeletonProps } from '@/components/blocks/rank-tier-card-skeleton';
 
 export { RankPyramid } from '@/components/blocks/rank-pyramid';
 export type { RankPyramidProps, RankPyramidTier } from '@/components/blocks/rank-pyramid';
