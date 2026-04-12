@@ -7,21 +7,6 @@ import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
-/**
- * Per-category default image width (% of card width) used to scale
- * weapon art inside grid tiles. Exported for convenience; consumers
- * can override per item via `widthPercent`.
- */
-const WEAPON_CATEGORY_WIDTH_GRID = {
-  'EEquippableCategory::Sidearm': 50,
-  'EEquippableCategory::SMG': 80,
-  'EEquippableCategory::Shotgun': 78,
-  'EEquippableCategory::Rifle': 80,
-  'EEquippableCategory::Melee': 60,
-  'EEquippableCategory::Sniper': 82,
-  'EEquippableCategory::Heavy': 85,
-} as const;
-
 interface WeaponCategoryGridItem {
   /** Stable React key. */
   key: string;
@@ -148,7 +133,7 @@ function WeaponGridCard({
   );
 }
 
-export { WeaponCategoryGrid, WEAPON_CATEGORY_WIDTH_GRID };
+export { WeaponCategoryGrid };
 export type {
   WeaponCategoryGridProps,
   WeaponCategoryGridSection,

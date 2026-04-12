@@ -1,5 +1,28 @@
 import type { ImageStyle, StyleProp } from 'react-native';
 
+/**
+ * Per-category default image width (% of card width) used to scale
+ * weapon art inside the two-column loadout grid. Keyed by Valorant's
+ * `EEquippableCategory::*` string.
+ */
+const WEAPON_CATEGORY_WIDTH_GRID: Record<string, number> = {
+  'EEquippableCategory::Sidearm': 50,
+  'EEquippableCategory::SMG': 80,
+  'EEquippableCategory::Shotgun': 78,
+  'EEquippableCategory::Rifle': 80,
+  'EEquippableCategory::Melee': 60,
+  'EEquippableCategory::Sniper': 82,
+  'EEquippableCategory::Heavy': 85,
+};
+
+/**
+ * Resolve the per-category image width for a weapon category, falling
+ * back to 80 when the category isn't in the overrides map.
+ */
+function getWeaponCategoryWidth(category: string): number {
+  return WEAPON_CATEGORY_WIDTH_GRID[category] ?? 80;
+}
+
 interface WeaponGridTransform {
   /** Uniform scale multiplier (1 = fit, 2 = 2x zoom). */
   scale: number;
@@ -111,5 +134,10 @@ function getWeaponGridIconStyle(weaponUuid: string): StyleProp<ImageStyle> {
   };
 }
 
-export { getWeaponGridTransform, getWeaponGridIconStyle };
+export {
+  WEAPON_CATEGORY_WIDTH_GRID,
+  getWeaponCategoryWidth,
+  getWeaponGridTransform,
+  getWeaponGridIconStyle,
+};
 export type { WeaponGridTransform };
