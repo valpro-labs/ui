@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
 
-import { Image } from './image';
+import { Image } from '@/components/ui/image';
 
 const meta: Meta<typeof Image> = {
   title: 'Components/Image',
