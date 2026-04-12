@@ -22,8 +22,8 @@ interface FriendPartyOthersRowProps {
  */
 function FriendPartyOthersRow({ count, label, className }: FriendPartyOthersRowProps) {
   return (
-    <View className={cn('flex-row items-center gap-x-3 px-3.5', className)}>
-      <View className="items-center justify-center" style={{ width: 52, height: 36 }}>
+    <View className={cn('flex-row items-center gap-x-3 px-3.5 py-1.5', className)}>
+      <View className="w-11 items-center justify-center">
         <Text className="text-muted-foreground text-sm font-bold">+{count}</Text>
       </View>
       <Text className="text-muted-foreground text-sm font-bold">{label}</Text>
