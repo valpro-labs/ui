@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { DotsNine } from 'phosphor-react';
 import { View } from 'react-native';
+import { useCSSVariable } from 'uniwind';
 
 import { RoleCard } from '@/components/blocks/role-card';
-import { Text } from '@/components/ui/text';
 
 const duelist = 'https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png';
 const controller = 'https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png';
@@ -36,10 +37,17 @@ export const Selected: Story = {
   args: { iconUrl: controller, selected: true },
 };
 
+function AllIcon({ selected }: { selected: boolean }) {
+  const selectedColor = useCSSVariable('--color-val-green-ui');
+  const foreground = useCSSVariable('--color-foreground');
+  const color = selected ? selectedColor : foreground;
+  return <DotsNine size={32} weight="bold" color={typeof color === 'string' ? color : ''} />;
+}
+
 export const AllRoles: Story = {
   args: {
     selected: true,
-    children: <Text className="text-val-green-ui text-2xl font-bold">⋯</Text>,
+    children: <AllIcon selected />,
   },
 };
 
@@ -53,7 +61,7 @@ export const FilterRow: Story = {
     <View style={{ flexDirection: 'row', gap: 8, width: 400 }}>
       <View style={{ width: (400 - 32) / 5 }}>
         <RoleCard>
-          <Text className="text-foreground text-xl font-bold">⋯</Text>
+          <AllIcon selected={false} />
         </RoleCard>
       </View>
       {[duelist, controller, initiator, sentinel].map((iconUrl, i) => (
