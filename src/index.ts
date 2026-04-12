@@ -65,5 +65,14 @@ export type { RewardItemProps } from '@/components/blocks/reward-item';
 export { Wallet } from '@/components/blocks/wallet';
 export type { WalletProps, WalletBalance } from '@/components/blocks/wallet';
 
+export { MapBanner } from '@/components/blocks/map-banner';
+export type { MapBannerProps, MapBannerResult } from '@/components/blocks/map-banner';
+
+export { MatchInfoRow } from '@/components/blocks/match-info-row';
+export type { MatchInfoRowProps } from '@/components/blocks/match-info-row';
+
+export { PlayerRow } from '@/components/blocks/player-row';
+export type { PlayerRowProps, PlayerRowRole } from '@/components/blocks/player-row';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
