@@ -34,7 +34,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
     "typecheck": "tsc --noEmit"
   },
   "overrides": {
