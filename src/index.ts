@@ -35,5 +35,10 @@ export type { PlayerCardProps } from '@/components/blocks/player-card';
 export { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
 export type { PlayerCardSkeletonProps } from '@/components/blocks/player-card-skeleton';
 
+export { SettingsRow } from '@/components/blocks/settings-row';
+export type { SettingsRowProps } from '@/components/blocks/settings-row';
+export { SettingsGroup } from '@/components/blocks/settings-group';
+export type { SettingsGroupProps } from '@/components/blocks/settings-group';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
