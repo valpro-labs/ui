@@ -2,8 +2,8 @@ import { Platform, Pressable } from 'react-native';
 
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '../lib/utils';
-import { TextClassContext } from './ui/text';
+import { cn } from '@/lib/utils';
+import { TextClassContext } from '@/components/ui/text';
 
 // NOTE: group-* is not supported yet by Uniwind
 

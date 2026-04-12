@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
@@ -40,6 +42,10 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       'react-native': 'react-native-web',
+      // Mirror the `@/*` -> `./src/*` alias from tsconfig.json so Storybook
+      // can resolve absolute imports the same way TypeScript does.
+      // Storybook runs from the project root, so cwd-based resolution is safe.
+      '@': path.resolve(process.cwd(), 'src'),
     };
     // Prefer `.web.tsx` / `.web.ts` / `.web.js` so platform-specific files
     // (e.g. image.web.tsx) take precedence on the web target. Keeps the same

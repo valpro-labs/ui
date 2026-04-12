@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   Image as RNImage,
   type ImageProps as RNImageProps,
@@ -7,7 +5,7 @@ import {
   type ImageSourcePropType,
 } from 'react-native';
 
-import { cn } from '../../lib/utils';
+import { cn } from '@/lib/utils';
 
 /**
  * Subset of expo-image's ImageContentFit that we map to react-native-web's resizeMode.

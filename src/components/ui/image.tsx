@@ -1,8 +1,6 @@
-import * as React from 'react';
-
 import { Image as ExpoImage, type ImageProps as ExpoImageProps } from 'expo-image';
 
-import { cn } from '../../lib/utils';
+import { cn } from '@/lib/utils';
 
 export type ImageProps = ExpoImageProps & {
   className?: string;
