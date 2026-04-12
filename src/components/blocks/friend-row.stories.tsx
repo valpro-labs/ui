@@ -138,23 +138,6 @@ export const Loading: Story = {
 };
 
 /**
- * Stacked skeletons the way the friends list renders while roster +
- * presence data is still resolving.
- */
-export const LoadingList: Story = {
-  decorators: [],
-  render: () => (
-    <View className="bg-card overflow-hidden rounded-2xl">
-      <FriendRow name="" status="none" isLoading />
-      <Separator />
-      <FriendRow name="" status="none" isLoading />
-      <Separator />
-      <FriendRow name="" status="none" isLoading />
-    </View>
-  ),
-};
-
-/**
  * Grouped party — party owner at the top, another friend below, then a
  * `FriendPartyOthersRow` summarising non-friend party members, matching
  * how the friends list renders a shared `partyId`.
@@ -186,16 +169,23 @@ export const PartyGroup: Story = {
 /**
  * Full list sample — Valorant, LoL, Riot Client, offline — stacked in a
  * single card the way the friends tab composes sections in the app.
+ * Toggle `isLoading` in the controls panel to swap every row for its
+ * skeleton.
  */
 export const List: Story = {
+  argTypes: {
+    isLoading: { control: { type: 'boolean' } },
+  },
+  args: { isLoading: false },
   decorators: [],
-  render: () => (
+  render: ({ isLoading }) => (
     <View className="bg-card overflow-hidden rounded-2xl">
       <FriendRow
         name="Rick#NA1"
         gameLabel="Competitive 11-7 - Ascent"
         status="online"
         avatarUrl={card1}
+        isLoading={isLoading}
       />
       <Separator />
       <FriendRow
@@ -203,13 +193,32 @@ export const List: Story = {
         gameLabel="In Agent Select"
         status="online"
         avatarUrl={card2}
+        isLoading={isLoading}
       />
       <Separator />
-      <FriendRow name="Ren#KR1" gameLabel="In Game" status="online" opacity={0.9} />
+      <FriendRow
+        name="Ren#KR1"
+        gameLabel="In Game"
+        status="online"
+        opacity={0.9}
+        isLoading={isLoading}
+      />
       <Separator />
-      <FriendRow name="Val#NA1" gameLabel="Riot Client" status="online" opacity={0.8} />
+      <FriendRow
+        name="Val#NA1"
+        gameLabel="Riot Client"
+        status="online"
+        opacity={0.8}
+        isLoading={isLoading}
+      />
       <Separator />
-      <FriendRow name="Kai#NA1" gameLabel="Offline" status="offline" opacity={0.5} />
+      <FriendRow
+        name="Kai#NA1"
+        gameLabel="Offline"
+        status="offline"
+        opacity={0.5}
+        isLoading={isLoading}
+      />
     </View>
   ),
 };
