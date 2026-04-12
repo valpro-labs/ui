@@ -74,5 +74,12 @@ export type { MatchInfoRowProps } from '@/components/blocks/match-info-row';
 export { PlayerRow } from '@/components/blocks/player-row';
 export type { PlayerRowProps, PlayerRowRole } from '@/components/blocks/player-row';
 
+export { FriendRow } from '@/components/blocks/friend-row';
+export type { FriendRowProps, FriendStatus } from '@/components/blocks/friend-row';
+export { FriendRowSkeleton } from '@/components/blocks/friend-row-skeleton';
+export type { FriendRowSkeletonProps } from '@/components/blocks/friend-row-skeleton';
+export { FriendPartyOthersRow } from '@/components/blocks/friend-party-others-row';
+export type { FriendPartyOthersRowProps } from '@/components/blocks/friend-party-others-row';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
