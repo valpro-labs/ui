@@ -27,9 +27,27 @@ function Svg({ children, ...rest }: SvgCommon) {
   return <svg {...rest}>{children}</svg>;
 }
 
-type PathProps = PropsWithChildren<Omit<ComponentPropsWithoutRef<'path'>, 'ref'>>;
-function Path(props: PathProps) {
-  return <path {...props} />;
+type PressHandlers = {
+  onPress?: () => void;
+  onPressIn?: () => void;
+  onPressOut?: () => void;
+};
+
+type PathProps = PropsWithChildren<
+  Omit<ComponentPropsWithoutRef<'path'>, 'ref'> & PressHandlers
+>;
+function Path({ onPress, onPressIn, onPressOut, ...rest }: PathProps) {
+  const interactive = onPress || onPressIn || onPressOut;
+  return (
+    <path
+      {...rest}
+      onClick={onPress ? () => onPress() : rest.onClick}
+      onPointerDown={onPressIn ? () => onPressIn() : rest.onPointerDown}
+      onPointerUp={onPressOut ? () => onPressOut() : rest.onPointerUp}
+      onPointerLeave={onPressOut ? () => onPressOut() : rest.onPointerLeave}
+      style={interactive ? { cursor: 'pointer', ...rest.style } : rest.style}
+    />
+  );
 }
 
 type RectProps = PropsWithChildren<Omit<ComponentPropsWithoutRef<'rect'>, 'ref'>>;

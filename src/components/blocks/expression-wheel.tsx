@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
@@ -83,6 +83,7 @@ function ExpressionWheel({
 }: ExpressionWheelProps) {
   const muted = useColorVar('--color-muted');
   const border = useColorVar('--color-border');
+  const [pressedIndex, setPressedIndex] = React.useState<number | null>(null);
 
   const slotCount = slots.length || 4;
   const cx = size / 2;
@@ -107,8 +108,12 @@ function ExpressionWheel({
                 key={`slice-${i}`}
                 d={donutSlicePath(cx, cy, innerR, outerR, start, end)}
                 fill={muted}
+                fillOpacity={pressedIndex === i ? 0.5 : 1}
                 stroke={border}
                 strokeWidth={1.5}
+                onPressIn={onSlotPress ? () => setPressedIndex(i) : undefined}
+                onPressOut={onSlotPress ? () => setPressedIndex(null) : undefined}
+                onPress={onSlotPress ? () => onSlotPress(i) : undefined}
               />
             );
           })}
@@ -120,17 +125,17 @@ function ExpressionWheel({
           const icon = slots[i]?.iconUrl;
 
           return (
-            <Pressable
+            <View
               key={`icon-${i}`}
-              onPress={onSlotPress ? () => onSlotPress(i) : undefined}
-              style={({ pressed }) => ({
+              pointerEvents="none"
+              style={{
                 position: 'absolute',
                 left: pos.x - iconSize / 2,
                 top: pos.y - iconSize / 2,
                 width: iconSize,
                 height: iconSize,
-                opacity: pressed ? 0.7 : 1,
-              })}>
+                opacity: pressedIndex === i ? 0.7 : 1,
+              }}>
               {isLoading ? (
                 <Skeleton style={{ width: '100%', height: '100%', borderRadius: 12 }} />
               ) : icon ? (
@@ -144,7 +149,7 @@ function ExpressionWheel({
                   <Text className="text-muted-foreground text-xs">—</Text>
                 </View>
               )}
-            </Pressable>
+            </View>
           );
         })}
       </View>
