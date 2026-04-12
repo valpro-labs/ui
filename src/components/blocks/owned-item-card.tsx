@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View } from 'react-native';
+import { View, type ImageStyle, type StyleProp } from 'react-native';
 
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -16,6 +16,13 @@ interface OwnedItemCardProps {
    * at 80% with padding (weapons, buddies).
    */
   fill?: boolean;
+  /**
+   * Extra style merged onto the inner image — useful for per-item
+   * scale / translate / rotate transforms (e.g. positioning weapon
+   * art inside a grid tile). Applied after the default width/height
+   * so width/height can still be overridden if the caller wants.
+   */
+  iconStyle?: StyleProp<ImageStyle>;
   /** Render the red selection ring. */
   isSelected?: boolean;
   /** Dim the tile to 30% — used to flag stackable items the viewer has run out of. */
@@ -43,10 +50,16 @@ interface OwnedItemCardProps {
  * `<Check weight="fill" />`, `<Star weight="fill" />`). Does not read
  * theme / asset / favorites stores. Pair with a `<Pressable>` wrapper
  * upstream for tap handling.
+ *
+ * Per-item image styling: consumers can pass `iconStyle` to layer
+ * scale / translate / rotate transforms onto the inner image — needed
+ * for weapon skins, where each gun's art has to be re-positioned to
+ * fit a square tile.
  */
 function OwnedItemCard({
   iconUrl,
   fill = false,
+  iconStyle,
   isSelected = false,
   isDepleted = false,
   equippedBadge,
@@ -70,10 +83,13 @@ function OwnedItemCard({
       {iconUrl ? (
         <Image
           source={iconUrl}
-          style={{
-            width: fill ? '100%' : '80%',
-            height: fill ? '100%' : '80%',
-          }}
+          style={[
+            {
+              width: fill ? '100%' : '80%',
+              height: fill ? '100%' : '80%',
+            },
+            iconStyle,
+          ]}
           contentFit="contain"
         />
       ) : (

@@ -12,6 +12,8 @@ const sprayArt =
   'https://media.valorant-api.com/sprays/0a6db78c-48b9-a32d-c47a-82be597584c1/fulltransparenticon.png';
 const buddyArt =
   'https://media.valorant-api.com/buddies/levels/1b43fc4b-41a3-0b30-b8e0-65b67e2f2b14/displayicon.png';
+const weaponSkinArt =
+  'https://media.valorant-api.com/weaponskinlevels/9a03c64b-4e92-e5cf-2f4f-8db3f6f2e80f/displayicon.png';
 
 function EquippedBadge() {
   return <Check size={20} weight="fill" color="#009970" />;
@@ -103,6 +105,21 @@ export const Depleted: Story = {
 export const Loading: Story = {
   args: {
     isLoading: true,
+  },
+};
+
+/**
+ * Weapon skin tile — demonstrates `iconStyle` for per-item
+ * scale / translate / rotate transforms. The app's customize picker
+ * uses this to position each gun's art nicely inside a square tile.
+ */
+export const WeaponSkinTransform: Story = {
+  args: {
+    iconUrl: weaponSkinArt,
+    fill: false,
+    iconStyle: {
+      transform: [{ scale: 2.5 }, { rotate: '20deg' }],
+    },
   },
 };
 
