@@ -117,6 +117,9 @@ export type {
   WeaponCategoryGridItem,
 } from '@/components/blocks/weapon-category-grid';
 
+export { NightMarketIcon } from '@/components/blocks/night-market-icon';
+export type { NightMarketIconProps } from '@/components/blocks/night-market-icon';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
 export {
