@@ -96,5 +96,15 @@ export type { SkinTileProps } from '@/components/blocks/skin-tile';
 export { SectionTitle } from '@/components/blocks/section-title';
 export type { SectionTitleProps } from '@/components/blocks/section-title';
 
+export {
+  WeaponCategoryGrid,
+  WEAPON_CATEGORY_WIDTH_GRID,
+} from '@/components/blocks/weapon-category-grid';
+export type {
+  WeaponCategoryGridProps,
+  WeaponCategoryGridSection,
+  WeaponCategoryGridItem,
+} from '@/components/blocks/weapon-category-grid';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
