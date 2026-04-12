@@ -48,6 +48,7 @@
     "react": ">=18",
     "react-native": ">=0.81",
     "react-native-reanimated": ">=4.0.0",
+    "react-native-svg": ">=15.0.0",
     "react-native-web": ">=0.21",
     "tailwind-merge": ">=3.0.0",
     "tailwindcss": ">=4.0.0",
@@ -61,6 +62,9 @@
       "optional": true
     },
     "react-native-reanimated": {
+      "optional": true
+    },
+    "react-native-svg": {
       "optional": true
     },
     "tailwindcss": {
@@ -83,6 +87,7 @@
     "react-dom": "19.1.0",
     "react-native": "^0.81.5",
     "react-native-reanimated": "~4.1.1",
+    "react-native-svg": "^15.12.1",
     "react-native-web": "^0.21.0",
     "react-native-worklets": "^0.8.1",
     "storybook": "^8.6.0",

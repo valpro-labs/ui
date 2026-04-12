@@ -25,5 +25,10 @@ export type { MissionCardSkeletonProps } from '@/components/blocks/mission-card-
 export { MissionList } from '@/components/blocks/mission-list';
 export type { MissionListProps, MissionListItem } from '@/components/blocks/mission-list';
 
+export { DailyProgress } from '@/components/blocks/daily-progress';
+export type { DailyProgressProps, DailyMilestone } from '@/components/blocks/daily-progress';
+export { DailyProgressSkeleton } from '@/components/blocks/daily-progress-skeleton';
+export type { DailyProgressSkeletonProps } from '@/components/blocks/daily-progress-skeleton';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';

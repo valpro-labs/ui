@@ -39,10 +39,16 @@ const config: StorybookConfig = {
     };
 
     // Several RN-ecosystem packages ship .js/.mjs files containing JSX (e.g.
-    // @rn-primitives/*). Tell Vite's dep pre-bundler to parse them as JSX.
-    // This only affects pre-bundled node_modules — source files are unaffected.
+    // @rn-primitives/*, react-native-svg). Force-include them in Vite's dep
+    // pre-bundling so the `.js` -> jsx loader is actually applied; without
+    // this some packages slip past pre-bundling and hit the browser raw.
     config.optimizeDeps = {
       ...(config.optimizeDeps || {}),
+      include: [
+        ...(config.optimizeDeps?.include || []),
+        '@rn-primitives/progress',
+        '@rn-primitives/slot',
+      ],
       esbuildOptions: {
         ...(config.optimizeDeps?.esbuildOptions || {}),
         loader: {
