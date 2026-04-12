@@ -204,14 +204,6 @@ function buildFillPath(
   return d;
 }
 
-/**
- * Tack a modern CSS alpha onto an already-resolved color value. Works with
- * hex, rgb(), hsl(), oklch() — anything modern browsers accept as a color.
- */
-function withAlpha(color: string, alpha: number): string {
-  return `color-mix(in oklch, ${color} ${Math.round(alpha * 100)}%, transparent)`;
-}
-
 // ── Precomputed geometry (identical across all 4 diamonds) ───────────────
 
 const VB = 100;
@@ -270,7 +262,6 @@ function DiamondRing({ index, progress }: { index: number; progress: number }) {
 
   const pct = Math.min(100, (progress / STEPS_PER_MILESTONE) * 100);
   const isFull = pct >= 100;
-  const progressColor = isFull ? valGreenUi : withAlpha(valGreenUi, 0.5);
 
   const fillPath = useMemo(() => {
     const { segments, totalLength, startOffset } = PRECOMPUTED;
@@ -287,7 +278,8 @@ function DiamondRing({ index, progress }: { index: number; progress: number }) {
         <Path
           d={fillPath}
           fill="none"
-          stroke={progressColor}
+          stroke={valGreenUi}
+          strokeOpacity={isFull ? 1 : 0.5}
           strokeWidth={TRACK_WIDTH}
           strokeLinecap="round"
         />
