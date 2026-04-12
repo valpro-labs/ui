@@ -53,7 +53,6 @@ const preview: Preview = {
     theme: {
       name: 'Theme',
       description: 'Light / dark mode',
-      defaultValue: 'dark',
       toolbar: {
         icon: 'circlehollow',
         items: [
@@ -63,6 +62,14 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+  },
+  // Force initial globals on every session. `defaultValue` / `defaultViewport`
+  // only kick in when the user has no existing choice in localStorage, so
+  // once you ever pick a viewport those defaults stop applying — the iPhone
+  // preset would then only show after a manual refresh. `initialGlobals` wins.
+  initialGlobals: {
+    theme: 'dark',
+    viewport: { value: 'iPhone15', isRotated: false },
   },
   decorators: [
     (Story, context) => {
