@@ -138,19 +138,40 @@ export const NoMapBackground: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    ...Victory.args,
+    isLoading: true,
+  },
+};
+
 /**
  * Win / loss / draw / deathmatch in one frame so colour treatments and
  * icon-row layout can be compared at a glance.
  */
 export const AllResults: Story = {
-  render: () => (
+  args: { resultLabel: '', kda: '', myTeamScore: 0, enemyTeamScore: 0, isLoading: false },
+  render: ({ isLoading }) => (
     <View style={{ gap: 8 }}>
-      <MatchCard {...(Victory.args as React.ComponentProps<typeof MatchCard>)} />
-      <MatchCard {...(Defeat.args as React.ComponentProps<typeof MatchCard>)} />
-      <MatchCard {...(Draw.args as React.ComponentProps<typeof MatchCard>)} />
-      <MatchCard {...(Unrated.args as React.ComponentProps<typeof MatchCard>)} />
+      <MatchCard
+        {...(Victory.args as React.ComponentProps<typeof MatchCard>)}
+        isLoading={isLoading}
+      />
+      <MatchCard
+        {...(Defeat.args as React.ComponentProps<typeof MatchCard>)}
+        isLoading={isLoading}
+      />
+      <MatchCard
+        {...(Draw.args as React.ComponentProps<typeof MatchCard>)}
+        isLoading={isLoading}
+      />
+      <MatchCard
+        {...(Unrated.args as React.ComponentProps<typeof MatchCard>)}
+        isLoading={isLoading}
+      />
       <MatchCard
         {...(DeathmatchPlacement.args as React.ComponentProps<typeof MatchCard>)}
+        isLoading={isLoading}
       />
     </View>
   ),

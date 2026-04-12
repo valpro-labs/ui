@@ -69,6 +69,14 @@ const meta: Meta<typeof AccessoryCard> = {
 export default meta;
 type Story = StoryObj<typeof AccessoryCard>;
 
+export const LoadingList: Story = {
+  args: { name: '', isLoading: true, variant: 'list' },
+};
+
+export const LoadingGrid: Story = {
+  args: { name: '', isLoading: true, variant: 'grid' },
+};
+
 /**
  * All four store accessory types together: list rows stacked on the left,
  * 2×2 grid on the right. Covers spray / buddy / player card / tinted title
@@ -77,17 +85,18 @@ type Story = StoryObj<typeof AccessoryCard>;
 export const Showcase: Story = {
   globals: { viewport: { value: 'desktop', isRotated: false } },
   parameters: { viewport: { defaultViewport: 'desktop' } },
-  render: () => (
+  args: { name: '', isLoading: false },
+  render: ({ isLoading }) => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>
         {accessories.map((a, i) => (
-          <AccessoryCard key={i} {...a} />
+          <AccessoryCard key={i} {...a} isLoading={isLoading} />
         ))}
       </View>
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {accessories.map((a, i) => (
           <View key={i} style={{ width: '48%' }}>
-            <AccessoryCard {...a} variant="grid" />
+            <AccessoryCard {...a} variant="grid" isLoading={isLoading} />
           </View>
         ))}
       </View>

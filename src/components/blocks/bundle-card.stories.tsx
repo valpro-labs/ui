@@ -62,6 +62,10 @@ const meta: Meta<typeof BundleCard> = {
 export default meta;
 type Story = StoryObj<typeof BundleCard>;
 
+export const Loading: Story = {
+  args: { isLoading: true },
+};
+
 /**
  * Full catalog: list rows stacked on the left, 2×2 grid on the right.
  * Includes a countdown-less bundle and the missing-art fallback so the
@@ -70,26 +74,27 @@ type Story = StoryObj<typeof BundleCard>;
 export const Showcase: Story = {
   globals: { viewport: { value: 'desktop', isRotated: false } },
   parameters: { viewport: { defaultViewport: 'desktop' } },
-  render: () => (
+  args: { isLoading: false },
+  render: ({ isLoading }) => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>
-        <BundleCard {...rgxBundle} />
-        <BundleCard {...altitudeBundle} />
-        <BundleCard {...xenohunterBundle} />
-        <BundleCard {...missingBundle} />
+        <BundleCard {...rgxBundle} isLoading={isLoading} />
+        <BundleCard {...altitudeBundle} isLoading={isLoading} />
+        <BundleCard {...xenohunterBundle} isLoading={isLoading} />
+        <BundleCard {...missingBundle} isLoading={isLoading} />
       </View>
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         <View style={{ width: '48%' }}>
-          <BundleCard {...rgxBundle} variant="grid" />
+          <BundleCard {...rgxBundle} variant="grid" isLoading={isLoading} />
         </View>
         <View style={{ width: '48%' }}>
-          <BundleCard {...altitudeBundle} variant="grid" />
+          <BundleCard {...altitudeBundle} variant="grid" isLoading={isLoading} />
         </View>
         <View style={{ width: '48%' }}>
-          <BundleCard {...xenohunterBundle} variant="grid" />
+          <BundleCard {...xenohunterBundle} variant="grid" isLoading={isLoading} />
         </View>
         <View style={{ width: '48%' }}>
-          <BundleCard {...rgxAltBundle} variant="grid" />
+          <BundleCard {...rgxAltBundle} variant="grid" isLoading={isLoading} />
         </View>
       </View>
     </View>

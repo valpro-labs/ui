@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Pressable, View } from 'react-native';
 
 import { Image } from '@/components/ui/image';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 interface AgentCardProps {
@@ -18,6 +19,8 @@ interface AgentCardProps {
   imageOverlay?: React.ReactNode;
   /** Tap handler. When omitted the card renders without `Pressable`. */
   onPress?: () => void;
+  /** Show the skeleton placeholder instead of the real card. */
+  isLoading?: boolean;
   /** Extra classes merged onto the outer card wrapper. */
   className?: string;
 }
@@ -34,8 +37,13 @@ function AgentCard({
   lockOverlay,
   imageOverlay,
   onPress,
+  isLoading = false,
   className,
 }: AgentCardProps) {
+  if (isLoading) {
+    return <Skeleton className={cn('aspect-square w-full rounded-xl', className)} />;
+  }
+
   const card = (
     <View
       className={cn(

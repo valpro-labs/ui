@@ -85,6 +85,14 @@ const meta: Meta<typeof OfferCard> = {
 export default meta;
 type Story = StoryObj<typeof OfferCard>;
 
+export const LoadingList: Story = {
+  args: { name: '', isLoading: true, variant: 'list' },
+};
+
+export const LoadingGrid: Story = {
+  args: { name: '', isLoading: true, variant: 'grid' },
+};
+
 /**
  * Full catalog: list rows stacked on the left, 2×2 grid on the right.
  * Covers Rifle / Heavy / Sniper / Sidearm so the weapon-category width
@@ -93,17 +101,18 @@ type Story = StoryObj<typeof OfferCard>;
 export const Showcase: Story = {
   globals: { viewport: { value: 'desktop', isRotated: false } },
   parameters: { viewport: { defaultViewport: 'desktop' } },
-  render: () => (
+  args: { name: '', isLoading: false },
+  render: ({ isLoading }) => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>
         {tiers.map((t, i) => (
-          <OfferCard key={i} {...t} />
+          <OfferCard key={i} {...t} isLoading={isLoading} />
         ))}
       </View>
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {tiers.map((t, i) => (
           <View key={i} style={{ width: '48%' }}>
-            <OfferCard {...t} variant="grid" />
+            <OfferCard {...t} variant="grid" isLoading={isLoading} />
           </View>
         ))}
       </View>

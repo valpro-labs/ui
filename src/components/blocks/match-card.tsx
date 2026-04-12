@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Pressable, StyleSheet, View } from 'react-native';
 
+import { MatchCardSkeleton } from '@/components/blocks/match-card-skeleton';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -39,6 +40,8 @@ interface MatchCardProps {
   scoreIcon?: React.ReactNode;
   /** Tap handler. When omitted the card renders without `Pressable`. */
   onPress?: () => void;
+  /** Show the skeleton placeholder instead of the real card. */
+  isLoading?: boolean;
   /** Extra classes merged onto the outer card wrapper. */
   className?: string;
 }
@@ -69,8 +72,13 @@ function MatchCard({
   kdaIcon,
   scoreIcon,
   onPress,
+  isLoading = false,
   className,
 }: MatchCardProps) {
+  if (isLoading) {
+    return <MatchCardSkeleton className={className} />;
+  }
+
   const isPlacement = result === 'placement';
   const won = result === 'win';
   const lost = result === 'loss';

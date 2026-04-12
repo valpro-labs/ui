@@ -53,12 +53,17 @@ export const Complete: Story = {
   args: { iconUrl: omen, progressRatio: 1 },
 };
 
+export const Loading: Story = {
+  args: { isLoading: true },
+};
+
 /**
  * Three-column agent grid — the layout agent passes typically render in.
  */
 export const Grid: Story = {
   decorators: [],
-  render: () => (
+  args: { isLoading: false },
+  render: ({ isLoading }) => (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, width: 360 }}>
       {[
         { iconUrl: jett, progressRatio: 0.4 },
@@ -67,7 +72,7 @@ export const Grid: Story = {
         { iconUrl: omen, progressRatio: 1 },
       ].map((props, i) => (
         <View key={i} style={{ width: (360 - 16) / 3 }}>
-          <AgentCard {...props} />
+          <AgentCard {...props} isLoading={isLoading} />
         </View>
       ))}
     </View>

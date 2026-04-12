@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native';
 import { useCSSVariable } from 'uniwind';
 
 import { Image } from '@/components/ui/image';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
@@ -27,6 +28,8 @@ interface BundleCardProps {
   imageOverlay?: React.ReactNode;
   /** Rendered over the image when `iconUrl` is missing (e.g. a placeholder icon). */
   missingFallback?: React.ReactNode;
+  /** Show the skeleton placeholder instead of the real card. */
+  isLoading?: boolean;
   /** Extra classes merged onto the outer card wrapper. */
   className?: string;
 }
@@ -49,11 +52,16 @@ function BundleCard({
   onPress,
   imageOverlay,
   missingFallback,
+  isLoading = false,
   className,
 }: BundleCardProps) {
-  const isGrid = variant === 'grid';
   const foregroundRaw = useCSSVariable('--color-foreground');
   const foreground = typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
+  const isGrid = variant === 'grid';
+
+  if (isLoading) {
+    return <Skeleton className={cn('aspect-video w-full rounded-xl', className)} />;
+  }
 
   const card = (
     <View className={cn('bg-card aspect-video overflow-hidden rounded-xl', className)}>

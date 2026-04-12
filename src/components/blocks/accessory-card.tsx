@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native';
 import { useCSSVariable } from 'uniwind';
 
 import { Image } from '@/components/ui/image';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
@@ -25,6 +26,8 @@ interface AccessoryCardProps {
   onPress?: () => void;
   /** Absolutely-positioned node rendered over the image (e.g. an "owned" overlay). */
   imageOverlay?: React.ReactNode;
+  /** Show the skeleton placeholder instead of the real card. */
+  isLoading?: boolean;
   /** Extra classes merged onto the outer card wrapper. */
   className?: string;
 }
@@ -53,10 +56,19 @@ function AccessoryCard({
   variant = 'list',
   onPress,
   imageOverlay,
+  isLoading = false,
   className,
 }: AccessoryCardProps) {
   const foreground = useColorVar('--color-foreground');
   const isGrid = variant === 'grid';
+
+  if (isLoading) {
+    return (
+      <Skeleton
+        className={cn('w-full rounded-xl', isGrid ? 'aspect-video' : 'aspect-10/4', className)}
+      />
+    );
+  }
 
   const card = (
     <View
