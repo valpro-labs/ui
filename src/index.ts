@@ -90,5 +90,8 @@ export type {
   ExpressionWheelSlot,
 } from '@/components/blocks/expression-wheel';
 
+export { SkinTile } from '@/components/blocks/skin-tile';
+export type { SkinTileProps } from '@/components/blocks/skin-tile';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
