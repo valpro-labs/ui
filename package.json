@@ -28,12 +28,12 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./styles/global.css": "./src/styles/global.css"
+    "./styles/global.css": "./dist/styles/global.css"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node -e \"require('fs').mkdirSync('dist/styles',{recursive:true});require('fs').copyFileSync('src/styles/global.css','dist/styles/global.css')\"",
     "prepare": "npm run build",
     "typecheck": "tsc --noEmit"
   },
