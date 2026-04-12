@@ -84,5 +84,11 @@ export type { FriendPartyOthersRowProps } from '@/components/blocks/friend-party
 export { OwnedItemCard } from '@/components/blocks/owned-item-card';
 export type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
 
+export { ExpressionWheel } from '@/components/blocks/expression-wheel';
+export type {
+  ExpressionWheelProps,
+  ExpressionWheelSlot,
+} from '@/components/blocks/expression-wheel';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
