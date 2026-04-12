@@ -13,10 +13,19 @@ interface DailyProgressSkeletonProps {
  * rotated square skeleton in each slot so the layout doesn't shift when
  * the diamond rings replace them.
  */
-// Real diamond's rendered tip-to-tip width = OUTER_R(42) * 2 * (SIZE/VIEWBOX)
-// = 84 * 0.76 = 64px. Rotated square's visible width is its diagonal, so the
-// skeleton side length = 64 / sqrt(2) ≈ 45.3.
-const SKELETON_SIZE = Math.round((42 * 2 * (76 / 100)) / Math.SQRT2);
+// Match the real diamond's outer extent including the progress-ring stroke
+// (TRACK_WIDTH = 2.5 in the 100-unit viewBox) that extends outward from the
+// centred path. Skeleton side = (outer tip-to-tip rendered) / sqrt(2) so the
+// rotated square's visible diagonal lines up with the ring's outer edge.
+//
+// Plus a small visual buffer: `rounded-md` (~6px radius) shaves visible mass
+// off the skeleton's corners once rotated, and SVG stroke anti-aliasing on
+// the real ring edges puffs it a subpixel outward.
+//
+// tip-to-tip = (OUTER_R * 2 + TRACK_WIDTH) viewBox units = 86.5
+// rendered   = 86.5 * (76 / 100) ≈ 65.74 px
+// side       = 65.74 / sqrt(2) + buffer ≈ 46.5 + 2 ≈ 49
+const SKELETON_SIZE = Math.round(((42 * 2 + 2.5) * (76 / 100)) / Math.SQRT2) + 2;
 
 function DailyProgressSkeleton({ count = 4 }: DailyProgressSkeletonProps) {
   return (
