@@ -126,7 +126,6 @@ export const Loading: Story = {
 export const WeaponSkinTransform: Story = {
   args: {
     iconUrl: weaponSkinArt,
-    fill: false,
     iconStyle: {
       transform: [{ scale: 2.5 }, { rotate: '20deg' }],
     },
