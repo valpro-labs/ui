@@ -40,6 +40,9 @@ export type { RankCardProps } from '@/components/blocks/rank-card';
 export { RankCardSkeleton } from '@/components/blocks/rank-card-skeleton';
 export type { RankCardSkeletonProps } from '@/components/blocks/rank-card-skeleton';
 
+export { RankPyramid } from '@/components/blocks/rank-pyramid';
+export type { RankPyramidProps, RankPyramidTier } from '@/components/blocks/rank-pyramid';
+
 export { AgentCard } from '@/components/blocks/agent-card';
 export type { AgentCardProps } from '@/components/blocks/agent-card';
 export { RoleCard } from '@/components/blocks/role-card';
