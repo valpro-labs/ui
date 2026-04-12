@@ -134,10 +134,5 @@ function getWeaponGridIconStyle(weaponUuid: string): StyleProp<ImageStyle> {
   };
 }
 
-export {
-  WEAPON_CATEGORY_WIDTH_GRID,
-  getWeaponCategoryWidth,
-  getWeaponGridTransform,
-  getWeaponGridIconStyle,
-};
+export { getWeaponCategoryWidth, getWeaponGridTransform, getWeaponGridIconStyle };
 export type { WeaponGridTransform };

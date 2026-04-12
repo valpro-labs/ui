@@ -111,7 +111,6 @@ export type {
 // ── Utilities ──
 export { cn } from '@/lib/utils';
 export {
-  WEAPON_CATEGORY_WIDTH_GRID,
   getWeaponCategoryWidth,
   getWeaponGridTransform,
   getWeaponGridIconStyle,
