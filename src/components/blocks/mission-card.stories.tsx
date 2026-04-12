@@ -12,13 +12,6 @@ const meta: Meta<typeof MissionCard> = {
     total: { control: { type: 'number', min: 1 } },
     xpReward: { control: { type: 'number', min: 0, step: 100 } },
   },
-  decorators: [
-    (Story) => (
-      <View style={{ width: 360, padding: 16 }}>
-        <Story />
-      </View>
-    ),
-  ],
 };
 
 export default meta;
@@ -57,7 +50,6 @@ export const LargeNumbers: Story = {
  * header will ship as its own block later.
  */
 export const Stacked: Story = {
-  decorators: [(Story) => <View style={{ width: 360, padding: 16 }}>{Story()}</View>],
   render: () => (
     <View className="bg-card overflow-hidden rounded-2xl">
       <View className="px-4 py-3">

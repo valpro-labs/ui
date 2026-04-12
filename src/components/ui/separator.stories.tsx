@@ -20,7 +20,7 @@ type Story = StoryObj<typeof Separator>;
 
 export const Horizontal: Story = {
   render: () => (
-    <View style={{ width: 320, padding: 16 }}>
+    <View>
       <Text>Above the separator</Text>
       <View style={{ height: 12 }} />
       <Separator />
@@ -32,7 +32,7 @@ export const Horizontal: Story = {
 
 export const Vertical: Story = {
   render: () => (
-    <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, padding: 16 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', height: 40 }}>
       <Text>Left</Text>
       <View style={{ width: 12 }} />
       <Separator orientation="vertical" />
@@ -44,7 +44,7 @@ export const Vertical: Story = {
 
 export const BetweenListItems: Story = {
   render: () => (
-    <View style={{ width: 320 }} className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-2xl">
       {['Headshots', 'First bloods', 'Spike plants'].map((label, index) => (
         <View key={label}>
           {index > 0 && <Separator />}

@@ -17,7 +17,7 @@ export const Default: Story = {
 
 export const Row: Story = {
   render: () => (
-    <View style={{ width: 320, gap: 8 }}>
+    <View style={{ gap: 8 }}>
       <Skeleton style={{ height: 20, width: '60%' }} />
       <Skeleton style={{ height: 16, width: '100%' }} />
       <Skeleton style={{ height: 16, width: '80%' }} />
@@ -27,7 +27,7 @@ export const Row: Story = {
 
 export const Card: Story = {
   render: () => (
-    <View className="bg-card overflow-hidden rounded-2xl" style={{ width: 320 }}>
+    <View className="bg-card overflow-hidden rounded-2xl">
       <Skeleton className="rounded-none" style={{ width: '100%', aspectRatio: 452 / 128 }} />
       <View className="px-4 py-3" style={{ gap: 6 }}>
         <Skeleton style={{ height: 20, width: 120 }} />

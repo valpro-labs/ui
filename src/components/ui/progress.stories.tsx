@@ -21,11 +21,6 @@ type Story = StoryObj<typeof Progress>;
 
 export const Default: Story = {
   args: { value: 60 },
-  render: (args) => (
-    <View style={{ width: 320, padding: 16 }}>
-      <Progress {...args} />
-    </View>
-  ),
 };
 
 export const Animated: Story = {
@@ -38,7 +33,7 @@ export const Animated: Story = {
       return () => clearInterval(id);
     }, []);
     return (
-      <View style={{ width: 320, padding: 16, gap: 8 }}>
+      <View style={{ gap: 8 }}>
         <Progress value={value} />
         <Text className="text-muted-foreground text-xs">{value}%</Text>
       </View>
@@ -49,7 +44,7 @@ export const Animated: Story = {
 export const CustomColor: Story = {
   args: { value: 45 },
   render: (args) => (
-    <View style={{ width: 320, padding: 16, gap: 12 }}>
+    <View style={{ gap: 12 }}>
       <Progress {...args} className="bg-val-green-ui/20" indicatorClassName="bg-val-green-ui" />
       <Progress {...args} className="bg-val-red/20" indicatorClassName="bg-val-red" />
       <Progress {...args} className="bg-val-yellow/20" indicatorClassName="bg-val-yellow" />
