@@ -143,8 +143,6 @@ export const NoMapBackground: Story = {
  * icon-row layout can be compared at a glance.
  */
 export const AllResults: Story = {
-  globals: { viewport: { value: 'desktop', isRotated: false } },
-  parameters: { viewport: { defaultViewport: 'desktop' } },
   render: () => (
     <View style={{ gap: 8 }}>
       <MatchCard {...(Victory.args as React.ComponentProps<typeof MatchCard>)} />

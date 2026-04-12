@@ -56,8 +56,6 @@ export const NoArt: Story = {
  * player data resolves.
  */
 export const LoadedVsLoading: Story = {
-  globals: { viewport: { value: 'desktop', isRotated: false } },
-  parameters: { viewport: { defaultViewport: 'desktop' } },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>

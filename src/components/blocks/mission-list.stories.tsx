@@ -59,17 +59,8 @@ export const AllComplete: Story = {
  * Side-by-side comparison of the loaded vs loading state. Useful when
  * tweaking the skeleton to make sure it matches the real card frame —
  * both lists should line up row-for-row.
- *
- * Opens in a desktop viewport so both columns have room to breathe. The
- * other stories stay on the iPhone default.
  */
 export const LoadedVsLoading: Story = {
-  globals: {
-    viewport: { value: 'desktop', isRotated: false },
-  },
-  parameters: {
-    viewport: { defaultViewport: 'desktop' },
-  },
   render: () => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>
