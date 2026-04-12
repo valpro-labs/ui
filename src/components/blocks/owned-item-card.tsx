@@ -33,11 +33,19 @@ interface OwnedItemCardProps {
   /** Thumbnail URL — the owned item's icon. */
   iconUrl?: string;
   /**
-   * Fill the tile edge-to-edge. Set `true` for player cards, sprays,
-   * and flex items whose art is full-bleed; `false` renders the icon
-   * at 80% with padding (weapons, buddies).
+   * Fill the tile edge-to-edge. Defaults to `true` since most owned
+   * items (player cards, sprays, flex items, weapon skins with grid
+   * transforms) are full-bleed. Pass `false` for gun buddies, which
+   * render at 80% with padding.
    */
   fill?: boolean;
+  /**
+   * Draw a soft radial darken behind the badge corners so the badges
+   * stay legible on light / busy art. Only player cards use this in
+   * the source app — sprays and flex items are full-bleed but skip
+   * the shadow. Independent of `fill`.
+   */
+  badgeShadow?: boolean;
   /**
    * Extra style merged onto the inner image — useful for per-item
    * scale / translate / rotate transforms (e.g. positioning weapon
@@ -80,7 +88,8 @@ interface OwnedItemCardProps {
  */
 function OwnedItemCard({
   iconUrl,
-  fill = false,
+  fill = true,
+  badgeShadow = false,
   iconStyle,
   isSelected = false,
   isDepleted = false,
@@ -124,13 +133,13 @@ function OwnedItemCard({
 
       {equippedBadge ? (
         <>
-          {fill ? <CornerGradient corner="top-left" /> : null}
+          {badgeShadow ? <CornerGradient corner="top-left" /> : null}
           <View className="absolute top-1 left-1">{equippedBadge}</View>
         </>
       ) : null}
       {favoriteBadge ? (
         <>
-          {fill ? <CornerGradient corner="bottom-right" /> : null}
+          {badgeShadow ? <CornerGradient corner="bottom-right" /> : null}
           <View className="absolute right-1 bottom-1">{favoriteBadge}</View>
         </>
       ) : null}

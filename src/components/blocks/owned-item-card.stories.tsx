@@ -54,14 +54,13 @@ type Story = StoryObj<typeof OwnedItemCard>;
 export const PlayerCard: Story = {
   args: {
     iconUrl: playerCardWideArt,
-    fill: true,
   },
 };
 
 export const Equipped: Story = {
   args: {
     iconUrl: playerCardWideArt,
-    fill: true,
+    badgeShadow: true,
     equippedBadge: <EquippedBadge />,
   },
 };
@@ -69,7 +68,7 @@ export const Equipped: Story = {
 export const Favorite: Story = {
   args: {
     iconUrl: altCardArt,
-    fill: true,
+    badgeShadow: true,
     favoriteBadge: <FavoriteBadge />,
   },
 };
@@ -77,7 +76,7 @@ export const Favorite: Story = {
 export const EquippedAndFavorite: Story = {
   args: {
     iconUrl: playerCardWideArt,
-    fill: true,
+    badgeShadow: true,
     equippedBadge: <EquippedBadge />,
     favoriteBadge: <FavoriteBadge />,
   },
@@ -86,7 +85,6 @@ export const EquippedAndFavorite: Story = {
 export const Selected: Story = {
   args: {
     iconUrl: altCardArt,
-    fill: true,
     isSelected: true,
   },
 };
@@ -94,7 +92,6 @@ export const Selected: Story = {
 export const Spray: Story = {
   args: {
     iconUrl: sprayArt,
-    fill: true,
   },
 };
 
@@ -149,7 +146,6 @@ export const WeaponSkinPickerGrid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={weaponIcon(WEAPON_UUIDS.classic)}
-          fill
           iconStyle={getWeaponGridIconStyle(WEAPON_UUIDS.classic)}
           equippedBadge={<EquippedBadge />}
         />
@@ -157,7 +153,6 @@ export const WeaponSkinPickerGrid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={weaponIcon(WEAPON_UUIDS.sheriff)}
-          fill
           iconStyle={getWeaponGridIconStyle(WEAPON_UUIDS.sheriff)}
           favoriteBadge={<FavoriteBadge />}
         />
@@ -165,7 +160,6 @@ export const WeaponSkinPickerGrid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={weaponIcon(WEAPON_UUIDS.vandal)}
-          fill
           iconStyle={getWeaponGridIconStyle(WEAPON_UUIDS.vandal)}
           isSelected
         />
@@ -173,21 +167,18 @@ export const WeaponSkinPickerGrid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={weaponIcon(WEAPON_UUIDS.phantom)}
-          fill
           iconStyle={getWeaponGridIconStyle(WEAPON_UUIDS.phantom)}
         />
       </View>
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={weaponIcon(WEAPON_UUIDS.operator)}
-          fill
           iconStyle={getWeaponGridIconStyle(WEAPON_UUIDS.operator)}
         />
       </View>
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={weaponIcon(WEAPON_UUIDS.odin)}
-          fill
           iconStyle={getWeaponGridIconStyle(WEAPON_UUIDS.odin)}
         />
       </View>
@@ -211,7 +202,7 @@ export const Grid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={playerCardWideArt}
-          fill
+          badgeShadow
           equippedBadge={<EquippedBadge />}
           isLoading={isLoading}
         />
@@ -219,27 +210,33 @@ export const Grid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={altCardArt}
-          fill
+          badgeShadow
           favoriteBadge={<FavoriteBadge />}
           isLoading={isLoading}
         />
       </View>
       <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={sprayArt} fill isSelected isLoading={isLoading} />
-      </View>
-      <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={buddyArt} remainingCount={2} isLoading={isLoading} />
+        <OwnedItemCard iconUrl={sprayArt} isSelected isLoading={isLoading} />
       </View>
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={buddyArt}
+          fill={false}
+          remainingCount={2}
+          isLoading={isLoading}
+        />
+      </View>
+      <View style={{ width: 114 }}>
+        <OwnedItemCard
+          iconUrl={buddyArt}
+          fill={false}
           isDepleted
           remainingCount={0}
           isLoading={isLoading}
         />
       </View>
       <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={sprayArt} fill isLoading={isLoading} />
+        <OwnedItemCard iconUrl={sprayArt} isLoading={isLoading} />
       </View>
     </View>
   ),
