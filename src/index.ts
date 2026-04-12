@@ -18,7 +18,8 @@ export { Progress } from '@/components/ui/progress';
 export type { ProgressProps } from '@/components/ui/progress';
 
 // ── Tier 2: Blocks (blocks/) ──
-// (none yet)
+export { MissionCard } from '@/components/blocks/mission-card';
+export type { MissionCardProps } from '@/components/blocks/mission-card';
 
 // ── Utilities ──
 export { cn } from '@/lib/utils';
