@@ -50,5 +50,8 @@ export type { MatchCardProps, MatchResult } from '@/components/blocks/match-card
 export { MatchCardSkeleton } from '@/components/blocks/match-card-skeleton';
 export type { MatchCardSkeletonProps } from '@/components/blocks/match-card-skeleton';
 
+export { RewardItem } from '@/components/blocks/reward-item';
+export type { RewardItemProps } from '@/components/blocks/reward-item';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
