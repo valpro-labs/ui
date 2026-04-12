@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import 'uniwind';
 
+@source "../components";
+
 /* react-native-web writes `font: 14px <system-stack>` on every Text/View as a
    shorthand — that also sets `font-family`, which silently overrides our
    `--font-sans`. Force it back globally with `!important`, unlayered so it
