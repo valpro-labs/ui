@@ -93,5 +93,8 @@ export type {
 export { SkinTile } from '@/components/blocks/skin-tile';
 export type { SkinTileProps } from '@/components/blocks/skin-tile';
 
+export { SectionTitle } from '@/components/blocks/section-title';
+export type { SectionTitleProps } from '@/components/blocks/section-title';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
