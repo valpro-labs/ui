@@ -89,6 +89,9 @@ export type { FriendPartyOthersRowProps } from '@/components/blocks/friend-party
 export { OwnedItemCard } from '@/components/blocks/owned-item-card';
 export type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
 
+export { ItemBoughtOverlay } from '@/components/blocks/item-bought-overlay';
+export type { ItemBoughtOverlayProps } from '@/components/blocks/item-bought-overlay';
+
 export { ExpressionWheel } from '@/components/blocks/expression-wheel';
 export type {
   ExpressionWheelProps,
