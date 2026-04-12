@@ -5,9 +5,9 @@ import { View } from 'react-native';
 import { SkinTile } from '@/components/blocks/skin-tile';
 
 const swatchArt =
-  'https://media.valorant-api.com/weaponskinchromas/0f2fbab0-4752-92e5-90fa-6ba1f8a2f74e/swatch.png';
+  'https://media.valorant-api.com/weaponskinchromas/64c51524-43da-875e-ff0d-db97f3e6194e/swatch.png';
 const altSwatchArt =
-  'https://media.valorant-api.com/weaponskinchromas/e046854e-406c-37f4-6607-19a9ba8426fc/swatch.png';
+  'https://media.valorant-api.com/weaponskinchromas/6d785ae8-4332-9946-e491-368a5fab442d/swatch.png';
 
 function LockIcon() {
   return <Lock size={12} weight="fill" color="white" />;
@@ -77,6 +77,7 @@ export const ChromaSelected: Story = {
   args: {
     swatchUrl: altSwatchArt,
     isSelected: true,
+    stateIcon: <CheckIcon />,
   },
 };
 
@@ -110,7 +111,7 @@ export const DetailRow: Story = {
         <SkinTile stateIcon={<LockIcon />} />
       </View>
       <View className="flex-row flex-wrap" style={{ gap: 8, marginTop: 8 }}>
-        <SkinTile swatchUrl={swatchArt} stateIcon={<CheckIcon />} />
+        <SkinTile swatchUrl={swatchArt} isSelected stateIcon={<CheckIcon />} />
         <SkinTile swatchUrl={altSwatchArt} favoriteBadge={<FavoriteBadge />} />
         <SkinTile swatchUrl={swatchArt} stateIcon={<LockIcon />} />
       </View>
