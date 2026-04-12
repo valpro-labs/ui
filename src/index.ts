@@ -30,5 +30,10 @@ export type { DailyProgressProps, DailyMilestone } from '@/components/blocks/dai
 export { DailyProgressSkeleton } from '@/components/blocks/daily-progress-skeleton';
 export type { DailyProgressSkeletonProps } from '@/components/blocks/daily-progress-skeleton';
 
+export { PlayerCard } from '@/components/blocks/player-card';
+export type { PlayerCardProps } from '@/components/blocks/player-card';
+export { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
+export type { PlayerCardSkeletonProps } from '@/components/blocks/player-card-skeleton';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';

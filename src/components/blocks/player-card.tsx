@@ -1,5 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 
+import { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -13,6 +14,8 @@ interface PlayerCardProps {
   cardWideArt?: string;
   /** Player title shown to the right of the name. */
   title?: string;
+  /** Show the skeleton placeholder instead of the real card. */
+  isLoading?: boolean;
   /** Extra classes merged onto the name area row. */
   nameAreaClassName?: string;
   /** Extra classes merged onto the outer card wrapper. */
@@ -32,9 +35,13 @@ function PlayerCard({
   tag,
   cardWideArt,
   title,
+  isLoading = false,
   nameAreaClassName,
   className,
 }: PlayerCardProps) {
+  if (isLoading) {
+    return <PlayerCardSkeleton className={className} />;
+  }
   return (
     <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
       {/* Banner */}
