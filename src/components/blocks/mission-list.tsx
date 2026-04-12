@@ -3,6 +3,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { MissionCard } from '@/components/blocks/mission-card';
+import { MissionCardSkeleton } from '@/components/blocks/mission-card-skeleton';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
@@ -25,8 +26,12 @@ interface MissionListItem {
 }
 
 interface MissionListProps {
-  /** Missions to render, in display order. */
+  /** Missions to render, in display order. Ignored while `isLoading` is true. */
   missions: ReadonlyArray<MissionListItem>;
+  /** Show skeleton rows instead of the real missions. */
+  isLoading?: boolean;
+  /** Number of skeleton rows to render while loading. Defaults to 3. */
+  skeletonCount?: number;
   /** Extra classes merged onto the outer card wrapper. */
   className?: string;
 }
@@ -37,10 +42,36 @@ interface MissionListProps {
  *
  * Purely presentational: the consumer provides the resolved mission data.
  * No data fetching or i18n baked in.
+ *
+ * When `isLoading` is true, renders `skeletonCount` `MissionCardSkeleton`
+ * rows with the same wrapper and separators so the layout doesn't shift
+ * between the loading and loaded states.
  */
-function MissionList({ missions, className }: MissionListProps) {
+function MissionList({
+  missions,
+  isLoading = false,
+  skeletonCount = 3,
+  className,
+}: MissionListProps) {
+  const wrapperClassName = cn('bg-card overflow-hidden rounded-2xl', className);
+
+  if (isLoading) {
+    return (
+      <View className={wrapperClassName}>
+        {Array.from({ length: skeletonCount }).map((_, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && <Separator />}
+            <View className="px-4 py-3">
+              <MissionCardSkeleton />
+            </View>
+          </React.Fragment>
+        ))}
+      </View>
+    );
+  }
+
   return (
-    <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <View className={wrapperClassName}>
       {missions.map((mission, index) => (
         <React.Fragment key={mission.id ?? index}>
           {index > 0 && <Separator />}

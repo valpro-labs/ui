@@ -20,6 +20,8 @@ export type { ProgressProps } from '@/components/ui/progress';
 // ── Tier 2: Blocks (blocks/) ──
 export { MissionCard } from '@/components/blocks/mission-card';
 export type { MissionCardProps } from '@/components/blocks/mission-card';
+export { MissionCardSkeleton } from '@/components/blocks/mission-card-skeleton';
+export type { MissionCardSkeletonProps } from '@/components/blocks/mission-card-skeleton';
 export { MissionList } from '@/components/blocks/mission-list';
 export type { MissionListProps, MissionListItem } from '@/components/blocks/mission-list';
 
