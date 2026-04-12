@@ -15,6 +15,15 @@ const meta: Meta<typeof MissionCard> = {
 export default meta;
 type Story = StoryObj<typeof MissionCard>;
 
+export const NotStarted: Story = {
+  args: {
+    title: 'Win 10 Competitive matches',
+    xpReward: 15000,
+    progress: 0,
+    total: 10,
+  },
+};
+
 export const InProgress: Story = {
   args: {
     title: 'Get 45 headshots in any mode',
