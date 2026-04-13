@@ -63,6 +63,7 @@ function RankCard({
     <View className={cn('flex-row items-center px-4 py-3', className)}>
       <View className="flex-1 flex-row items-start justify-center gap-x-6">
         <RankTierCard
+          className="w-36"
           seasonTitle={seasonTitle}
           tierIcon={tierIcon}
           tierName={tierName}
@@ -85,9 +86,9 @@ function RankCard({
         </View>
       </View>
 
-      {chevron ? (
-        <View style={{ opacity: onPress ? 1 : 0 }}>{chevron}</View>
-      ) : null}
+      <View style={{ minWidth: 14, opacity: chevron && onPress ? 1 : 0 }}>
+        {chevron}
+      </View>
     </View>
   );
 

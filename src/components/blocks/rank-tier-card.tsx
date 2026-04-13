@@ -57,7 +57,11 @@ function RankTierCard({
         ) : null}
       </View>
       {tierName ? (
-        <Text className="text-foreground mt-1 text-base font-bold tracking-wide uppercase">
+        <Text
+          className="text-foreground mt-1 text-base font-bold tracking-wide uppercase"
+          numberOfLines={1}
+          adjustsFontSizeToFit
+        >
           {tierName}
         </Text>
       ) : null}
