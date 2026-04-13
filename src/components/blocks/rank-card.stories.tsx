@@ -23,6 +23,19 @@ const diamondMix = [tier(20), tier(19), tier(19), tier(18), tier(18), tier(17)];
 const ascendantMix = [tier(22), tier(22), tier(21), tier(21), tier(20)];
 const immortalClimb = [tier(26), tier(25), tier(25), tier(24), tier(24), tier(23), tier(22)];
 
+// Season border displayIcons from /v1/seasons/competitive (EpisodeV26-2_Act5).
+// Tiers: L0=0 wins, L1=9, L2=25, L3=50, L5=100.
+const BORDER_LEVEL_0 =
+  'https://media.valorant-api.com/seasonborders/06289abe-489d-690b-edf1-51b9c063f3da/displayicon.png';
+const BORDER_LEVEL_1 =
+  'https://media.valorant-api.com/seasonborders/d3b30fbf-445e-0bce-bf98-b2b58e5807c6/displayicon.png';
+const BORDER_LEVEL_2 =
+  'https://media.valorant-api.com/seasonborders/48bfd197-49c0-59bd-5833-ad9feff49516/displayicon.png';
+const BORDER_LEVEL_3 =
+  'https://media.valorant-api.com/seasonborders/dc20c281-4086-c7aa-8420-9f851d0e44ed/displayicon.png';
+const BORDER_LEVEL_5 =
+  'https://media.valorant-api.com/seasonborders/ba974f74-4131-a4ba-378a-c9993b9edef0/displayicon.png';
+
 function Chevron() {
   return <CaretRight size={14} weight="bold" color="rgba(237,233,226,0.6)" />;
 }
@@ -51,6 +64,7 @@ export const Default: Story = {
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
     filledTiers: diamondMix,
+    borderIcon: BORDER_LEVEL_1,
   },
 };
 
@@ -63,6 +77,7 @@ export const Pressable: Story = {
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
     filledTiers: ascendantMix,
+    borderIcon: BORDER_LEVEL_2,
     chevron: <Chevron />,
     onPress: () => {},
   },
@@ -77,6 +92,7 @@ export const Immortal: Story = {
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
     filledTiers: immortalClimb,
+    borderIcon: BORDER_LEVEL_5,
     chevron: <Chevron />,
     onPress: () => {},
   },
@@ -91,6 +107,7 @@ export const Unranked: Story = {
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
     filledTiers: [],
+    borderIcon: BORDER_LEVEL_0,
   },
 };
 
@@ -130,6 +147,14 @@ const ALL_TIERS: ReadonlyArray<{ id: number; name: string }> = [
   { id: 27, name: 'Radiant' },
 ];
 
+function borderForTier(id: number): string {
+  if (id >= 24) return BORDER_LEVEL_5;
+  if (id >= 18) return BORDER_LEVEL_3;
+  if (id >= 12) return BORDER_LEVEL_2;
+  if (id >= 6) return BORDER_LEVEL_1;
+  return BORDER_LEVEL_0;
+}
+
 export const AllTiers: Story = {
   render: () => (
     <View>
@@ -144,6 +169,7 @@ export const AllTiers: Story = {
             rrLabel="RR"
             actRankLabel="ACT RANK"
             filledTiers={[tier(t.id)]}
+            borderIcon={borderForTier(t.id)}
           />
         </View>
       ))}
