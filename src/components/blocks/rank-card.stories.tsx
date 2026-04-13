@@ -101,3 +101,52 @@ export const Loading: Story = {
     isLoading: true,
   },
 };
+
+const ALL_TIERS: ReadonlyArray<{ id: number; name: string }> = [
+  { id: 3, name: 'Iron 1' },
+  { id: 4, name: 'Iron 2' },
+  { id: 5, name: 'Iron 3' },
+  { id: 6, name: 'Bronze 1' },
+  { id: 7, name: 'Bronze 2' },
+  { id: 8, name: 'Bronze 3' },
+  { id: 9, name: 'Silver 1' },
+  { id: 10, name: 'Silver 2' },
+  { id: 11, name: 'Silver 3' },
+  { id: 12, name: 'Gold 1' },
+  { id: 13, name: 'Gold 2' },
+  { id: 14, name: 'Gold 3' },
+  { id: 15, name: 'Platinum 1' },
+  { id: 16, name: 'Platinum 2' },
+  { id: 17, name: 'Platinum 3' },
+  { id: 18, name: 'Diamond 1' },
+  { id: 19, name: 'Diamond 2' },
+  { id: 20, name: 'Diamond 3' },
+  { id: 21, name: 'Ascendant 1' },
+  { id: 22, name: 'Ascendant 2' },
+  { id: 23, name: 'Ascendant 3' },
+  { id: 24, name: 'Immortal 1' },
+  { id: 25, name: 'Immortal 2' },
+  { id: 26, name: 'Immortal 3' },
+  { id: 27, name: 'Radiant' },
+];
+
+export const AllTiers: Story = {
+  render: () => (
+    <View>
+      {ALL_TIERS.map((t, i) => (
+        <View key={t.id}>
+          {i > 0 ? <View className="border-border/30 border-t" /> : null}
+          <RankCard
+            seasonTitle="E11 A2"
+            tierIcon={`https://media.valorant-api.com/competitivetiers/${TIER_SET}/${t.id}/largeicon.png`}
+            tierName={t.name}
+            rankedRating={50}
+            rrLabel="RR"
+            actRankLabel="ACT RANK"
+            filledTiers={[tier(t.id)]}
+          />
+        </View>
+      ))}
+    </View>
+  ),
+};
