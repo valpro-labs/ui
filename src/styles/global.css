@@ -92,7 +92,7 @@ body {
 
     @variant dark {
       /* iOS-style dark gray base — matches splash screen #1C1C1E */
-      --color-val-green-ui: #009970;
+      --color-val-green-ui: #22ffc5;
       --color-val-yellow-ui: #f0cb74;
       --color-icon-muted: rgba(237, 233, 226, 0.4);
       --color-party-border: rgba(255, 255, 255, 0.25);
