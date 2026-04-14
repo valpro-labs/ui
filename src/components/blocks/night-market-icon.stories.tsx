@@ -59,3 +59,23 @@ export const Sizes: Story = {
     </View>
   ),
 };
+
+// Mirrors the consumer app's `HeaderIconButton`: a 40x40 rounded-clip
+// wrapper with the icon flex-centered inside. Use this to verify centering
+// at the exact size the header uses (`size={20}` in a 40x40 hit target).
+export const InHeaderButton: Story = {
+  render: () => (
+    <View style={{ borderRadius: 20, overflow: 'hidden' }}>
+      <View
+        style={{
+          width: 40,
+          height: 40,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+        }}>
+        <NightMarketIcon size={20} />
+      </View>
+    </View>
+  ),
+};
