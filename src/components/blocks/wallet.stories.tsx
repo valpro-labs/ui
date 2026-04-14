@@ -50,3 +50,23 @@ export const TwoCurrencies: Story = {
     ],
   },
 };
+
+// Consumers can pass `color` per balance to do threshold-based highlights —
+// here Kingdom Credits crosses the 10k mark, so the caller tints it purple.
+const KINGDOM_CREDITS_HIGHLIGHT_THRESHOLD = 10_000;
+const kcAmount = 12_850;
+
+export const HighlightedBalance: Story = {
+  args: {
+    balances: [
+      { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
+      { key: 'rp', iconUrl: radianitePoints, amount: 420 },
+      {
+        key: 'kc',
+        iconUrl: kingdomCredits,
+        amount: kcAmount,
+        color: kcAmount >= KINGDOM_CREDITS_HIGHLIGHT_THRESHOLD ? '#a855f7' : undefined,
+      },
+    ],
+  },
+};

@@ -14,6 +14,10 @@ interface WalletBalance {
   iconUrl?: string;
   /** Current balance. Omit to render a dash placeholder. */
   amount?: number;
+  /** Optional override for icon tint + amount text color.
+   *  Accepts any value expo-image's `tintColor` understands
+   *  (hex, rgb/rgba, named color). Falls back to `--color-foreground`. */
+  color?: string;
 }
 
 interface WalletProps {
@@ -31,6 +35,11 @@ interface WalletProps {
  *
  * Data-free: the consumer resolves the currency list + icons (from
  * whichever asset store they use) and passes `balances` in display order.
+ *
+ * Each balance accepts an optional `color` which the consumer can use for
+ * threshold-based highlights — e.g. tint Kingdom Credits purple once the
+ * amount crosses some "you can afford X" threshold. When omitted, both the
+ * icon tint and amount text fall back to `--color-foreground`.
  */
 function Wallet({ balances, isLoading = false, className }: WalletProps) {
   const foregroundRaw = useCSSVariable('--color-foreground');
@@ -44,14 +53,17 @@ function Wallet({ balances, isLoading = false, className }: WalletProps) {
             {b.iconUrl ? (
               <Image
                 source={b.iconUrl}
-                style={{ width: 18, height: 18, tintColor: foreground }}
+                style={{ width: 18, height: 18, tintColor: b.color ?? foreground }}
                 contentFit="contain"
               />
             ) : null}
             {isLoading ? (
               <Skeleton className="h-5 w-12 rounded-sm" />
             ) : (
-              <Text className="text-foreground text-sm leading-5 font-bold">
+              <Text
+                className="text-foreground text-sm leading-5 font-bold"
+                style={b.color ? { color: b.color } : undefined}
+              >
                 {b.amount?.toLocaleString() ?? '—'}
               </Text>
             )}
