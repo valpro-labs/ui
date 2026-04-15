@@ -65,7 +65,7 @@ export const HighlightedBalance: Story = {
         key: 'kc',
         iconUrl: kingdomCredits,
         amount: kcAmount,
-        color: kcAmount >= KINGDOM_CREDITS_HIGHLIGHT_THRESHOLD ? '#a855f7' : undefined,
+        color: kcAmount >= KINGDOM_CREDITS_HIGHLIGHT_THRESHOLD ? '#d289d9' : undefined,
       },
     ],
   },
