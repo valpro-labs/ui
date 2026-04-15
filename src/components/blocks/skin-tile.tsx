@@ -71,8 +71,8 @@ function SkinTile({
         <View
           className="items-center justify-center"
           style={{
-            width: 18,
-            height: 18,
+            width: 20,
+            height: 20,
             transform: [{ rotate: '45deg' }],
             backgroundColor: 'rgba(0,0,0,0.6)',
             borderWidth: 1,
