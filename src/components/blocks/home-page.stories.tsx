@@ -42,7 +42,7 @@ type Story = StoryObj<{ isLoading: boolean }>;
 export const Default: Story = {
   render: ({ isLoading }) => (
     <ScrollView className="bg-background flex-1">
-      <View className="flex gap-y-4 p-4">
+      <View className="p-4" style={{ gap: 16 }}>
         <PlayerCard
           isLoading={isLoading}
           name="Rick"
@@ -112,7 +112,7 @@ export const Default: Story = {
 
         <View>
           <SectionTitle title="Battle Pass" />
-          <View className="flex gap-y-2">
+          <View style={{ gap: 8 }}>
             <Pressable
               disabled={isLoading}
               style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>

@@ -436,7 +436,7 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
 
   return (
     <ScrollView className="bg-background flex-1">
-      <View className="gap-y-4 p-4">
+      <View className="p-4" style={{ gap: 16 }}>
         <MapBanner
           splashUrl={won ? ascentSplash : bindSplash}
           mapName={won ? 'Ascent' : 'Bind'}
@@ -483,7 +483,7 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
           />
         </View>
 
-        <View className="gap-y-4">
+        <View style={{ gap: 16 }}>
           <View>
             <SectionTitle
               title="Player Stats"

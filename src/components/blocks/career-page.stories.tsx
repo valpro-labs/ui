@@ -173,7 +173,7 @@ type Story = StoryObj<{ isLoading: boolean }>;
 export const Default: Story = {
   render: ({ isLoading }) => (
     <ScrollView className="bg-background flex-1">
-      <View className="gap-y-4 px-4 pt-4">
+      <View className="px-4 pt-4" style={{ gap: 16 }}>
         <View>
           <SectionTitle title="Rank" />
           <View className="bg-card overflow-hidden rounded-2xl">
@@ -212,7 +212,7 @@ export const Default: Story = {
           rightElement={isLoading ? undefined : <QueueFilter />}
         />
       </View>
-      <View className="gap-y-2 px-4 pb-4">
+      <View className="px-4 pb-4" style={{ gap: 8 }}>
         {isLoading
           ? Array.from({ length: 5 }).map((_, i) => (
               <MatchCard

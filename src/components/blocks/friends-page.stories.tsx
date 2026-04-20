@@ -56,13 +56,13 @@ export const Default: Story = {
     if (isLoading) {
       return (
         <ScrollView className="bg-background flex-1">
-          <View className="flex gap-y-4 p-4">
+          <View className="p-4" style={{ gap: 16 }}>
             <View className="bg-card overflow-hidden rounded-2xl">
               <FriendRow name="" status="none" isLoading />
             </View>
             <View>
               <SectionLabel title="Valorant" />
-              <View className="flex gap-y-2">
+              <View style={{ gap: 8 }}>
                 <View className="bg-card overflow-hidden rounded-2xl">
                   {Array.from({ length: 3 }).map((_, i) => (
                     <React.Fragment key={i}>
@@ -88,7 +88,7 @@ export const Default: Story = {
 
     return (
       <ScrollView className="bg-background flex-1">
-        <View className="flex gap-y-4 p-4">
+        <View className="p-4" style={{ gap: 16 }}>
           {/* Me */}
           <View className="bg-card overflow-hidden rounded-2xl">
             <FriendRow
@@ -102,7 +102,7 @@ export const Default: Story = {
           {/* Valorant */}
           <View>
             <SectionLabel title="Valorant" />
-            <View className="flex gap-y-2">
+            <View style={{ gap: 8 }}>
               <View className="bg-card overflow-hidden rounded-2xl">
                 <FriendRow
                   name="Tia#NA1"

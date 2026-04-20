@@ -76,7 +76,7 @@ type Story = StoryObj<{ isLoading: boolean }>;
 export const Default: Story = {
   render: ({ isLoading }) => (
     <ScrollView className="bg-background flex-1">
-      <View className="flex gap-y-4 p-4">
+      <View className="p-4" style={{ gap: 16 }}>
         <Wallet
           balances={[
             { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
@@ -88,7 +88,7 @@ export const Default: Story = {
 
         <View>
           <SectionTitle title="Daily Offers" rightElement={<Countdown text="18h 42m" />} />
-          <View className="flex gap-y-2">
+          <View style={{ gap: 8 }}>
             <OfferCard
               name="Immortalized Vandal"
               iconUrl={vandalChroma}
@@ -135,7 +135,7 @@ export const Default: Story = {
 
         <View>
           <SectionTitle title="Featured" />
-          <View className="flex gap-y-2">
+          <View style={{ gap: 8 }}>
             <BundleCard
               name="RGX 11z Pro"
               iconUrl={rgxBundleArt}
@@ -157,7 +157,7 @@ export const Default: Story = {
 
         <View>
           <SectionTitle title="Accessories" rightElement={<Countdown text="6d 02h" />} />
-          <View className="flex gap-y-2">
+          <View style={{ gap: 8 }}>
             <AccessoryCard
               name="Abilities Don't Kill Spray"
               iconUrl={sprayIcon}
