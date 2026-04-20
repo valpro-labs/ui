@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Check, Package } from 'phosphor-react';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { AccessoryCard } from '@/components/blocks/accessory-card';
 import { BundleCard } from '@/components/blocks/bundle-card';
+import { ItemBoughtOverlay } from '@/components/blocks/item-bought-overlay';
 import { OfferCard } from '@/components/blocks/offer-card';
 import { SectionTitle } from '@/components/blocks/section-title';
 import { Wallet } from '@/components/blocks/wallet';
@@ -39,8 +41,6 @@ const exclusiveTierIcon =
 // ── Bundles ─────────────────────────────────────────────────────────────────
 const rgxBundleArt =
   'https://media.valorant-api.com/bundles/35815cab-429d-79e4-43f5-e0af8fdac22b/displayicon.png';
-const altitudeBundleArt =
-  'https://media.valorant-api.com/bundles/a4937ee9-4148-8ff2-2c11-c28891880306/displayicon.png';
 
 // ── Accessories ─────────────────────────────────────────────────────────────
 const sprayIcon =
@@ -52,6 +52,14 @@ const playerCardIcon =
 
 function Countdown({ text }: { text: string }) {
   return <Text className="text-muted-foreground text-sm tabular-nums">{text}</Text>;
+}
+
+function BoughtOverlay() {
+  return <ItemBoughtOverlay icon={<Check size={48} weight="bold" color="white" />} />;
+}
+
+function MissingBundleFallback() {
+  return <Package size={40} weight="duotone" color="rgba(237,233,226,0.6)" />;
 }
 
 const meta: Meta = {
@@ -70,8 +78,12 @@ type Story = StoryObj<{ isLoading: boolean }>;
  * Store tab composition: `<Wallet>` on top, then Daily Offers
  * (`<OfferCard>` list with reset countdown), Featured (`<BundleCard>`
  * grid), and Accessories (`<AccessoryCard>` list with reset countdown).
- * Toggle `isLoading` in the controls panel to swap every card for its
- * skeleton.
+ *
+ * Shows a realistic mix of states in one frame: one item of each card
+ * kind is flagged as already-owned via `ItemBoughtOverlay`, and the
+ * second featured bundle has unresolved art so the `missingFallback`
+ * slot is exercised. Toggle `isLoading` in the controls panel to swap
+ * every card for its skeleton.
  */
 export const Default: Story = {
   render: ({ isLoading }) => (
@@ -97,6 +109,7 @@ export const Default: Story = {
               currencyIconUrl={valorantPoints}
               price={1775}
               weaponCategory="EEquippableCategory::Rifle"
+              imageOverlay={isLoading ? undefined : <BoughtOverlay />}
               isLoading={isLoading}
             />
             <OfferCard
@@ -142,14 +155,15 @@ export const Default: Story = {
               currencyIconUrl={valorantPoints}
               price={8700}
               countdownText="2d 14h"
+              imageOverlay={isLoading ? undefined : <BoughtOverlay />}
               isLoading={isLoading}
             />
             <BundleCard
-              name="Altitude"
-              iconUrl={altitudeBundleArt}
+              name="Unknown Bundle"
               currencyIconUrl={valorantPoints}
               price={7440}
               countdownText="5d 8h"
+              missingFallback={<MissingBundleFallback />}
               isLoading={isLoading}
             />
           </View>
@@ -163,6 +177,7 @@ export const Default: Story = {
               iconUrl={sprayIcon}
               currencyIconUrl={kingdomCredits}
               price={325}
+              imageOverlay={isLoading ? undefined : <BoughtOverlay />}
               isLoading={isLoading}
             />
             <AccessoryCard
