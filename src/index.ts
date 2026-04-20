@@ -85,6 +85,26 @@ export type { MatchInfoRowProps } from '@/components/blocks/match-info-row';
 export { PlayerRow } from '@/components/blocks/player-row';
 export type { PlayerRowProps, PlayerRowRole } from '@/components/blocks/player-row';
 
+export { KillMatrix } from '@/components/blocks/kill-matrix';
+export type {
+  KillMatrixProps,
+  KillMatrixPlayer,
+  KillMatrixCell,
+} from '@/components/blocks/kill-matrix';
+
+export { MatchPlayerStatsTable } from '@/components/blocks/match-player-stats-table';
+export type {
+  MatchPlayerStatsTableProps,
+  MatchPlayerStatsRow,
+  MatchPlayerStatsColumnLabels,
+} from '@/components/blocks/match-player-stats-table';
+
+export { PerformanceOverview } from '@/components/blocks/performance-overview';
+export type {
+  PerformanceOverviewProps,
+  PerformanceOverviewRow,
+} from '@/components/blocks/performance-overview';
+
 export { FriendRow } from '@/components/blocks/friend-row';
 export type { FriendRowProps, FriendStatus } from '@/components/blocks/friend-row';
 export { FriendRowSkeleton } from '@/components/blocks/friend-row-skeleton';
