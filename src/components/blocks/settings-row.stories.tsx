@@ -88,3 +88,24 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const FontWeightParity: Story = {
+  name: 'Font-weight parity (pressable vs read-only)',
+  render: () => (
+    <>
+      <SettingsRow
+        icon={<LeadingGear />}
+        label="Pressable row"
+        sub="Wrapped in ghost Button"
+        rightSlot={<TrailingChevron />}
+        onPress={() => {}}
+      />
+      <SettingsRow
+        icon={<LeadingGear />}
+        label="Read-only row"
+        sub="Plain View, no Button"
+        rightSlot={<Text className="text-muted-foreground text-sm">1.2.3</Text>}
+      />
+    </>
+  ),
+};

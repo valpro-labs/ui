@@ -27,6 +27,10 @@ interface SettingsRowProps {
   disabled?: boolean;
   /** Extra classes merged onto the row wrapper. */
   className?: string;
+  /** Extra classes merged onto the label `<Text>` (e.g. `text-destructive` for a destructive row). */
+  labelClassName?: string;
+  /** Extra classes merged onto the sub-label `<Text>`. */
+  subClassName?: string;
 }
 
 const ROW_CLASSES = 'h-auto min-h-12 flex-row items-center gap-x-3 rounded-none px-3.5 py-3';
@@ -48,13 +52,19 @@ function SettingsRow({
   onPress,
   disabled,
   className,
+  labelClassName,
+  subClassName,
 }: SettingsRowProps) {
   const content = (
     <>
       {icon}
       <View className="flex-1">
-        <Text className="text-foreground text-sm">{label}</Text>
-        {sub ? <Text className="text-muted-foreground mt-px text-xs">{sub}</Text> : null}
+        <Text className={cn('text-foreground text-sm font-normal', labelClassName)}>{label}</Text>
+        {sub ? (
+          <Text className={cn('text-muted-foreground mt-px text-xs font-normal', subClassName)}>
+            {sub}
+          </Text>
+        ) : null}
       </View>
       {rightSlot}
     </>
