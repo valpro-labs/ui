@@ -80,10 +80,10 @@ function BundleCard({
         ) : null}
       </View>
 
-      {/* Info bar pinned to the bottom with a 1px overlap to paper over seam rounding. */}
+      {/* Info bar */}
       <View
         className={cn(
-          'bg-card absolute -right-px -bottom-px -left-px flex-row items-center justify-between',
+          'flex-row items-center justify-between',
           isGrid ? 'px-2 py-1.5' : 'px-3 py-2'
         )}>
         <View className="flex-1 flex-row items-center gap-1.5" style={{ minWidth: 0 }}>
