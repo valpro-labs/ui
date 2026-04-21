@@ -31,8 +31,8 @@ function MissionCardSkeleton({ className }: MissionCardSkeletonProps) {
       {/* Bottom: progress bar placeholder + N / Total placeholder */}
       <View className="flex flex-row items-center gap-x-3">
         <Skeleton className="h-1.5 flex-1 rounded-full" />
-        <View className="w-14 shrink-0 flex-row items-center justify-center gap-x-0.5">
-          <Skeleton className="h-3 w-10 rounded-md" />
+        <View className="w-20 shrink-0 flex-row items-center justify-center gap-x-0.5">
+          <Skeleton className="h-3 w-14 rounded-md" />
         </View>
       </View>
     </View>

@@ -82,7 +82,7 @@ function MissionCard({
             completed ? 'bg-val-green-ui' : 'bg-val-green-ui/50'
           )}
         />
-        <View className="w-14 shrink-0 flex-row items-center justify-center gap-x-0.5">
+        <View className="w-20 shrink-0 flex-row items-center justify-center gap-x-0.5">
           <Text className="text-muted-foreground flex-1 text-right text-xs leading-none tabular-nums">
             {formatCount(progress)}
           </Text>
