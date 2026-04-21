@@ -62,17 +62,23 @@ function MissingBundleFallback() {
   return <Package size={40} weight="duotone" color="rgba(237,233,226,0.6)" />;
 }
 
-const meta: Meta = {
+type StoreArgs = { isLoading: boolean; variant: 'list' | 'grid' };
+
+const meta: Meta<StoreArgs> = {
   title: 'Pages/Store',
   parameters: { layout: 'fullscreen' },
   argTypes: {
     isLoading: { control: 'boolean' },
+    variant: {
+      control: { type: 'radio' },
+      options: ['list', 'grid'],
+    },
   },
-  args: { isLoading: false },
+  args: { isLoading: false, variant: 'list' },
 };
 
 export default meta;
-type Story = StoryObj<{ isLoading: boolean }>;
+type Story = StoryObj<StoreArgs>;
 
 /**
  * Store tab composition: `<Wallet>` on top, then Daily Offers
@@ -86,117 +92,161 @@ type Story = StoryObj<{ isLoading: boolean }>;
  * every card for its skeleton.
  */
 export const Default: Story = {
-  render: ({ isLoading }) => (
-    <ScrollView className="bg-background flex-1">
-      <View className="p-4" style={{ gap: 16 }}>
-        <Wallet
-          balances={[
-            { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
-            { key: 'rp', iconUrl: radianitePoints, amount: 420 },
-            { key: 'kc', iconUrl: kingdomCredits, amount: 12850 },
-          ]}
-          isLoading={isLoading}
-        />
+  render: ({ isLoading, variant }) => {
+    const isGrid = variant === 'grid';
+    const rowStyle = isGrid
+      ? { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: 8 }
+      : { gap: 8 };
+    const cellStyle = isGrid ? { width: '48%' as const } : undefined;
 
-        <View>
-          <SectionTitle title="Daily Offers" rightElement={<Countdown text="18h 42m" />} />
-          <View style={{ gap: 8 }}>
-            <OfferCard
-              name="Immortalized Vandal"
-              iconUrl={vandalChroma}
-              tierIconUrl={selectTierIcon}
-              tierColor="5a9fe233"
-              currencyIconUrl={valorantPoints}
-              price={1775}
-              weaponCategory="EEquippableCategory::Rifle"
-              imageOverlay={isLoading ? undefined : <BoughtOverlay />}
-              isLoading={isLoading}
-            />
-            <OfferCard
-              name="Task Force 809 Frenzy"
-              iconUrl={frenzyChroma}
-              tierIconUrl={deluxeTierIcon}
-              tierColor="00958733"
-              currencyIconUrl={valorantPoints}
-              price={1275}
-              weaponCategory="EEquippableCategory::Sidearm"
-              isLoading={isLoading}
-            />
-            <OfferCard
-              name="Valorant Go! Vol. 2 Operator"
-              iconUrl={goOperatorChroma}
-              tierIconUrl={premiumTierIcon}
-              tierColor="d1548d33"
-              currencyIconUrl={valorantPoints}
-              price={2175}
-              discount={25}
-              weaponCategory="EEquippableCategory::Sniper"
-              isLoading={isLoading}
-            />
-            <OfferCard
-              name="Doombringer Odin"
-              iconUrl={doombringerChroma}
-              tierIconUrl={exclusiveTierIcon}
-              tierColor="f5955b33"
-              currencyIconUrl={valorantPoints}
-              price={2475}
-              weaponCategory="EEquippableCategory::Heavy"
-              isLoading={isLoading}
-            />
+    return (
+      <ScrollView className="bg-background flex-1">
+        <View className="p-4" style={{ gap: 16 }}>
+          <Wallet
+            balances={[
+              { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
+              { key: 'rp', iconUrl: radianitePoints, amount: 420 },
+              { key: 'kc', iconUrl: kingdomCredits, amount: 12850 },
+            ]}
+            isLoading={isLoading}
+          />
+
+          <View>
+            <SectionTitle title="Daily Offers" rightElement={<Countdown text="18h 42m" />} />
+            <View style={rowStyle}>
+              <View style={cellStyle}>
+                <OfferCard
+                  name="Immortalized Vandal"
+                  iconUrl={vandalChroma}
+                  tierIconUrl={selectTierIcon}
+                  tierColor="5a9fe233"
+                  currencyIconUrl={valorantPoints}
+                  price={1775}
+                  variant={variant}
+                  weaponCategory="EEquippableCategory::Rifle"
+                  imageOverlay={isLoading ? undefined : <BoughtOverlay />}
+                  isLoading={isLoading}
+                />
+              </View>
+              <View style={cellStyle}>
+                <OfferCard
+                  name="Task Force 809 Frenzy"
+                  iconUrl={frenzyChroma}
+                  tierIconUrl={deluxeTierIcon}
+                  tierColor="00958733"
+                  currencyIconUrl={valorantPoints}
+                  price={1275}
+                  variant={variant}
+                  weaponCategory="EEquippableCategory::Sidearm"
+                  isLoading={isLoading}
+                />
+              </View>
+              <View style={cellStyle}>
+                <OfferCard
+                  name="Valorant Go! Vol. 2 Operator"
+                  iconUrl={goOperatorChroma}
+                  tierIconUrl={premiumTierIcon}
+                  tierColor="d1548d33"
+                  currencyIconUrl={valorantPoints}
+                  price={2175}
+                  discount={25}
+                  variant={variant}
+                  weaponCategory="EEquippableCategory::Sniper"
+                  isLoading={isLoading}
+                />
+              </View>
+              <View style={cellStyle}>
+                <OfferCard
+                  name="Doombringer Odin"
+                  iconUrl={doombringerChroma}
+                  tierIconUrl={exclusiveTierIcon}
+                  tierColor="f5955b33"
+                  currencyIconUrl={valorantPoints}
+                  price={2475}
+                  variant={variant}
+                  weaponCategory="EEquippableCategory::Heavy"
+                  isLoading={isLoading}
+                />
+              </View>
+            </View>
+          </View>
+
+          <View>
+            <SectionTitle title="Featured" />
+            <View style={rowStyle}>
+              <View style={cellStyle}>
+                <BundleCard
+                  name="RGX 11z Pro"
+                  iconUrl={rgxBundleArt}
+                  currencyIconUrl={valorantPoints}
+                  price={8700}
+                  countdownText="2d 14h"
+                  variant={variant}
+                  imageOverlay={isLoading ? undefined : <BoughtOverlay />}
+                  isLoading={isLoading}
+                />
+              </View>
+              <View style={cellStyle}>
+                <BundleCard
+                  name="Unknown Bundle"
+                  currencyIconUrl={valorantPoints}
+                  price={7440}
+                  countdownText="5d 8h"
+                  variant={variant}
+                  missingFallback={<MissingBundleFallback />}
+                  isLoading={isLoading}
+                />
+              </View>
+            </View>
+          </View>
+
+          <View>
+            <SectionTitle title="Accessories" rightElement={<Countdown text="6d 02h" />} />
+            <View style={rowStyle}>
+              <View style={cellStyle}>
+                <AccessoryCard
+                  name="Abilities Don't Kill Spray"
+                  iconUrl={sprayIcon}
+                  currencyIconUrl={kingdomCredits}
+                  price={325}
+                  variant={variant}
+                  imageOverlay={isLoading ? undefined : <BoughtOverlay />}
+                  isLoading={isLoading}
+                />
+              </View>
+              <View style={cellStyle}>
+                <AccessoryCard
+                  name="809 Buddy"
+                  iconUrl={buddyIcon}
+                  currencyIconUrl={kingdomCredits}
+                  price={475}
+                  variant={variant}
+                  isLoading={isLoading}
+                />
+              </View>
+              <View style={cellStyle}>
+                <AccessoryCard
+                  name="Valorant Go! Vol. 1 Card"
+                  iconUrl={playerCardIcon}
+                  currencyIconUrl={kingdomCredits}
+                  price={1375}
+                  variant={variant}
+                  isLoading={isLoading}
+                />
+              </View>
+            </View>
           </View>
         </View>
+      </ScrollView>
+    );
+  },
+};
 
-        <View>
-          <SectionTitle title="Featured" />
-          <View style={{ gap: 8 }}>
-            <BundleCard
-              name="RGX 11z Pro"
-              iconUrl={rgxBundleArt}
-              currencyIconUrl={valorantPoints}
-              price={8700}
-              countdownText="2d 14h"
-              imageOverlay={isLoading ? undefined : <BoughtOverlay />}
-              isLoading={isLoading}
-            />
-            <BundleCard
-              name="Unknown Bundle"
-              currencyIconUrl={valorantPoints}
-              price={7440}
-              countdownText="5d 8h"
-              missingFallback={<MissingBundleFallback />}
-              isLoading={isLoading}
-            />
-          </View>
-        </View>
-
-        <View>
-          <SectionTitle title="Accessories" rightElement={<Countdown text="6d 02h" />} />
-          <View style={{ gap: 8 }}>
-            <AccessoryCard
-              name="Abilities Don't Kill Spray"
-              iconUrl={sprayIcon}
-              currencyIconUrl={kingdomCredits}
-              price={325}
-              imageOverlay={isLoading ? undefined : <BoughtOverlay />}
-              isLoading={isLoading}
-            />
-            <AccessoryCard
-              name="809 Buddy"
-              iconUrl={buddyIcon}
-              currencyIconUrl={kingdomCredits}
-              price={475}
-              isLoading={isLoading}
-            />
-            <AccessoryCard
-              name="Valorant Go! Vol. 1 Card"
-              iconUrl={playerCardIcon}
-              currencyIconUrl={kingdomCredits}
-              price={1375}
-              isLoading={isLoading}
-            />
-          </View>
-        </View>
-      </View>
-    </ScrollView>
-  ),
+/**
+ * Grid-mode preview. Same content as `Default` with the `variant` arg flipped
+ * so all three sections render as a 2-up grid.
+ */
+export const Grid: Story = {
+  args: { variant: 'grid' },
+  render: Default.render!,
 };
