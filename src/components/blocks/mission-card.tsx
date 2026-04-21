@@ -58,7 +58,7 @@ function MissionCard({
       {/* Top: title + XP reward */}
       <View className="flex flex-row items-center justify-between gap-x-2">
         <Text
-          numberOfLines={2}
+          numberOfLines={1}
           ellipsizeMode="tail"
           className="text-foreground flex-1 text-base font-medium">
           {title}
