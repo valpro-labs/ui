@@ -152,7 +152,7 @@ function OfferCard({
                 <Text
                   className={cn(
                     'text-foreground dark:text-val-white font-black tracking-tighter',
-                    isGrid ? 'text-sm' : 'text-lg'
+                    isGrid ? 'text-sm' : 'text-base'
                   )}>
                   -{discount}%
                 </Text>
@@ -189,7 +189,7 @@ function OfferCard({
           <Text
             className={cn(
               'text-foreground flex-1 font-semibold tracking-tight uppercase',
-              isGrid ? 'text-xs' : 'text-sm'
+              isGrid ? 'text-sm' : 'text-base'
             )}
             numberOfLines={1}>
             {name}
@@ -213,7 +213,7 @@ function OfferCard({
             <Text
               className={cn(
                 'text-foreground font-bold',
-                isGrid ? 'text-xs' : 'text-sm'
+                isGrid ? 'text-sm' : 'text-base'
               )}>
               {price.toLocaleString()}
             </Text>

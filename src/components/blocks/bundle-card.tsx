@@ -90,16 +90,16 @@ function BundleCard({
           <Text
             className={cn(
               'text-foreground shrink font-semibold tracking-tight uppercase',
-              isGrid ? 'text-xs' : 'text-sm'
+              isGrid ? 'text-sm' : 'text-base'
             )}
             numberOfLines={1}>
             {name}
           </Text>
           {countdownText ? (
             <>
-              <Text className="text-muted-foreground text-xs">|</Text>
+              <Text className="text-muted-foreground text-sm">|</Text>
               <Text
-                className={cn('text-muted-foreground', isGrid ? 'text-xs' : 'text-sm')}>
+                className={cn('text-muted-foreground', isGrid ? 'text-sm' : 'text-base')}>
                 {countdownText}
               </Text>
             </>
@@ -123,7 +123,7 @@ function BundleCard({
             <Text
               className={cn(
                 'text-foreground font-bold',
-                isGrid ? 'text-xs' : 'text-sm'
+                isGrid ? 'text-sm' : 'text-base'
               )}>
               {price.toLocaleString()}
             </Text>

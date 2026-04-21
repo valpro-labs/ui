@@ -103,7 +103,7 @@ function AccessoryCard({
         <Text
           className={cn(
             'text-foreground flex-1 font-semibold tracking-tight uppercase',
-            isGrid ? 'text-xs' : 'text-sm'
+            isGrid ? 'text-sm' : 'text-base'
           )}
           numberOfLines={1}>
           {name}
@@ -126,7 +126,7 @@ function AccessoryCard({
             <Text
               className={cn(
                 'text-foreground font-bold',
-                isGrid ? 'text-xs' : 'text-sm'
+                isGrid ? 'text-sm' : 'text-base'
               )}>
               {price.toLocaleString()}
             </Text>
