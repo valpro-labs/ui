@@ -82,6 +82,7 @@ function AccessoryCard({
         {iconUrl ? (
           <Image
             source={iconUrl}
+            className="rounded-lg"
             style={{
               width: '80%',
               height: '80%',
