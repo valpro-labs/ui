@@ -37,17 +37,19 @@ function PerformanceOverview({ rows, className }: PerformanceOverviewProps) {
   return (
     <View className={cn('bg-card gap-y-3 rounded-2xl p-4', className)}>
       {rows.map((row) => (
-        <View key={row.label} className="flex-row items-center gap-x-3">
+        <View key={row.label} className="flex-row items-center gap-x-2">
           <Text variant="muted" className="w-12 text-sm">
             {row.label}
           </Text>
-          <Text className="w-8 text-right text-sm font-medium tabular-nums">
-            {row.allyValue}
-          </Text>
-          <View className="flex-1">
-            <MetricBar a={row.allyValue} b={row.enemyValue} />
+          <View className="flex-1 flex-row items-center">
+            <Text className="w-8 text-sm font-medium tabular-nums">{row.allyValue}</Text>
+            <View className="flex-1">
+              <MetricBar a={row.allyValue} b={row.enemyValue} />
+            </View>
+            <Text className="w-8 text-right text-sm font-medium tabular-nums">
+              {row.enemyValue}
+            </Text>
           </View>
-          <Text className="w-8 text-sm font-medium tabular-nums">{row.enemyValue}</Text>
         </View>
       ))}
     </View>
