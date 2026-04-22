@@ -12,6 +12,10 @@ import { KillMatrix, type KillMatrixCell } from '@/components/blocks/kill-matrix
 import { MapBanner } from '@/components/blocks/map-banner';
 import { MatchInfoRow } from '@/components/blocks/match-info-row';
 import {
+  MatchMultiKillTable,
+  type MatchMultiKillRow,
+} from '@/components/blocks/match-multi-kill-table';
+import {
   MatchPlayerStatsTable,
   type MatchPlayerStatsRow,
 } from '@/components/blocks/match-player-stats-table';
@@ -288,6 +292,69 @@ function pickSide(rows: BucketedRow[], side: Side): MatchPlayerStatsRow[] {
   }));
 }
 
+// ── Multi-kill data ─────────────────────────────────────────────────────────
+
+const myTeamMultiKills: MatchMultiKillRow[] = [
+  { id: 'me', name: 'Rick#NA1', agentIconUrl: jettAgent, counts: { k2: 4, k3: 2, k4: 1, k5: 0 } },
+  {
+    id: 'ally-1',
+    name: 'Alex#APAC',
+    agentIconUrl: phoenixAgent,
+    counts: { k2: 3, k3: 1, k4: 0, k5: 0 },
+  },
+  {
+    id: 'ally-3',
+    name: 'Sho#JP1',
+    agentIconUrl: omenAgent,
+    counts: { k2: 2, k3: 1, k4: 0, k5: 0 },
+  },
+  {
+    id: 'ally-4',
+    name: 'Mika#EU1',
+    agentIconUrl: killjoyAgent,
+    counts: { k2: 2, k3: 0, k4: 0, k5: 0 },
+  },
+  {
+    id: 'ally-2',
+    name: 'Tia#NA1',
+    agentIconUrl: sageAgent,
+    counts: { k2: 1, k3: 0, k4: 0, k5: 0 },
+  },
+];
+
+const enemyTeamMultiKills: MatchMultiKillRow[] = [
+  {
+    id: 'enemy-0',
+    name: 'Mia#EU1',
+    agentIconUrl: reynaAgent,
+    counts: { k2: 3, k3: 2, k4: 0, k5: 0 },
+  },
+  {
+    id: 'enemy-2',
+    name: 'Sun#KR1',
+    agentIconUrl: breachAgent,
+    counts: { k2: 2, k3: 1, k4: 0, k5: 0 },
+  },
+  {
+    id: 'enemy-1',
+    name: 'Leo#BR1',
+    agentIconUrl: viperAgent,
+    counts: { k2: 2, k3: 0, k4: 0, k5: 0 },
+  },
+  {
+    id: 'enemy-3',
+    name: 'Val#NA1',
+    agentIconUrl: cypherAgent,
+    counts: { k2: 1, k3: 0, k4: 0, k5: 0 },
+  },
+  {
+    id: 'enemy-4',
+    name: 'Ren#TW1',
+    agentIconUrl: sovaAgent,
+    counts: { k2: 1, k3: 0, k4: 0, k5: 0 },
+  },
+];
+
 // ── Kill matrix data ────────────────────────────────────────────────────────
 
 const matrixAllies = myTeamPlayers.map((p) => ({ id: p.id, agentIconUrl: p.agentIconUrl }));
@@ -430,6 +497,7 @@ export const Defeat: Story = {
 
 function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
   const [side, setSide] = useState<Side>('both');
+  const [multiKillTeam, setMultiKillTeam] = useState<'ally' | 'enemy'>('ally');
   const [matrixFilter, setMatrixFilter] = useState<'all' | 'firstKills'>('all');
   const won = variant === 'victory';
   const mutedForeground = 'rgba(237,233,226,0.6)';
@@ -502,6 +570,25 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
             <MatchPlayerStatsTable rows={pickSide(myTeamStats, side)} />
           </View>
           <MatchPlayerStatsTable rows={pickSide(enemyTeamStats, side)} />
+        </View>
+
+        <View>
+          <SectionTitle
+            title="Multi Kills"
+            rightElement={
+              <SegmentedControl
+                value={multiKillTeam}
+                onChange={setMultiKillTeam}
+                options={[
+                  { value: 'ally', label: 'Ally' },
+                  { value: 'enemy', label: 'Enemy' },
+                ]}
+              />
+            }
+          />
+          <MatchMultiKillTable
+            rows={multiKillTeam === 'ally' ? myTeamMultiKills : enemyTeamMultiKills}
+          />
         </View>
 
         <View>
