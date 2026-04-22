@@ -41,11 +41,13 @@ function PerformanceOverview({ rows, className }: PerformanceOverviewProps) {
           <Text variant="muted" className="w-12 text-sm">
             {row.label}
           </Text>
-          <Text className="text-sm font-medium tabular-nums">{row.allyValue}</Text>
+          <Text className="w-8 text-right text-sm font-medium tabular-nums">
+            {row.allyValue}
+          </Text>
           <View className="flex-1">
             <MetricBar a={row.allyValue} b={row.enemyValue} />
           </View>
-          <Text className="text-sm font-medium tabular-nums">{row.enemyValue}</Text>
+          <Text className="w-8 text-sm font-medium tabular-nums">{row.enemyValue}</Text>
         </View>
       ))}
     </View>
