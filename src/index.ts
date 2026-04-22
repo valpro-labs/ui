@@ -99,6 +99,14 @@ export type {
   MatchPlayerStatsColumnLabels,
 } from '@/components/blocks/match-player-stats-table';
 
+export { MatchMultiKillTable } from '@/components/blocks/match-multi-kill-table';
+export type {
+  MatchMultiKillTableProps,
+  MatchMultiKillRow,
+  MatchMultiKillCounts,
+  MatchMultiKillColumnLabels,
+} from '@/components/blocks/match-multi-kill-table';
+
 export { PerformanceOverview } from '@/components/blocks/performance-overview';
 export type {
   PerformanceOverviewProps,
