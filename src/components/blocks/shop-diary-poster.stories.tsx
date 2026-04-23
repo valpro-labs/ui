@@ -51,10 +51,6 @@ function PosterWithDownload(args: ShopDiaryPosterProps) {
   const posterRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
 
-  // The poster itself is cross-platform and doesn't load fonts; the
-  // Caveat display face is a Storybook-only dep so we inject the
-  // Google-fonts stylesheet here instead of inside the component.
-
   async function handleDownload() {
     if (!posterRef.current) return;
     setBusy(true);
@@ -83,10 +79,6 @@ function PosterWithDownload(args: ShopDiaryPosterProps) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap"
-      />
       <button
         type="button"
         onClick={handleDownload}

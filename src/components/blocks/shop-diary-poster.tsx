@@ -5,15 +5,19 @@ import { View } from 'react-native';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
-import { getWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 // 1080×1920 share poster ("Daily Four"). Cross-platform: the radial highlight
 // uses `<Svg>` + `<RadialGradient>` instead of a CSS gradient, the name block
 // uses `numberOfLines={3}` instead of `-webkit-line-clamp`, and the design
-// relies on `boxShadow` (RN 0.76+). The handwritten name expects the
-// `Caveat` font to be registered by the consumer (web: `@fontsource/caveat`,
-// native: expo-font). The original mix-blend-mode noise overlay is dropped
-// since RN has no equivalent.
+// relies on `boxShadow` (RN 0.76+). The handwritten name uses iOS-preinstalled
+// `Bradley Hand`; consumers on other platforms should register an equivalent
+// handwritten face under that family name. The original mix-blend-mode noise
+// overlay is dropped since RN has no equivalent.
+
+// Bradley Hand only covers Latin scripts. For names with CJK/Cyrillic/Thai,
+// fall back to the system font instead of Bradley Hand — otherwise iOS picks
+// a fallback whose metrics don't match and glyphs get clipped.
+const LATIN_ONLY = /^[\x20-ɏ\s]*$/;
 
 type ShopDiaryOffer = {
   /** Position badge shown in the card footer, e.g. `"01"`. */
@@ -26,7 +30,7 @@ type ShopDiaryOffer = {
   name: string;
   /** Numeric price shown next to the tier color. */
   price: number;
-  /** Riot `EEquippableCategory::*` string used to scale the weapon image so same-category skins land at a consistent on-card size. Defaults to a Rifle-sized 80%. */
+  /** Riot `EEquippableCategory::*` string used to scale the weapon image. */
   weaponCategory?: string;
 };
 
@@ -64,10 +68,6 @@ function OfferTile({
   offer: ShopDiaryOffer;
   priceSuffix: string;
 }) {
-  const widthPercent = offer.weaponCategory
-    ? getWeaponCategoryWidth(offer.weaponCategory)
-    : 80;
-
   return (
     <View
       style={{
@@ -90,7 +90,7 @@ function OfferTile({
         <Image
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
-          style={{ width: `${widthPercent}%`, height: '80%' }}
+          style={{ width: '100%', height: '80%' }}
           contentFit="contain"
         />
       </View>
@@ -100,10 +100,10 @@ function OfferTile({
         style={{
           marginTop: 14,
           color: CARD_TEXT,
-          fontFamily: 'Caveat',
-          fontSize: 40,
+          fontFamily: LATIN_ONLY.test(offer.name) ? 'Bradley Hand' : undefined,
+          fontSize: 52,
           fontWeight: '700',
-          lineHeight: 40,
+          lineHeight: 68,
         }}>
         {offer.name}
       </Text>
@@ -120,9 +120,10 @@ function OfferTile({
           style={{
             color: CARD_TEXT,
             opacity: 0.55,
-            fontSize: 18,
+            fontSize: 34,
+            lineHeight: 38,
             fontWeight: '700',
-            letterSpacing: 2.7,
+            letterSpacing: 4.8,
             fontFamily: 'Menlo',
           }}>
           #{offer.index}
@@ -130,7 +131,8 @@ function OfferTile({
         <Text
           style={{
             color: offer.tierColor,
-            fontSize: 30,
+            fontSize: 44,
+            lineHeight: 48,
             fontWeight: '900',
             fontFamily: 'Menlo',
           }}>
@@ -147,8 +149,9 @@ function OfferTile({
  * the body is a 2×2 grid of offer tiles (each with a fixed-aspect image
  * slot so every card matches in size and ratio regardless of skin render).
  *
- * Purely presentational — consumer supplies the offers, labels, and font
- * registration for `Caveat` (the handwritten display face).
+ * Purely presentational — consumer supplies the offers and labels. The
+ * handwritten name uses iOS-preinstalled `Bradley Hand` (Latin only); on
+ * other platforms register an equivalent face under the same family name.
  */
 function ShopDiaryPoster({
   offers,
@@ -205,15 +208,16 @@ function ShopDiaryPoster({
             flexDirection: 'row',
             alignItems: 'center',
             gap: 14,
-            marginBottom: 10,
+            marginBottom: 18,
           }}>
-          <View style={{ width: 14, height: 14, backgroundColor: ACCENT, borderRadius: 2 }} />
+          <View style={{ width: 18, height: 18, backgroundColor: ACCENT, borderRadius: 2 }} />
           <Text
             style={{
               color: CARD_BG,
-              fontSize: 26,
+              fontSize: 46,
+              lineHeight: 54,
               fontWeight: '900',
-              letterSpacing: 11.7,
+              letterSpacing: 20,
             }}>
             {brandLabel}
           </Text>
@@ -222,9 +226,10 @@ function ShopDiaryPoster({
             style={{
               color: CARD_BG,
               opacity: 0.55,
-              fontSize: 22,
+              fontSize: 28,
+              lineHeight: 34,
               fontWeight: '700',
-              letterSpacing: 5.5,
+              letterSpacing: 6,
               fontFamily: 'Menlo',
             }}>
             {dateLabel}
@@ -233,9 +238,10 @@ function ShopDiaryPoster({
         <Text
           style={{
             color: CARD_BG,
-            fontSize: 30,
+            fontSize: 34,
+            lineHeight: 42,
             fontWeight: '800',
-            letterSpacing: 10.5,
+            letterSpacing: 11,
             opacity: 0.7,
           }}>
           {issueLabel}
