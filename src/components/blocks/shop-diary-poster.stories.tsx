@@ -130,3 +130,33 @@ type Story = StoryObj<typeof ShopDiaryPoster>;
 export const Default: Story = {
   render: (args) => <PosterWithDownload {...args} />,
 };
+
+/**
+ * Stress test for name overflow — each tile carries a progressively longer
+ * name so you can see how the handwritten-font name block handles two-line,
+ * three-line, and pathological inputs (including an unbroken hyphen-heavy
+ * string with no word boundaries).
+ */
+export const LongNames: Story = {
+  args: {
+    offers: [
+      {
+        ...OFFERS[0],
+        name: 'Glitchpop 2.0 Elder Flame Vandal',
+      },
+      {
+        ...OFFERS[1],
+        name: 'Reaver Champions Edition Signature Frenzy Variant',
+      },
+      {
+        ...OFFERS[2],
+        name: 'Recon Limited Anniversary Showdown Collector Operator Signature',
+      },
+      {
+        ...OFFERS[3],
+        name: 'SuperExtremelyLongUnbrokenSkinNameWithNoSpaces-Odin',
+      },
+    ],
+  },
+  render: (args) => <PosterWithDownload {...args} />,
+};

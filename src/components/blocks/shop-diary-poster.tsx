@@ -75,12 +75,13 @@ function OfferTile({
         boxShadow: '0 24px 50px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
         display: 'flex',
         flexDirection: 'column',
+        overflow: 'hidden',
       }}>
       {/* Image slot — fixed landscape aspect so every card matches in size + ratio. */}
       <div
         style={{
           width: '100%',
-          aspectRatio: '4 / 5',
+          aspectRatio: '9 / 10',
           background: toTintedBackground(offer.tierColor),
           display: 'flex',
           alignItems: 'center',
@@ -108,9 +109,11 @@ function OfferTile({
           fontSize: 40,
           fontWeight: 700,
           lineHeight: 1,
-          flex: 1,
-          display: 'flex',
-          alignItems: 'flex-start',
+          overflow: 'hidden',
+          overflowWrap: 'anywhere',
+          display: '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical',
         }}>
         {offer.name}
       </div>
@@ -120,7 +123,8 @@ function OfferTile({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'baseline',
-          marginTop: 6,
+          marginTop: 'auto',
+          paddingTop: 6,
         }}>
         <div
           style={{
