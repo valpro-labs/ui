@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import { toPng } from 'html-to-image';
+import { useRef, useState } from 'react';
 
 import {
   ShopDiaryPoster,
   type ShopDiaryOffer,
+  type ShopDiaryPosterProps,
 } from '@/components/blocks/shop-diary-poster';
 
 const OFFERS: ShopDiaryOffer[] = [
@@ -45,6 +47,62 @@ const OFFERS: ShopDiaryOffer[] = [
   },
 ];
 
+function PosterWithDownload(args: ShopDiaryPosterProps) {
+  const posterRef = useRef<HTMLDivElement>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function handleDownload() {
+    if (!posterRef.current) return;
+    setBusy(true);
+    try {
+      const dataUrl = await toPng(posterRef.current, {
+        cacheBust: true,
+        // `pixelRatio: 1` — the poster is already authored at 1080×1920,
+        // so no extra upscaling is needed.
+        pixelRatio: 1,
+      });
+      const slug = args.dateLabel
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+      const link = document.createElement('a');
+      link.download = `shop-diary-${slug || 'poster'}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error('Failed to export poster as PNG:', err);
+      window.alert('Failed to export poster. See console for details.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <button
+        type="button"
+        onClick={handleDownload}
+        disabled={busy}
+        style={{
+          padding: '8px 16px',
+          background: busy ? 'rgba(255, 70, 85, 0.6)' : 'rgb(255, 70, 85)',
+          color: 'white',
+          border: 'none',
+          borderRadius: 4,
+          fontSize: 14,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          cursor: busy ? 'wait' : 'pointer',
+        }}>
+        {busy ? 'Generating…' : 'Download PNG'}
+      </button>
+      <div ref={posterRef}>
+        <ShopDiaryPoster {...args} />
+      </div>
+    </div>
+  );
+}
+
 const meta: Meta<typeof ShopDiaryPoster> = {
   title: 'Blocks/ShopDiaryPoster',
   component: ShopDiaryPoster,
@@ -64,5 +122,11 @@ type Story = StoryObj<typeof ShopDiaryPoster>;
  * Full 1080×1920 share poster wrapping today's four daily offers.
  * Offer data (names, prices, chroma URLs, tier colors) mirrors
  * `Pages/Store` so the same skins appear across stories.
+ *
+ * Click **Download PNG** to export the poster as a 1080×1920 image,
+ * ready to share. Uses `html-to-image` to inline cross-origin weapon
+ * renders before rasterising.
  */
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => <PosterWithDownload {...args} />,
+};
