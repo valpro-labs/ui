@@ -148,6 +148,12 @@ export type {
 export { NightMarketIcon } from '@/components/blocks/night-market-icon';
 export type { NightMarketIconProps } from '@/components/blocks/night-market-icon';
 
+export { ShopDiaryPoster } from '@/components/blocks/shop-diary-poster';
+export type {
+  ShopDiaryPosterProps,
+  ShopDiaryOffer,
+} from '@/components/blocks/shop-diary-poster';
+
 // ── Utilities ──
 export { cn } from '@/lib/utils';
 export {
