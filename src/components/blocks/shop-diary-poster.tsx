@@ -4,6 +4,7 @@ import { Platform, View, type ViewStyle } from 'react-native';
 
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+import { getWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 import { cn } from '@/lib/utils';
 
 interface ShopDiaryOffer {
@@ -21,6 +22,16 @@ interface ShopDiaryOffer {
   price: number;
   /** Artwork URL — typically a chroma `fullrender` from valorant-api.com. */
   iconUrl: string;
+  /**
+   * Riot `EEquippableCategory::*` string (e.g. `"EEquippableCategory::Rifle"`).
+   * Used to scale the skin image so same-category weapons land at a
+   * consistent on-card size — sidearms read smaller than rifles, melees
+   * sit comfortably inside the photo window. Ignored when
+   * `imageWidthPercent` is provided.
+   */
+  weaponCategory?: string;
+  /** Explicit image width percent override (0–100). Wins over `weaponCategory`. */
+  imageWidthPercent?: number;
 }
 
 interface ShopDiaryPosterProps {
@@ -318,6 +329,12 @@ function PolaroidCard({
 }: PolaroidCardProps) {
   const tierHex = normalizeHex(offer.tierColor);
   const washBg = `${tierHex}33`; // 20% alpha
+  // Polaroid frame is fixed; the skin art scales per weapon category
+  // (or an explicit override) so a Sidearm doesn't visually dominate
+  // a Rifle when they share the grid.
+  const imageWidthPercent =
+    offer.imageWidthPercent ??
+    (offer.weaponCategory ? getWeaponCategoryWidth(offer.weaponCategory) : 80);
 
   const shadowStyle = Platform.select<ViewStyle>({
     web: {
@@ -360,7 +377,7 @@ function PolaroidCard({
         }}>
         <Image
           source={offer.iconUrl}
-          style={{ width: '100%', height: '85%' }}
+          style={{ width: `${imageWidthPercent}%`, height: '85%' }}
           contentFit="contain"
         />
         <View

@@ -30,6 +30,7 @@ const offers: readonly [
     name: 'Immortalized Vandal',
     price: 1775,
     iconUrl: vandalChroma,
+    weaponCategory: 'EEquippableCategory::Rifle',
   },
   {
     tierLabel: 'DELUXE',
@@ -37,6 +38,7 @@ const offers: readonly [
     name: 'Task Force 809 Frenzy',
     price: 1275,
     iconUrl: frenzyChroma,
+    weaponCategory: 'EEquippableCategory::Sidearm',
   },
   {
     tierLabel: 'PREMIUM',
@@ -44,6 +46,7 @@ const offers: readonly [
     name: 'Valorant Go! Vol. 2 Operator',
     price: 2175,
     iconUrl: goOperatorChroma,
+    weaponCategory: 'EEquippableCategory::Sniper',
   },
   {
     tierLabel: 'EXCLUSIVE',
@@ -51,6 +54,7 @@ const offers: readonly [
     name: 'Doombringer Odin',
     price: 2475,
     iconUrl: doombringerChroma,
+    weaponCategory: 'EEquippableCategory::Heavy',
   },
 ];
 
