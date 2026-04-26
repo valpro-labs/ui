@@ -239,6 +239,7 @@ function ShopDiaryPoster({
           </Text>
         </View>
         <Text
+          className="uppercase"
           style={{
             color: CARD_BG,
             fontSize: 34,
