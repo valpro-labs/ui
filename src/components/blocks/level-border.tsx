@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 
 const LEVEL_BORDER_WIDTH = 76;
 const LEVEL_BORDER_HEIGHT = 32;
-const LEVEL_FONT_SIZE = 11;
 
 interface LevelBorderProps {
   /** Account level shown in the center of the border. */
@@ -47,26 +46,12 @@ function LevelBorder({ level, borderIcon, className, style }: LevelBorderProps) 
         />
       )}
       {level !== undefined ? (
-        <View
-          style={StyleSheet.absoluteFill}
-          className="items-center justify-center"
-          pointerEvents="none">
+        <View className="absolute inset-0 items-center justify-center" pointerEvents="none">
           <Text
             numberOfLines={1}
             adjustsFontSizeToFit
             minimumFontScale={0.75}
-            style={{
-              width: 44,
-              fontSize: LEVEL_FONT_SIZE,
-              lineHeight: LEVEL_FONT_SIZE,
-              textAlign: 'center',
-              includeFontPadding: false,
-              textAlignVertical: 'center',
-              textShadowColor: 'rgba(0, 0, 0, 0.75)',
-              textShadowOffset: { width: 0, height: 1 },
-              textShadowRadius: 2,
-            }}
-            className="font-black text-white">
+            className="w-11 text-center text-xs font-bold text-white">
             {level}
           </Text>
         </View>
