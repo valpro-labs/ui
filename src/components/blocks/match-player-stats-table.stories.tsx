@@ -306,7 +306,7 @@ export const Scoreboard: Story = {
               </View>
             }
           />
-          <View className="mb-2 flex-row rounded-full bg-muted/50 p-0.5">
+          <View className="mb-2 w-full flex-row rounded-full bg-muted/50 p-0.5">
             {MODE_TABS.map((tab) => (
               <Pressable
                 key={tab.value}

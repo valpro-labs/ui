@@ -475,18 +475,25 @@ function SegmentedControl<T extends string>({
   value,
   onChange,
   options,
+  fullWidth,
 }: {
   value: T;
   onChange: (v: T) => void;
   options: { value: T; label: string }[];
+  fullWidth?: boolean;
 }) {
   return (
-    <View className="bg-muted/50 flex-row rounded-full p-0.5">
+    <View
+      className={cn('bg-muted/50 flex-row rounded-full p-0.5', fullWidth && 'w-full')}>
       {options.map((opt) => (
         <Pressable
           key={opt.value}
           onPress={() => onChange(opt.value)}
-          className={cn('rounded-full px-3 py-1', value === opt.value && 'bg-background')}>
+          className={cn(
+            'rounded-full px-3 py-1',
+            fullWidth && 'flex-1 items-center',
+            value === opt.value && 'bg-background'
+          )}>
           <Text
             className={cn(
               'text-xs font-semibold',
@@ -606,6 +613,7 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
               <SegmentedControl
                 value={mode}
                 onChange={setMode}
+                fullWidth
                 options={[
                   { value: 'kda', label: 'KDA' },
                   { value: 'combat', label: 'Combat' },
