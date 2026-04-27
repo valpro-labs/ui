@@ -115,8 +115,8 @@ export type {
   PerformanceOverviewRow,
 } from '@/components/blocks/performance-overview';
 
-export { FriendRow } from '@/components/blocks/friend-row';
-export type { FriendRowProps, FriendStatus } from '@/components/blocks/friend-row';
+export { FriendAvatar, FriendInfo, FriendRow } from '@/components/blocks/friend-row';
+export type { FriendAvatarProps, FriendInfoProps, FriendRowProps, FriendStatus } from '@/components/blocks/friend-row';
 export { FriendRowSkeleton } from '@/components/blocks/friend-row-skeleton';
 export type { FriendRowSkeletonProps } from '@/components/blocks/friend-row-skeleton';
 export { FriendPartyOthersRow } from '@/components/blocks/friend-party-others-row';

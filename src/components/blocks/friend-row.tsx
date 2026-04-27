@@ -25,6 +25,55 @@ const STATUS_TEXT: Record<FriendStatus, string> = {
   none: 'text-muted-foreground',
 };
 
+interface FriendAvatarProps {
+  avatarUrl: string;
+  status: FriendStatus;
+}
+
+function FriendAvatar({ avatarUrl, status }: FriendAvatarProps) {
+  return (
+    <View>
+      <Image
+        source={avatarUrl}
+        style={{ width: 44, height: 44, borderRadius: 10 }}
+        contentFit="cover"
+      />
+      <View className="bg-card absolute -right-1 -bottom-1 size-4 items-center justify-center rounded-full">
+        {status === 'offline' ? (
+          <View className="border-border size-3 rounded-full border-2 bg-transparent" />
+        ) : (
+          <View className={cn('size-3 rounded-full', STATUS_DOT[status])} />
+        )}
+      </View>
+    </View>
+  );
+}
+
+interface FriendInfoProps {
+  name: string;
+  gameLabel?: string;
+  status: FriendStatus;
+  ownerBadge?: React.ReactNode;
+}
+
+function FriendInfo({ name, gameLabel, status, ownerBadge }: FriendInfoProps) {
+  return (
+    <View className="flex-1">
+      <View className="flex-row items-center gap-x-1">
+        <Text className="text-foreground text-base font-semibold" numberOfLines={1}>
+          {name}
+        </Text>
+        {ownerBadge}
+      </View>
+      {gameLabel ? (
+        <Text className={cn('text-xs', STATUS_TEXT[status])} numberOfLines={1}>
+          {gameLabel}
+        </Text>
+      ) : null}
+    </View>
+  );
+}
+
 interface FriendRowProps {
   /** Friend display name. */
   name: string;
@@ -79,36 +128,9 @@ function FriendRow({
     <View
       className={cn('flex-row items-center gap-x-3 px-3.5 py-3', className)}
       style={opacity === 1 ? undefined : { opacity }}>
-      {avatarUrl ? (
-        <View>
-          <Image
-            source={avatarUrl}
-            style={{ width: 44, height: 44, borderRadius: 10 }}
-            contentFit="cover"
-          />
-          <View className="bg-card absolute -right-1 -bottom-1 size-4 items-center justify-center rounded-full">
-            {status === 'offline' ? (
-              <View className="border-border size-3 rounded-full border-2 bg-transparent" />
-            ) : (
-              <View className={cn('size-3 rounded-full', STATUS_DOT[status])} />
-            )}
-          </View>
-        </View>
-      ) : null}
+      {avatarUrl ? <FriendAvatar avatarUrl={avatarUrl} status={status} /> : null}
 
-      <View className="flex-1">
-        <View className="flex-row items-center gap-x-1">
-          <Text className="text-foreground text-base font-semibold" numberOfLines={1}>
-            {name}
-          </Text>
-          {ownerBadge}
-        </View>
-        {gameLabel ? (
-          <Text className={cn('text-xs', STATUS_TEXT[status])} numberOfLines={1}>
-            {gameLabel}
-          </Text>
-        ) : null}
-      </View>
+      <FriendInfo name={name} gameLabel={gameLabel} status={status} ownerBadge={ownerBadge} />
 
       {rightContent}
       {chevron}
@@ -116,5 +138,5 @@ function FriendRow({
   );
 }
 
-export { FriendRow };
-export type { FriendRowProps, FriendStatus };
+export { FriendAvatar, FriendInfo, FriendRow };
+export type { FriendAvatarProps, FriendInfoProps, FriendRowProps, FriendStatus };
