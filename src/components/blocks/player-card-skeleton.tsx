@@ -18,7 +18,20 @@ function PlayerCardSkeleton({ className }: PlayerCardSkeletonProps) {
     <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
       {/* Banner placeholder. The outer wrapper clips the corners, so the
           skeleton itself stays square. */}
-      <Skeleton style={{ aspectRatio: 452 / 128 }} className="w-full rounded-none" />
+      <View className="relative">
+        <Skeleton style={{ aspectRatio: 452 / 128 }} className="w-full rounded-none" />
+        <Skeleton
+          style={{
+            position: 'absolute',
+            right: 16,
+            top: '50%',
+            width: 76,
+            height: 32,
+            marginTop: -16,
+            borderRadius: 16,
+          }}
+        />
+      </View>
 
       {/* Name row. Skeleton heights track each Text's font-size (visible
           glyph mass), not its line-box — so a tag skeleton doesn't look

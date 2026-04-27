@@ -34,6 +34,8 @@ export { PlayerCard } from '@/components/blocks/player-card';
 export type { PlayerCardProps } from '@/components/blocks/player-card';
 export { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
 export type { PlayerCardSkeletonProps } from '@/components/blocks/player-card-skeleton';
+export { LevelBorder } from '@/components/blocks/level-border';
+export type { LevelBorderProps } from '@/components/blocks/level-border';
 
 export { RankTierCard } from '@/components/blocks/rank-tier-card';
 export type { RankTierCardProps } from '@/components/blocks/rank-tier-card';

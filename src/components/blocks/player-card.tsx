@@ -1,5 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 
+import { LevelBorder } from '@/components/blocks/level-border';
 import { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
@@ -12,6 +13,10 @@ interface PlayerCardProps {
   tag: string;
   /** URL for the wide card art banner. Renders the muted fallback when omitted. */
   cardWideArt?: string;
+  /** Account level shown over the banner art. */
+  level?: number | string;
+  /** URL for the account level border art drawn behind `level`. */
+  levelBorderIcon?: string;
   /** Player title shown to the right of the name. */
   title?: string;
   /** Show the skeleton placeholder instead of the real card. */
@@ -34,6 +39,8 @@ function PlayerCard({
   name,
   tag,
   cardWideArt,
+  level,
+  levelBorderIcon,
   title,
   isLoading = false,
   nameAreaClassName,
@@ -52,6 +59,18 @@ function PlayerCard({
           <Image source={cardWideArt} style={StyleSheet.absoluteFill} contentFit="cover" />
         ) : null}
         <View style={StyleSheet.absoluteFill} className="bg-black/20" />
+        {level !== undefined || levelBorderIcon ? (
+          <LevelBorder
+            level={level}
+            borderIcon={levelBorderIcon}
+            style={{
+              position: 'absolute',
+              right: 16,
+              top: '50%',
+              marginTop: -16,
+            }}
+          />
+        ) : null}
       </View>
 
       {/* Name Area */}
