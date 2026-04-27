@@ -22,7 +22,7 @@ export const Default: Story = {
 
 export const LargeLevel: Story = {
   args: {
-    level: 501,
+    level: 1001,
     borderIcon: LEVEL_BORDER_ICON,
   },
 };

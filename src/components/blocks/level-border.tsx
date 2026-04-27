@@ -1,7 +1,7 @@
 import type { StyleProp, ViewStyle } from 'react-native';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
-import { Image } from '@/components/ui/image';
+import { OwnedItemCard } from '@/components/blocks/owned-item-card';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +24,8 @@ interface LevelBorderProps {
  * Consumers provide the already-resolved border asset URL.
  */
 function LevelBorder({ level, borderIcon, className, style }: LevelBorderProps) {
+  const isOverThousand = Number(level) >= 1000;
+
   return (
     <View
       pointerEvents="none"
@@ -31,27 +33,20 @@ function LevelBorder({ level, borderIcon, className, style }: LevelBorderProps) 
         {
           width: LEVEL_BORDER_WIDTH,
           height: LEVEL_BORDER_HEIGHT,
-          alignItems: 'center',
-          justifyContent: 'center',
         },
         style,
       ]}
-      className={cn(className)}>
-      {borderIcon ? (
-        <Image source={borderIcon} style={StyleSheet.absoluteFill} contentFit="contain" />
-      ) : (
-        <View
-          style={[StyleSheet.absoluteFill, { borderRadius: LEVEL_BORDER_HEIGHT / 2 }]}
-          className="bg-black/35"
-        />
-      )}
+      className={cn('relative', className)}>
+      <OwnedItemCard
+        iconUrl={borderIcon}
+        fill={false}
+        className="h-full w-full aspect-auto rounded-none bg-transparent"
+      />
       {level !== undefined ? (
         <View className="absolute inset-0 items-center justify-center" pointerEvents="none">
           <Text
-            numberOfLines={1}
-            adjustsFontSizeToFit
-            minimumFontScale={0.75}
-            className="w-11 text-center text-xs font-bold text-white">
+            style={isOverThousand ? { fontSize: 10 } : undefined}
+            className="text-val-white text-xs">
             {level}
           </Text>
         </View>
