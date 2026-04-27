@@ -17,7 +17,6 @@ export const Default: Story = {
   args: {
     level: 42,
     borderIcon: LEVEL_BORDER_ICON,
-    borderScale: 1.12,
   },
 };
 

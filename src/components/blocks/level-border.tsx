@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 const LEVEL_BORDER_WIDTH = 76;
 const LEVEL_BORDER_HEIGHT = 32;
-const DEFAULT_LEVEL_BORDER_SCALE = 1.12;
+const DEFAULT_LEVEL_BORDER_SCALE = 1.25;
 
 interface LevelBorderProps {
   /** Account level shown in the center of the border. */
