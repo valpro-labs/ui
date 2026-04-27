@@ -36,6 +36,7 @@ const myTeam: MatchMultiKillRow[] = [
     id: 'me',
     name: 'Rick#NA1',
     agentIconUrl: jettAgent,
+    isCurrentPlayer: true,
     counts: { k2: 4, k3: 2, k4: 1, k5: 0 },
   },
   {
@@ -128,6 +129,7 @@ export const WithAce: Story = {
         id: 'me',
         name: 'Rick#NA1',
         agentIconUrl: jettAgent,
+        isCurrentPlayer: true,
         counts: { k2: 3, k3: 2, k4: 1, k5: 1 },
       },
       ...myTeam.slice(1),

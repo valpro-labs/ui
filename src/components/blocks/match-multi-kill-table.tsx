@@ -25,6 +25,8 @@ interface MatchMultiKillRow {
   name: string;
   /** Agent display icon URL. Falls back to a muted placeholder square. */
   agentIconUrl?: string;
+  /** When true, the row gets a yellow tint to mark the viewing player. */
+  isCurrentPlayer?: boolean;
   /** Per-tier counts. Zero values render muted. */
   counts: MatchMultiKillCounts;
 }
@@ -108,7 +110,11 @@ function MultiKillHeader({ labels }: { labels: MatchMultiKillColumnLabels }) {
 
 function MultiKillRow({ row }: { row: MatchMultiKillRow }) {
   return (
-    <View className="flex-row items-center px-3 py-2.5">
+    <View
+      className={cn(
+        'flex-row items-center px-3 py-2.5',
+        row.isCurrentPlayer && 'bg-val-yellow/20 dark:bg-val-yellow/20'
+      )}>
       <View className="flex-1 flex-row items-center gap-x-2">
         {row.agentIconUrl ? (
           <Image

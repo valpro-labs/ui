@@ -96,7 +96,7 @@ export { MatchPlayerStatsTable } from '@/components/blocks/match-player-stats-ta
 export type {
   MatchPlayerStatsTableProps,
   MatchPlayerStatsRow,
-  MatchPlayerStatsColumnLabels,
+  MatchPlayerStatsColumn,
 } from '@/components/blocks/match-player-stats-table';
 
 export { MatchMultiKillTable } from '@/components/blocks/match-multi-kill-table';

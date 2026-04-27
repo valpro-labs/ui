@@ -7,6 +7,15 @@ import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
+interface MatchPlayerStatsColumn {
+  /** Stable key — used as React key and to look up `row.values[key]`. */
+  key: string;
+  /** Column header label, e.g. `"K"`, `"ACS"`, `"HS%"`. */
+  label: string;
+  /** Fixed pixel width for the column. Defaults to 36. */
+  width?: number;
+}
+
 interface MatchPlayerStatsRow {
   /** Stable id — used as React key. */
   id: string;
@@ -14,104 +23,101 @@ interface MatchPlayerStatsRow {
   name: string;
   /** Agent display icon URL. Falls back to a muted placeholder square. */
   agentIconUrl?: string;
-  /** Pre-formatted K–D string, e.g. `"21-14"`. */
-  kd: string;
-  /** First-kill count, pre-formatted. */
-  fk: string;
-  /** First-death count, pre-formatted. */
-  fd: string;
-  /** Average damage per round, pre-formatted (or `"—"` for empty). */
-  adr: string;
-  /** KAST percentage, pre-formatted (e.g. `"72%"` or `"—"`). */
-  kast: string;
-}
-
-interface MatchPlayerStatsColumnLabels {
-  player: string;
-  kd: string;
-  fk: string;
-  fd: string;
-  adr: string;
-  kast: string;
+  /** When true, the row gets a yellow tint to mark the viewing player. */
+  isCurrentPlayer?: boolean;
+  /** Pre-formatted cell values keyed by `column.key` — `"—"` for empty. */
+  values: Record<string, string>;
 }
 
 interface MatchPlayerStatsTableProps {
   /** One row per player, in display order. */
   rows: MatchPlayerStatsRow[];
   /**
-   * Column header labels. Defaults to English — override to localise or to
-   * match your app's existing copy.
+   * Column definitions in display order. The consumer drives the column set
+   * — switch arrays to swap between KDA, combat (ACS / HS% / KAST / FK / FD),
+   * deathmatch, etc. without changing the block.
    */
-  columnLabels?: Partial<MatchPlayerStatsColumnLabels>;
+  columns: MatchPlayerStatsColumn[];
+  /** Header label for the leftmost (player) column. */
+  playerLabel: string;
   /** Extra classes merged onto the outer card wrapper. */
   className?: string;
 }
 
-const DEFAULT_LABELS: MatchPlayerStatsColumnLabels = {
-  player: 'PLAYER',
-  kd: 'K–D',
-  fk: 'FK',
-  fd: 'FD',
-  adr: 'ADR',
-  kast: 'KAST',
-};
+const DEFAULT_STAT_COLUMN_WIDTH = 36;
 
 /**
  * Scoreboard-style stats table used on the match-detail screen — agent icon
- * + name on the left, then fixed-width numeric columns for K–D, first kills,
- * first deaths, average damage per round, and KAST.
+ * + name on the left, then a consumer-defined set of fixed-width numeric
+ * columns. Rows can be tinted (`isCurrentPlayer`) to highlight the viewing
+ * player.
  *
- * Data-free: the consumer pre-formats every numeric column (including the
- * `"—"` fallback for deathmatch / missing rounds) and pre-computes the row
- * order. Render two tables side by side (ally team, enemy team) when the
- * app needs the split layout; this block is a single table.
+ * Data-free: the consumer pre-formats every value (including the `"—"`
+ * fallback for deathmatch / missing rounds), picks the column set, and
+ * pre-computes the row order. Render two tables side by side (ally team,
+ * enemy team) when the app needs the split layout; this block is a single
+ * table.
  */
-function MatchPlayerStatsTable({ rows, columnLabels, className }: MatchPlayerStatsTableProps) {
+function MatchPlayerStatsTable({
+  rows,
+  columns,
+  playerLabel,
+  className,
+}: MatchPlayerStatsTableProps) {
   if (rows.length === 0) return null;
-  const labels = { ...DEFAULT_LABELS, ...columnLabels };
 
   return (
     <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
-      <StatsHeader labels={labels} />
+      <StatsHeader columns={columns} playerLabel={playerLabel} />
       <Separator className="bg-black/50! dark:bg-black/30!" />
       {rows.map((row, index) => (
         <View key={row.id}>
           {index > 0 && <Separator className="bg-black/50! dark:bg-black/30!" />}
-          <StatsRow row={row} />
+          <StatsRow row={row} columns={columns} />
         </View>
       ))}
     </View>
   );
 }
 
-function StatsHeader({ labels }: { labels: MatchPlayerStatsColumnLabels }) {
+function StatsHeader({
+  columns,
+  playerLabel,
+}: {
+  columns: MatchPlayerStatsColumn[];
+  playerLabel: string;
+}) {
   return (
     <View className="flex-row items-center px-3 py-2">
       <Text variant="muted" className="flex-1 text-xs font-semibold tracking-wider">
-        {labels.player}
+        {playerLabel}
       </Text>
-      <Text variant="muted" className="w-14 text-center text-xs font-semibold tracking-wider">
-        {labels.kd}
-      </Text>
-      <Text variant="muted" className="w-8 text-center text-xs font-semibold tracking-wider">
-        {labels.fk}
-      </Text>
-      <Text variant="muted" className="w-8 text-center text-xs font-semibold tracking-wider">
-        {labels.fd}
-      </Text>
-      <Text variant="muted" className="w-10 text-center text-xs font-semibold tracking-wider">
-        {labels.adr}
-      </Text>
-      <Text variant="muted" className="w-12 text-center text-xs font-semibold tracking-wider">
-        {labels.kast}
-      </Text>
+      {columns.map((column) => (
+        <Text
+          key={column.key}
+          variant="muted"
+          className="text-center text-xs font-semibold tracking-wider"
+          style={{ width: column.width ?? DEFAULT_STAT_COLUMN_WIDTH }}>
+          {column.label}
+        </Text>
+      ))}
     </View>
   );
 }
 
-function StatsRow({ row }: { row: MatchPlayerStatsRow }) {
+function StatsRow({
+  row,
+  columns,
+}: {
+  row: MatchPlayerStatsRow;
+  columns: MatchPlayerStatsColumn[];
+}) {
   return (
-    <View className="flex-row items-center px-3 py-2.5">
+    <View
+      className={cn(
+        'flex-row items-center px-3 py-2.5',
+        row.isCurrentPlayer && 'bg-val-yellow/20 dark:bg-val-yellow/20'
+      )}>
       <View className="flex-1 flex-row items-center gap-x-2">
         {row.agentIconUrl ? (
           <Image
@@ -126,18 +132,17 @@ function StatsRow({ row }: { row: MatchPlayerStatsRow }) {
           {row.name}
         </Text>
       </View>
-      <Text className="w-14 text-center text-sm tabular-nums">{row.kd}</Text>
-      <Text className="w-8 text-center text-sm tabular-nums">{row.fk}</Text>
-      <Text className="w-8 text-center text-sm tabular-nums">{row.fd}</Text>
-      <Text className="w-10 text-center text-sm tabular-nums">{row.adr}</Text>
-      <Text className="w-12 text-center text-sm tabular-nums">{row.kast}</Text>
+      {columns.map((column) => (
+        <Text
+          key={column.key}
+          className="text-center text-sm tabular-nums"
+          style={{ width: column.width ?? DEFAULT_STAT_COLUMN_WIDTH }}>
+          {row.values[column.key] ?? '—'}
+        </Text>
+      ))}
     </View>
   );
 }
 
 export { MatchPlayerStatsTable };
-export type {
-  MatchPlayerStatsTableProps,
-  MatchPlayerStatsRow,
-  MatchPlayerStatsColumnLabels,
-};
+export type { MatchPlayerStatsTableProps, MatchPlayerStatsRow, MatchPlayerStatsColumn };

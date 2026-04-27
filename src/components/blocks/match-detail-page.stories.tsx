@@ -17,6 +17,7 @@ import {
 } from '@/components/blocks/match-multi-kill-table';
 import {
   MatchPlayerStatsTable,
+  type MatchPlayerStatsColumn,
   type MatchPlayerStatsRow,
 } from '@/components/blocks/match-player-stats-table';
 import { PerformanceOverview } from '@/components/blocks/performance-overview';
@@ -180,18 +181,25 @@ const scoreboard = [...myTeamPlayers, ...enemyTeamPlayers];
 // ── Stats data (attack / defense buckets) ───────────────────────────────────
 
 type Side = 'both' | 'atk' | 'def';
+type Mode = 'kda' | 'combat';
 
 interface StatBucket {
-  kd: string;
+  kills: string;
+  deaths: string;
+  assists: string;
+  plusMinus: string;
+  kdRatio: string;
   fk: string;
   fd: string;
-  adr: string;
+  acs: string;
+  hs: string;
   kast: string;
 }
 interface BucketedRow {
   id: string;
   name: string;
   agentIconUrl: string;
+  isCurrentPlayer?: boolean;
   both: StatBucket;
   atk: StatBucket;
   def: StatBucket;
@@ -202,41 +210,42 @@ const myTeamStats: BucketedRow[] = [
     id: 'me',
     name: 'Rick#NA1',
     agentIconUrl: jettAgent,
-    both: { kd: '21-14', fk: '4', fd: '2', adr: '186', kast: '78%' },
-    atk: { kd: '12-8', fk: '3', fd: '1', adr: '198', kast: '82%' },
-    def: { kd: '9-6', fk: '1', fd: '1', adr: '172', kast: '73%' },
+    isCurrentPlayer: true,
+    both: { kills: '21', deaths: '14', assists: '8', plusMinus: '+7', kdRatio: '1.50', fk: '4', fd: '2', acs: '280', hs: '32%', kast: '78%' },
+    atk: { kills: '12', deaths: '8', assists: '5', plusMinus: '+4', kdRatio: '1.50', fk: '3', fd: '1', acs: '298', hs: '34%', kast: '82%' },
+    def: { kills: '9', deaths: '6', assists: '3', plusMinus: '+3', kdRatio: '1.50', fk: '1', fd: '1', acs: '262', hs: '30%', kast: '73%' },
   },
   {
     id: 'ally-1',
     name: 'Alex#APAC',
     agentIconUrl: phoenixAgent,
-    both: { kd: '15-12', fk: '2', fd: '3', adr: '148', kast: '68%' },
-    atk: { kd: '8-7', fk: '1', fd: '2', adr: '158', kast: '70%' },
-    def: { kd: '7-5', fk: '1', fd: '1', adr: '136', kast: '65%' },
+    both: { kills: '15', deaths: '12', assists: '6', plusMinus: '+3', kdRatio: '1.25', fk: '2', fd: '3', acs: '220', hs: '24%', kast: '68%' },
+    atk: { kills: '8', deaths: '7', assists: '3', plusMinus: '+1', kdRatio: '1.14', fk: '1', fd: '2', acs: '232', hs: '26%', kast: '70%' },
+    def: { kills: '7', deaths: '5', assists: '3', plusMinus: '+2', kdRatio: '1.40', fk: '1', fd: '1', acs: '208', hs: '22%', kast: '65%' },
   },
   {
     id: 'ally-3',
     name: 'Sho#JP1',
     agentIconUrl: omenAgent,
-    both: { kd: '14-13', fk: '1', fd: '2', adr: '132', kast: '66%' },
-    atk: { kd: '7-6', fk: '1', fd: '1', adr: '140', kast: '68%' },
-    def: { kd: '7-7', fk: '0', fd: '1', adr: '122', kast: '64%' },
+    both: { kills: '14', deaths: '13', assists: '9', plusMinus: '+1', kdRatio: '1.08', fk: '1', fd: '2', acs: '235', hs: '20%', kast: '66%' },
+    atk: { kills: '7', deaths: '6', assists: '5', plusMinus: '+1', kdRatio: '1.17', fk: '1', fd: '1', acs: '242', hs: '21%', kast: '68%' },
+    def: { kills: '7', deaths: '7', assists: '4', plusMinus: '0', kdRatio: '1.00', fk: '0', fd: '1', acs: '228', hs: '19%', kast: '64%' },
   },
   {
     id: 'ally-4',
     name: 'Mika#EU1',
     agentIconUrl: killjoyAgent,
-    both: { kd: '10-10', fk: '1', fd: '1', adr: '118', kast: '70%' },
-    atk: { kd: '4-5', fk: '0', fd: '1', adr: '104', kast: '65%' },
-    def: { kd: '6-5', fk: '1', fd: '0', adr: '130', kast: '75%' },
+    both: { kills: '10', deaths: '10', assists: '5', plusMinus: '0', kdRatio: '1.00', fk: '1', fd: '1', acs: '198', hs: '18%', kast: '70%' },
+    atk: { kills: '4', deaths: '5', assists: '2', plusMinus: '-1', kdRatio: '0.80', fk: '0', fd: '1', acs: '174', hs: '15%', kast: '65%' },
+    def: { kills: '6', deaths: '5', assists: '3', plusMinus: '+1', kdRatio: '1.20', fk: '1', fd: '0', acs: '218', hs: '20%', kast: '75%' },
   },
   {
     id: 'ally-2',
     name: 'Tia#NA1',
     agentIconUrl: sageAgent,
-    both: { kd: '8-11', fk: '0', fd: '2', adr: '92', kast: '72%' },
-    atk: { kd: '4-6', fk: '0', fd: '1', adr: '88', kast: '70%' },
-    def: { kd: '4-5', fk: '0', fd: '1', adr: '96', kast: '75%' },
+    both: { kills: '8', deaths: '11', assists: '14', plusMinus: '-3', kdRatio: '0.73', fk: '0', fd: '2', acs: '175', hs: '16%', kast: '72%' },
+    atk: { kills: '4', deaths: '6', assists: '7', plusMinus: '-2', kdRatio: '0.67', fk: '0', fd: '1', acs: '162', hs: '14%', kast: '70%' },
+    def: { kills: '4', deaths: '5', assists: '7', plusMinus: '-1', kdRatio: '0.80', fk: '0', fd: '1', acs: '188', hs: '18%', kast: '75%' },
   },
 ];
 
@@ -245,57 +254,81 @@ const enemyTeamStats: BucketedRow[] = [
     id: 'enemy-0',
     name: 'Mia#EU1',
     agentIconUrl: reynaAgent,
-    both: { kd: '18-16', fk: '3', fd: '2', adr: '162', kast: '70%' },
-    atk: { kd: '10-9', fk: '2', fd: '1', adr: '170', kast: '72%' },
-    def: { kd: '8-7', fk: '1', fd: '1', adr: '152', kast: '68%' },
+    both: { kills: '18', deaths: '16', assists: '3', plusMinus: '+2', kdRatio: '1.13', fk: '3', fd: '2', acs: '245', hs: '28%', kast: '70%' },
+    atk: { kills: '10', deaths: '9', assists: '2', plusMinus: '+1', kdRatio: '1.11', fk: '2', fd: '1', acs: '258', hs: '30%', kast: '72%' },
+    def: { kills: '8', deaths: '7', assists: '1', plusMinus: '+1', kdRatio: '1.14', fk: '1', fd: '1', acs: '232', hs: '26%', kast: '68%' },
   },
   {
     id: 'enemy-2',
     name: 'Sun#KR1',
     agentIconUrl: breachAgent,
-    both: { kd: '13-14', fk: '2', fd: '2', adr: '140', kast: '68%' },
-    atk: { kd: '6-7', fk: '1', fd: '1', adr: '130', kast: '65%' },
-    def: { kd: '7-7', fk: '1', fd: '1', adr: '152', kast: '70%' },
+    both: { kills: '13', deaths: '14', assists: '7', plusMinus: '-1', kdRatio: '0.93', fk: '2', fd: '2', acs: '212', hs: '22%', kast: '68%' },
+    atk: { kills: '6', deaths: '7', assists: '4', plusMinus: '-1', kdRatio: '0.86', fk: '1', fd: '1', acs: '198', hs: '20%', kast: '65%' },
+    def: { kills: '7', deaths: '7', assists: '3', plusMinus: '0', kdRatio: '1.00', fk: '1', fd: '1', acs: '226', hs: '24%', kast: '70%' },
   },
   {
     id: 'enemy-1',
     name: 'Leo#BR1',
     agentIconUrl: viperAgent,
-    both: { kd: '12-17', fk: '1', fd: '3', adr: '128', kast: '60%' },
-    atk: { kd: '6-9', fk: '1', fd: '2', adr: '122', kast: '58%' },
-    def: { kd: '6-8', fk: '0', fd: '1', adr: '134', kast: '62%' },
+    both: { kills: '12', deaths: '17', assists: '5', plusMinus: '-5', kdRatio: '0.71', fk: '1', fd: '3', acs: '190', hs: '15%', kast: '60%' },
+    atk: { kills: '6', deaths: '9', assists: '3', plusMinus: '-3', kdRatio: '0.67', fk: '1', fd: '2', acs: '178', hs: '13%', kast: '58%' },
+    def: { kills: '6', deaths: '8', assists: '2', plusMinus: '-2', kdRatio: '0.75', fk: '0', fd: '1', acs: '202', hs: '17%', kast: '62%' },
   },
   {
     id: 'enemy-3',
     name: 'Val#NA1',
     agentIconUrl: cypherAgent,
-    both: { kd: '11-15', fk: '0', fd: '2', adr: '110', kast: '58%' },
-    atk: { kd: '5-8', fk: '0', fd: '1', adr: '100', kast: '55%' },
-    def: { kd: '6-7', fk: '0', fd: '1', adr: '120', kast: '62%' },
+    both: { kills: '11', deaths: '15', assists: '4', plusMinus: '-4', kdRatio: '0.73', fk: '0', fd: '2', acs: '172', hs: '14%', kast: '58%' },
+    atk: { kills: '5', deaths: '8', assists: '2', plusMinus: '-3', kdRatio: '0.63', fk: '0', fd: '1', acs: '158', hs: '12%', kast: '55%' },
+    def: { kills: '6', deaths: '7', assists: '2', plusMinus: '-1', kdRatio: '0.86', fk: '0', fd: '1', acs: '186', hs: '16%', kast: '62%' },
   },
   {
     id: 'enemy-4',
     name: 'Ren#TW1',
     agentIconUrl: sovaAgent,
-    both: { kd: '9-14', fk: '1', fd: '3', adr: '102', kast: '55%' },
-    atk: { kd: '4-7', fk: '1', fd: '2', adr: '96', kast: '52%' },
-    def: { kd: '5-7', fk: '0', fd: '1', adr: '108', kast: '58%' },
+    both: { kills: '9', deaths: '14', assists: '11', plusMinus: '-5', kdRatio: '0.64', fk: '1', fd: '3', acs: '168', hs: '13%', kast: '55%' },
+    atk: { kills: '4', deaths: '7', assists: '5', plusMinus: '-3', kdRatio: '0.57', fk: '1', fd: '2', acs: '152', hs: '11%', kast: '52%' },
+    def: { kills: '5', deaths: '7', assists: '6', plusMinus: '-2', kdRatio: '0.71', fk: '0', fd: '1', acs: '184', hs: '15%', kast: '58%' },
   },
 ];
+
+const COLUMNS_BY_MODE: Record<Mode, MatchPlayerStatsColumn[]> = {
+  kda: [
+    { key: 'kills', label: 'K' },
+    { key: 'deaths', label: 'D' },
+    { key: 'assists', label: 'A' },
+    { key: 'plusMinus', label: '+/-' },
+    { key: 'kdRatio', label: 'K/D' },
+  ],
+  combat: [
+    { key: 'fk', label: 'FK' },
+    { key: 'fd', label: 'FD' },
+    { key: 'acs', label: 'ACS', width: 44 },
+    { key: 'hs', label: 'HS%', width: 44 },
+    { key: 'kast', label: 'KAST', width: 48 },
+  ],
+};
 
 function pickSide(rows: BucketedRow[], side: Side): MatchPlayerStatsRow[] {
   return rows.map((r) => ({
     id: r.id,
     name: r.name,
     agentIconUrl: r.agentIconUrl,
-    ...r[side],
+    isCurrentPlayer: r.isCurrentPlayer,
+    values: r[side] as unknown as Record<string, string>,
   }));
 }
 
 // ── Multi-kill data ─────────────────────────────────────────────────────────
 
 const myTeamMultiKills: MatchMultiKillRow[] = [
-  { id: 'me', name: 'Rick#NA1', agentIconUrl: jettAgent, counts: { k2: 4, k3: 2, k4: 1, k5: 0 } },
+  {
+    id: 'me',
+    name: 'Rick#NA1',
+    agentIconUrl: jettAgent,
+    isCurrentPlayer: true,
+    counts: { k2: 4, k3: 2, k4: 1, k5: 0 },
+  },
   {
     id: 'ally-1',
     name: 'Alex#APAC',
@@ -497,10 +530,12 @@ export const Defeat: Story = {
 
 function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
   const [side, setSide] = useState<Side>('both');
+  const [mode, setMode] = useState<Mode>('kda');
   const [multiKillTeam, setMultiKillTeam] = useState<'ally' | 'enemy'>('ally');
   const [matrixFilter, setMatrixFilter] = useState<'all' | 'firstKills'>('all');
   const won = variant === 'victory';
   const mutedForeground = 'rgba(237,233,226,0.6)';
+  const statsColumns = COLUMNS_BY_MODE[mode];
 
   return (
     <ScrollView className="bg-background flex-1">
@@ -567,9 +602,27 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
                 />
               }
             />
-            <MatchPlayerStatsTable rows={pickSide(myTeamStats, side)} />
+            <View className="mb-2">
+              <SegmentedControl
+                value={mode}
+                onChange={setMode}
+                options={[
+                  { value: 'kda', label: 'KDA' },
+                  { value: 'combat', label: 'Combat' },
+                ]}
+              />
+            </View>
+            <MatchPlayerStatsTable
+              rows={pickSide(myTeamStats, side)}
+              columns={statsColumns}
+              playerLabel="PLAYER"
+            />
           </View>
-          <MatchPlayerStatsTable rows={pickSide(enemyTeamStats, side)} />
+          <MatchPlayerStatsTable
+            rows={pickSide(enemyTeamStats, side)}
+            columns={statsColumns}
+            playerLabel="PLAYER"
+          />
         </View>
 
         <View>
