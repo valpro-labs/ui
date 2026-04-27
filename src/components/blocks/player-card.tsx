@@ -56,7 +56,7 @@ function PlayerCard({
 
       {/* Name Area */}
       <View className={cn('px-4 py-2', nameAreaClassName)}>
-        <View className="flex-row items-baseline justify-between gap-x-4">
+        <View className="flex-row items-baseline gap-x-4">
           <View className="min-w-0 shrink flex-row items-baseline gap-x-2">
             <Text
               numberOfLines={1}
@@ -70,7 +70,9 @@ function PlayerCard({
           {title ? (
             <Text
               numberOfLines={1}
-              className="text-muted-foreground shrink-0 text-sm font-medium tracking-wide uppercase">
+              ellipsizeMode="tail"
+              style={{ minWidth: 100 }}
+              className="text-muted-foreground min-w-0 flex-1 text-right text-sm font-medium tracking-wide uppercase">
               {title}
             </Text>
           ) : null}

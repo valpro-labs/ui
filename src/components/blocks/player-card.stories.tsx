@@ -42,6 +42,16 @@ export const LongName: Story = {
   },
 };
 
+export const LongTitle: Story = {
+  args: {
+    name: 'TenZ',
+    tag: 'SEN',
+    title: 'A Really Long Player Title That Should Truncate',
+    cardWideArt:
+      'https://media.valorant-api.com/playercards/9fb348bc-41a0-91ad-8a3e-818035c4e561/wideart.png',
+  },
+};
+
 export const NoArt: Story = {
   args: {
     name: 'Player',
