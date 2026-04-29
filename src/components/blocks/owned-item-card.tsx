@@ -151,7 +151,6 @@ function OwnedItemCard({
 
       {tierBadge ? (
         <>
-          {badgeShadow ? <CornerGradient corner="bottom-left" /> : null}
           <View className="absolute bottom-1 left-1">{tierBadge}</View>
         </>
       ) : null}
