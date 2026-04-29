@@ -3,6 +3,7 @@ import { Check, Star } from 'phosphor-react';
 import { View } from 'react-native';
 
 import { OwnedItemCard } from '@/components/blocks/owned-item-card';
+import { Image } from '@/components/ui/image';
 import { getWeaponGridIconStyle } from '@/lib/weapon-grid-transform';
 
 const weaponIcon = (uuid: string) =>
@@ -27,6 +28,8 @@ const buddyArt =
   'https://media.valorant-api.com/buddies/levels/1b43fc4b-41a3-0b30-b8e0-65b67e2f2b14/displayicon.png';
 const weaponSkinArt =
   'https://media.valorant-api.com/weaponskinlevels/9a03c64b-4e92-e5cf-2f4f-8db3f6f2e80f/displayicon.png';
+const premiumTierIcon =
+  'https://media.valorant-api.com/contenttiers/60bca009-4182-7998-dee7-b8a2558dc369/displayicon.png';
 
 function EquippedBadge() {
   return <Check size={20} weight="fill" color="#009970" />;
@@ -34,6 +37,16 @@ function EquippedBadge() {
 
 function FavoriteBadge() {
   return <Star size={18} weight="fill" color="#f0cb74" />;
+}
+
+function TierBadge() {
+  return (
+    <Image
+      source={premiumTierIcon}
+      style={{ width: 18, height: 18 }}
+      contentFit="contain"
+    />
+  );
 }
 
 const meta: Meta<typeof OwnedItemCard> = {
@@ -99,7 +112,15 @@ export const Buddy: Story = {
   args: {
     iconUrl: buddyArt,
     fill: false,
+    tierBadge: <TierBadge />,
     remainingCount: 3,
+  },
+};
+
+export const WithTierBadge: Story = {
+  args: {
+    iconUrl: weaponSkinArt,
+    tierBadge: <TierBadge />,
   },
 };
 
@@ -221,6 +242,7 @@ export const Grid: Story = {
         <OwnedItemCard
           iconUrl={buddyArt}
           fill={false}
+          tierBadge={<TierBadge />}
           remainingCount={2}
           isLoading={isLoading}
         />

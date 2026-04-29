@@ -8,18 +8,26 @@ import { Text } from '@/components/ui/text';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 import { cn } from '@/lib/utils';
 
-type Corner = 'top-left' | 'bottom-right';
+type Corner = 'top-left' | 'bottom-left' | 'bottom-right';
 
 function CornerGradient({ corner }: { corner: Corner }) {
-  const isTL = corner === 'top-left';
+  const isTopLeft = corner === 'top-left';
+  const isLeft = corner !== 'bottom-right';
   const id = `owned-item-corner-${corner}`;
+
   return (
     <Svg
       width="50%"
       height="50%"
-      style={{ position: 'absolute', top: isTL ? 0 : undefined, left: isTL ? 0 : undefined, right: isTL ? undefined : 0, bottom: isTL ? undefined : 0 }}>
+      style={{
+        position: 'absolute',
+        top: isTopLeft ? 0 : undefined,
+        left: isLeft ? 0 : undefined,
+        right: isLeft ? undefined : 0,
+        bottom: isTopLeft ? undefined : 0,
+      }}>
       <Defs>
-        <RadialGradient id={id} cx={isTL ? '0' : '1'} cy={isTL ? '0' : '1'} r="1">
+        <RadialGradient id={id} cx={isLeft ? '0' : '1'} cy={isTopLeft ? '0' : '1'} r="1">
           <Stop offset="0" stopColor="black" stopOpacity="0.4" />
           <Stop offset="1" stopColor="black" stopOpacity="0" />
         </RadialGradient>
@@ -30,7 +38,7 @@ function CornerGradient({ corner }: { corner: Corner }) {
 }
 
 interface OwnedItemCardProps {
-  /** Thumbnail URL — the owned item's icon. */
+  /** Thumbnail URL - the owned item's icon. */
   iconUrl?: string;
   /**
    * Fill the tile edge-to-edge. Defaults to `true` since most owned
@@ -42,12 +50,12 @@ interface OwnedItemCardProps {
   /**
    * Draw a soft radial darken behind the badge corners so the badges
    * stay legible on light / busy art. Only player cards use this in
-   * the source app — sprays and flex items are full-bleed but skip
+   * the source app - sprays and flex items are full-bleed but skip
    * the shadow. Independent of `fill`.
    */
   badgeShadow?: boolean;
   /**
-   * Extra style merged onto the inner image — useful for per-item
+   * Extra style merged onto the inner image - useful for per-item
    * scale / translate / rotate transforms (e.g. positioning weapon
    * art inside a grid tile). Applied after the default width/height
    * so width/height can still be overridden if the caller wants.
@@ -55,11 +63,13 @@ interface OwnedItemCardProps {
   iconStyle?: StyleProp<ImageStyle>;
   /** Render the red selection ring. */
   isSelected?: boolean;
-  /** Dim the tile to 30% — used to flag stackable items the viewer has run out of. */
+  /** Dim the tile to 30% - used to flag stackable items the viewer has run out of. */
   isDepleted?: boolean;
-  /** Badge pinned to the top-left — typically the equipped checkmark. */
+  /** Badge pinned to the top-left - typically the equipped checkmark. */
   equippedBadge?: React.ReactNode;
-  /** Badge pinned to the bottom-right — typically the favorite star. */
+  /** Badge pinned to the bottom-left - typically the tier icon. */
+  tierBadge?: React.ReactNode;
+  /** Badge pinned to the bottom-right - typically the favorite star. */
   favoriteBadge?: React.ReactNode;
   /** Remaining stack count rendered in the top-right (`X{count}`). Omit to hide. */
   remainingCount?: number;
@@ -70,10 +80,10 @@ interface OwnedItemCardProps {
 }
 
 /**
- * Square owned-inventory tile used in every customize picker — player
+ * Square owned-inventory tile used in every customize picker - player
  * cards, titles, sprays, gun buddies, weapon skins. Shows the item's
- * icon, optional equipped + favorite badges, a red selection ring, and
- * an optional `X{n}` remaining count.
+ * icon, optional equipped + tier + favorite badges, a red selection
+ * ring, and an optional `X{n}` remaining count.
  *
  * Data-free: the consumer resolves the icon URL + favorite / equipped
  * state and supplies the badge icons as `ReactNode` (e.g. phosphor
@@ -82,7 +92,7 @@ interface OwnedItemCardProps {
  * upstream for tap handling.
  *
  * Per-item image styling: consumers can pass `iconStyle` to layer
- * scale / translate / rotate transforms onto the inner image — needed
+ * scale / translate / rotate transforms onto the inner image - needed
  * for weapon skins, where each gun's art has to be re-positioned to
  * fit a square tile.
  */
@@ -94,6 +104,7 @@ function OwnedItemCard({
   isSelected = false,
   isDepleted = false,
   equippedBadge,
+  tierBadge,
   favoriteBadge,
   remainingCount,
   isLoading = false,
@@ -137,12 +148,21 @@ function OwnedItemCard({
           <View className="absolute top-1 left-1">{equippedBadge}</View>
         </>
       ) : null}
+
+      {tierBadge ? (
+        <>
+          {badgeShadow ? <CornerGradient corner="bottom-left" /> : null}
+          <View className="absolute bottom-1 left-1">{tierBadge}</View>
+        </>
+      ) : null}
+
       {favoriteBadge ? (
         <>
           {badgeShadow ? <CornerGradient corner="bottom-right" /> : null}
           <View className="absolute right-1 bottom-1">{favoriteBadge}</View>
         </>
       ) : null}
+
       {remainingCount != null ? (
         <View className="absolute top-1 right-1">
           <Text className="text-muted-foreground text-sm font-bold">X{remainingCount}</Text>
