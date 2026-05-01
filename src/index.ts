@@ -149,6 +149,8 @@ export type {
 
 export { NightMarketIcon } from '@/components/blocks/night-market-icon';
 export type { NightMarketIconProps } from '@/components/blocks/night-market-icon';
+export { NightMarketPoster } from '@/components/blocks/night-market-poster';
+export type { NightMarketPosterProps, NightMarketOffer } from '@/components/blocks/night-market-poster';
 
 export { ShopDiaryPoster } from '@/components/blocks/shop-diary-poster';
 export type {
