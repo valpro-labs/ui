@@ -83,6 +83,11 @@ export type { MapBannerProps, MapBannerResult } from '@/components/blocks/map-ba
 
 export { MatchInfoRow } from '@/components/blocks/match-info-row';
 export type { MatchInfoRowProps } from '@/components/blocks/match-info-row';
+export { MatchDetailPoster } from '@/components/blocks/match-detail-poster';
+export type {
+  MatchDetailPosterProps,
+  MatchDetailPosterMetric,
+} from '@/components/blocks/match-detail-poster';
 
 export { PlayerRow } from '@/components/blocks/player-row';
 export type { PlayerRowProps, PlayerRowRole } from '@/components/blocks/player-row';
