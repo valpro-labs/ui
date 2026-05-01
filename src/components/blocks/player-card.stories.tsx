@@ -63,6 +63,18 @@ export const LongTitle: Story = {
   },
 };
 
+export const CJKName: Story = {
+  args: {
+    name: 'ShadowBladeTW',
+    tag: 'TW99',
+    title: '不敗傳說',
+    level: 42,
+    levelBorderIcon: LEVEL_BORDER_ICON,
+    cardWideArt:
+      'https://media.valorant-api.com/playercards/9fb348bc-41a0-91ad-8a3e-818035c4e561/wideart.png',
+  },
+};
+
 export const NoArt: Story = {
   args: {
     name: 'Player',
