@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Calendar, Clock, GameController } from 'phosphor-react';
+import { View } from 'react-native';
 
 import { MatchInfoRow } from '@/components/blocks/match-info-row';
 
@@ -51,4 +52,20 @@ export const NoIcons: Story = {
     date: 'Apr 10, 2026',
     duration: '32:04',
   },
+};
+
+export const LongMode: Story = {
+  args: {
+    mode: 'Premier Overtime Elimination Best of Three Showcase Qualifier',
+    date: 'May 2, 2026',
+    duration: '52:41',
+    modeIcon: <ModeIcon />,
+    dateIcon: <DateIcon />,
+    durationIcon: <DurationIcon />,
+  },
+  render: (args) => (
+    <View style={{ width: 320 }}>
+      <MatchInfoRow {...args} />
+    </View>
+  ),
 };

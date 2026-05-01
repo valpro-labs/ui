@@ -46,18 +46,23 @@ function MatchInfoRow({
         'bg-card flex-row items-center justify-between rounded-2xl px-4 py-3',
         className
       )}>
-      <View className="flex-row items-center gap-x-2">
-        {modeIcon}
-        <Text className="text-foreground text-sm font-semibold">{mode}</Text>
+      <View className="min-w-0 flex-1 flex-row items-center gap-x-2 pr-3">
+        {modeIcon ? <View className="shrink-0">{modeIcon}</View> : null}
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          className="text-foreground min-w-0 shrink text-sm font-semibold">
+          {mode}
+        </Text>
       </View>
-      <View className="flex-row items-center gap-x-4">
-        <View className="flex-row items-center gap-x-1.5">
-          {dateIcon}
-          <Text className="text-muted-foreground text-xs">{date}</Text>
+      <View className="shrink-0 flex-row items-center gap-x-4">
+        <View className="shrink-0 flex-row items-center gap-x-1.5">
+          {dateIcon ? <View className="shrink-0">{dateIcon}</View> : null}
+          <Text className="text-muted-foreground shrink-0 text-xs">{date}</Text>
         </View>
-        <View className="flex-row items-center gap-x-1.5">
-          {durationIcon}
-          <Text className="text-muted-foreground text-xs">{duration}</Text>
+        <View className="shrink-0 flex-row items-center gap-x-1.5">
+          {durationIcon ? <View className="shrink-0">{durationIcon}</View> : null}
+          <Text className="text-muted-foreground shrink-0 text-xs">{duration}</Text>
         </View>
       </View>
     </View>
