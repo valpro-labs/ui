@@ -63,7 +63,7 @@ function RewardItem({
   return (
     <View
       className={cn(
-        'relative flex-row items-center gap-x-3 overflow-hidden px-4 py-3',
+        'relative flex-row items-center gap-x-4 overflow-hidden px-4 py-3',
         isCompleted && 'bg-val-green-ui/20',
         className
       )}>
@@ -74,7 +74,7 @@ function RewardItem({
         />
       ) : null}
 
-      <View className="size-10 items-center justify-center">
+      <View className="size-12 items-center justify-center">
         {iconUrl ? (
           <Image
             source={iconUrl}
