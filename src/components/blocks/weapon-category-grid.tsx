@@ -121,19 +121,23 @@ function WeaponGridCard({
   const isGrid = variant === 'grid';
 
   return (
-    <View className="bg-card relative aspect-video w-full items-center justify-center overflow-hidden rounded-xl">
+    <View
+      className={cn(
+        'bg-card relative w-full items-center justify-center overflow-hidden rounded-xl',
+        isGrid ? 'aspect-video' : 'aspect-10/4'
+      )}>
       {imageUrl ? (
         <Image
           source={imageUrl}
-          style={{ width: `${widthPercent}%`, height: '90%' }}
+          style={{ width: `${widthPercent}%`, height: isGrid ? '90%' : '82%' }}
           contentFit="contain"
         />
       ) : null}
       {buddyIconUrl ? (
-        <View className={cn('absolute', isGrid ? 'bottom-1 left-0' : 'bottom-2 left-1')}>
+        <View className={cn('absolute', isGrid ? 'bottom-1 left-0' : 'bottom-1 left-1')}>
           <Image
             source={buddyIconUrl}
-            style={{ width: isGrid ? 36 : 48, height: isGrid ? 36 : 48 }}
+            style={{ width: isGrid ? 36 : 40, height: isGrid ? 36 : 40 }}
             contentFit="contain"
           />
         </View>
@@ -142,9 +146,9 @@ function WeaponGridCard({
         <View
           className={cn(
             'absolute top-0 bottom-0 justify-center',
-            isGrid ? 'right-1' : 'right-3'
+            isGrid ? 'right-1' : 'right-2.5'
           )}
-          style={isGrid ? undefined : { transform: [{ scale: 1.15 }] }}>
+          style={isGrid ? undefined : { transform: [{ scale: 1.05 }] }}>
           {chevronIcon}
         </View>
       ) : null}
