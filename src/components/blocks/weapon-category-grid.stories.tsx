@@ -175,6 +175,10 @@ const meta: Meta<typeof WeaponCategoryGrid> = {
   title: 'Blocks/WeaponCategoryGrid',
   component: WeaponCategoryGrid,
   argTypes: {
+    variant: {
+      control: { type: 'radio' },
+      options: ['grid', 'list'],
+    },
     isLoading: { control: { type: 'boolean' } },
   },
 };
@@ -185,6 +189,15 @@ type Story = StoryObj<typeof WeaponCategoryGrid>;
 export const Default: Story = {
   args: {
     sections,
+    variant: 'grid',
+    chevronIcon: <ChevronIcon />,
+  },
+};
+
+export const List: Story = {
+  args: {
+    sections,
+    variant: 'list',
     chevronIcon: <ChevronIcon />,
   },
 };
@@ -192,6 +205,7 @@ export const Default: Story = {
 export const Loading: Story = {
   args: {
     sections,
+    variant: 'grid',
     isLoading: true,
   },
 };
@@ -241,6 +255,39 @@ export const WithBuddies: Story = {
         ],
       },
     ],
+    chevronIcon: <ChevronIcon />,
+  },
+};
+
+export const WithBuddiesList: Story = {
+  args: {
+    sections: [
+      {
+        key: RIFLE,
+        title: 'Rifles',
+        items: [
+          {
+            key: 'vandal',
+            imageUrl: weaponIcon('9c82e19d-4575-0200-1a81-3eacf00cf872'),
+            widthPercent: getWeaponCategoryWidth(RIFLE),
+            buddyIconUrl: taskForceBuddy,
+          },
+          {
+            key: 'phantom',
+            imageUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
+            widthPercent: getWeaponCategoryWidth(RIFLE),
+            buddyIconUrl: rgxBuddy,
+          },
+          {
+            key: 'guardian',
+            imageUrl: weaponIcon('4ade7faa-4cf1-8376-95ef-39884480959b'),
+            widthPercent: getWeaponCategoryWidth(RIFLE),
+            buddyIconUrl: rgxBuddy,
+          },
+        ],
+      },
+    ],
+    variant: 'list',
     chevronIcon: <ChevronIcon />,
   },
 };

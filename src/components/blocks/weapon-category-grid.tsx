@@ -32,6 +32,8 @@ interface WeaponCategoryGridSection {
 interface WeaponCategoryGridProps {
   /** Sections in display order. */
   sections: ReadonlyArray<WeaponCategoryGridSection>;
+  /** Layout variant. `grid` renders 2-up tiles; `list` renders a single column. */
+  variant?: 'grid' | 'list';
   /** Render skeleton cards instead of real tiles. */
   isLoading?: boolean;
   /**
@@ -57,18 +59,23 @@ interface WeaponCategoryGridProps {
  */
 function WeaponCategoryGrid({
   sections,
+  variant = 'grid',
   isLoading = false,
   chevronIcon,
   className,
 }: WeaponCategoryGridProps) {
+  const isGrid = variant === 'grid';
+
   return (
     <View className={cn('flex gap-y-4', className)}>
       {sections.map((section) => (
         <View key={section.key}>
           <SectionTitle title={section.title} />
-          <View className="flex-row flex-wrap gap-2">
+          <View className={cn(isGrid ? 'flex-row flex-wrap gap-2' : 'gap-2')}>
             {section.items.map((item) => (
-              <View key={item.key} className="w-[48%] grow">
+              <View
+                key={item.key}
+                className={cn(isGrid ? 'w-[48%] grow' : 'w-full')}>
                 {isLoading ? (
                   <Skeleton className="aspect-video w-full rounded-xl" />
                 ) : (
@@ -76,6 +83,7 @@ function WeaponCategoryGrid({
                     onPress={item.onPress}
                     style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
                     <WeaponGridCard
+                      variant={variant}
                       imageUrl={item.imageUrl}
                       widthPercent={item.widthPercent ?? 80}
                       buddyIconUrl={item.buddyIconUrl}
@@ -85,7 +93,9 @@ function WeaponCategoryGrid({
                 )}
               </View>
             ))}
-            {section.items.length % 2 !== 0 && <View className="w-[48%] grow" />}
+            {isGrid && section.items.length % 2 !== 0 ? (
+              <View className="w-[48%] grow" />
+            ) : null}
           </View>
         </View>
       ))}
@@ -94,6 +104,7 @@ function WeaponCategoryGrid({
 }
 
 interface WeaponGridCardProps {
+  variant: 'grid' | 'list';
   imageUrl?: string;
   widthPercent: number;
   buddyIconUrl?: string;
@@ -101,11 +112,14 @@ interface WeaponGridCardProps {
 }
 
 function WeaponGridCard({
+  variant,
   imageUrl,
   widthPercent,
   buddyIconUrl,
   chevronIcon,
 }: WeaponGridCardProps) {
+  const isGrid = variant === 'grid';
+
   return (
     <View className="bg-card relative aspect-video w-full items-center justify-center overflow-hidden rounded-xl">
       {imageUrl ? (
@@ -116,10 +130,10 @@ function WeaponGridCard({
         />
       ) : null}
       {buddyIconUrl ? (
-        <View className="absolute bottom-1 left-0">
+        <View className={cn('absolute', isGrid ? 'bottom-1 left-0' : 'bottom-2 left-1')}>
           <Image
             source={buddyIconUrl}
-            style={{ width: 36, height: 36 }}
+            style={{ width: isGrid ? 36 : 48, height: isGrid ? 36 : 48 }}
             contentFit="contain"
           />
         </View>
