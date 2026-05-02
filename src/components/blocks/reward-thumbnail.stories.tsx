@@ -113,14 +113,13 @@ export const InProgress: Story = {
   args: {
     iconUrl: ICONS.gunBuddy,
     iconSize: '50%',
-    isNext: true,
     xp: 5000,
     progressionXp: 1750,
   },
 };
 
 export const Pending: Story = {
-  args: { iconUrl: ICONS.playerCard },
+  args: { iconUrl: ICONS.playerCard, progressionXp: 0, xp: 5000 },
 };
 
 export const Missing: Story = {
@@ -137,14 +136,14 @@ export const Grid: Story = {
       {(
         [
           { iconUrl: ICONS.playerCard, isCompleted: true },
-          { iconUrl: ICONS.gunBuddy, iconSize: '50%' as const, isNext: true, xp: 5000, progressionXp: 1750 },
-          { iconUrl: ICONS.spray },
-          { iconUrl: ICONS.kingdomCredits, iconSize: '50%' as const, tinted: true },
-          { iconUrl: ICONS.radianite, iconSize: '50%' as const, tinted: true },
-          { iconUrl: ICONS.flex },
-          { iconUrl: ICONS.vandal, iconStyle: getWeaponGridIconStyle(VANDAL_UUID) },
-          { iconUrl: ICONS.phantom, iconStyle: getWeaponGridIconStyle(PHANTOM_UUID) },
-          { iconUrl: ICONS.operator, iconStyle: getWeaponGridIconStyle(OPERATOR_UUID) },
+          { iconUrl: ICONS.gunBuddy, iconSize: '50%' as const, xp: 5000, progressionXp: 1750 },
+          { iconUrl: ICONS.spray, progressionXp: 0, xp: 5000 },
+          { iconUrl: ICONS.kingdomCredits, iconSize: '50%' as const, tinted: true, progressionXp: 0, xp: 5000 },
+          { iconUrl: ICONS.radianite, iconSize: '50%' as const, tinted: true, progressionXp: 0, xp: 5000 },
+          { iconUrl: ICONS.flex, progressionXp: 0, xp: 5000 },
+          { iconUrl: ICONS.vandal, iconStyle: getWeaponGridIconStyle(VANDAL_UUID), progressionXp: 0, xp: 5000 },
+          { iconUrl: ICONS.phantom, iconStyle: getWeaponGridIconStyle(PHANTOM_UUID), progressionXp: 0, xp: 5000 },
+          { iconUrl: ICONS.operator, iconStyle: getWeaponGridIconStyle(OPERATOR_UUID), progressionXp: 0, xp: 5000 },
         ] satisfies React.ComponentProps<typeof OwnedItemCard>[]
       ).map((item, i) => (
         <View key={i} style={{ width: '33.33%', padding: 4 }}>

@@ -85,16 +85,15 @@ interface OwnedItemCardProps {
   /** Show the skeleton placeholder instead of the real tile. */
   isLoading?: boolean;
   /**
-   * XP accumulated toward this level. Pair with `xp` to draw the progress
-   * stripe at the bottom of the tile (battle-pass / event-pass grids).
+   * XP accumulated toward this level. Pass with `xp` to draw a partial
+   * progress stripe. Pass without `xp` (or `xp: 0`) to show an empty track.
+   * Omit both to hide the stripe entirely.
    */
   progressionXp?: number;
   /** XP required to complete this level. */
   xp?: number;
   /** Progress stripe fills 100% green — tile is completed. */
   isCompleted?: boolean;
-  /** Progress stripe is drawn using `progressionXp / xp` — this is the next reward. */
-  isNext?: boolean;
   /** Extra classes merged onto the outer tile wrapper. */
   className?: string;
 }
@@ -133,7 +132,6 @@ function OwnedItemCard({
   progressionXp,
   xp,
   isCompleted = false,
-  isNext = false,
   className,
 }: OwnedItemCardProps) {
   const foregroundRaw = useCSSVariable('--color-foreground');
@@ -198,10 +196,10 @@ function OwnedItemCard({
         </View>
       ) : null}
 
-      {(isCompleted || isNext) ? (
+      {(isCompleted || progressionXp != null) ? (
         <View className="bg-border absolute right-0 bottom-0 left-0 h-1">
           <View
-            className="bg-val-green-ui absolute top-0 bottom-0 left-0"
+            className={cn('absolute top-0 bottom-0 left-0', isCompleted ? 'bg-val-green-ui' : 'bg-val-green-ui/50')}
             style={{
               width: isCompleted
                 ? '100%'
