@@ -2,8 +2,23 @@ import type { ImageStyle, StyleProp } from 'react-native';
 
 /**
  * Per-category default image width (% of card width) used to scale
- * weapon art inside the two-column loadout grid. Keyed by Valorant's
+ * weapon art inside store/list layouts. Keyed by Valorant's
  * `EEquippableCategory::*` string.
+ */
+const WEAPON_CATEGORY_WIDTH_LIST: Record<string, number> = {
+  'EEquippableCategory::Sidearm': 45,
+  'EEquippableCategory::SMG': 80,
+  'EEquippableCategory::Shotgun': 80,
+  'EEquippableCategory::Rifle': 80,
+  'EEquippableCategory::Melee': 100,
+  'EEquippableCategory::Sniper': 80,
+  'EEquippableCategory::Heavy': 90,
+};
+
+/**
+ * Per-category default image width (% of card width) used to scale
+ * weapon art inside the two-column loadout grid and store grid.
+ * Keyed by Valorant's `EEquippableCategory::*` string.
  */
 const WEAPON_CATEGORY_WIDTH_GRID: Record<string, number> = {
   'EEquippableCategory::Sidearm': 50,
@@ -16,11 +31,20 @@ const WEAPON_CATEGORY_WIDTH_GRID: Record<string, number> = {
 };
 
 /**
- * Resolve the per-category image width for a weapon category, falling
- * back to 80 when the category isn't in the overrides map.
+ * Resolve the per-category image width for a weapon category in the
+ * loadout/store grid layout, falling back to 80 when unknown.
  */
 function getWeaponCategoryWidth(category: string): number {
   return WEAPON_CATEGORY_WIDTH_GRID[category] ?? 80;
+}
+
+/**
+ * Resolve the per-category image width for a weapon category in either
+ * the wide list card or the narrower grid card.
+ */
+function resolveWeaponCategoryWidth(category: string | undefined, variant: 'list' | 'grid'): number {
+  const map = variant === 'grid' ? WEAPON_CATEGORY_WIDTH_GRID : WEAPON_CATEGORY_WIDTH_LIST;
+  return map[category ?? ''] ?? 80;
 }
 
 interface WeaponGridTransform {
@@ -134,5 +158,10 @@ function getWeaponGridIconStyle(weaponUuid: string): StyleProp<ImageStyle> {
   };
 }
 
-export { getWeaponCategoryWidth, getWeaponGridTransform, getWeaponGridIconStyle };
+export {
+  getWeaponCategoryWidth,
+  getWeaponGridTransform,
+  getWeaponGridIconStyle,
+  resolveWeaponCategoryWidth,
+};
 export type { WeaponGridTransform };

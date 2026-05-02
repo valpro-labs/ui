@@ -7,6 +7,7 @@ import { useCSSVariable } from 'uniwind';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 import { cn } from '@/lib/utils';
 
 interface OfferCardProps {
@@ -47,35 +48,13 @@ function normalizeHex(input?: string): string | undefined {
 
 // Image width % within the card — keeps same-category weapons visually consistent
 // across skins. Keys match Riot's `EEquippableCategory::*` enum strings.
-const WEAPON_CATEGORY_WIDTH: Record<string, number> = {
-  'EEquippableCategory::Sidearm': 45,
-  'EEquippableCategory::SMG': 80,
-  'EEquippableCategory::Shotgun': 80,
-  'EEquippableCategory::Rifle': 80,
-  'EEquippableCategory::Melee': 100,
-  'EEquippableCategory::Sniper': 80,
-  'EEquippableCategory::Heavy': 90,
-};
-
-// Grid variant uses different widths due to the smaller card footprint.
-const WEAPON_CATEGORY_WIDTH_GRID: Record<string, number> = {
-  'EEquippableCategory::Sidearm': 50,
-  'EEquippableCategory::SMG': 80,
-  'EEquippableCategory::Shotgun': 78,
-  'EEquippableCategory::Rifle': 80,
-  'EEquippableCategory::Melee': 60,
-  'EEquippableCategory::Sniper': 82,
-  'EEquippableCategory::Heavy': 85,
-};
-
 function resolveImageWidth(
   explicit: number | undefined,
   category: string | undefined,
   isGrid: boolean
 ): number {
   if (explicit !== undefined) return explicit;
-  const map = isGrid ? WEAPON_CATEGORY_WIDTH_GRID : WEAPON_CATEGORY_WIDTH;
-  return map[category ?? ''] ?? 80;
+  return resolveWeaponCategoryWidth(category, isGrid ? 'grid' : 'list');
 }
 
 /**
@@ -127,10 +106,7 @@ function OfferCard({
       )}>
       {/* Image */}
       <View
-        className={cn(
-          'bg-secondary relative flex-1 items-center justify-center',
-          !isGrid && 'p-4'
-        )}
+        className="bg-secondary relative flex-1 items-center justify-center"
         style={color ? { backgroundColor: color } : undefined}>
         {iconUrl ? (
           <Image
