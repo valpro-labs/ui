@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { View, type ImageStyle, type StyleProp } from 'react-native';
 
+import { useCSSVariable } from 'uniwind';
+
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
@@ -44,9 +46,14 @@ interface OwnedItemCardProps {
    * Fill the tile edge-to-edge. Defaults to `true` since most owned
    * items (player cards, sprays, flex items, weapon skins with grid
    * transforms) are full-bleed. Pass `false` for gun buddies, which
-   * render at 80% with padding.
+   * render at 80% with padding. Ignored when `iconSize` is set.
    */
   fill?: boolean;
+  /**
+   * Explicit icon size as a percentage of the tile — e.g. `"50%"` for
+   * currency / buddy, `"80%"` for weapon skins. Overrides `fill` when set.
+   */
+  iconSize?: `${number}%`;
   /**
    * Draw a soft radial darken behind the badge corners so the badges
    * stay legible on light / busy art. Only player cards use this in
@@ -61,6 +68,8 @@ interface OwnedItemCardProps {
    * so width/height can still be overridden if the caller wants.
    */
   iconStyle?: StyleProp<ImageStyle>;
+  /** Tint the icon with `--color-foreground` — for title / currency glyphs shipped as masks. */
+  tinted?: boolean;
   /** Render the red selection ring. */
   isSelected?: boolean;
   /** Dim the tile to 30% - used to flag stackable items the viewer has run out of. */
@@ -75,6 +84,17 @@ interface OwnedItemCardProps {
   remainingCount?: number;
   /** Show the skeleton placeholder instead of the real tile. */
   isLoading?: boolean;
+  /**
+   * XP accumulated toward this level. Pair with `xp` to draw the progress
+   * stripe at the bottom of the tile (battle-pass / event-pass grids).
+   */
+  progressionXp?: number;
+  /** XP required to complete this level. */
+  xp?: number;
+  /** Progress stripe fills 100% green — tile is completed. */
+  isCompleted?: boolean;
+  /** Progress stripe is drawn using `progressionXp / xp` — this is the next reward. */
+  isNext?: boolean;
   /** Extra classes merged onto the outer tile wrapper. */
   className?: string;
 }
@@ -99,8 +119,10 @@ interface OwnedItemCardProps {
 function OwnedItemCard({
   iconUrl,
   fill = true,
+  iconSize,
   badgeShadow = false,
   iconStyle,
+  tinted = false,
   isSelected = false,
   isDepleted = false,
   equippedBadge,
@@ -108,8 +130,15 @@ function OwnedItemCard({
   favoriteBadge,
   remainingCount,
   isLoading = false,
+  progressionXp,
+  xp,
+  isCompleted = false,
+  isNext = false,
   className,
 }: OwnedItemCardProps) {
+  const foregroundRaw = useCSSVariable('--color-foreground');
+  const tintColor = tinted && typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
+
   if (isLoading) {
     return <Skeleton className={cn('aspect-square w-full rounded-xl', className)} />;
   }
@@ -127,12 +156,13 @@ function OwnedItemCard({
           source={iconUrl}
           style={[
             {
-              width: fill ? '100%' : '80%',
-              height: fill ? '100%' : '80%',
+              width: iconSize ?? (fill ? '100%' : '80%'),
+              height: iconSize ?? (fill ? '100%' : '80%'),
             },
             iconStyle,
           ]}
           contentFit="contain"
+          tintColor={tintColor}
         />
       ) : (
         <View className="bg-muted h-full w-full" />
@@ -165,6 +195,19 @@ function OwnedItemCard({
       {remainingCount != null ? (
         <View className="absolute top-1 right-1">
           <Text className="text-muted-foreground text-sm font-bold">X{remainingCount}</Text>
+        </View>
+      ) : null}
+
+      {(isCompleted || isNext) ? (
+        <View className="bg-border absolute right-0 bottom-0 left-0 h-1">
+          <View
+            className="bg-val-green-ui absolute top-0 bottom-0 left-0"
+            style={{
+              width: isCompleted
+                ? '100%'
+                : `${Math.min((progressionXp ?? 0) / (xp ?? 1), 1) * 100}%`,
+            }}
+          />
         </View>
       ) : null}
     </View>

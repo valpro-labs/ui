@@ -25,7 +25,7 @@ const altCardArt =
 const sprayArt =
   'https://media.valorant-api.com/sprays/0a6db78c-48b9-a32d-c47a-82be597584c1/fulltransparenticon.png';
 const buddyArt =
-  'https://media.valorant-api.com/buddies/levels/1b43fc4b-41a3-0b30-b8e0-65b67e2f2b14/displayicon.png';
+  'https://media.valorant-api.com/buddylevels/6c3b1a9e-4067-7ed6-fc6c-fea61e0a057c/displayicon.png';
 const weaponSkinArt =
   'https://media.valorant-api.com/weaponskinlevels/9a03c64b-4e92-e5cf-2f4f-8db3f6f2e80f/displayicon.png';
 const premiumTierIcon =

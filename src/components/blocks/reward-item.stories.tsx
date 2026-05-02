@@ -5,7 +5,7 @@ import { RewardItem } from '@/components/blocks/reward-item';
 import { Separator } from '@/components/ui/separator';
 
 const gunBuddy =
-  'https://media.valorant-api.com/buddies/levels/a9c1a086-4367-8b9a-6ebc-3e8bd861e3a2/displayicon.png';
+  'https://media.valorant-api.com/buddylevels/6c3b1a9e-4067-7ed6-fc6c-fea61e0a057c/displayicon.png';
 const spray =
   'https://media.valorant-api.com/sprays/fef66645-4e35-ff38-1b7c-799dd5fc7468/fulltransparenticon.png';
 const playerCard =
