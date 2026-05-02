@@ -5,7 +5,7 @@ import {
   WeaponCategoryGrid,
   type WeaponCategoryGridSection,
 } from '@/components/blocks/weapon-category-grid';
-import { getWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 const weaponIcon = (uuid: string) =>
   `https://media.valorant-api.com/weapons/${uuid}/displayicon.png`;
@@ -25,6 +25,8 @@ const RIFLE = 'EEquippableCategory::Rifle';
 const MELEE = 'EEquippableCategory::Melee';
 const SNIPER = 'EEquippableCategory::Sniper';
 const HEAVY = 'EEquippableCategory::Heavy';
+const gridWidth = (category: string) => resolveWeaponCategoryWidth(category, 'grid');
+const listWidth = (category: string) => resolveWeaponCategoryWidth(category, 'list');
 
 const sections: WeaponCategoryGridSection[] = [
   {
@@ -34,28 +36,28 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'classic',
         imageUrl: weaponIcon('29a0cfab-485b-f5d5-779a-b59f85e204a8'),
-        widthPercent: getWeaponCategoryWidth(SIDEARM),
+        widthPercent: gridWidth(SIDEARM),
       },
       {
         key: 'shorty',
         imageUrl: weaponIcon('42da8ccc-40d5-affc-beec-15aa47b42eda'),
-        widthPercent: getWeaponCategoryWidth(SIDEARM),
+        widthPercent: gridWidth(SIDEARM),
       },
       {
         key: 'frenzy',
         imageUrl: weaponIcon('44d4e95c-4157-0037-81b2-17841bf2e8e3'),
-        widthPercent: getWeaponCategoryWidth(SIDEARM),
+        widthPercent: gridWidth(SIDEARM),
       },
       {
         key: 'ghost',
         imageUrl: weaponIcon('1baa85b4-4c70-1284-64bb-6481dfc3bb4e'),
-        widthPercent: getWeaponCategoryWidth(SIDEARM),
+        widthPercent: gridWidth(SIDEARM),
         buddyIconUrl: taskForceBuddy,
       },
       {
         key: 'sheriff',
         imageUrl: weaponIcon('e336c6b8-418d-9340-d77f-7a9e4cfe0702'),
-        widthPercent: getWeaponCategoryWidth(SIDEARM),
+        widthPercent: gridWidth(SIDEARM),
       },
     ],
   },
@@ -66,13 +68,13 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'stinger',
         imageUrl: weaponIcon('f7e1b454-4ad4-1063-ec0a-159e56b58941'),
-        widthPercent: getWeaponCategoryWidth(SMG),
+        widthPercent: gridWidth(SMG),
         buddyIconUrl: rgxBuddy,
       },
       {
         key: 'spectre',
         imageUrl: weaponIcon('462080d1-4035-2937-7c09-27aa2a5c27a7'),
-        widthPercent: getWeaponCategoryWidth(SMG),
+        widthPercent: gridWidth(SMG),
       },
     ],
   },
@@ -83,12 +85,12 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'bucky',
         imageUrl: weaponIcon('910be174-449b-c412-ab22-d0873436b21b'),
-        widthPercent: getWeaponCategoryWidth(SHOTGUN),
+        widthPercent: gridWidth(SHOTGUN),
       },
       {
         key: 'judge',
         imageUrl: weaponIcon('ec845bf4-4f79-ddda-a3da-0db3774b2794'),
-        widthPercent: getWeaponCategoryWidth(SHOTGUN),
+        widthPercent: gridWidth(SHOTGUN),
       },
     ],
   },
@@ -99,23 +101,23 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'bulldog',
         imageUrl: weaponIcon('ae3de142-4d85-2547-dd26-4e90bed35cf7'),
-        widthPercent: getWeaponCategoryWidth(RIFLE),
+        widthPercent: gridWidth(RIFLE),
       },
       {
         key: 'guardian',
         imageUrl: weaponIcon('4ade7faa-4cf1-8376-95ef-39884480959b'),
-        widthPercent: getWeaponCategoryWidth(RIFLE),
+        widthPercent: gridWidth(RIFLE),
       },
       {
         key: 'phantom',
         imageUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
-        widthPercent: getWeaponCategoryWidth(RIFLE),
+        widthPercent: gridWidth(RIFLE),
         buddyIconUrl: taskForceBuddy,
       },
       {
         key: 'vandal',
         imageUrl: weaponIcon('9c82e19d-4575-0200-1a81-3eacf00cf872'),
-        widthPercent: getWeaponCategoryWidth(RIFLE),
+        widthPercent: gridWidth(RIFLE),
       },
     ],
   },
@@ -126,7 +128,7 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'melee',
         imageUrl: weaponIcon('2f59173c-4bed-b6c3-2191-dea9b58be9c7'),
-        widthPercent: getWeaponCategoryWidth(MELEE),
+        widthPercent: gridWidth(MELEE),
       },
     ],
   },
@@ -137,17 +139,17 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'marshal',
         imageUrl: weaponIcon('c4883e50-4494-202c-3ec3-6b8a9284f00b'),
-        widthPercent: getWeaponCategoryWidth(SNIPER),
+        widthPercent: gridWidth(SNIPER),
       },
       {
         key: 'outlaw',
         imageUrl: weaponIcon('5f0aaf7a-4289-3998-d5ff-eb9a5cf7ef5c'),
-        widthPercent: getWeaponCategoryWidth(SNIPER),
+        widthPercent: gridWidth(SNIPER),
       },
       {
         key: 'operator',
         imageUrl: weaponIcon('a03b24d3-4319-996d-0f8c-94bbfba1dfc7'),
-        widthPercent: getWeaponCategoryWidth(SNIPER),
+        widthPercent: gridWidth(SNIPER),
       },
     ],
   },
@@ -158,12 +160,12 @@ const sections: WeaponCategoryGridSection[] = [
       {
         key: 'ares',
         imageUrl: weaponIcon('55d8a0f4-4274-ca67-fe2c-06ab45efdf58'),
-        widthPercent: getWeaponCategoryWidth(HEAVY),
+        widthPercent: gridWidth(HEAVY),
       },
       {
         key: 'odin',
         imageUrl: weaponIcon('63e6c2b6-4a8e-869c-3d4c-e38355226584'),
-        widthPercent: getWeaponCategoryWidth(HEAVY),
+        widthPercent: gridWidth(HEAVY),
       },
     ],
   },
@@ -231,25 +233,25 @@ export const WithBuddies: Story = {
           {
             key: 'vandal',
             imageUrl: weaponIcon('9c82e19d-4575-0200-1a81-3eacf00cf872'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: gridWidth(RIFLE),
             buddyIconUrl: taskForceBuddy,
           },
           {
             key: 'phantom',
             imageUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: gridWidth(RIFLE),
             buddyIconUrl: rgxBuddy,
           },
           {
             key: 'guardian',
             imageUrl: weaponIcon('4ade7faa-4cf1-8376-95ef-39884480959b'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: gridWidth(RIFLE),
             buddyIconUrl: rgxBuddy,
           },
           {
             key: 'bulldog',
             imageUrl: weaponIcon('ae3de142-4d85-2547-dd26-4e90bed35cf7'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: gridWidth(RIFLE),
             buddyIconUrl: taskForceBuddy,
           },
         ],
@@ -269,19 +271,19 @@ export const WithBuddiesList: Story = {
           {
             key: 'vandal',
             imageUrl: weaponIcon('9c82e19d-4575-0200-1a81-3eacf00cf872'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: listWidth(RIFLE),
             buddyIconUrl: taskForceBuddy,
           },
           {
             key: 'phantom',
             imageUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: listWidth(RIFLE),
             buddyIconUrl: rgxBuddy,
           },
           {
             key: 'guardian',
             imageUrl: weaponIcon('4ade7faa-4cf1-8376-95ef-39884480959b'),
-            widthPercent: getWeaponCategoryWidth(RIFLE),
+            widthPercent: listWidth(RIFLE),
             buddyIconUrl: rgxBuddy,
           },
         ],

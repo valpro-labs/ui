@@ -31,14 +31,6 @@ const WEAPON_CATEGORY_WIDTH_GRID: Record<string, number> = {
 };
 
 /**
- * Resolve the per-category image width for a weapon category in the
- * loadout/store grid layout, falling back to 80 when unknown.
- */
-function getWeaponCategoryWidth(category: string): number {
-  return WEAPON_CATEGORY_WIDTH_GRID[category] ?? 80;
-}
-
-/**
  * Resolve the per-category image width for a weapon category in either
  * the wide list card or the narrower grid card.
  */
@@ -159,7 +151,6 @@ function getWeaponGridIconStyle(weaponUuid: string): StyleProp<ImageStyle> {
 }
 
 export {
-  getWeaponCategoryWidth,
   getWeaponGridTransform,
   getWeaponGridIconStyle,
   resolveWeaponCategoryWidth,
