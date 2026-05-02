@@ -81,7 +81,7 @@ function RewardItem({
       ) : null}
 
       <View
-        className="bg-secondary size-12 items-center justify-center overflow-hidden rounded-lg">
+        className="bg-secondary size-11 items-center justify-center overflow-hidden rounded-lg">
         {iconUrl ? (
           <Image
             source={iconUrl}
