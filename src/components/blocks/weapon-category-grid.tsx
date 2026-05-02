@@ -139,7 +139,12 @@ function WeaponGridCard({
         </View>
       ) : null}
       {chevronIcon ? (
-        <View className="absolute top-0 right-1 bottom-0 justify-center">
+        <View
+          className={cn(
+            'absolute top-0 bottom-0 justify-center',
+            isGrid ? 'right-1' : 'right-3'
+          )}
+          style={isGrid ? undefined : { transform: [{ scale: 1.15 }] }}>
           {chevronIcon}
         </View>
       ) : null}
