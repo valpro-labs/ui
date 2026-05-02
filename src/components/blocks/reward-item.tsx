@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, type ImageStyle, type StyleProp } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
@@ -9,6 +9,10 @@ import { cn } from '@/lib/utils';
 interface RewardItemProps {
   /** Reward icon URL. Falls back to a muted square placeholder when omitted. */
   iconUrl?: string;
+  /** Explicit icon size inside the rounded thumbnail tile. */
+  iconSize?: `${number}%`;
+  /** Optional extra image styles, e.g. per-weapon translate / rotate tuning. */
+  iconStyle?: StyleProp<ImageStyle>;
   /** Tint the icon with `--color-foreground`. Useful for title / currency glyphs shipped as text masks. */
   tinted?: boolean;
   /** Reward display name (main label). */
@@ -43,6 +47,8 @@ interface RewardItemProps {
  */
 function RewardItem({
   iconUrl,
+  iconSize,
+  iconStyle,
   tinted = false,
   name,
   amount,
@@ -74,15 +80,19 @@ function RewardItem({
         />
       ) : null}
 
-      <View className="size-12 items-center justify-center">
+      <View
+        className="bg-secondary size-12 items-center justify-center overflow-hidden rounded-lg">
         {iconUrl ? (
           <Image
             source={iconUrl}
-            style={{
-              width: '100%',
-              height: '100%',
-              tintColor: tinted ? foreground : undefined,
-            }}
+            style={[
+              {
+                width: iconSize ?? '100%',
+                height: iconSize ?? '100%',
+                tintColor: tinted ? foreground : undefined,
+              },
+              iconStyle,
+            ]}
             contentFit="contain"
           />
         ) : (

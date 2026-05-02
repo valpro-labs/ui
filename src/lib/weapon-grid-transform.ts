@@ -133,6 +133,20 @@ function getWeaponGridTransform(weaponUuid: string): WeaponGridTransform {
   return { ...DEFAULT_WEAPON_GRID, ...WEAPON_GRID_OVERRIDES[weaponUuid] };
 }
 
+function compactWeaponTransform(
+  weaponUuid: string,
+  intensity = 0.6
+): WeaponGridTransform {
+  const { scale, offsetX, offsetY, rotate } = getWeaponGridTransform(weaponUuid);
+
+  return {
+    scale: 1 + (scale - 1) * intensity,
+    offsetX: offsetX * intensity,
+    offsetY: offsetY * intensity,
+    rotate,
+  };
+}
+
 /**
  * Convenience: compose the transform as an RN `ImageStyle` ready to
  * pass into `OwnedItemCard`'s `iconStyle` prop for weapon-skin tiles
@@ -150,7 +164,25 @@ function getWeaponGridIconStyle(weaponUuid: string): StyleProp<ImageStyle> {
   };
 }
 
+/**
+ * Compact thumbnail version of the weapon transform for smaller framed
+ * slots such as reward-list icons. Preserves the same pose, but scales
+ * the zoom/offset down so the full weapon stays inside the rounded tile.
+ */
+function getCompactWeaponIconStyle(weaponUuid: string, intensity?: number): StyleProp<ImageStyle> {
+  const { scale, offsetX, offsetY, rotate } = compactWeaponTransform(weaponUuid, intensity);
+  return {
+    transform: [
+      { scale },
+      { translateX: offsetX },
+      { translateY: offsetY },
+      { rotate: `${rotate}deg` },
+    ],
+  };
+}
+
 export {
+  getCompactWeaponIconStyle,
   getWeaponGridTransform,
   getWeaponGridIconStyle,
   resolveWeaponCategoryWidth,
