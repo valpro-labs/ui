@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
 
 import { OfferCard, type OfferCardProps } from '@/components/blocks/offer-card';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 // ── Real Valorant asset URLs ─────────────────────────────────────────────
 // Chroma fullRender images from the public valorant-api.com CDN.
@@ -34,7 +35,9 @@ const currencyIcon =
 // `ContentTier.highlightColor`. The trailing `33` byte = ~20% alpha,
 // which tints the image background and discount badge without
 // overpowering the skin art — matches the in-game store look.
-const select: OfferCardProps = {
+type TierSample = OfferCardProps & { weaponCategory: string };
+
+const select: TierSample = {
   name: 'Immortalized Vandal',
   iconUrl: vandalChroma,
   tierIconUrl: selectTierIcon,
@@ -44,7 +47,7 @@ const select: OfferCardProps = {
   weaponCategory: 'EEquippableCategory::Rifle',
 };
 
-const deluxe: OfferCardProps = {
+const deluxe: TierSample = {
   name: 'Task Force 809 Frenzy',
   iconUrl: frenzyChroma,
   tierIconUrl: deluxeTierIcon,
@@ -54,7 +57,7 @@ const deluxe: OfferCardProps = {
   weaponCategory: 'EEquippableCategory::Sidearm',
 };
 
-const premium: OfferCardProps = {
+const premium: TierSample = {
   name: 'Valorant Go! Vol. 2 Operator',
   iconUrl: goOperatorChroma,
   tierIconUrl: premiumTierIcon,
@@ -65,7 +68,7 @@ const premium: OfferCardProps = {
   weaponCategory: 'EEquippableCategory::Sniper',
 };
 
-const exclusive: OfferCardProps = {
+const exclusive: TierSample = {
   name: 'Doombringer Odin',
   iconUrl: doombringerChroma,
   tierIconUrl: exclusiveTierIcon,
@@ -106,13 +109,23 @@ export const Showcase: Story = {
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>
         {tiers.map((t, i) => (
-          <OfferCard key={i} {...t} isLoading={isLoading} />
+          <OfferCard
+            key={i}
+            {...t}
+            imageWidthPercent={resolveWeaponCategoryWidth(t.weaponCategory, 'list')}
+            isLoading={isLoading}
+          />
         ))}
       </View>
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {tiers.map((t, i) => (
           <View key={i} style={{ width: '48%' }}>
-            <OfferCard {...t} variant="grid" isLoading={isLoading} />
+            <OfferCard
+              {...t}
+              variant="grid"
+              imageWidthPercent={resolveWeaponCategoryWidth(t.weaponCategory, 'grid')}
+              isLoading={isLoading}
+            />
           </View>
         ))}
       </View>

@@ -10,6 +10,7 @@ import { OfferCard } from '@/components/blocks/offer-card';
 import { SectionTitle } from '@/components/blocks/section-title';
 import { Wallet } from '@/components/blocks/wallet';
 import { Text } from '@/components/ui/text';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 // ── Currencies ──────────────────────────────────────────────────────────────
 const valorantPoints =
@@ -20,14 +21,8 @@ const kingdomCredits =
   'https://media.valorant-api.com/currencies/85ca954a-41f2-ce94-9b45-8ca3dd39a00d/displayicon.png';
 
 // ── Daily offer skins ───────────────────────────────────────────────────────
-const vandalChroma =
-  'https://media.valorant-api.com/weaponskinchromas/64c51524-43da-875e-ff0d-db97f3e6194e/fullrender.png';
-const frenzyChroma =
-  'https://media.valorant-api.com/weaponskinchromas/b8ddad9b-4622-3e0e-6821-56bf2e901bcf/fullrender.png';
-const goOperatorChroma =
-  'https://media.valorant-api.com/weaponskinchromas/5220f477-4fbb-cfb6-60ce-ddb7bd215a66/fullrender.png';
-const doombringerChroma =
-  'https://media.valorant-api.com/weaponskinchromas/6d785ae8-4332-9946-e491-368a5fab442d/fullrender.png';
+const weaponIcon = (uuid: string) =>
+  `https://media.valorant-api.com/weapons/${uuid}/displayicon.png`;
 
 const selectTierIcon =
   'https://media.valorant-api.com/contenttiers/12683d76-48d7-84a3-4e09-6985794f0445/displayicon.png';
@@ -37,6 +32,182 @@ const premiumTierIcon =
   'https://media.valorant-api.com/contenttiers/60bca009-4182-7998-dee7-b8a2558dc369/displayicon.png';
 const exclusiveTierIcon =
   'https://media.valorant-api.com/contenttiers/e046854e-406c-37f4-6607-19a9ba8426fc/displayicon.png';
+
+type DailyOffer = {
+  name: string;
+  iconUrl: string;
+  tierIconUrl: string;
+  tierColor: string;
+  price: number;
+  weaponCategory: string;
+  discount?: number;
+  owned?: boolean;
+};
+
+const SIDEARM = 'EEquippableCategory::Sidearm';
+const SMG = 'EEquippableCategory::SMG';
+const SHOTGUN = 'EEquippableCategory::Shotgun';
+const RIFLE = 'EEquippableCategory::Rifle';
+const MELEE = 'EEquippableCategory::Melee';
+const SNIPER = 'EEquippableCategory::Sniper';
+const HEAVY = 'EEquippableCategory::Heavy';
+
+const dailyOffers = [
+  {
+    name: 'Classic',
+    iconUrl: weaponIcon('29a0cfab-485b-f5d5-779a-b59f85e204a8'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 875,
+    weaponCategory: SIDEARM,
+  },
+  {
+    name: 'Shorty',
+    iconUrl: weaponIcon('42da8ccc-40d5-affc-beec-15aa47b42eda'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 875,
+    weaponCategory: SIDEARM,
+  },
+  {
+    name: 'Frenzy',
+    iconUrl: weaponIcon('44d4e95c-4157-0037-81b2-17841bf2e8e3'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 1275,
+    weaponCategory: SIDEARM,
+  },
+  {
+    name: 'Ghost',
+    iconUrl: weaponIcon('1baa85b4-4c70-1284-64bb-6481dfc3bb4e'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 1775,
+    weaponCategory: SIDEARM,
+  },
+  {
+    name: 'Sheriff',
+    iconUrl: weaponIcon('e336c6b8-418d-9340-d77f-7a9e4cfe0702'),
+    tierIconUrl: selectTierIcon,
+    tierColor: '5a9fe233',
+    price: 1775,
+    weaponCategory: SIDEARM,
+    owned: true,
+  },
+  {
+    name: 'Stinger',
+    iconUrl: weaponIcon('f7e1b454-4ad4-1063-ec0a-159e56b58941'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 1275,
+    weaponCategory: SMG,
+  },
+  {
+    name: 'Spectre',
+    iconUrl: weaponIcon('462080d1-4035-2937-7c09-27aa2a5c27a7'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 1775,
+    weaponCategory: SMG,
+  },
+  {
+    name: 'Bucky',
+    iconUrl: weaponIcon('910be174-449b-c412-ab22-d0873436b21b'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 1275,
+    weaponCategory: SHOTGUN,
+  },
+  {
+    name: 'Judge',
+    iconUrl: weaponIcon('ec845bf4-4f79-ddda-a3da-0db3774b2794'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 1775,
+    weaponCategory: SHOTGUN,
+  },
+  {
+    name: 'Bulldog',
+    iconUrl: weaponIcon('ae3de142-4d85-2547-dd26-4e90bed35cf7'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 1275,
+    weaponCategory: RIFLE,
+  },
+  {
+    name: 'Guardian',
+    iconUrl: weaponIcon('4ade7faa-4cf1-8376-95ef-39884480959b'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 1775,
+    weaponCategory: RIFLE,
+  },
+  {
+    name: 'Phantom',
+    iconUrl: weaponIcon('ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 1775,
+    weaponCategory: RIFLE,
+  },
+  {
+    name: 'Vandal',
+    iconUrl: weaponIcon('9c82e19d-4575-0200-1a81-3eacf00cf872'),
+    tierIconUrl: selectTierIcon,
+    tierColor: '5a9fe233',
+    price: 1775,
+    weaponCategory: RIFLE,
+  },
+  {
+    name: 'Melee',
+    iconUrl: weaponIcon('2f59173c-4bed-b6c3-2191-dea9b58be9c7'),
+    tierIconUrl: exclusiveTierIcon,
+    tierColor: 'f5955b33',
+    price: 4350,
+    weaponCategory: MELEE,
+  },
+  {
+    name: 'Marshal',
+    iconUrl: weaponIcon('c4883e50-4494-202c-3ec3-6b8a9284f00b'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 1275,
+    weaponCategory: SNIPER,
+  },
+  {
+    name: 'Outlaw',
+    iconUrl: weaponIcon('5f0aaf7a-4289-3998-d5ff-eb9a5cf7ef5c'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 2175,
+    weaponCategory: SNIPER,
+  },
+  {
+    name: 'Operator',
+    iconUrl: weaponIcon('a03b24d3-4319-996d-0f8c-94bbfba1dfc7'),
+    tierIconUrl: premiumTierIcon,
+    tierColor: 'd1548d33',
+    price: 2175,
+    discount: 25,
+    weaponCategory: SNIPER,
+  },
+  {
+    name: 'Ares',
+    iconUrl: weaponIcon('55d8a0f4-4274-ca67-fe2c-06ab45efdf58'),
+    tierIconUrl: deluxeTierIcon,
+    tierColor: '00958733',
+    price: 1275,
+    weaponCategory: HEAVY,
+  },
+  {
+    name: 'Odin',
+    iconUrl: weaponIcon('63e6c2b6-4a8e-869c-3d4c-e38355226584'),
+    tierIconUrl: exclusiveTierIcon,
+    tierColor: 'f5955b33',
+    price: 2475,
+    weaponCategory: HEAVY,
+  },
+] satisfies ReadonlyArray<DailyOffer>;
 
 // ── Bundles ─────────────────────────────────────────────────────────────────
 const rgxBundleArt =
@@ -114,60 +285,25 @@ export const Default: Story = {
           <View>
             <SectionTitle title="Daily Offers" rightElement={<Countdown text="18h 42m" />} />
             <View style={rowStyle}>
-              <View style={cellStyle}>
-                <OfferCard
-                  name="Immortalized Vandal"
-                  iconUrl={vandalChroma}
-                  tierIconUrl={selectTierIcon}
-                  tierColor="5a9fe233"
-                  currencyIconUrl={valorantPoints}
-                  price={1775}
-                  variant={variant}
-                  weaponCategory="EEquippableCategory::Rifle"
-                  imageOverlay={isLoading ? undefined : <BoughtOverlay />}
-                  isLoading={isLoading}
-                />
-              </View>
-              <View style={cellStyle}>
-                <OfferCard
-                  name="Task Force 809 Frenzy"
-                  iconUrl={frenzyChroma}
-                  tierIconUrl={deluxeTierIcon}
-                  tierColor="00958733"
-                  currencyIconUrl={valorantPoints}
-                  price={1275}
-                  variant={variant}
-                  weaponCategory="EEquippableCategory::Sidearm"
-                  isLoading={isLoading}
-                />
-              </View>
-              <View style={cellStyle}>
-                <OfferCard
-                  name="Valorant Go! Vol. 2 Operator"
-                  iconUrl={goOperatorChroma}
-                  tierIconUrl={premiumTierIcon}
-                  tierColor="d1548d33"
-                  currencyIconUrl={valorantPoints}
-                  price={2175}
-                  discount={25}
-                  variant={variant}
-                  weaponCategory="EEquippableCategory::Sniper"
-                  isLoading={isLoading}
-                />
-              </View>
-              <View style={cellStyle}>
-                <OfferCard
-                  name="Doombringer Odin"
-                  iconUrl={doombringerChroma}
-                  tierIconUrl={exclusiveTierIcon}
-                  tierColor="f5955b33"
-                  currencyIconUrl={valorantPoints}
-                  price={2475}
-                  variant={variant}
-                  weaponCategory="EEquippableCategory::Heavy"
-                  isLoading={isLoading}
-                />
-              </View>
+              {dailyOffers.map((offer) => (
+                <View key={offer.name} style={cellStyle}>
+                  <OfferCard
+                    name={offer.name}
+                    iconUrl={offer.iconUrl}
+                    tierIconUrl={offer.tierIconUrl}
+                    tierColor={offer.tierColor}
+                    currencyIconUrl={valorantPoints}
+                    price={offer.price}
+                    discount={offer.discount}
+                    variant={variant}
+                    imageWidthPercent={resolveWeaponCategoryWidth(offer.weaponCategory, variant)}
+                    imageOverlay={
+                      !isLoading && offer.owned ? <BoughtOverlay /> : undefined
+                    }
+                    isLoading={isLoading}
+                  />
+                </View>
+              ))}
             </View>
           </View>
 

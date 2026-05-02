@@ -6,6 +6,7 @@ import { BundleCard } from '@/components/blocks/bundle-card';
 import { ItemBoughtOverlay } from '@/components/blocks/item-bought-overlay';
 import { OfferCard } from '@/components/blocks/offer-card';
 import { Image } from '@/components/ui/image';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 const vandalChroma =
   'https://media.valorant-api.com/weaponskinchromas/64c51524-43da-875e-ff0d-db97f3e6194e/fullrender.png';
@@ -65,7 +66,7 @@ export const OnOfferCard: Story = {
         tierColor="5a9fe233"
         currencyIconUrl={currencyIcon}
         price={1775}
-        weaponCategory="EEquippableCategory::Rifle"
+        imageWidthPercent={resolveWeaponCategoryWidth('EEquippableCategory::Rifle', 'list')}
         imageOverlay={<ItemBoughtOverlay icon={<CheckmarkIcon />} />}
       />
     </View>

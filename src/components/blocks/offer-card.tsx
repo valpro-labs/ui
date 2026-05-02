@@ -7,7 +7,6 @@ import { useCSSVariable } from 'uniwind';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
-import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 import { cn } from '@/lib/utils';
 
 interface OfferCardProps {
@@ -23,13 +22,11 @@ interface OfferCardProps {
   currencyIconUrl?: string;
   /** Price in the item's currency. Omit to hide the price block. */
   price?: number;
-  /** Discount percentage (0–100). Renders the slanted discount badge when set. */
+  /** Discount percentage (0-100). Renders the slanted discount badge when set. */
   discount?: number;
   /** Layout: `list` (wide 10:4) vs `grid` (16:9). */
   variant?: 'list' | 'grid';
-  /** Riot `EEquippableCategory::*` string (e.g. `"EEquippableCategory::Rifle"`). Used to scale the skin image so same-category weapons land at a consistent on-card size. Ignored when `imageWidthPercent` is provided. */
-  weaponCategory?: string;
-  /** Explicit image width percent override (0–100). Wins over `weaponCategory`. */
+  /** Image width as a percentage of card width (0-100). Defaults to 80. */
   imageWidthPercent?: number;
   /** Tap handler. When omitted the card renders without `Pressable`. */
   onPress?: () => void;
@@ -46,19 +43,8 @@ function normalizeHex(input?: string): string | undefined {
   return input.startsWith('#') ? input : `#${input}`;
 }
 
-// Image width % within the card — keeps same-category weapons visually consistent
-// across skins. Keys match Riot's `EEquippableCategory::*` enum strings.
-function resolveImageWidth(
-  explicit: number | undefined,
-  category: string | undefined,
-  isGrid: boolean
-): number {
-  if (explicit !== undefined) return explicit;
-  return resolveWeaponCategoryWidth(category, isGrid ? 'grid' : 'list');
-}
-
 /**
- * Single store offer (typically a weapon skin) — image on top, info bar
+ * Single store offer (typically a weapon skin) - image on top, info bar
  * on the bottom with tier icon + name + price. Layout shared between the
  * wide list row and the narrower 2-up grid tile.
  *
@@ -75,7 +61,6 @@ function OfferCard({
   price,
   discount,
   variant = 'list',
-  weaponCategory,
   imageWidthPercent,
   onPress,
   imageOverlay,
@@ -95,7 +80,7 @@ function OfferCard({
   }
 
   const color = normalizeHex(tierColor);
-  const widthPercent = resolveImageWidth(imageWidthPercent, weaponCategory, isGrid);
+  const widthPercent = imageWidthPercent ?? 80;
 
   const card = (
     <View
@@ -104,7 +89,6 @@ function OfferCard({
         isGrid ? 'aspect-video' : 'aspect-10/4',
         className
       )}>
-      {/* Image */}
       <View
         className="bg-secondary relative flex-1 items-center justify-center"
         style={color ? { backgroundColor: color } : undefined}>
@@ -119,7 +103,7 @@ function OfferCard({
           />
         ) : null}
 
-        {discount !== undefined && (
+        {discount !== undefined ? (
           <View className="absolute top-0 left-0">
             <View className="flex-row overflow-hidden">
               <View
@@ -142,12 +126,11 @@ function OfferCard({
               />
             </View>
           </View>
-        )}
+        ) : null}
 
         {imageOverlay}
       </View>
 
-      {/* Info bar */}
       <View
         className={cn(
           'flex-row items-center justify-between',
@@ -172,9 +155,8 @@ function OfferCard({
           </Text>
         </View>
 
-        {price !== undefined && (
-          <View
-            className={cn('flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
+        {price !== undefined ? (
+          <View className={cn('flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image
                 source={currencyIconUrl}
@@ -186,15 +168,11 @@ function OfferCard({
                 contentFit="contain"
               />
             ) : null}
-            <Text
-              className={cn(
-                'text-foreground font-bold',
-                isGrid ? 'text-sm' : 'text-base'
-              )}>
+            <Text className={cn('text-foreground font-bold', isGrid ? 'text-sm' : 'text-base')}>
               {price.toLocaleString()}
             </Text>
           </View>
-        )}
+        ) : null}
       </View>
     </View>
   );
