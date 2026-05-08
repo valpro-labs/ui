@@ -89,7 +89,7 @@ function MatchCard({
       ? 'text-val-green'
       : lost
         ? 'text-val-red'
-        : 'text-val-white';
+        : 'text-val-yellow';
 
   const card = (
     <View className={cn('bg-card relative overflow-hidden rounded-xl', className)}>
