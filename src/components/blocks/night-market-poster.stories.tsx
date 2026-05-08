@@ -59,26 +59,26 @@ const offers = [
     weaponCategory: 'EEquippableCategory::Shotgun',
   },
   {
-    tierLabel: 'DELUXE',
-    tierColor: 'rgb(0, 153, 135)',
-    name: "Gaia's Vengeance Classic",
+    tierLabel: 'EXCLUSIVE',
+    tierColor: 'rgb(245, 149, 91)',
+    name: 'Reaver Vandal',
     iconUrl:
-      'https://media.valorant-api.com/weaponskinchromas/b8ddad9b-4622-3e0e-6821-56bf2e901bcf/fullrender.png',
-    originalPrice: 875,
-    discountedPrice: 525,
-    discountPercent: 40,
-    weaponCategory: 'EEquippableCategory::Sidearm',
+      'https://media.valorant-api.com/weaponskinchromas/5220f477-4fbb-cfb6-60ce-ddb7bd215a66/fullrender.png',
+    originalPrice: 1775,
+    discountedPrice: 888,
+    discountPercent: 50,
+    weaponCategory: 'EEquippableCategory::Rifle',
   },
   {
     tierLabel: 'PREMIUM',
     tierColor: 'rgb(209, 84, 141)',
-    name: 'Sovereign Sheriff',
+    name: 'Prime Phantom',
     iconUrl:
       'https://media.valorant-api.com/weaponskinchromas/64c51524-43da-875e-ff0d-db97f3e6194e/fullrender.png',
     originalPrice: 1775,
     discountedPrice: 1245,
     discountPercent: 30,
-    weaponCategory: 'EEquippableCategory::Sidearm',
+    weaponCategory: 'EEquippableCategory::Rifle',
   },
 ];
 

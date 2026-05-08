@@ -55,15 +55,6 @@ const TEXT_PRIMARY = 'rgb(237, 233, 226)';
 const TEXT_GOLD = 'rgb(240, 203, 116)';
 const VALPRO_RED = 'rgb(255, 70, 85)';
 
-const WEAPON_WIDTH: Record<string, number> = {
-  'EEquippableCategory::Sidearm': 54,
-  'EEquippableCategory::SMG': 84,
-  'EEquippableCategory::Shotgun': 80,
-  'EEquippableCategory::Rifle': 84,
-  'EEquippableCategory::Melee': 62,
-  'EEquippableCategory::Sniper': 84,
-  'EEquippableCategory::Heavy': 88,
-};
 
 function withAlpha(color: string, alpha: number): string {
   if (color.startsWith('rgb(')) {
@@ -107,8 +98,6 @@ function OfferCard({
   offer: NightMarketOffer;
   priceSuffix: string;
 }) {
-  const imageWidth = WEAPON_WIDTH[offer.weaponCategory ?? ''] ?? 84;
-
   return (
     <View
       style={{
@@ -144,7 +133,7 @@ function OfferCard({
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
           style={{
-            width: `${imageWidth}%`,
+            width: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '40%' : '80%',
             height: '74%',
           }}
           contentFit="contain"
