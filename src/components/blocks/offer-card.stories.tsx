@@ -88,27 +88,38 @@ const meta: Meta<typeof OfferCard> = {
 export default meta;
 type Story = StoryObj<typeof OfferCard>;
 
+const discountSamples: TierSample[] = [
+  { ...select, discount: 10 },
+  { ...deluxe, discount: 22 },
+  { ...premium, discount: 25 },
+  { ...exclusive, discount: 34 },
+  { name: 'Glitchpop Judge', iconUrl: doombringerChroma, tierIconUrl: premiumTierIcon, tierColor: 'd1548d33', currencyIconUrl: currencyIcon, price: 1775, discount: 15, weaponCategory: 'EEquippableCategory::Shotgun' },
+  { name: 'Reaver Vandal', iconUrl: vandalChroma, tierIconUrl: exclusiveTierIcon, tierColor: 'f5955b33', currencyIconUrl: currencyIcon, price: 1775, discount: 48, weaponCategory: 'EEquippableCategory::Rifle' },
+];
+
 export const WithDiscount: Story = {
-  args: { name: '', isLoading: false },
-  render: ({ isLoading }) => (
-    <View style={{ gap: 8 }}>
-      {[
-        { ...select, discount: 10 },
-        { ...deluxe, discount: 22 },
-        { ...premium, discount: 25 },
-        { ...exclusive, discount: 34 },
-        { name: 'Glitchpop Judge', iconUrl: doombringerChroma, tierIconUrl: premiumTierIcon, tierColor: 'd1548d33', currencyIconUrl: currencyIcon, price: 1775, discount: 15, weaponCategory: 'EEquippableCategory::Shotgun' },
-        { name: 'Reaver Vandal', iconUrl: vandalChroma, tierIconUrl: exclusiveTierIcon, tierColor: 'f5955b33', currencyIconUrl: currencyIcon, price: 1775, discount: 48, weaponCategory: 'EEquippableCategory::Rifle' },
-      ].map((t, i) => (
-        <OfferCard
-          key={i}
-          {...t}
-          imageWidthPercent={resolveWeaponCategoryWidth(t.weaponCategory, 'list')}
-          isLoading={isLoading}
-        />
-      ))}
-    </View>
-  ),
+  args: { name: '', isLoading: false, variant: 'list' },
+  render: ({ isLoading, variant }) => {
+    const isGrid = variant === 'grid';
+    const rowStyle = isGrid
+      ? { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: 8 }
+      : { gap: 8 };
+    const cellStyle = isGrid ? { width: '48%' as const } : undefined;
+    return (
+      <View style={rowStyle}>
+        {discountSamples.map((t, i) => (
+          <View key={i} style={cellStyle}>
+            <OfferCard
+              {...t}
+              variant={variant}
+              imageWidthPercent={resolveWeaponCategoryWidth(t.weaponCategory, variant ?? 'list')}
+              isLoading={isLoading}
+            />
+          </View>
+        ))}
+      </View>
+    );
+  },
 };
 
 export const LoadingList: Story = {
