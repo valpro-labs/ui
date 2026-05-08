@@ -152,6 +152,7 @@ function OfferCard({
 
       <View
         style={{
+          height: 90,
           paddingHorizontal: 14,
           paddingTop: 12,
           paddingBottom: 14,

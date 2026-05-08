@@ -33,7 +33,7 @@ const offers = [
   {
     tierLabel: 'EXCLUSIVE',
     tierColor: 'rgb(245, 149, 91)',
-    name: 'Reaver Phantom',
+    name: 'Glitchpop Neon Ultraviolet Phantom X',
     iconUrl:
       'https://media.valorant-api.com/weaponskinchromas/5220f477-4fbb-cfb6-60ce-ddb7bd215a66/fullrender.png',
     originalPrice: 1775,
@@ -55,7 +55,7 @@ const offers = [
   {
     tierLabel: 'PREMIUM',
     tierColor: 'rgb(209, 84, 141)',
-    name: 'Glitchpop Judge',
+    name: 'Champions 2024 Sovereign Judge',
     iconUrl:
       'https://media.valorant-api.com/weaponskinchromas/6d785ae8-4332-9946-e491-368a5fab442d/fullrender.png',
     originalPrice: 1775,
@@ -77,7 +77,7 @@ const offers = [
   {
     tierLabel: 'PREMIUM',
     tierColor: 'rgb(209, 84, 141)',
-    name: 'Prime Phantom',
+    name: 'RGX 11z Pro Neon Overdrive Phantom',
     iconUrl:
       'https://media.valorant-api.com/weaponskinchromas/64c51524-43da-875e-ff0d-db97f3e6194e/fullrender.png',
     originalPrice: 1775,
