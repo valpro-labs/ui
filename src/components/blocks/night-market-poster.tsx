@@ -204,7 +204,7 @@ function OfferCard({
         <View
           style={{
             flexDirection: 'row',
-            alignItems: 'baseline',
+            alignItems: 'center',
             gap: 8,
           }}>
           <Text
