@@ -193,16 +193,7 @@ function OfferCard({
             fontWeight: '900',
             textAlign: 'right',
           }}>
-          {offer.discountedPrice}{' '}
-          <Text
-            style={{
-              fontSize: 16,
-              lineHeight: 18,
-              fontWeight: '800',
-              opacity: 0.65,
-            }}>
-            {priceSuffix}
-          </Text>
+          {offer.discountedPrice} {priceSuffix}
         </Text>
       </View>
     </View>
