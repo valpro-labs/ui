@@ -99,7 +99,7 @@ function OfferTile({
       </View>
 
       <Text
-        numberOfLines={3}
+        numberOfLines={2}
         style={{
           marginTop: 14,
           color: CARD_TEXT,
