@@ -163,22 +163,11 @@ function OfferCard({
         }}>
         <View style={{ flex: 1, marginRight: 8 }}>
           <Text
-            style={{
-              marginBottom: 2,
-              color: offer.tierColor,
-              fontSize: 18,
-              lineHeight: 20,
-              fontWeight: '800',
-              letterSpacing: 3.6,
-            }}>
-            {offer.tierLabel.toUpperCase()}
-          </Text>
-          <Text
             numberOfLines={2}
             style={{
               color: TEXT_PRIMARY,
-              fontSize: 26,
-              lineHeight: 28,
+              fontSize: 30,
+              lineHeight: 32,
               fontWeight: '900',
               letterSpacing: -0.5,
             }}>
@@ -187,7 +176,7 @@ function OfferCard({
         </View>
         <Text
           style={{
-            color: TEXT_PRIMARY,
+            color: offer.tierColor,
             fontSize: 32,
             lineHeight: 34,
             fontWeight: '900',
