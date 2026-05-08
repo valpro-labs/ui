@@ -49,6 +49,8 @@ type NightMarketPosterProps = {
   height?: number;
 };
 
+const LATIN_ONLY = /^[\x20-ɏ\s]*$/;
+
 const BACKGROUND = 'rgb(15, 12, 21)';
 const CARD_BACKGROUND = 'rgb(28, 24, 38)';
 const TEXT_PRIMARY = 'rgb(237, 233, 226)';
@@ -166,6 +168,7 @@ function OfferCard({
             numberOfLines={2}
             style={{
               color: TEXT_PRIMARY,
+              fontFamily: LATIN_ONLY.test(offer.name) ? 'Bradley Hand' : undefined,
               fontSize: 30,
               lineHeight: 32,
               fontWeight: '900',
