@@ -50,7 +50,7 @@ const offers = [
     originalPrice: 1275,
     discountedPrice: 995,
     discountPercent: 22,
-    weaponCategory: 'EEquippableCategory::Rifle',
+    weaponCategory: 'EEquippableCategory::Sidearm',
   },
   {
     tierLabel: 'PREMIUM',

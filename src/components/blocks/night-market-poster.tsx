@@ -133,8 +133,8 @@ function OfferCard({
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
           style={{
-            width: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '40%' : '80%',
-            height: '74%',
+            width: '100%',
+            height: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '45%' : '100%',
           }}
           contentFit="contain"
         />
