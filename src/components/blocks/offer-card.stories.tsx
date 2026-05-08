@@ -88,6 +88,29 @@ const meta: Meta<typeof OfferCard> = {
 export default meta;
 type Story = StoryObj<typeof OfferCard>;
 
+export const WithDiscount: Story = {
+  args: { name: '', isLoading: false },
+  render: ({ isLoading }) => (
+    <View style={{ gap: 8 }}>
+      {[
+        { ...select, discount: 10 },
+        { ...deluxe, discount: 22 },
+        { ...premium, discount: 25 },
+        { ...exclusive, discount: 34 },
+        { name: 'Glitchpop Judge', iconUrl: doombringerChroma, tierIconUrl: premiumTierIcon, tierColor: 'd1548d33', currencyIconUrl: currencyIcon, price: 1775, discount: 15, weaponCategory: 'EEquippableCategory::Shotgun' },
+        { name: 'Reaver Vandal', iconUrl: vandalChroma, tierIconUrl: exclusiveTierIcon, tierColor: 'f5955b33', currencyIconUrl: currencyIcon, price: 1775, discount: 48, weaponCategory: 'EEquippableCategory::Rifle' },
+      ].map((t, i) => (
+        <OfferCard
+          key={i}
+          {...t}
+          imageWidthPercent={resolveWeaponCategoryWidth(t.weaponCategory, 'list')}
+          isLoading={isLoading}
+        />
+      ))}
+    </View>
+  ),
+};
+
 export const LoadingList: Story = {
   args: { name: '', isLoading: true, variant: 'list' },
 };
