@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { toPng } from 'html-to-image';
+import { useRef, useState } from 'react';
 
-import { NightMarketPoster } from '@/components/blocks/night-market-poster';
+import {
+  NightMarketPoster,
+  type NightMarketPosterProps,
+} from '@/components/blocks/night-market-poster';
 
 const meta: Meta<typeof NightMarketPoster> = {
   title: 'Blocks/NightMarketPoster',
@@ -82,10 +87,58 @@ const offers = [
   },
 ];
 
+function PosterWithDownload(args: NightMarketPosterProps) {
+  const posterRef = useRef<HTMLDivElement>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function handleDownload() {
+    if (!posterRef.current) return;
+    setBusy(true);
+    try {
+      const dataUrl = await toPng(posterRef.current, { cacheBust: true, pixelRatio: 1 });
+      const link = document.createElement('a');
+      link.download = `night-market-${args.playerTag.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'poster'}.jpg`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error('Failed to export poster as PNG:', err);
+      window.alert('Failed to export poster. See console for details.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <button
+        type="button"
+        onClick={handleDownload}
+        disabled={busy}
+        style={{
+          padding: '8px 16px',
+          background: busy ? 'rgba(255, 70, 85, 0.6)' : 'rgb(255, 70, 85)',
+          color: 'white',
+          border: 'none',
+          borderRadius: 4,
+          fontSize: 14,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          cursor: busy ? 'wait' : 'pointer',
+        }}>
+        {busy ? 'Generating…' : 'Download JPG'}
+      </button>
+      <div ref={posterRef}>
+        <NightMarketPoster {...args} />
+      </div>
+    </div>
+  );
+}
+
 export const Default: Story = {
   args: {
     offers,
     countdownValue: '72H 00M',
     playerTag: '@N0CT#TW1',
   },
+  render: (args) => <PosterWithDownload {...args} />,
 };
