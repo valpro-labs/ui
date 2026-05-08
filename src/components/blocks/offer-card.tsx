@@ -107,7 +107,7 @@ function OfferCard({
           <View className="absolute top-0 left-0">
             <View className="flex-row overflow-hidden">
               <View
-                className="px-2 py-0.5"
+                className="px-1.5"
                 style={color ? { backgroundColor: color } : undefined}>
                 <Text
                   className={cn(
@@ -120,7 +120,7 @@ function OfferCard({
               <View
                 className={cn(
                   'border-r-transparent',
-                  isGrid ? 'border-t-24 border-r-12' : 'border-t-32 border-r-16'
+                  isGrid ? 'border-t-20 border-r-10' : 'border-t-24 border-r-12'
                 )}
                 style={{ borderTopColor: color ?? 'transparent' }}
               />
