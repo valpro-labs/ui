@@ -141,27 +141,6 @@ function OfferCard({
         <View
           style={{
             position: 'absolute',
-            top: 10,
-            right: 10,
-            borderRadius: 6,
-            paddingHorizontal: 12,
-            paddingVertical: 5,
-            backgroundColor: TEXT_GOLD,
-          }}>
-          <Text
-            style={{
-              color: 'rgb(14, 10, 0)',
-              fontSize: 30,
-              lineHeight: 30,
-              fontWeight: '900',
-              letterSpacing: -1.2,
-            }}>
-            -{offer.discountPercent}%
-          </Text>
-        </View>
-        <View
-          style={{
-            position: 'absolute',
             right: 0,
             bottom: 0,
             left: 0,
@@ -177,66 +156,53 @@ function OfferCard({
           paddingTop: 12,
           paddingBottom: 14,
           backgroundColor: CARD_BACKGROUND,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}>
-        <Text
-          style={{
-            marginBottom: 2,
-            color: offer.tierColor,
-            fontSize: 18,
-            lineHeight: 20,
-            fontWeight: '800',
-            letterSpacing: 3.6,
-          }}>
-          {offer.tierLabel}
-        </Text>
-        <Text
-          numberOfLines={2}
-          style={{
-            marginBottom: 6,
-            color: TEXT_PRIMARY,
-            fontSize: 26,
-            lineHeight: 28,
-            fontWeight: '900',
-            letterSpacing: -0.5,
-          }}>
-          {offer.name}
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 8,
-          }}>
+        <View style={{ flex: 1, marginRight: 8 }}>
           <Text
             style={{
-              color: TEXT_PRIMARY,
-              opacity: 0.35,
-              fontSize: 20,
-              lineHeight: 24,
-              fontWeight: '700',
-              textDecorationLine: 'line-through',
+              marginBottom: 2,
+              color: offer.tierColor,
+              fontSize: 18,
+              lineHeight: 20,
+              fontWeight: '800',
+              letterSpacing: 3.6,
             }}>
-            {offer.originalPrice}
+            {offer.tierLabel.toUpperCase()}
           </Text>
           <Text
+            numberOfLines={2}
             style={{
               color: TEXT_PRIMARY,
-              fontSize: 32,
-              lineHeight: 34,
+              fontSize: 26,
+              lineHeight: 28,
               fontWeight: '900',
+              letterSpacing: -0.5,
             }}>
-            {offer.discountedPrice}{' '}
-            <Text
-              style={{
-                fontSize: 16,
-                lineHeight: 18,
-                fontWeight: '800',
-                opacity: 0.65,
-              }}>
-              {priceSuffix}
-            </Text>
+            {offer.name}
           </Text>
         </View>
+        <Text
+          style={{
+            color: TEXT_PRIMARY,
+            fontSize: 32,
+            lineHeight: 34,
+            fontWeight: '900',
+            textAlign: 'right',
+          }}>
+          {offer.discountedPrice}{' '}
+          <Text
+            style={{
+              fontSize: 16,
+              lineHeight: 18,
+              fontWeight: '800',
+              opacity: 0.65,
+            }}>
+            {priceSuffix}
+          </Text>
+        </Text>
       </View>
     </View>
   );
