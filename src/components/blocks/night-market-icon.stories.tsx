@@ -36,7 +36,7 @@ function CircleChip({ diameter, children }: { diameter: number; children: ReactN
 export const Default: Story = {
   render: () => (
     <CircleChip diameter={56}>
-      <NightMarketIcon size={36} />
+      <NightMarketIcon size={24} />
     </CircleChip>
   ),
 };
@@ -45,16 +45,16 @@ export const Sizes: Story = {
   render: () => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
       <CircleChip diameter={40}>
-        <NightMarketIcon size={26} />
+        <NightMarketIcon size={18} />
       </CircleChip>
       <CircleChip diameter={56}>
-        <NightMarketIcon size={36} />
+        <NightMarketIcon size={24} />
       </CircleChip>
       <CircleChip diameter={72}>
-        <NightMarketIcon size={46} />
+        <NightMarketIcon size={32} />
       </CircleChip>
       <CircleChip diameter={96}>
-        <NightMarketIcon size={62} />
+        <NightMarketIcon size={42} />
       </CircleChip>
     </View>
   ),
