@@ -54,6 +54,7 @@ function MapBanner({
   const isPlacement = placementLabel !== undefined;
   const won = result === 'win';
   const lost = result === 'loss';
+  const drew = result === 'draw';
 
   return (
     <View
@@ -88,7 +89,8 @@ function MapBanner({
                 className={cn(
                   'text-val-white text-4xl font-black tabular-nums',
                   won && 'text-val-green',
-                  lost && 'text-val-red'
+                  lost && 'text-val-red',
+                  drew && 'text-val-green'
                 )}>
                 {myTeamScore}
               </Text>
@@ -105,7 +107,8 @@ function MapBanner({
                 className={cn(
                   'text-val-white text-4xl font-black tabular-nums',
                   won && 'text-val-red',
-                  lost && 'text-val-green'
+                  lost && 'text-val-green',
+                  drew && 'text-val-red'
                 )}>
                 {enemyTeamScore}
               </Text>
