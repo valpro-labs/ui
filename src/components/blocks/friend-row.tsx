@@ -40,7 +40,7 @@ function FriendAvatar({ avatarUrl, status }: FriendAvatarProps) {
       />
       <View className="bg-card absolute -right-1 -bottom-1 size-4 items-center justify-center rounded-full">
         {status === 'offline' ? (
-          <View className="border-border size-3 rounded-full border-2 bg-transparent" />
+          <View className="border-border bg-card size-3 rounded-full border-2" />
         ) : (
           <View className={cn('size-3 rounded-full', STATUS_DOT[status])} />
         )}
