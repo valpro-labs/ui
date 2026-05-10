@@ -30,6 +30,7 @@ const meta: Meta<typeof RewardItem> = {
     amount: { control: { type: 'number', min: 1, max: 5000, step: 50 } },
     xp: { control: { type: 'number', min: 0, max: 20000, step: 500 } },
     progressionXp: { control: { type: 'number', min: 0, max: 20000, step: 500 } },
+    isLoading: { control: { type: 'boolean' } },
   },
   decorators: [
     (Story) => (
@@ -139,17 +140,38 @@ export const Weapon: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    name: '',
+    isLoading: true,
+  },
+};
+
 /**
  * Full reward list mimicking the battle-pass chapter layout — completed,
  * next-in-progress, and upcoming rows stacked with separators between.
  */
 export const AsList: Story = {
+  args: { isLoading: false },
   decorators: [],
-  render: () => (
+  render: ({ isLoading }) => (
     <View className="bg-card overflow-hidden rounded-2xl">
-      <RewardItem iconUrl={playerCard} name="Sovereign Player Card" tierLabel="TIER 8" isCompleted />
+      <RewardItem
+        iconUrl={playerCard}
+        name="Sovereign Player Card"
+        tierLabel="TIER 8"
+        isCompleted
+        isLoading={isLoading}
+      />
       <Separator />
-      <RewardItem iconUrl={spray} name="Radianite Points" amount={10} tierLabel="TIER 9" isCompleted />
+      <RewardItem
+        iconUrl={spray}
+        name="Radianite Points"
+        amount={10}
+        tierLabel="TIER 9"
+        isCompleted
+        isLoading={isLoading}
+      />
       <Separator />
       <RewardItem
         iconUrl={gunBuddy}
@@ -159,6 +181,7 @@ export const AsList: Story = {
         isNext
         xp={5000}
         progressionXp={1750}
+        isLoading={isLoading}
       />
       <Separator />
       <RewardItem
@@ -166,11 +189,24 @@ export const AsList: Story = {
         iconStyle={getCompactWeaponIconStyle(vandalUuid)}
         name="Vandal"
         tierLabel="TIER 11"
+        isLoading={isLoading}
       />
       <Separator />
-      <RewardItem iconUrl={titleGlyph} iconSize="50%" name="Spike Sheriff" tierLabel="TIER 11" tinted />
+      <RewardItem
+        iconUrl={titleGlyph}
+        iconSize="50%"
+        name="Spike Sheriff"
+        tierLabel="TIER 11"
+        tinted
+        isLoading={isLoading}
+      />
       <Separator />
-      <RewardItem iconUrl={spray} name="Victory Spray" tierLabel="TIER 12" />
+      <RewardItem
+        iconUrl={spray}
+        name="Victory Spray"
+        tierLabel="TIER 12"
+        isLoading={isLoading}
+      />
     </View>
   ),
 };

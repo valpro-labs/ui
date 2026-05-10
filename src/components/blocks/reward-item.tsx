@@ -2,6 +2,7 @@ import { View, type ImageStyle, type StyleProp } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -31,6 +32,8 @@ interface RewardItemProps {
   isNext?: boolean;
   /** Hide the tier sub-label while keeping its height, so adjacent rows line up. */
   hideTier?: boolean;
+  /** Show the skeleton placeholder instead of the real row. */
+  isLoading?: boolean;
   /** Extra classes merged onto the outer row wrapper. */
   className?: string;
 }
@@ -58,10 +61,15 @@ function RewardItem({
   isCompleted = false,
   isNext = false,
   hideTier = false,
+  isLoading = false,
   className,
 }: RewardItemProps) {
   const foregroundRaw = useCSSVariable('--color-foreground');
   const foreground = typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
+
+  if (isLoading) {
+    return <RewardItemSkeleton className={className} />;
+  }
 
   const showProgress = !isCompleted && isNext && !!xp && progressionXp !== undefined;
   const progressPct = showProgress ? Math.min(100, (progressionXp / xp) * 100) : 0;

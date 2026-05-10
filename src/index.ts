@@ -74,6 +74,8 @@ export type { AccessoryCardProps } from '@/components/blocks/accessory-card';
 
 export { RewardItem } from '@/components/blocks/reward-item';
 export type { RewardItemProps } from '@/components/blocks/reward-item';
+export { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
+export type { RewardItemSkeletonProps } from '@/components/blocks/reward-item-skeleton';
 
 export { Wallet } from '@/components/blocks/wallet';
 export type { WalletProps, WalletBalance } from '@/components/blocks/wallet';
