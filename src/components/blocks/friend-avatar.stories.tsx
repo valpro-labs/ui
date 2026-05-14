@@ -34,5 +34,17 @@ type Story = StoryObj<typeof FriendAvatar>;
 export const Online: Story = { args: { status: 'online' } };
 export const Away: Story = { args: { status: 'away' } };
 export const Busy: Story = { args: { status: 'busy' } };
-export const Offline: Story = { args: { status: 'offline' } };
+export const Offline: Story = {
+  args: {
+    avatarUrl: undefined,
+    status: 'offline',
+  },
+};
 export const None: Story = { args: { status: 'none' } };
+export const OnlinePlaceholder: Story = {
+  args: {
+    avatarUrl: undefined,
+    status: 'online',
+    showPlaceholder: true,
+  },
+};

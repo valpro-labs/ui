@@ -26,18 +26,25 @@ const STATUS_TEXT: Record<FriendStatus, string> = {
 };
 
 interface FriendAvatarProps {
-  avatarUrl: string;
+  avatarUrl?: string;
   status: FriendStatus;
+  showPlaceholder?: boolean;
 }
 
-function FriendAvatar({ avatarUrl, status }: FriendAvatarProps) {
+function FriendAvatar({ avatarUrl, status, showPlaceholder = false }: FriendAvatarProps) {
+  if (!avatarUrl && !showPlaceholder) {
+    return null;
+  }
+
   return (
     <View>
-      <Image
-        source={avatarUrl}
-        style={{ width: 44, height: 44, borderRadius: 10 }}
-        contentFit="cover"
-      />
+      <View
+        className="bg-secondary overflow-hidden"
+        style={{ width: 44, height: 44, borderRadius: 10 }}>
+        {avatarUrl ? (
+          <Image source={avatarUrl} style={{ width: 44, height: 44 }} contentFit="cover" />
+        ) : null}
+      </View>
       <View className="bg-card absolute -right-1 -bottom-1 size-4 items-center justify-center rounded-full">
         {status === 'offline' ? (
           <View className="border-border bg-card size-3 rounded-full border-2" />
@@ -83,6 +90,8 @@ interface FriendRowProps {
   status: FriendStatus;
   /** Avatar (player card) URL — fills the left 44×44 tile. */
   avatarUrl?: string;
+  /** Show the muted avatar tile when `avatarUrl` is missing. */
+  showAvatarPlaceholder?: boolean;
   /** Badge shown to the right of the name (e.g. phosphor `<Crown />` for party owner). */
   ownerBadge?: React.ReactNode;
   /** Slot rendered between the text block and the optional chevron. */
@@ -113,6 +122,7 @@ function FriendRow({
   gameLabel,
   status,
   avatarUrl,
+  showAvatarPlaceholder = false,
   ownerBadge,
   rightContent,
   chevron,
@@ -128,7 +138,11 @@ function FriendRow({
     <View
       className={cn('flex-row items-center gap-x-3 px-3.5 py-3', className)}
       style={opacity === 1 ? undefined : { opacity }}>
-      {avatarUrl ? <FriendAvatar avatarUrl={avatarUrl} status={status} /> : null}
+      <FriendAvatar
+        avatarUrl={avatarUrl}
+        status={status}
+        showPlaceholder={showAvatarPlaceholder}
+      />
 
       <FriendInfo name={name} gameLabel={gameLabel} status={status} ownerBadge={ownerBadge} />
 

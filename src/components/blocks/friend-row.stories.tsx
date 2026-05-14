@@ -92,6 +92,24 @@ export const Busy: Story = {
   },
 };
 
+export const WithoutAvatar: Story = {
+  args: {
+    name: 'Ren#KR1',
+    gameLabel: 'In Game',
+    status: 'online',
+    opacity: 0.9,
+  },
+};
+
+export const OnlineMissingAvatar: Story = {
+  args: {
+    name: 'Nia#NA1',
+    gameLabel: 'Online',
+    status: 'online',
+    showAvatarPlaceholder: true,
+  },
+};
+
 export const RiotClient: Story = {
   args: {
     name: 'Val#NA1',
