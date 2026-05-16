@@ -145,7 +145,7 @@ function OwnedItemCard({
     <View
       className={cn(
         'bg-card relative aspect-square w-full items-center justify-center overflow-hidden rounded-xl',
-        isSelected && 'ring-val-green-ui ring-2',
+        isSelected && 'ring-val-green-ui ring-2 ring-offset-1 ring-offset-background',
         isDepleted && 'opacity-30',
         className
       )}>
