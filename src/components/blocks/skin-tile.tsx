@@ -50,8 +50,8 @@ function SkinTile({
   return (
     <View
       className={cn(
-        'bg-card relative items-center justify-center overflow-hidden rounded-lg',
-        isSelected && 'ring-val-green-ui ring-2 ring-offset-1 ring-offset-background',
+        'bg-card ring-border ring-2 ring-offset-[0.5px] ring-offset-background relative items-center justify-center overflow-hidden rounded-lg',
+        isSelected && 'ring-val-green-ui ring-2 ring-offset-[0.5px] ring-offset-background',
         className
       )}
       style={{ width: 48, height: 48 }}>
