@@ -99,7 +99,10 @@ function BundleCard({
             <>
               <Text className="text-muted-foreground shrink-0 text-sm">|</Text>
               <Text
-                className={cn('text-muted-foreground shrink', isGrid ? 'text-sm' : 'text-base')}
+                className={cn(
+                  'text-muted-foreground min-w-0 flex-1 shrink',
+                  isGrid ? 'text-sm' : 'text-base'
+                )}
                 numberOfLines={1}>
                 {countdownText}
               </Text>
