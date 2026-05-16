@@ -84,9 +84,9 @@ function BundleCard({
       <View
         className={cn(
           'flex-row items-center justify-between',
-          isGrid ? 'px-2 py-1.5' : 'px-3 py-2'
+          isGrid ? 'gap-1.5 px-2 py-1.5' : 'gap-3 px-3 py-2'
         )}>
-        <View className="flex-1 flex-row items-center gap-1.5" style={{ minWidth: 0 }}>
+        <View className="min-w-0 flex-1 flex-row items-center gap-1.5">
           <Text
             className={cn(
               'text-foreground shrink font-semibold tracking-tight uppercase',
@@ -97,9 +97,10 @@ function BundleCard({
           </Text>
           {countdownText ? (
             <>
-              <Text className="text-muted-foreground text-sm">|</Text>
+              <Text className="text-muted-foreground shrink-0 text-sm">|</Text>
               <Text
-                className={cn('text-muted-foreground', isGrid ? 'text-sm' : 'text-base')}>
+                className={cn('text-muted-foreground shrink', isGrid ? 'text-sm' : 'text-base')}
+                numberOfLines={1}>
                 {countdownText}
               </Text>
             </>
@@ -108,7 +109,7 @@ function BundleCard({
 
         {price !== undefined && (
           <View
-            className={cn('flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
+            className={cn('shrink-0 flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image
                 source={currencyIconUrl}
