@@ -18,7 +18,7 @@ interface BundleCardProps {
   currencyIconUrl?: string;
   /** Total price in the bundle's currency. */
   price?: number;
-  /** Pre-formatted countdown text (e.g. `"2h 3m"`). Rendered after the name. */
+  /** Pre-formatted countdown text (e.g. `"2h 3m"`). Rendered over the image. */
   countdownText?: string;
   /** Layout: `list` (default) vs `grid` (tighter padding + smaller text). */
   variant?: 'list' | 'grid';
@@ -36,7 +36,7 @@ interface BundleCardProps {
 
 /**
  * Store bundle tile — hero art fills the card, info bar is pinned to the
- * bottom edge with bundle name, optional countdown, and total price.
+ * bottom edge with bundle name and total price.
  *
  * Data-free: the consumer resolves bundle/currency assets and passes
  * URLs + strings. Countdown text is pre-formatted so this component
@@ -78,6 +78,22 @@ function BundleCard({
             {missingFallback}
           </View>
         ) : null}
+        {countdownText ? (
+          <View
+            className={cn(
+              'absolute rounded-md bg-black/60',
+              isGrid ? 'right-1.5 bottom-1.5 px-1.5 py-0.5' : 'right-2 bottom-2 px-2 py-1'
+            )}>
+            <Text
+              className={cn(
+                'text-val-white font-semibold tabular-nums',
+                isGrid ? 'text-xs' : 'text-sm'
+              )}
+              numberOfLines={1}>
+              {countdownText}
+            </Text>
+          </View>
+        ) : null}
       </View>
 
       {/* Info bar */}
@@ -89,25 +105,12 @@ function BundleCard({
         <View className="min-w-0 flex-1 flex-row items-center gap-1.5">
           <Text
             className={cn(
-              'text-foreground shrink font-semibold tracking-tight uppercase',
+              'text-foreground min-w-0 flex-1 font-semibold tracking-tight uppercase',
               isGrid ? 'text-sm' : 'text-base'
             )}
             numberOfLines={1}>
             {name}
           </Text>
-          {countdownText ? (
-            <>
-              <Text className="text-muted-foreground shrink-0 text-sm">|</Text>
-              <Text
-                className={cn(
-                  'text-muted-foreground min-w-0 flex-1 shrink',
-                  isGrid ? 'text-sm' : 'text-base'
-                )}
-                numberOfLines={1}>
-                {countdownText}
-              </Text>
-            </>
-          ) : null}
         </View>
 
         {price !== undefined && (
