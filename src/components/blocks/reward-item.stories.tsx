@@ -11,8 +11,7 @@ const spray =
   'https://media.valorant-api.com/sprays/fef66645-4e35-ff38-1b7c-799dd5fc7468/fulltransparenticon.png';
 const playerCard =
   'https://media.valorant-api.com/playercards/9fb348bc-41a0-91ad-8a3e-818035c4e561/displayicon.png';
-const titleGlyph =
-  'https://media.valorant-api.com/playertitles/d13e579c-435e-44d4-cec2-6eae5a3c5ed4/displayicon.png';
+const titleGlyph = new URL('../../assets/player-title-icon.webp', import.meta.url).href;
 const kingdomCredits =
   'https://media.valorant-api.com/currencies/85ca954a-41f2-ce94-9b45-8ca3dd39a00d/displayicon.png';
 const radianite =
@@ -84,7 +83,7 @@ export const Amount: Story = {
   },
 };
 
-export const Tinted: Story = {
+export const Title: Story = {
   args: {
     iconUrl: titleGlyph,
     iconSize: '50%',
@@ -93,6 +92,8 @@ export const Tinted: Story = {
     tinted: true,
   },
 };
+
+export const Tinted: Story = Title;
 
 export const HideTier: Story = {
   args: {
