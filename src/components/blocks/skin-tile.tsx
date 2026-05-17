@@ -51,7 +51,7 @@ function SkinTile({
     <View
       className={cn(
         'bg-card relative items-center justify-center overflow-hidden rounded-lg',
-        isSelected && 'ring-val-green-ui ring-2',
+        isSelected && 'ring-val-red ring-2',
         className
       )}
       style={{ width: 48, height: 48 }}>
@@ -64,7 +64,7 @@ function SkinTile({
       ) : null}
 
       {isSelected ? (
-        <View className="bg-val-green-ui/20 absolute inset-0" pointerEvents="none" />
+        <View className="bg-val-red/20 absolute inset-0" pointerEvents="none" />
       ) : null}
 
       <View className="absolute inset-0 items-center justify-center">
