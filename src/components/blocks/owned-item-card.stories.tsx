@@ -26,6 +26,9 @@ const sprayArt =
   'https://media.valorant-api.com/sprays/0a6db78c-48b9-a32d-c47a-82be597584c1/fulltransparenticon.png';
 const buddyArt =
   'https://media.valorant-api.com/buddylevels/6c3b1a9e-4067-7ed6-fc6c-fea61e0a057c/displayicon.png';
+const titleGlyph = new URL('../../assets/player-title-icon.webp', import.meta.url).href;
+const radianiteIcon =
+  'https://media.valorant-api.com/currencies/e59aa87c-4cbf-517a-5983-6e81511be9b7/displayicon.png';
 const weaponSkinArt =
   'https://media.valorant-api.com/weaponskinlevels/9a03c64b-4e92-e5cf-2f4f-8db3f6f2e80f/displayicon.png';
 const premiumTierIcon =
@@ -114,6 +117,22 @@ export const Buddy: Story = {
     fill: false,
     tierBadge: <TierBadge />,
     remainingCount: 3,
+  },
+};
+
+export const Title: Story = {
+  args: {
+    iconUrl: titleGlyph,
+    iconSize: '50%',
+    tinted: true,
+  },
+};
+
+export const Radianite: Story = {
+  args: {
+    iconUrl: radianiteIcon,
+    iconSize: '50%',
+    tinted: true,
   },
 };
 
@@ -207,7 +226,7 @@ export const WeaponSkinPickerGrid: Story = {
 };
 
 /**
- * Picker grid sample — six tiles arranged 3-per-row, matching the
+ * Picker grid sample — tiles arranged 3-per-row, matching the
  * `numColumns: 3` layout the customize screen uses for every owned-item
  * picker.
  */
@@ -257,7 +276,13 @@ export const Grid: Story = {
         />
       </View>
       <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={sprayArt} isLoading={isLoading} />
+        <OwnedItemCard iconUrl={titleGlyph} iconSize="50%" tinted isLoading={isLoading} />
+      </View>
+      <View style={{ width: 114 }}>
+        <OwnedItemCard iconUrl={radianiteIcon} iconSize="50%" tinted isLoading={isLoading} />
+      </View>
+      <View style={{ width: 114 }}>
+        <OwnedItemCard iconUrl={weaponSkinArt} tierBadge={<TierBadge />} isLoading={isLoading} />
       </View>
     </View>
   ),
