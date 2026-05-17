@@ -1,21 +1,21 @@
-import { View, type ImageStyle, type StyleProp } from 'react-native';
+import { View } from 'react-native';
 
-import { useCSSVariable } from 'uniwind';
-
+import { OwnedItemCard } from '@/components/blocks/owned-item-card';
+import type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
 import { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
-import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
-interface RewardItemProps {
-  /** Reward icon URL. Falls back to a muted square placeholder when omitted. */
-  iconUrl?: string;
-  /** Explicit icon size inside the rounded thumbnail tile. */
-  iconSize?: `${number}%`;
-  /** Optional extra image styles, e.g. per-weapon translate / rotate tuning. */
-  iconStyle?: StyleProp<ImageStyle>;
-  /** Tint the icon with `--color-foreground`. Useful for title / currency glyphs shipped as text masks. */
-  tinted?: boolean;
+type RewardThumbnailProps = Pick<
+  OwnedItemCardProps,
+  'iconUrl' | 'fill' | 'iconSize' | 'iconStyle' | 'tinted'
+>;
+
+const REWARD_THUMBNAIL_SIZE = 40;
+const OWNED_ITEM_REFERENCE_SIZE = 114;
+const REWARD_THUMBNAIL_SCALE = REWARD_THUMBNAIL_SIZE / OWNED_ITEM_REFERENCE_SIZE;
+
+interface RewardItemProps extends RewardThumbnailProps {
   /** Reward display name (main label). */
   name: string;
   /** Quantity multiplier; suffixes `"x{amount}"` after the name when > 1. */
@@ -50,6 +50,7 @@ interface RewardItemProps {
  */
 function RewardItem({
   iconUrl,
+  fill,
   iconSize,
   iconStyle,
   tinted = false,
@@ -64,9 +65,6 @@ function RewardItem({
   isLoading = false,
   className,
 }: RewardItemProps) {
-  const foregroundRaw = useCSSVariable('--color-foreground');
-  const foreground = typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
-
   if (isLoading) {
     return <RewardItemSkeleton className={className} />;
   }
@@ -88,24 +86,22 @@ function RewardItem({
         />
       ) : null}
 
-      <View
-        className="bg-secondary size-10 items-center justify-center overflow-hidden rounded-lg">
-        {iconUrl ? (
-          <Image
-            source={iconUrl}
-            style={[
-              {
-                width: iconSize ?? '100%',
-                height: iconSize ?? '100%',
-                tintColor: tinted ? foreground : undefined,
-              },
-              iconStyle,
-            ]}
-            contentFit="contain"
+      <View className="bg-secondary size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+        <View
+          style={{
+            width: OWNED_ITEM_REFERENCE_SIZE,
+            height: OWNED_ITEM_REFERENCE_SIZE,
+            transform: [{ scale: REWARD_THUMBNAIL_SCALE }],
+          }}>
+          <OwnedItemCard
+            iconUrl={iconUrl}
+            fill={fill}
+            iconSize={iconSize}
+            iconStyle={iconStyle}
+            tinted={tinted}
+            className="bg-secondary h-full w-full"
           />
-        ) : (
-          <View className="bg-muted h-full w-full" />
-        )}
+        </View>
       </View>
 
       <View className="flex-1">

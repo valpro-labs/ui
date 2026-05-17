@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { RewardItem } from '@/components/blocks/reward-item';
 import { Separator } from '@/components/ui/separator';
-import { getCompactWeaponIconStyle } from '@/lib/weapon-grid-transform';
+import { getWeaponGridIconStyle } from '@/lib/weapon-grid-transform';
 
 const gunBuddy =
   'https://media.valorant-api.com/buddylevels/6c3b1a9e-4067-7ed6-fc6c-fea61e0a057c/displayicon.png';
@@ -46,7 +46,7 @@ type Story = StoryObj<typeof RewardItem>;
 export const Default: Story = {
   args: {
     iconUrl: gunBuddy,
-    iconSize: '50%',
+    fill: false,
     name: 'Prime Gun Buddy',
     tierLabel: 'TIER 12',
   },
@@ -98,7 +98,7 @@ export const Tinted: Story = Title;
 export const HideTier: Story = {
   args: {
     iconUrl: gunBuddy,
-    iconSize: '50%',
+    fill: false,
     name: 'Free Reward',
     tierLabel: ' ',
     hideTier: true,
@@ -135,7 +135,7 @@ export const Flex: Story = {
 export const Weapon: Story = {
   args: {
     iconUrl: vandal,
-    iconStyle: getCompactWeaponIconStyle(vandalUuid),
+    iconStyle: getWeaponGridIconStyle(vandalUuid),
     name: 'Vandal',
     tierLabel: 'TIER 15',
   },
@@ -166,17 +166,19 @@ export const AsList: Story = {
       />
       <Separator />
       <RewardItem
-        iconUrl={spray}
+        iconUrl={radianite}
+        iconSize="50%"
         name="Radianite Points"
         amount={10}
         tierLabel="TIER 9"
+        tinted
         isCompleted
         isLoading={isLoading}
       />
       <Separator />
       <RewardItem
         iconUrl={gunBuddy}
-        iconSize="50%"
+        fill={false}
         name="Prime Gun Buddy"
         tierLabel="TIER 10"
         isNext
@@ -187,7 +189,7 @@ export const AsList: Story = {
       <Separator />
       <RewardItem
         iconUrl={vandal}
-        iconStyle={getCompactWeaponIconStyle(vandalUuid)}
+        iconStyle={getWeaponGridIconStyle(vandalUuid)}
         name="Vandal"
         tierLabel="TIER 11"
         isLoading={isLoading}
@@ -220,11 +222,11 @@ export const MixedTypes: Story = {
       <Separator />
       <RewardItem iconUrl={spray} name="Victory Spray" tierLabel="TIER 9" />
       <Separator />
-      <RewardItem iconUrl={gunBuddy} iconSize="50%" name="Prime Gun Buddy" tierLabel="TIER 10" />
+      <RewardItem iconUrl={gunBuddy} fill={false} name="Prime Gun Buddy" tierLabel="TIER 10" />
       <Separator />
       <RewardItem
         iconUrl={vandal}
-        iconStyle={getCompactWeaponIconStyle(vandalUuid)}
+        iconStyle={getWeaponGridIconStyle(vandalUuid)}
         name="Vandal"
         tierLabel="TIER 11"
       />
