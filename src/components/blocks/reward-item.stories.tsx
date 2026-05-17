@@ -27,6 +27,7 @@ const meta: Meta<typeof RewardItem> = {
   component: RewardItem,
   argTypes: {
     amount: { control: { type: 'number', min: 1, max: 5000, step: 50 } },
+    thumbnailSize: { control: { type: 'number', min: 32, max: 72, step: 4 } },
     xp: { control: { type: 'number', min: 0, max: 20000, step: 500 } },
     progressionXp: { control: { type: 'number', min: 0, max: 20000, step: 500 } },
     isLoading: { control: { type: 'boolean' } },

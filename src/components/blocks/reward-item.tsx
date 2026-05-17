@@ -11,11 +11,12 @@ type RewardThumbnailProps = Pick<
   'iconUrl' | 'fill' | 'iconSize' | 'iconStyle' | 'tinted'
 >;
 
-const REWARD_THUMBNAIL_SIZE = 40;
+const DEFAULT_REWARD_THUMBNAIL_SIZE = 40;
 const OWNED_ITEM_REFERENCE_SIZE = 114;
-const REWARD_THUMBNAIL_SCALE = REWARD_THUMBNAIL_SIZE / OWNED_ITEM_REFERENCE_SIZE;
 
 interface RewardItemProps extends RewardThumbnailProps {
+  /** Thumbnail tile size in px. Defaults to the source app's 40px reward row icon. */
+  thumbnailSize?: number;
   /** Reward display name (main label). */
   name: string;
   /** Quantity multiplier; suffixes `"x{amount}"` after the name when > 1. */
@@ -54,6 +55,7 @@ function RewardItem({
   iconSize,
   iconStyle,
   tinted = false,
+  thumbnailSize = DEFAULT_REWARD_THUMBNAIL_SIZE,
   name,
   amount,
   tierLabel,
@@ -66,11 +68,12 @@ function RewardItem({
   className,
 }: RewardItemProps) {
   if (isLoading) {
-    return <RewardItemSkeleton className={className} />;
+    return <RewardItemSkeleton thumbnailSize={thumbnailSize} className={className} />;
   }
 
   const showProgress = !isCompleted && isNext && !!xp && progressionXp !== undefined;
   const progressPct = showProgress ? Math.min(100, (progressionXp / xp) * 100) : 0;
+  const thumbnailScale = thumbnailSize / OWNED_ITEM_REFERENCE_SIZE;
 
   return (
     <View
@@ -86,12 +89,14 @@ function RewardItem({
         />
       ) : null}
 
-      <View className="bg-secondary size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+      <View
+        className="bg-secondary shrink-0 items-center justify-center overflow-hidden rounded-lg"
+        style={{ width: thumbnailSize, height: thumbnailSize }}>
         <View
           style={{
             width: OWNED_ITEM_REFERENCE_SIZE,
             height: OWNED_ITEM_REFERENCE_SIZE,
-            transform: [{ scale: REWARD_THUMBNAIL_SCALE }],
+            transform: [{ scale: thumbnailScale }],
           }}>
           <OwnedItemCard
             iconUrl={iconUrl}
