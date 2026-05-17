@@ -27,6 +27,10 @@ const meta: Meta<typeof RewardItem> = {
   component: RewardItem,
   argTypes: {
     amount: { control: { type: 'number', min: 1, max: 5000, step: 50 } },
+    thumbnailVariant: {
+      control: 'select',
+      options: ['default', 'card', 'title', 'currency', 'buddy'],
+    },
     thumbnailSize: { control: { type: 'number', min: 32, max: 72, step: 4 } },
     xp: { control: { type: 'number', min: 0, max: 20000, step: 500 } },
     progressionXp: { control: { type: 'number', min: 0, max: 20000, step: 500 } },
@@ -47,7 +51,7 @@ type Story = StoryObj<typeof RewardItem>;
 export const Default: Story = {
   args: {
     iconUrl: gunBuddy,
-    fill: false,
+    thumbnailVariant: 'buddy',
     name: 'Prime Gun Buddy',
     tierLabel: 'TIER 12',
   },
@@ -76,21 +80,19 @@ export const Next: Story = {
 export const Amount: Story = {
   args: {
     iconUrl: radianite,
-    iconSize: '50%',
+    thumbnailVariant: 'currency',
     name: 'Radianite Points',
     amount: 10,
     tierLabel: 'TIER 3',
-    tinted: true,
   },
 };
 
 export const Title: Story = {
   args: {
     iconUrl: titleGlyph,
-    iconSize: '50%',
+    thumbnailVariant: 'title',
     name: 'Spike Sheriff',
     tierLabel: 'TIER 20',
-    tinted: true,
   },
 };
 
@@ -99,7 +101,7 @@ export const Tinted: Story = Title;
 export const HideTier: Story = {
   args: {
     iconUrl: gunBuddy,
-    fill: false,
+    thumbnailVariant: 'buddy',
     name: 'Free Reward',
     tierLabel: ' ',
     hideTier: true,
@@ -109,17 +111,17 @@ export const HideTier: Story = {
 export const Currency: Story = {
   args: {
     iconUrl: kingdomCredits,
-    iconSize: '50%',
+    thumbnailVariant: 'currency',
     name: 'Kingdom Credits',
     amount: 2500,
     tierLabel: 'TIER 18',
-    tinted: true,
   },
 };
 
 export const PlayerCard: Story = {
   args: {
     iconUrl: playerCard,
+    thumbnailVariant: 'card',
     name: 'Sovereign Player Card',
     tierLabel: 'TIER 8',
   },
@@ -160,6 +162,7 @@ export const AsList: Story = {
     <View className="bg-card overflow-hidden rounded-2xl">
       <RewardItem
         iconUrl={playerCard}
+        thumbnailVariant="card"
         name="Sovereign Player Card"
         tierLabel="TIER 8"
         isCompleted
@@ -168,18 +171,17 @@ export const AsList: Story = {
       <Separator />
       <RewardItem
         iconUrl={radianite}
-        iconSize="50%"
+        thumbnailVariant="currency"
         name="Radianite Points"
         amount={10}
         tierLabel="TIER 9"
-        tinted
         isCompleted
         isLoading={isLoading}
       />
       <Separator />
       <RewardItem
         iconUrl={gunBuddy}
-        fill={false}
+        thumbnailVariant="buddy"
         name="Prime Gun Buddy"
         tierLabel="TIER 10"
         isNext
@@ -198,10 +200,9 @@ export const AsList: Story = {
       <Separator />
       <RewardItem
         iconUrl={titleGlyph}
-        iconSize="50%"
+        thumbnailVariant="title"
         name="Spike Sheriff"
         tierLabel="TIER 11"
-        tinted
         isLoading={isLoading}
       />
       <Separator />
@@ -219,11 +220,21 @@ export const MixedTypes: Story = {
   decorators: [],
   render: () => (
     <View className="bg-card overflow-hidden rounded-2xl">
-      <RewardItem iconUrl={playerCard} name="Sovereign Player Card" tierLabel="TIER 8" />
+      <RewardItem
+        iconUrl={playerCard}
+        thumbnailVariant="card"
+        name="Sovereign Player Card"
+        tierLabel="TIER 8"
+      />
       <Separator />
       <RewardItem iconUrl={spray} name="Victory Spray" tierLabel="TIER 9" />
       <Separator />
-      <RewardItem iconUrl={gunBuddy} fill={false} name="Prime Gun Buddy" tierLabel="TIER 10" />
+      <RewardItem
+        iconUrl={gunBuddy}
+        thumbnailVariant="buddy"
+        name="Prime Gun Buddy"
+        tierLabel="TIER 10"
+      />
       <Separator />
       <RewardItem
         iconUrl={vandal}
@@ -232,24 +243,27 @@ export const MixedTypes: Story = {
         tierLabel="TIER 11"
       />
       <Separator />
-      <RewardItem iconUrl={titleGlyph} iconSize="50%" name="Spike Sheriff" tierLabel="TIER 12" tinted />
+      <RewardItem
+        iconUrl={titleGlyph}
+        thumbnailVariant="title"
+        name="Spike Sheriff"
+        tierLabel="TIER 12"
+      />
       <Separator />
       <RewardItem
         iconUrl={kingdomCredits}
-        iconSize="50%"
+        thumbnailVariant="currency"
         name="Kingdom Credits"
         amount={2500}
         tierLabel="TIER 13"
-        tinted
       />
       <Separator />
       <RewardItem
         iconUrl={radianite}
-        iconSize="50%"
+        thumbnailVariant="currency"
         name="Radianite Points"
         amount={10}
         tierLabel="TIER 14"
-        tinted
       />
       <Separator />
       <RewardItem iconUrl={flex} name="A Good Stretch" tierLabel="TIER 15" />

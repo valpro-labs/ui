@@ -73,7 +73,7 @@ export { AccessoryCard } from '@/components/blocks/accessory-card';
 export type { AccessoryCardProps } from '@/components/blocks/accessory-card';
 
 export { RewardItem } from '@/components/blocks/reward-item';
-export type { RewardItemProps } from '@/components/blocks/reward-item';
+export type { RewardItemProps, RewardThumbnailVariant } from '@/components/blocks/reward-item';
 export { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
 export type { RewardItemSkeletonProps } from '@/components/blocks/reward-item-skeleton';
 
@@ -130,7 +130,7 @@ export { FriendPartyOthersRow } from '@/components/blocks/friend-party-others-ro
 export type { FriendPartyOthersRowProps } from '@/components/blocks/friend-party-others-row';
 
 export { OwnedItemCard } from '@/components/blocks/owned-item-card';
-export type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
+export type { OwnedItemCardProps, OwnedItemVariant } from '@/components/blocks/owned-item-card';
 
 export { ItemBoughtOverlay } from '@/components/blocks/item-bought-overlay';
 export type { ItemBoughtOverlayProps } from '@/components/blocks/item-bought-overlay';

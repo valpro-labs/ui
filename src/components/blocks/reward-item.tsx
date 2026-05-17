@@ -1,22 +1,27 @@
 import { View } from 'react-native';
 
 import { OwnedItemCard } from '@/components/blocks/owned-item-card';
-import type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
+import type { OwnedItemCardProps, OwnedItemVariant } from '@/components/blocks/owned-item-card';
 import { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
-type RewardThumbnailProps = Pick<
-  OwnedItemCardProps,
-  'iconUrl' | 'fill' | 'iconSize' | 'iconStyle' | 'tinted'
->;
+type RewardThumbnailProps = Pick<OwnedItemCardProps, 'iconUrl'>;
+type RewardThumbnailVariant = OwnedItemVariant;
 
 const DEFAULT_REWARD_THUMBNAIL_SIZE = 40;
 const OWNED_ITEM_REFERENCE_SIZE = 114;
 
 interface RewardItemProps extends RewardThumbnailProps {
+  /**
+   * Applies the same default thumbnail treatment used by `OwnedItemCard`
+   * stories for common reward types.
+   */
+  thumbnailVariant?: RewardThumbnailVariant;
   /** Thumbnail tile size in px. Defaults to the source app's 40px reward row icon. */
   thumbnailSize?: number;
+  /** Optional image style passed through to the inner `OwnedItemCard` icon. */
+  iconStyle?: OwnedItemCardProps['iconStyle'];
   /** Reward display name (main label). */
   name: string;
   /** Quantity multiplier; suffixes `"x{amount}"` after the name when > 1. */
@@ -51,10 +56,8 @@ interface RewardItemProps extends RewardThumbnailProps {
  */
 function RewardItem({
   iconUrl,
-  fill,
-  iconSize,
   iconStyle,
-  tinted = false,
+  thumbnailVariant = 'default',
   thumbnailSize = DEFAULT_REWARD_THUMBNAIL_SIZE,
   name,
   amount,
@@ -100,10 +103,8 @@ function RewardItem({
           }}>
           <OwnedItemCard
             iconUrl={iconUrl}
-            fill={fill}
-            iconSize={iconSize}
+            itemVariant={thumbnailVariant}
             iconStyle={iconStyle}
-            tinted={tinted}
             className="bg-secondary h-full w-full"
           />
         </View>
@@ -133,4 +134,4 @@ function RewardItem({
 }
 
 export { RewardItem };
-export type { RewardItemProps };
+export type { RewardItemProps, RewardThumbnailVariant };

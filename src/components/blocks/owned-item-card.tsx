@@ -11,6 +11,7 @@ import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 import { cn } from '@/lib/utils';
 
 type Corner = 'top-left' | 'bottom-left' | 'bottom-right';
+type OwnedItemVariant = 'default' | 'card' | 'title' | 'currency' | 'buddy';
 
 function CornerGradient({ corner }: { corner: Corner }) {
   const isTopLeft = corner === 'top-left';
@@ -42,6 +43,11 @@ function CornerGradient({ corner }: { corner: Corner }) {
 interface OwnedItemCardProps {
   /** Thumbnail URL - the owned item's icon. */
   iconUrl?: string;
+  /**
+   * Applies common owned-item thumbnail defaults. Explicit `fill`,
+   * `iconSize`, `iconStyle`, and `tinted` props override these defaults.
+   */
+  itemVariant?: OwnedItemVariant;
   /**
    * Fill the tile edge-to-edge. Defaults to `true` since most owned
    * items (player cards, sprays, flex items, weapon skins with grid
@@ -117,11 +123,12 @@ interface OwnedItemCardProps {
  */
 function OwnedItemCard({
   iconUrl,
-  fill = true,
+  itemVariant = 'default',
+  fill,
   iconSize,
   badgeShadow = false,
   iconStyle,
-  tinted = false,
+  tinted,
   isSelected = false,
   isDepleted = false,
   equippedBadge,
@@ -135,7 +142,12 @@ function OwnedItemCard({
   className,
 }: OwnedItemCardProps) {
   const foregroundRaw = useCSSVariable('--color-foreground');
-  const tintColor = tinted && typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
+  const isInsetGlyph = itemVariant === 'title' || itemVariant === 'currency';
+  const resolvedFill = fill ?? (itemVariant === 'buddy' ? false : true);
+  const resolvedIconSize =
+    iconSize ?? (itemVariant === 'title' ? '70%' : itemVariant === 'currency' ? '50%' : undefined);
+  const resolvedTinted = tinted ?? isInsetGlyph;
+  const tintColor = resolvedTinted && typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
 
   if (isLoading) {
     return <Skeleton className={cn('aspect-square w-full rounded-xl', className)} />;
@@ -154,8 +166,8 @@ function OwnedItemCard({
           source={iconUrl}
           style={[
             {
-              width: iconSize ?? (fill ? '100%' : '80%'),
-              height: iconSize ?? (fill ? '100%' : '80%'),
+              width: resolvedIconSize ?? (resolvedFill ? '100%' : '80%'),
+              height: resolvedIconSize ?? (resolvedFill ? '100%' : '80%'),
             },
             iconStyle,
           ]}
@@ -213,4 +225,4 @@ function OwnedItemCard({
 }
 
 export { OwnedItemCard };
-export type { OwnedItemCardProps };
+export type { OwnedItemCardProps, OwnedItemVariant };

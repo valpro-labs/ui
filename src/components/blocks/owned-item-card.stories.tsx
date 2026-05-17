@@ -70,6 +70,7 @@ type Story = StoryObj<typeof OwnedItemCard>;
 export const PlayerCard: Story = {
   args: {
     iconUrl: playerCardWideArt,
+    itemVariant: 'card',
   },
 };
 
@@ -114,7 +115,7 @@ export const Spray: Story = {
 export const Buddy: Story = {
   args: {
     iconUrl: buddyArt,
-    fill: false,
+    itemVariant: 'buddy',
     tierBadge: <TierBadge />,
     remainingCount: 3,
   },
@@ -123,16 +124,14 @@ export const Buddy: Story = {
 export const Title: Story = {
   args: {
     iconUrl: titleGlyph,
-    iconSize: '50%',
-    tinted: true,
+    itemVariant: 'title',
   },
 };
 
 export const Radianite: Story = {
   args: {
     iconUrl: radianiteIcon,
-    iconSize: '50%',
-    tinted: true,
+    itemVariant: 'currency',
   },
 };
 
@@ -146,7 +145,7 @@ export const WithTierBadge: Story = {
 export const Depleted: Story = {
   args: {
     iconUrl: buddyArt,
-    fill: false,
+    itemVariant: 'buddy',
     isDepleted: true,
     remainingCount: 0,
   },
@@ -241,6 +240,7 @@ export const Grid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={playerCardWideArt}
+          itemVariant="card"
           badgeShadow
           equippedBadge={<EquippedBadge />}
           isLoading={isLoading}
@@ -249,6 +249,7 @@ export const Grid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={altCardArt}
+          itemVariant="card"
           badgeShadow
           favoriteBadge={<FavoriteBadge />}
           isLoading={isLoading}
@@ -260,7 +261,7 @@ export const Grid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={buddyArt}
-          fill={false}
+          itemVariant="buddy"
           tierBadge={<TierBadge />}
           remainingCount={2}
           isLoading={isLoading}
@@ -269,17 +270,17 @@ export const Grid: Story = {
       <View style={{ width: 114 }}>
         <OwnedItemCard
           iconUrl={buddyArt}
-          fill={false}
+          itemVariant="buddy"
           isDepleted
           remainingCount={0}
           isLoading={isLoading}
         />
       </View>
       <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={titleGlyph} iconSize="50%" tinted isLoading={isLoading} />
+        <OwnedItemCard iconUrl={titleGlyph} itemVariant="title" isLoading={isLoading} />
       </View>
       <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={radianiteIcon} iconSize="50%" tinted isLoading={isLoading} />
+        <OwnedItemCard iconUrl={radianiteIcon} itemVariant="currency" isLoading={isLoading} />
       </View>
       <View style={{ width: 114 }}>
         <OwnedItemCard iconUrl={weaponSkinArt} tierBadge={<TierBadge />} isLoading={isLoading} />
