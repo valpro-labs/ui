@@ -134,6 +134,7 @@ function RankCard({
               <RankPyramid
                 filledTiers={isLoading ? undefined : filledTiers}
                 borderIcon={isLoading ? undefined : borderIcon}
+                reserveBorderSpace={isLoading}
                 size={pyramidSize}
               />
             </View>

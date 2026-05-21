@@ -17,6 +17,8 @@ interface RankPyramidProps {
   filledTiers?: ReadonlyArray<RankPyramidTier>;
   /** Background border image URL drawn behind the triangles, tinted with the muted-foreground token. */
   borderIcon?: string;
+  /** Reserve the full border frame even when no border image is available. */
+  reserveBorderSpace?: boolean;
   /** Outer width in px. Height derives to equilateral proportions. */
   size?: number;
   /** Row count when collapsed. */
@@ -41,6 +43,7 @@ interface RankPyramidProps {
 function RankPyramid({
   filledTiers,
   borderIcon,
+  reserveBorderSpace = false,
   size = 100,
   rowsCollapsed = ROWS_COLLAPSED_DEFAULT,
   rowsExpanded = ROWS_EXPANDED_DEFAULT,
@@ -50,8 +53,9 @@ function RankPyramid({
   const [expanded, setExpanded] = useState(defaultExpanded);
   const numRows = expanded ? rowsExpanded : rowsCollapsed;
   const frame = getRankPyramidArtworkFrame(size);
-  const height = borderIcon ? frame.visualHeight : frame.height;
-  const artworkOffsetTop = borderIcon ? frame.offsetY : 0;
+  const shouldUseBorderFrame = !!borderIcon || reserveBorderSpace;
+  const height = shouldUseBorderFrame ? frame.visualHeight : frame.height;
+  const artworkOffsetTop = shouldUseBorderFrame ? frame.offsetY : 0;
 
   return (
     <Pressable
@@ -64,7 +68,7 @@ function RankPyramid({
         size={size}
         rows={numRows}
         pointerEvents="none"
-        style={borderIcon ? { position: 'absolute', top: artworkOffsetTop } : undefined}
+        style={shouldUseBorderFrame ? { position: 'absolute', top: artworkOffsetTop } : undefined}
       />
     </Pressable>
   );
