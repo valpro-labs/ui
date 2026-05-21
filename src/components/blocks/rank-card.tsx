@@ -30,6 +30,8 @@ interface RankCardProps {
   seasonTitle: string;
   /** Competitive tier display icon URL. */
   tierIcon?: string;
+  /** Competitive tier id. Tier `0` is unranked and hides RR/progress. */
+  tier?: number;
   /** Tier name, e.g. `"Diamond 2"`. */
   tierName?: string;
   /** Tier name accent color from the competitive tier API, with or without the leading `#`. */
@@ -86,6 +88,7 @@ function getProgressValueLabel(progress: RankProgress): string {
 function RankCard({
   seasonTitle,
   tierIcon,
+  tier,
   tierName,
   tierColor,
   rankedRating,
@@ -102,9 +105,11 @@ function RankCard({
   className,
 }: RankCardProps) {
   const color = normalizeHex(tierColor);
-  const progressPercent = rankProgress ? getProgressPercent(rankProgress) : undefined;
-  const showProgressSkeleton = isLoading && showRankProgressSkeleton;
-  const showProgressRail = showProgressSkeleton || (!isLoading && !!rankProgress);
+  const isUnrankedTier = tier === 0;
+  const visibleRankProgress = isUnrankedTier ? undefined : rankProgress;
+  const progressPercent = visibleRankProgress ? getProgressPercent(visibleRankProgress) : undefined;
+  const showProgressSkeleton = !isUnrankedTier && isLoading && showRankProgressSkeleton;
+  const showProgressRail = showProgressSkeleton || (!isLoading && !!visibleRankProgress);
   const showChevron = !!chevron && !!onPress;
 
   const content = (
@@ -120,7 +125,7 @@ function RankCard({
             tierColor={tierColor}
             rankedRating={rankedRating}
             rrLabel={rrLabel}
-            showRankedRating={!rankProgress && !showProgressSkeleton}
+            showRankedRating={!isUnrankedTier && !visibleRankProgress && !showProgressSkeleton}
             isLoading={isLoading}
             footer={
               showProgressRail ? (
@@ -137,11 +142,11 @@ function RankCard({
                         className="bg-muted/70 h-1 flex-1"
                         indicatorStyle={color ? { backgroundColor: color } : undefined}
                       />
-                      {rankProgress ? (
+                      {visibleRankProgress ? (
                         <Text
                           className="text-muted-foreground shrink-0 text-xs leading-none font-semibold tabular-nums"
                           numberOfLines={1}>
-                          {getProgressValueLabel(rankProgress)}
+                          {getProgressValueLabel(visibleRankProgress)}
                         </Text>
                       ) : null}
                     </>

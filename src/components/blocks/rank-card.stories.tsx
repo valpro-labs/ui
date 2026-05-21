@@ -72,6 +72,7 @@ export const Default: Story = {
   args: {
     seasonTitle: 'E11 A2',
     tierIcon: diamond2Tier,
+    tier: 19,
     tierName: 'Diamond 2',
     tierColor: TIER_COLORS.diamond,
     rankedRating: 47,
@@ -87,6 +88,7 @@ export const Pressable: Story = {
   args: {
     seasonTitle: 'E11 A2',
     tierIcon: ascendant1Tier,
+    tier: 21,
     tierName: 'Ascendant 1',
     tierColor: TIER_COLORS.ascendant,
     rankedRating: 12,
@@ -104,6 +106,7 @@ export const Immortal: Story = {
   args: {
     seasonTitle: 'E11 A2',
     tierIcon: immortal3Tier,
+    tier: 26,
     tierName: 'Immortal 3',
     tierColor: TIER_COLORS.immortal,
     rankedRating: 284,
@@ -120,10 +123,12 @@ export const Unranked: Story = {
   args: {
     seasonTitle: 'E11 A2',
     tierIcon: unrankedTier,
+    tier: 0,
     tierName: 'Unranked',
     tierColor: TIER_COLORS.unranked,
     rankedRating: 0,
     rrLabel: 'RR',
+    rankProgress: { value: 0 },
     actRankLabel: 'ACT RANK',
     filledTiers: [],
     borderIcon: BORDER_LEVEL_0,
@@ -208,6 +213,7 @@ export const AllTiers: Story = {
           <RankCard
             seasonTitle="E11 A2"
             tierIcon={`https://media.valorant-api.com/competitivetiers/${TIER_SET}/${t.id}/largeicon.png`}
+            tier={t.id}
             tierName={t.name}
             tierColor={colorForTier(t.id)}
             rankedRating={ratingForTier(t.id)}
