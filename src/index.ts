@@ -44,6 +44,8 @@ export type { RankTierCardSkeletonProps } from '@/components/blocks/rank-tier-ca
 
 export { RankPyramid } from '@/components/blocks/rank-pyramid';
 export type { RankPyramidProps, RankPyramidTier } from '@/components/blocks/rank-pyramid';
+export { RankPyramidBorderImage } from '@/components/blocks/rank-pyramid-border-image';
+export type { RankPyramidBorderImageProps } from '@/components/blocks/rank-pyramid-border-image';
 
 export { RankCard } from '@/components/blocks/rank-card';
 export type { RankCardProps } from '@/components/blocks/rank-card';
