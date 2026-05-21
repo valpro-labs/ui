@@ -5,8 +5,11 @@ import { Pressable, View } from 'react-native';
 import { RankPyramid, type RankPyramidTier } from '@/components/blocks/rank-pyramid';
 import { RankTierCard } from '@/components/blocks/rank-tier-card';
 import { Progress } from '@/components/ui/progress';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
+
+const RANK_SUMMARY_MIN_HEIGHT = 108;
 
 interface RankProgress {
   /** Current progress value. For normal ranked tiers this is usually the current RR. */
@@ -48,6 +51,8 @@ interface RankCardProps {
   onPress?: () => void;
   /** Show the skeleton placeholder for the tier column; the pyramid shows its empty-state. */
   isLoading?: boolean;
+  /** Show the rank-rating rail placeholder while loading. */
+  showRankProgressSkeleton?: boolean;
   /** Extra classes merged onto the outer wrapper. */
   className?: string;
 }
@@ -90,14 +95,17 @@ function RankCard({
   chevron,
   onPress,
   isLoading = false,
+  showRankProgressSkeleton = true,
   className,
 }: RankCardProps) {
   const color = normalizeHex(tierColor);
   const progressPercent = rankProgress ? getProgressPercent(rankProgress) : undefined;
+  const showProgressSkeleton = isLoading && showRankProgressSkeleton;
+  const showProgressRail = showProgressSkeleton || (!isLoading && !!rankProgress);
 
   const content = (
     <View className={cn('px-4 py-3', className)}>
-      <View className="flex-row items-center">
+      <View className="flex-row items-center" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
         <View className="flex-1 flex-row items-start justify-center gap-x-6">
           <RankTierCard
             className="w-36"
@@ -107,7 +115,7 @@ function RankCard({
             tierColor={tierColor}
             rankedRating={rankedRating}
             rrLabel={rrLabel}
-            showRankedRating={!rankProgress}
+            showRankedRating={!rankProgress && !showProgressSkeleton}
             isLoading={isLoading}
           />
 
@@ -130,20 +138,33 @@ function RankCard({
         </View>
       </View>
 
-      {!isLoading && rankProgress ? (
+      {showProgressRail ? (
         <View className="mt-3">
-          <Progress
-            value={progressPercent}
-            className="bg-muted/70 h-1.5"
-            indicatorStyle={color ? { backgroundColor: color } : undefined}
-          />
+          {showProgressSkeleton ? (
+            <Skeleton className="h-1.5 w-full rounded-full" />
+          ) : (
+            <Progress
+              value={progressPercent}
+              className="bg-muted/70 h-1.5"
+              indicatorStyle={color ? { backgroundColor: color } : undefined}
+            />
+          )}
           <View className="mt-1 flex-row items-center justify-between">
-            <Text className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-              {rankProgress.label ?? 'RANK RATING'}
-            </Text>
-            <Text className="text-foreground text-xs font-semibold tabular-nums">
-              {getProgressValueLabel(rankProgress)}
-            </Text>
+            {showProgressSkeleton ? (
+              <>
+                <Skeleton className="h-4 w-20 rounded-md" />
+                <Skeleton className="h-4 w-10 rounded-md" />
+              </>
+            ) : rankProgress ? (
+              <>
+                <Text className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                  {rankProgress.label ?? 'RANK RATING'}
+                </Text>
+                <Text className="text-foreground text-xs font-semibold tabular-nums">
+                  {getProgressValueLabel(rankProgress)}
+                </Text>
+              </>
+            ) : null}
           </View>
         </View>
       ) : null}

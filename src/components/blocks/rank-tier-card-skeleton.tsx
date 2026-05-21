@@ -12,8 +12,8 @@ interface RankTierCardSkeletonProps {
 
 /**
  * Loading placeholder for `RankTierCard`. Mirrors the season label, 64×64 tier
- * icon, tier name, and RR rows so the layout doesn't shift once rank data
- * resolves.
+ * icon, tier name, and optional RR row so the layout doesn't shift once rank
+ * data resolves.
  */
 function RankTierCardSkeleton({ showRankedRating = true, className }: RankTierCardSkeletonProps) {
   return (
