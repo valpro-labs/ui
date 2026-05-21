@@ -12,6 +12,13 @@ const immortal3Tier =
 const unrankedTier =
   'https://media.valorant-api.com/competitivetiers/03621f52-342b-cf4e-4f86-9350a49c6d04/0/largeicon.png';
 
+const TIER_COLORS = {
+  unranked: 'ffffffff',
+  diamond: 'b489c4ff',
+  ascendant: '6ae2afff',
+  immortal: 'bb3d65ff',
+} as const;
+
 const meta: Meta<typeof RankTierCard> = {
   title: 'Blocks/RankTierCard',
   component: RankTierCard,
@@ -32,6 +39,7 @@ export const Default: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: diamond2Tier,
     tierName: 'Diamond 2',
+    tierColor: TIER_COLORS.diamond,
     rankedRating: 47,
   },
 };
@@ -41,6 +49,7 @@ export const Ascendant: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: ascendant1Tier,
     tierName: 'Ascendant 1',
+    tierColor: TIER_COLORS.ascendant,
     rankedRating: 12,
   },
 };
@@ -50,6 +59,7 @@ export const Immortal: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: immortal3Tier,
     tierName: 'Immortal 3',
+    tierColor: TIER_COLORS.immortal,
     rankedRating: 284,
   },
 };
@@ -59,6 +69,7 @@ export const Unranked: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: unrankedTier,
     tierName: 'Unranked',
+    tierColor: TIER_COLORS.unranked,
     rankedRating: 0,
   },
 };

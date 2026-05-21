@@ -12,6 +12,8 @@ interface RankTierCardProps {
   tierIcon?: string;
   /** Tier name, e.g. `"Diamond 2"`. */
   tierName?: string;
+  /** Tier name accent color from the competitive tier API, with or without the leading `#`. */
+  tierColor?: string;
   /** Ranked Rating value. */
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
@@ -20,6 +22,11 @@ interface RankTierCardProps {
   isLoading?: boolean;
   /** Extra classes merged onto the outer column wrapper. */
   className?: string;
+}
+
+function normalizeHex(input?: string): string | undefined {
+  if (!input) return undefined;
+  return input.startsWith('#') ? input : `#${input}`;
 }
 
 /**
@@ -33,6 +40,7 @@ function RankTierCard({
   seasonTitle,
   tierIcon,
   tierName,
+  tierColor,
   rankedRating,
   rrLabel = 'RR',
   isLoading = false,
@@ -41,6 +49,8 @@ function RankTierCard({
   if (isLoading) {
     return <RankTierCardSkeleton className={className} />;
   }
+
+  const color = normalizeHex(tierColor);
 
   return (
     <View className={cn('items-center', className)}>
@@ -59,6 +69,7 @@ function RankTierCard({
       {tierName ? (
         <Text
           className="text-foreground mt-1 text-base font-bold tracking-wide uppercase"
+          style={color ? { color } : undefined}
           numberOfLines={1}
           adjustsFontSizeToFit
         >

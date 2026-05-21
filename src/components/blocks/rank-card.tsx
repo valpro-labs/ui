@@ -14,6 +14,8 @@ interface RankCardProps {
   tierIcon?: string;
   /** Tier name, e.g. `"Diamond 2"`. */
   tierName?: string;
+  /** Tier name accent color from the competitive tier API, with or without the leading `#`. */
+  tierColor?: string;
   /** Ranked Rating value. */
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
@@ -48,6 +50,7 @@ function RankCard({
   seasonTitle,
   tierIcon,
   tierName,
+  tierColor,
   rankedRating,
   rrLabel,
   actRankLabel,
@@ -67,6 +70,7 @@ function RankCard({
           seasonTitle={seasonTitle}
           tierIcon={tierIcon}
           tierName={tierName}
+          tierColor={tierColor}
           rankedRating={rankedRating}
           rrLabel={rrLabel}
           isLoading={isLoading}

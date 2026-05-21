@@ -23,6 +23,19 @@ const diamondMix = [tier(20), tier(19), tier(19), tier(18), tier(18), tier(17)];
 const ascendantMix = [tier(22), tier(22), tier(21), tier(21), tier(20)];
 const immortalClimb = [tier(26), tier(25), tier(25), tier(24), tier(24), tier(23), tier(22)];
 
+const TIER_COLORS = {
+  unranked: 'ffffffff',
+  iron: '4f514fff',
+  bronze: 'a5855dff',
+  silver: 'bbc2c2ff',
+  gold: 'eccf56ff',
+  platinum: '59a9b6ff',
+  diamond: 'b489c4ff',
+  ascendant: '6ae2afff',
+  immortal: 'bb3d65ff',
+  radiant: 'ffffaaff',
+} as const;
+
 // Season border displayIcons from /v1/seasons/competitive (EpisodeV26-2_Act5).
 // Tiers: L0=0 wins, L1=9, L2=25, L3=50, L5=100.
 const BORDER_LEVEL_0 =
@@ -60,6 +73,7 @@ export const Default: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: diamond2Tier,
     tierName: 'Diamond 2',
+    tierColor: TIER_COLORS.diamond,
     rankedRating: 47,
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
@@ -73,6 +87,7 @@ export const Pressable: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: ascendant1Tier,
     tierName: 'Ascendant 1',
+    tierColor: TIER_COLORS.ascendant,
     rankedRating: 12,
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
@@ -88,6 +103,7 @@ export const Immortal: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: immortal3Tier,
     tierName: 'Immortal 3',
+    tierColor: TIER_COLORS.immortal,
     rankedRating: 284,
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
@@ -103,6 +119,7 @@ export const Unranked: Story = {
     seasonTitle: 'E11 A2',
     tierIcon: unrankedTier,
     tierName: 'Unranked',
+    tierColor: TIER_COLORS.unranked,
     rankedRating: 0,
     rrLabel: 'RR',
     actRankLabel: 'ACT RANK',
@@ -155,6 +172,19 @@ function borderForTier(id: number): string {
   return BORDER_LEVEL_0;
 }
 
+function colorForTier(id: number): string {
+  if (id >= 27) return TIER_COLORS.radiant;
+  if (id >= 24) return TIER_COLORS.immortal;
+  if (id >= 21) return TIER_COLORS.ascendant;
+  if (id >= 18) return TIER_COLORS.diamond;
+  if (id >= 15) return TIER_COLORS.platinum;
+  if (id >= 12) return TIER_COLORS.gold;
+  if (id >= 9) return TIER_COLORS.silver;
+  if (id >= 6) return TIER_COLORS.bronze;
+  if (id >= 3) return TIER_COLORS.iron;
+  return TIER_COLORS.unranked;
+}
+
 export const AllTiers: Story = {
   render: () => (
     <View>
@@ -165,6 +195,7 @@ export const AllTiers: Story = {
             seasonTitle="E11 A2"
             tierIcon={`https://media.valorant-api.com/competitivetiers/${TIER_SET}/${t.id}/largeicon.png`}
             tierName={t.name}
+            tierColor={colorForTier(t.id)}
             rankedRating={50}
             rrLabel="RR"
             actRankLabel="ACT RANK"
