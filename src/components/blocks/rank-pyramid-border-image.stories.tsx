@@ -31,6 +31,7 @@ export const Level0: Story = {
   args: {
     borderIcon: BORDER_LEVEL_0,
     size: 120,
+    showTriangles: true,
   },
 };
 
@@ -38,6 +39,7 @@ export const Level1: Story = {
   args: {
     borderIcon: BORDER_LEVEL_1,
     size: 120,
+    showTriangles: true,
   },
 };
 
@@ -45,6 +47,7 @@ export const Level3: Story = {
   args: {
     borderIcon: BORDER_LEVEL_3,
     size: 120,
+    showTriangles: true,
   },
 };
 
@@ -52,5 +55,6 @@ export const Level5: Story = {
   args: {
     borderIcon: BORDER_LEVEL_5,
     size: 120,
+    showTriangles: true,
   },
 };
