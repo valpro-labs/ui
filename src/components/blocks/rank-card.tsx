@@ -10,6 +10,8 @@ import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
 const RANK_SUMMARY_MIN_HEIGHT = 108;
+const CHEVRON_WIDTH = 14;
+const CHEVRON_RIGHT_OFFSET = 12;
 
 interface RankProgress {
   /** Current progress value. For normal ranked tiers this is usually the current RR. */
@@ -102,9 +104,10 @@ function RankCard({
   const progressPercent = rankProgress ? getProgressPercent(rankProgress) : undefined;
   const showProgressSkeleton = isLoading && showRankProgressSkeleton;
   const showProgressRail = showProgressSkeleton || (!isLoading && !!rankProgress);
+  const showChevron = !!chevron && !!onPress;
 
   const content = (
-    <View className={cn('px-4 py-3', className)}>
+    <View className={cn('relative px-4 py-3', className)}>
       <View className="flex-row items-center" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
         <View className="flex-1 flex-row items-start justify-center gap-x-6">
           <RankTierCard
@@ -131,10 +134,6 @@ function RankCard({
               />
             </View>
           </View>
-        </View>
-
-        <View style={{ minWidth: 14, opacity: chevron && onPress ? 1 : 0 }}>
-          {chevron}
         </View>
       </View>
 
@@ -166,6 +165,22 @@ function RankCard({
               </>
             ) : null}
           </View>
+        </View>
+      ) : null}
+
+      {showChevron ? (
+        <View
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: CHEVRON_RIGHT_OFFSET,
+            bottom: 0,
+            width: CHEVRON_WIDTH,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          {chevron}
         </View>
       ) : null}
     </View>
