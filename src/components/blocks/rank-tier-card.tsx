@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { View } from 'react-native';
 
 import { RankTierCardSkeleton } from '@/components/blocks/rank-tier-card-skeleton';
@@ -28,8 +26,6 @@ interface RankTierCardProps {
   className?: string;
   /** Extra classes merged onto the icon/name/rating body wrapper. */
   bodyClassName?: string;
-  /** Optional content rendered at the bottom of the tier column. */
-  footer?: ReactNode;
 }
 
 function normalizeHex(input?: string): string | undefined {
@@ -55,7 +51,6 @@ function RankTierCard({
   isLoading = false,
   className,
   bodyClassName,
-  footer,
 }: RankTierCardProps) {
   if (isLoading) {
     return (
@@ -63,7 +58,6 @@ function RankTierCard({
         showRankedRating={showRankedRating}
         className={className}
         bodyClassName={bodyClassName}
-        footer={footer}
       />
     );
   }
@@ -102,7 +96,6 @@ function RankTierCard({
           </Text>
         ) : null}
       </View>
-      {footer}
     </View>
   );
 }

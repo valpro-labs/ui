@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { View } from 'react-native';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -12,8 +10,6 @@ interface RankTierCardSkeletonProps {
   className?: string;
   /** Extra classes merged onto the icon/name/rating body wrapper. */
   bodyClassName?: string;
-  /** Optional content rendered at the bottom of the tier column. */
-  footer?: ReactNode;
 }
 
 /**
@@ -25,7 +21,6 @@ function RankTierCardSkeleton({
   showRankedRating = true,
   className,
   bodyClassName,
-  footer,
 }: RankTierCardSkeletonProps) {
   return (
     <View className={cn('items-center gap-y-2.5', className)}>
@@ -35,7 +30,6 @@ function RankTierCardSkeleton({
         <Skeleton className="h-6 w-24 rounded-md" />
         {showRankedRating ? <Skeleton className="h-5 w-14 rounded-md" /> : null}
       </View>
-      {footer}
     </View>
   );
 }

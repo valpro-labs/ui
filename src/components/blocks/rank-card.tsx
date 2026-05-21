@@ -40,7 +40,7 @@ interface RankCardProps {
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
   rrLabel?: string;
-  /** Optional rank-rating rail shown inside the tier column. */
+  /** Optional rank-rating rail shown below the rank summary. */
   rankProgress?: RankProgress;
   /** Header shown above the pyramid, e.g. `"ACT RANK"`. */
   actRankLabel: string;
@@ -75,6 +75,44 @@ function getProgressPercent(progress: RankProgress): number {
 
 function getProgressValueLabel(progress: RankProgress): string {
   return progress.valueLabel ?? `${progress.value}/${progress.max ?? 100}`;
+}
+
+function RankProgressRail({
+  color,
+  progress,
+  progressPercent,
+  showSkeleton,
+}: {
+  color?: string;
+  progress?: RankProgress;
+  progressPercent?: number;
+  showSkeleton: boolean;
+}) {
+  return (
+    <View className="w-full flex-row items-center gap-x-2">
+      {showSkeleton ? (
+        <>
+          <Skeleton className="h-1 flex-1 rounded-full" />
+          <Skeleton className="h-3 w-11 shrink-0 rounded-md" />
+        </>
+      ) : (
+        <>
+          <Progress
+            value={progressPercent}
+            className="bg-muted/70 h-1 flex-1"
+            indicatorStyle={color ? { backgroundColor: color } : undefined}
+          />
+          {progress ? (
+            <Text
+              className="text-muted-foreground shrink-0 text-xs leading-none font-semibold tabular-nums"
+              numberOfLines={1}>
+              {getProgressValueLabel(progress)}
+            </Text>
+          ) : null}
+        </>
+      )}
+    </View>
+  );
 }
 
 /**
@@ -117,8 +155,8 @@ function RankCard({
       <View className="flex-row" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
         <View className="flex-1 flex-row items-stretch justify-center gap-x-6">
           <RankTierCard
-            className={cn('w-36 self-stretch', showProgressRail && 'justify-between gap-y-0')}
-            bodyClassName={showProgressRail ? undefined : 'flex-1 justify-center'}
+            className="w-36 self-stretch"
+            bodyClassName="flex-1 justify-center"
             seasonTitle={seasonTitle}
             tierIcon={tierIcon}
             tierName={tierName}
@@ -127,33 +165,6 @@ function RankCard({
             rrLabel={rrLabel}
             showRankedRating={!isUnrankedTier && !visibleRankProgress && !showProgressSkeleton}
             isLoading={isLoading}
-            footer={
-              showProgressRail ? (
-                <View className="w-full flex-row items-center gap-x-2">
-                  {showProgressSkeleton ? (
-                    <>
-                      <Skeleton className="h-1 flex-1 rounded-full" />
-                      <Skeleton className="h-3 w-11 shrink-0 rounded-md" />
-                    </>
-                  ) : (
-                    <>
-                      <Progress
-                        value={progressPercent}
-                        className="bg-muted/70 h-1 flex-1"
-                        indicatorStyle={color ? { backgroundColor: color } : undefined}
-                      />
-                      {visibleRankProgress ? (
-                        <Text
-                          className="text-muted-foreground shrink-0 text-xs leading-none font-semibold tabular-nums"
-                          numberOfLines={1}>
-                          {getProgressValueLabel(visibleRankProgress)}
-                        </Text>
-                      ) : null}
-                    </>
-                  )}
-                </View>
-              ) : null
-            }
           />
 
           <View className="items-center">
@@ -172,6 +183,16 @@ function RankCard({
           </View>
         </View>
       </View>
+      {showProgressRail ? (
+        <View>
+          <RankProgressRail
+            color={color}
+            progress={visibleRankProgress}
+            progressPercent={progressPercent}
+            showSkeleton={showProgressSkeleton}
+          />
+        </View>
+      ) : null}
 
       {showChevron ? (
         <View
