@@ -10,6 +10,7 @@ import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
 const RANK_SUMMARY_MIN_HEIGHT = 108;
+const RANK_PYRAMID_VISUAL_OFFSET_Y = -8;
 const CHEVRON_WIDTH = 14;
 const CHEVRON_RIGHT_OFFSET = 12;
 
@@ -129,11 +130,13 @@ function RankCard({
               style={{ marginBottom: 10 }}>
               {actRankLabel}
             </Text>
-            <RankPyramid
-              filledTiers={isLoading ? undefined : filledTiers}
-              borderIcon={isLoading ? undefined : borderIcon}
-              size={pyramidSize}
-            />
+            <View style={{ transform: [{ translateY: RANK_PYRAMID_VISUAL_OFFSET_Y }] }}>
+              <RankPyramid
+                filledTiers={isLoading ? undefined : filledTiers}
+                borderIcon={isLoading ? undefined : borderIcon}
+                size={pyramidSize}
+              />
+            </View>
           </View>
         </View>
       </View>
