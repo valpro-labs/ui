@@ -9,7 +9,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
-const RANK_SUMMARY_MIN_HEIGHT = 108;
+const RANK_PYRAMID_VISUAL_OFFSET_Y = -8;
+const RANK_SUMMARY_MIN_HEIGHT = 100;
 const CHEVRON_WIDTH = 14;
 const CHEVRON_RIGHT_OFFSET = 12;
 
@@ -161,6 +162,7 @@ function RankCard({
               borderIcon={isLoading ? undefined : borderIcon}
               reserveBorderSpace={isLoading}
               size={pyramidSize}
+              visualOffsetY={RANK_PYRAMID_VISUAL_OFFSET_Y}
             />
           </View>
         </View>

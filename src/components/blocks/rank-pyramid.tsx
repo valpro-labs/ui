@@ -21,6 +21,8 @@ interface RankPyramidProps {
   reserveBorderSpace?: boolean;
   /** Outer width in px. Height derives to equilateral proportions. */
   size?: number;
+  /** Visual Y offset applied to the artwork, also adjusting layout height by the same amount. */
+  visualOffsetY?: number;
   /** Row count when collapsed. */
   rowsCollapsed?: number;
   /** Row count when expanded. */
@@ -45,6 +47,7 @@ function RankPyramid({
   borderIcon,
   reserveBorderSpace = false,
   size = 100,
+  visualOffsetY = 0,
   rowsCollapsed = ROWS_COLLAPSED_DEFAULT,
   rowsExpanded = ROWS_EXPANDED_DEFAULT,
   defaultExpanded = false,
@@ -54,12 +57,14 @@ function RankPyramid({
   const numRows = expanded ? rowsExpanded : rowsCollapsed;
   const frame = getRankPyramidArtworkFrame(size);
   const shouldUseBorderFrame = !!borderIcon || reserveBorderSpace;
-  const height = shouldUseBorderFrame ? frame.visualHeight : frame.height;
-  const artworkOffsetTop = shouldUseBorderFrame ? frame.offsetY : 0;
+  const baseHeight = shouldUseBorderFrame ? frame.visualHeight : frame.height;
+  const height = Math.max(0, baseHeight + visualOffsetY);
+  const artworkOffsetTop = (shouldUseBorderFrame ? frame.offsetY : 0) + visualOffsetY;
 
   return (
     <Pressable
       onPress={() => setExpanded((v) => !v)}
+      hitSlop={visualOffsetY < 0 ? { top: -visualOffsetY } : undefined}
       style={{ width: size, height, overflow: 'visible' }}
       className={cn(className)}>
       <RankPyramidArtwork
