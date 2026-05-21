@@ -139,7 +139,7 @@ function RankCard({
       </View>
 
       {showProgressRail ? (
-        <View>
+        <View className="mt-1">
           {showProgressSkeleton ? (
             <Skeleton className="h-1.5 w-full rounded-full" />
           ) : (
