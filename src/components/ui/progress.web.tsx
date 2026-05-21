@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View, type ViewProps } from 'react-native';
+import { View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 
 import { cn } from '@/lib/utils';
 
@@ -8,6 +8,7 @@ type ProgressProps = ViewProps & {
   /** 0–100 */
   value?: number | null;
   indicatorClassName?: string;
+  indicatorStyle?: StyleProp<ViewStyle>;
 };
 
 /**
@@ -16,7 +17,7 @@ type ProgressProps = ViewProps & {
  * The native sibling (`progress.tsx`) keeps the animated + accessible
  * @rn-primitives implementation for iOS/Android.
  */
-function Progress({ className, value, indicatorClassName, ...props }: ProgressProps) {
+function Progress({ className, value, indicatorClassName, indicatorStyle, ...props }: ProgressProps) {
   const clamped = Math.max(0, Math.min(100, value ?? 0));
   return (
     <View
@@ -28,12 +29,15 @@ function Progress({ className, value, indicatorClassName, ...props }: ProgressPr
       {...props}>
       <View
         className={cn('bg-primary h-full', indicatorClassName)}
-        style={{
-          width: `${clamped}%`,
-          // `transition` goes through to the underlying DOM element via
-          // react-native-web; on native this prop is ignored.
-          transition: 'width 0.3s ease-out',
-        } as object}
+        style={[
+          {
+            width: `${clamped}%`,
+            // `transition` goes through to the underlying DOM element via
+            // react-native-web; on native this prop is ignored.
+            transition: 'width 0.3s ease-out',
+          } as object,
+          indicatorStyle,
+        ]}
       />
     </View>
   );

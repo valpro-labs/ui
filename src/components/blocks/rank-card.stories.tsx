@@ -76,6 +76,7 @@ export const Default: Story = {
     tierColor: TIER_COLORS.diamond,
     rankedRating: 47,
     rrLabel: 'RR',
+    rankProgress: { value: 47 },
     actRankLabel: 'ACT RANK',
     filledTiers: diamondMix,
     borderIcon: BORDER_LEVEL_1,
@@ -90,6 +91,7 @@ export const Pressable: Story = {
     tierColor: TIER_COLORS.ascendant,
     rankedRating: 12,
     rrLabel: 'RR',
+    rankProgress: { value: 12 },
     actRankLabel: 'ACT RANK',
     filledTiers: ascendantMix,
     borderIcon: BORDER_LEVEL_2,
@@ -185,6 +187,18 @@ function colorForTier(id: number): string {
   return TIER_COLORS.unranked;
 }
 
+function progressForTier(id: number) {
+  if (id >= 24) {
+    return undefined;
+  }
+
+  return { value: 50 };
+}
+
+function ratingForTier(id: number): number {
+  return id >= 24 ? 280 : 50;
+}
+
 export const AllTiers: Story = {
   render: () => (
     <View>
@@ -196,8 +210,9 @@ export const AllTiers: Story = {
             tierIcon={`https://media.valorant-api.com/competitivetiers/${TIER_SET}/${t.id}/largeicon.png`}
             tierName={t.name}
             tierColor={colorForTier(t.id)}
-            rankedRating={50}
+            rankedRating={ratingForTier(t.id)}
             rrLabel="RR"
+            rankProgress={progressForTier(t.id)}
             actRankLabel="ACT RANK"
             filledTiers={[tier(t.id)]}
             borderIcon={borderForTier(t.id)}

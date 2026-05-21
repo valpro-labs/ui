@@ -18,6 +18,8 @@ interface RankTierCardProps {
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
   rrLabel?: string;
+  /** Show the ranked rating row under the tier name. */
+  showRankedRating?: boolean;
   /** Show the skeleton placeholder instead of the real content. */
   isLoading?: boolean;
   /** Extra classes merged onto the outer column wrapper. */
@@ -43,11 +45,12 @@ function RankTierCard({
   tierColor,
   rankedRating,
   rrLabel = 'RR',
+  showRankedRating = true,
   isLoading = false,
   className,
 }: RankTierCardProps) {
   if (isLoading) {
-    return <RankTierCardSkeleton className={className} />;
+    return <RankTierCardSkeleton showRankedRating={showRankedRating} className={className} />;
   }
 
   const color = normalizeHex(tierColor);
@@ -76,10 +79,12 @@ function RankTierCard({
           {tierName}
         </Text>
       ) : null}
-      <Text className="text-muted-foreground mt-0.5 text-sm font-medium">
-        {rankedRating ?? 0}
-        {rrLabel ? ` ${rrLabel}` : ''}
-      </Text>
+      {showRankedRating ? (
+        <Text className="text-muted-foreground mt-0.5 text-sm font-medium">
+          {rankedRating ?? 0}
+          {rrLabel ? ` ${rrLabel}` : ''}
+        </Text>
+      ) : null}
     </View>
   );
 }

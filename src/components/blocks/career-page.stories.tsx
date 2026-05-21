@@ -18,6 +18,7 @@ function pyramidTier(n: number): RankPyramidTier {
 }
 
 const ascendant1Tier = `https://media.valorant-api.com/competitivetiers/${TIER_SET}/21/largeicon.png`;
+const ascendantColor = '6ae2afff';
 
 const BORDER_LEVEL_2 =
   'https://media.valorant-api.com/seasonborders/48bfd197-49c0-59bd-5833-ad9feff49516/displayicon.png';
@@ -189,8 +190,10 @@ export const Default: Story = {
                 seasonTitle="V26"
                 tierIcon={ascendant1Tier}
                 tierName="Ascendant 1"
+                tierColor={ascendantColor}
                 rankedRating={47}
                 rrLabel="RR"
+                rankProgress={{ value: 47 }}
                 actRankLabel="ACT RANK"
                 filledTiers={[
                   pyramidTier(22),
