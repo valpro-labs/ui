@@ -108,7 +108,7 @@ function RankCard({
 
   const content = (
     <View className={cn('relative px-4 py-3', className)}>
-      <View className="flex-row items-center" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
+      <View className="flex-row" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
         <View className="flex-1 flex-row items-start justify-center gap-x-6">
           <RankTierCard
             className="w-36"
@@ -123,7 +123,7 @@ function RankCard({
           />
 
           <View className="items-center self-stretch">
-            <Text className="text-muted-foreground mb-1 text-xs font-medium tracking-widest uppercase">
+            <Text className="text-muted-foreground mb-2 text-xs font-medium tracking-widest uppercase">
               {actRankLabel}
             </Text>
             <View className="flex-1 justify-center">
@@ -138,7 +138,7 @@ function RankCard({
       </View>
 
       {showProgressRail ? (
-        <View className="mt-3">
+        <View className="mt-2">
           {showProgressSkeleton ? (
             <Skeleton className="h-1.5 w-full rounded-full" />
           ) : (
