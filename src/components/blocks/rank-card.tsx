@@ -10,7 +10,6 @@ import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
 const RANK_SUMMARY_MIN_HEIGHT = 108;
-const RANK_PYRAMID_VISUAL_OFFSET_Y = -8;
 const CHEVRON_WIDTH = 14;
 const CHEVRON_RIGHT_OFFSET = 12;
 
@@ -19,9 +18,9 @@ interface RankProgress {
   value: number;
   /** Maximum progress value. Defaults to `100` for normal RR tiers. */
   max?: number;
-  /** Left-side label below the bar. Defaults to `"RANK RATING"`. */
+  /** Deprecated: progress no longer renders a text label. */
   label?: string;
-  /** Right-side value below the bar. Defaults to `"value/max"`. */
+  /** Right-side value next to the bar. Defaults to `"value"`. */
   valueLabel?: string;
 }
 
@@ -38,7 +37,7 @@ interface RankCardProps {
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
   rrLabel?: string;
-  /** Optional full-width rank-rating rail shown below the rank summary row. */
+  /** Optional rank-rating rail shown inside the tier column. */
   rankProgress?: RankProgress;
   /** Header shown above the pyramid, e.g. `"ACT RANK"`. */
   actRankLabel: string;
@@ -72,7 +71,7 @@ function getProgressPercent(progress: RankProgress): number {
 }
 
 function getProgressValueLabel(progress: RankProgress): string {
-  return progress.valueLabel ?? `${progress.value}/${progress.max ?? 100}`;
+  return progress.valueLabel ?? `${progress.value}`;
 }
 
 /**
@@ -112,8 +111,8 @@ function RankCard({
       <View className="flex-row" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
         <View className="flex-1 flex-row items-stretch justify-center gap-x-6">
           <RankTierCard
-            className="w-36 self-stretch"
-            bodyClassName="flex-1 justify-center"
+            className={cn('w-36 self-stretch', showProgressRail && 'justify-between gap-y-0')}
+            bodyClassName={showProgressRail ? undefined : 'flex-1 justify-center'}
             seasonTitle={seasonTitle}
             tierIcon={tierIcon}
             tierName={tierName}
@@ -122,6 +121,33 @@ function RankCard({
             rrLabel={rrLabel}
             showRankedRating={!rankProgress && !showProgressSkeleton}
             isLoading={isLoading}
+            footer={
+              showProgressRail ? (
+                <View className="w-full flex-row items-center gap-x-2">
+                  {showProgressSkeleton ? (
+                    <>
+                      <Skeleton className="h-1.5 flex-1 rounded-full" />
+                      <Skeleton className="h-4 w-8 shrink-0 rounded-md" />
+                    </>
+                  ) : (
+                    <>
+                      <Progress
+                        value={progressPercent}
+                        className="bg-muted/70 h-1.5 flex-1"
+                        indicatorStyle={color ? { backgroundColor: color } : undefined}
+                      />
+                      {rankProgress ? (
+                        <Text
+                          className="text-muted-foreground shrink-0 text-xs font-semibold tabular-nums"
+                          numberOfLines={1}>
+                          {getProgressValueLabel(rankProgress)}
+                        </Text>
+                      ) : null}
+                    </>
+                  )}
+                </View>
+              ) : null
+            }
           />
 
           <View className="items-center">
@@ -130,48 +156,15 @@ function RankCard({
               style={{ marginBottom: 10 }}>
               {actRankLabel}
             </Text>
-            <View style={{ transform: [{ translateY: RANK_PYRAMID_VISUAL_OFFSET_Y }] }}>
-              <RankPyramid
-                filledTiers={isLoading ? undefined : filledTiers}
-                borderIcon={isLoading ? undefined : borderIcon}
-                reserveBorderSpace={isLoading}
-                size={pyramidSize}
-              />
-            </View>
+            <RankPyramid
+              filledTiers={isLoading ? undefined : filledTiers}
+              borderIcon={isLoading ? undefined : borderIcon}
+              reserveBorderSpace={isLoading}
+              size={pyramidSize}
+            />
           </View>
         </View>
       </View>
-
-      {showProgressRail ? (
-        <View className="mt-1">
-          {showProgressSkeleton ? (
-            <Skeleton className="h-1.5 w-full rounded-full" />
-          ) : (
-            <Progress
-              value={progressPercent}
-              className="bg-muted/70 h-1.5"
-              indicatorStyle={color ? { backgroundColor: color } : undefined}
-            />
-          )}
-          <View className="mt-1 flex-row items-center justify-between">
-            {showProgressSkeleton ? (
-              <>
-                <Skeleton className="h-4 w-20 rounded-md" />
-                <Skeleton className="h-4 w-10 rounded-md" />
-              </>
-            ) : rankProgress ? (
-              <>
-                <Text className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-                  {rankProgress.label ?? 'RANK RATING'}
-                </Text>
-                <Text className="text-muted-foreground text-xs font-semibold tabular-nums">
-                  {getProgressValueLabel(rankProgress)}
-                </Text>
-              </>
-            ) : null}
-          </View>
-        </View>
-      ) : null}
 
       {showChevron ? (
         <View
