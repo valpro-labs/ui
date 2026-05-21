@@ -57,7 +57,9 @@ function RankTierCard({
 
   return (
     <View className={cn('items-center', className)}>
-      <Text className="text-muted-foreground mb-2 text-xs font-medium tracking-widest uppercase">
+      <Text
+        className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
+        style={{ marginBottom: 10 }}>
         {seasonTitle}
       </Text>
       <View className="h-16 w-16">

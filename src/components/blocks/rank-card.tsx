@@ -123,7 +123,9 @@ function RankCard({
           />
 
           <View className="items-center self-stretch">
-            <Text className="text-muted-foreground mb-2 text-xs font-medium tracking-widest uppercase">
+            <Text
+              className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
+              style={{ marginBottom: 10 }}>
               {actRankLabel}
             </Text>
             <View className="flex-1 justify-center">

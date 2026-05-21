@@ -18,7 +18,7 @@ interface RankTierCardSkeletonProps {
 function RankTierCardSkeleton({ showRankedRating = true, className }: RankTierCardSkeletonProps) {
   return (
     <View className={cn('items-center', className)}>
-      <Skeleton className="mb-2 h-4 w-12 rounded-md" />
+      <Skeleton className="h-4 w-12 rounded-md" style={{ marginBottom: 10 }} />
       <Skeleton style={{ width: 64, height: 64 }} className="rounded-md" />
       <Skeleton className="mt-1 h-6 w-24 rounded-md" />
       {showRankedRating ? <Skeleton className="mt-0.5 h-5 w-14 rounded-md" /> : null}
