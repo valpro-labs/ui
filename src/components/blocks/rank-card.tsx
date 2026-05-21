@@ -159,7 +159,7 @@ function RankCard({
                 <Text className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
                   {rankProgress.label ?? 'RANK RATING'}
                 </Text>
-                <Text className="text-foreground text-xs font-semibold tabular-nums">
+                <Text className="text-muted-foreground text-xs font-semibold tabular-nums">
                   {getProgressValueLabel(rankProgress)}
                 </Text>
               </>
