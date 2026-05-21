@@ -21,7 +21,7 @@ interface RankProgress {
   max?: number;
   /** Deprecated: progress no longer renders a text label. */
   label?: string;
-  /** Right-side value next to the bar. Defaults to `"value"`. */
+  /** Right-side value next to the bar. Defaults to `"value/max"`. */
   valueLabel?: string;
 }
 
@@ -72,7 +72,7 @@ function getProgressPercent(progress: RankProgress): number {
 }
 
 function getProgressValueLabel(progress: RankProgress): string {
-  return progress.valueLabel ?? `${progress.value}`;
+  return progress.valueLabel ?? `${progress.value}/${progress.max ?? 100}`;
 }
 
 /**
@@ -127,19 +127,19 @@ function RankCard({
                 <View className="w-full flex-row items-center gap-x-2">
                   {showProgressSkeleton ? (
                     <>
-                      <Skeleton className="h-1.5 flex-1 rounded-full" />
-                      <Skeleton className="h-4 w-8 shrink-0 rounded-md" />
+                      <Skeleton className="h-1 flex-1 rounded-full" />
+                      <Skeleton className="h-3 w-11 shrink-0 rounded-md" />
                     </>
                   ) : (
                     <>
                       <Progress
                         value={progressPercent}
-                        className="bg-muted/70 h-1.5 flex-1"
+                        className="bg-muted/70 h-1 flex-1"
                         indicatorStyle={color ? { backgroundColor: color } : undefined}
                       />
                       {rankProgress ? (
                         <Text
-                          className="text-muted-foreground shrink-0 text-xs font-semibold tabular-nums"
+                          className="text-muted-foreground shrink-0 text-xs leading-none font-semibold tabular-nums"
                           numberOfLines={1}>
                           {getProgressValueLabel(rankProgress)}
                         </Text>
