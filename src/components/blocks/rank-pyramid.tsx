@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Pressable } from 'react-native';
 
 import {
+  getRankPyramidArtworkFrame,
   RankPyramidArtwork,
-  RANK_PYRAMID_HEIGHT_RATIO,
   type RankPyramidTier,
 } from '@/components/blocks/rank-pyramid-artwork';
 import { cn } from '@/lib/utils';
@@ -49,11 +49,14 @@ function RankPyramid({
 }: RankPyramidProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const numRows = expanded ? rowsExpanded : rowsCollapsed;
+  const frame = getRankPyramidArtworkFrame(size);
+  const height = borderIcon ? frame.visualHeight : frame.height;
+  const artworkOffsetTop = borderIcon ? frame.offsetY : 0;
 
   return (
     <Pressable
       onPress={() => setExpanded((v) => !v)}
-      style={{ width: size, height: size * RANK_PYRAMID_HEIGHT_RATIO }}
+      style={{ width: size, height, overflow: 'visible' }}
       className={cn(className)}>
       <RankPyramidArtwork
         filledTiers={filledTiers}
@@ -61,6 +64,7 @@ function RankPyramid({
         size={size}
         rows={numRows}
         pointerEvents="none"
+        style={borderIcon ? { position: 'absolute', top: artworkOffsetTop } : undefined}
       />
     </Pressable>
   );

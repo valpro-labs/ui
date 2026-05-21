@@ -109,9 +109,10 @@ function RankCard({
   const content = (
     <View className={cn('relative px-4 py-3', className)}>
       <View className="flex-row" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
-        <View className="flex-1 flex-row items-start justify-center gap-x-6">
+        <View className="flex-1 flex-row items-stretch justify-center gap-x-6">
           <RankTierCard
-            className="w-36"
+            className="w-36 self-stretch"
+            bodyClassName="flex-1 justify-center"
             seasonTitle={seasonTitle}
             tierIcon={tierIcon}
             tierName={tierName}
@@ -122,25 +123,23 @@ function RankCard({
             isLoading={isLoading}
           />
 
-          <View className="items-center self-stretch">
+          <View className="items-center">
             <Text
               className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
               style={{ marginBottom: 10 }}>
               {actRankLabel}
             </Text>
-            <View className="flex-1 justify-center">
-              <RankPyramid
-                filledTiers={isLoading ? undefined : filledTiers}
-                borderIcon={isLoading ? undefined : borderIcon}
-                size={pyramidSize}
-              />
-            </View>
+            <RankPyramid
+              filledTiers={isLoading ? undefined : filledTiers}
+              borderIcon={isLoading ? undefined : borderIcon}
+              size={pyramidSize}
+            />
           </View>
         </View>
       </View>
 
       {showProgressRail ? (
-        <View className="mt-2">
+        <View>
           {showProgressSkeleton ? (
             <Skeleton className="h-1.5 w-full rounded-full" />
           ) : (

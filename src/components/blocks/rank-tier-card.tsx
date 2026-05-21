@@ -24,6 +24,8 @@ interface RankTierCardProps {
   isLoading?: boolean;
   /** Extra classes merged onto the outer column wrapper. */
   className?: string;
+  /** Extra classes merged onto the icon/name/rating body wrapper. */
+  bodyClassName?: string;
 }
 
 function normalizeHex(input?: string): string | undefined {
@@ -48,45 +50,52 @@ function RankTierCard({
   showRankedRating = true,
   isLoading = false,
   className,
+  bodyClassName,
 }: RankTierCardProps) {
   if (isLoading) {
-    return <RankTierCardSkeleton showRankedRating={showRankedRating} className={className} />;
+    return (
+      <RankTierCardSkeleton
+        showRankedRating={showRankedRating}
+        className={className}
+        bodyClassName={bodyClassName}
+      />
+    );
   }
 
   const color = normalizeHex(tierColor);
 
   return (
-    <View className={cn('items-center', className)}>
-      <Text
-        className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
-        style={{ marginBottom: 10 }}>
+    <View className={cn('items-center gap-y-2.5', className)}>
+      <Text className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
         {seasonTitle}
       </Text>
-      <View className="h-16 w-16">
-        {tierIcon ? (
-          <Image
-            source={tierIcon}
-            style={{ width: '100%', height: '100%' }}
-            contentFit="contain"
-          />
+      <View className={cn('items-center gap-y-1', bodyClassName)}>
+        <View className="h-16 w-16">
+          {tierIcon ? (
+            <Image
+              source={tierIcon}
+              style={{ width: '100%', height: '100%' }}
+              contentFit="contain"
+            />
+          ) : null}
+        </View>
+        {tierName ? (
+          <Text
+            className="text-foreground text-base font-bold tracking-wide uppercase"
+            style={color ? { color } : undefined}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+          >
+            {tierName}
+          </Text>
+        ) : null}
+        {showRankedRating ? (
+          <Text className="text-muted-foreground text-sm font-medium">
+            {rankedRating ?? 0}
+            {rrLabel ? ` ${rrLabel}` : ''}
+          </Text>
         ) : null}
       </View>
-      {tierName ? (
-        <Text
-          className="text-foreground mt-1 text-base font-bold tracking-wide uppercase"
-          style={color ? { color } : undefined}
-          numberOfLines={1}
-          adjustsFontSizeToFit
-        >
-          {tierName}
-        </Text>
-      ) : null}
-      {showRankedRating ? (
-        <Text className="text-muted-foreground mt-0.5 text-sm font-medium">
-          {rankedRating ?? 0}
-          {rrLabel ? ` ${rrLabel}` : ''}
-        </Text>
-      ) : null}
     </View>
   );
 }

@@ -3,10 +3,9 @@ import * as React from 'react';
 import { View, type ImageStyle, type StyleProp } from 'react-native';
 
 import {
+  getRankPyramidArtworkFrame,
   RankPyramidArtwork,
-  RANK_PYRAMID_BORDER_OFFSET_Y,
   RANK_PYRAMID_BORDER_SCALE,
-  RANK_PYRAMID_HEIGHT_RATIO,
 } from '@/components/blocks/rank-pyramid-artwork';
 import { cn } from '@/lib/utils';
 
@@ -40,13 +39,9 @@ function RankPyramidBorderImage({
   ...props
 }: RankPyramidBorderImageProps) {
   const pyramidSize = size / RANK_PYRAMID_BORDER_SCALE;
-  const pyramidHeight = pyramidSize * RANK_PYRAMID_HEIGHT_RATIO;
-  const borderHeight = pyramidHeight * RANK_PYRAMID_BORDER_SCALE;
-  const borderLeftInPyramid = -(pyramidSize * (RANK_PYRAMID_BORDER_SCALE - 1)) / 2;
-  const borderTopInPyramid =
-    RANK_PYRAMID_BORDER_OFFSET_Y - (pyramidHeight * (RANK_PYRAMID_BORDER_SCALE - 1)) / 2;
-  const pyramidLeft = -borderLeftInPyramid;
-  const pyramidTop = (size - borderHeight) / 2 - borderTopInPyramid;
+  const frame = getRankPyramidArtworkFrame(pyramidSize);
+  const pyramidLeft = (size - frame.visualWidth) / 2 + frame.offsetX;
+  const pyramidTop = (size - frame.visualHeight) / 2 + frame.offsetY;
 
   return (
     <View

@@ -8,6 +8,8 @@ interface RankTierCardSkeletonProps {
   showRankedRating?: boolean;
   /** Extra classes merged onto the outer column wrapper. */
   className?: string;
+  /** Extra classes merged onto the icon/name/rating body wrapper. */
+  bodyClassName?: string;
 }
 
 /**
@@ -15,13 +17,19 @@ interface RankTierCardSkeletonProps {
  * icon, tier name, and optional RR row so the layout doesn't shift once rank
  * data resolves.
  */
-function RankTierCardSkeleton({ showRankedRating = true, className }: RankTierCardSkeletonProps) {
+function RankTierCardSkeleton({
+  showRankedRating = true,
+  className,
+  bodyClassName,
+}: RankTierCardSkeletonProps) {
   return (
-    <View className={cn('items-center', className)}>
-      <Skeleton className="h-4 w-12 rounded-md" style={{ marginBottom: 10 }} />
-      <Skeleton style={{ width: 64, height: 64 }} className="rounded-md" />
-      <Skeleton className="mt-1 h-6 w-24 rounded-md" />
-      {showRankedRating ? <Skeleton className="mt-0.5 h-5 w-14 rounded-md" /> : null}
+    <View className={cn('items-center gap-y-2.5', className)}>
+      <Skeleton className="h-4 w-12 rounded-md" />
+      <View className={cn('items-center gap-y-1', bodyClassName)}>
+        <Skeleton style={{ width: 64, height: 64 }} className="rounded-md" />
+        <Skeleton className="h-6 w-24 rounded-md" />
+        {showRankedRating ? <Skeleton className="h-5 w-14 rounded-md" /> : null}
+      </View>
     </View>
   );
 }

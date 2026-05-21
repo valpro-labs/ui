@@ -12,6 +12,33 @@ const RANK_PYRAMID_HEIGHT_RATIO = Math.sqrt(3) / 2;
 const RANK_PYRAMID_BORDER_SCALE = 1.8;
 const RANK_PYRAMID_BORDER_OFFSET_Y = -1;
 
+function getRankPyramidArtworkFrame(size: number) {
+  const width = size;
+  const height = size * RANK_PYRAMID_HEIGHT_RATIO;
+  const borderWidth = width * RANK_PYRAMID_BORDER_SCALE;
+  const borderHeight = height * RANK_PYRAMID_BORDER_SCALE;
+  const borderLeft = -(width * (RANK_PYRAMID_BORDER_SCALE - 1)) / 2;
+  const borderTop =
+    RANK_PYRAMID_BORDER_OFFSET_Y - (height * (RANK_PYRAMID_BORDER_SCALE - 1)) / 2;
+  const minX = Math.min(0, borderLeft);
+  const minY = Math.min(0, borderTop);
+  const maxX = Math.max(width, borderLeft + borderWidth);
+  const maxY = Math.max(height, borderTop + borderHeight);
+
+  return {
+    width,
+    height,
+    borderWidth,
+    borderHeight,
+    borderLeft,
+    borderTop,
+    offsetX: -minX,
+    offsetY: -minY,
+    visualWidth: maxX - minX,
+    visualHeight: maxY - minY,
+  };
+}
+
 interface TrianglePosition {
   row: number;
   col: number;
@@ -109,8 +136,8 @@ function RankPyramidArtwork({
   style,
   ...props
 }: RankPyramidArtworkProps) {
-  const width = size;
-  const height = size * RANK_PYRAMID_HEIGHT_RATIO;
+  const frame = getRankPyramidArtworkFrame(size);
+  const { width, height } = frame;
 
   const triangles = React.useMemo(
     () => buildTrianglePositions(width, height, rows),
@@ -139,10 +166,10 @@ function RankPyramidArtwork({
           style={[
             {
               position: 'absolute',
-              width: width * RANK_PYRAMID_BORDER_SCALE,
-              height: height * RANK_PYRAMID_BORDER_SCALE,
-              left: -(width * (RANK_PYRAMID_BORDER_SCALE - 1)) / 2,
-              top: RANK_PYRAMID_BORDER_OFFSET_Y - (height * (RANK_PYRAMID_BORDER_SCALE - 1)) / 2,
+              width: frame.borderWidth,
+              height: frame.borderHeight,
+              left: frame.borderLeft,
+              top: frame.borderTop,
               tintColor: resolvedTintColor,
             },
             imageStyle,
@@ -199,6 +226,7 @@ function RankPyramidArtwork({
 }
 
 export {
+  getRankPyramidArtworkFrame,
   RankPyramidArtwork,
   RANK_PYRAMID_BORDER_OFFSET_Y,
   RANK_PYRAMID_BORDER_SCALE,
