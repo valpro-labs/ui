@@ -51,7 +51,7 @@ export { RankCard } from '@/components/blocks/rank-card';
 export type { RankCardProps } from '@/components/blocks/rank-card';
 
 export { AgentCard } from '@/components/blocks/agent-card';
-export type { AgentCardProps } from '@/components/blocks/agent-card';
+export type { AgentCardProps, AgentCardVariant } from '@/components/blocks/agent-card';
 export { RoleCard } from '@/components/blocks/role-card';
 export type { RoleCardProps } from '@/components/blocks/role-card';
 
