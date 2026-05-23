@@ -33,7 +33,7 @@ interface SettingsRowProps {
   subClassName?: string;
 }
 
-const ROW_CLASSES = 'h-auto min-h-12 flex-row items-center gap-x-3 rounded-none px-3.5 py-3';
+const ROW_CLASSES = 'h-auto min-h-12 flex-row items-center gap-x-3 rounded-none px-3.5 py-3 sm:h-auto';
 
 /**
  * Single row inside a `SettingsGroup` — leading icon, label (with optional
