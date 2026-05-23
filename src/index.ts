@@ -80,7 +80,11 @@ export { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
 export type { RewardItemSkeletonProps } from '@/components/blocks/reward-item-skeleton';
 
 export { Wallet } from '@/components/blocks/wallet';
-export type { WalletProps, WalletBalance } from '@/components/blocks/wallet';
+export type {
+  WalletProps,
+  WalletBalance,
+  WalletSize,
+} from '@/components/blocks/wallet';
 
 export { MapBanner } from '@/components/blocks/map-banner';
 export type { MapBannerProps, MapBannerResult } from '@/components/blocks/map-banner';

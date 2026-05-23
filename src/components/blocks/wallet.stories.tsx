@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { View } from 'react-native';
 
 import { Wallet } from '@/components/blocks/wallet';
 
@@ -19,6 +20,12 @@ const sampleBalances = [
 const meta: Meta<typeof Wallet> = {
   title: 'Blocks/Wallet',
   component: Wallet,
+  argTypes: {
+    size: {
+      control: { type: 'inline-radio' },
+      options: ['regular', 'large'],
+    },
+  },
 };
 
 export default meta;
@@ -69,4 +76,48 @@ export const HighlightedBalance: Story = {
       },
     ],
   },
+};
+
+export const IPadLayout: Story = {
+  name: 'iPad layout',
+  globals: { viewport: { value: 'iPadAir11M4', isRotated: false } },
+  parameters: {
+    layout: 'fullscreen',
+    viewport: { defaultViewport: 'iPadAir11M4' },
+  },
+  args: { balances: sampleBalances },
+  render: (args) => (
+    <View className="bg-background flex-1" style={{ padding: 24 }}>
+      <View
+        style={{
+          width: 600,
+          maxWidth: '100%',
+          alignSelf: 'center',
+        }}>
+        <Wallet {...args} size="large" />
+      </View>
+    </View>
+  ),
+};
+
+export const IPadLandscape: Story = {
+  name: 'iPad landscape',
+  globals: { viewport: { value: 'iPadAir11M4', isRotated: true } },
+  parameters: {
+    layout: 'fullscreen',
+    viewport: { defaultViewport: 'iPadAir11M4' },
+  },
+  args: { balances: sampleBalances },
+  render: (args) => (
+    <View className="bg-background flex-1" style={{ padding: 24 }}>
+      <View
+        style={{
+          width: 360,
+          maxWidth: '100%',
+          alignSelf: 'flex-start',
+        }}>
+        <Wallet {...args} size="large" />
+      </View>
+    </View>
+  ),
 };

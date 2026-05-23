@@ -250,15 +250,29 @@ function getViewportValue(viewport: unknown): string | undefined {
   return undefined;
 }
 
+function getViewportIsRotated(viewport: unknown): boolean {
+  if (viewport && typeof viewport === 'object' && 'isRotated' in viewport) {
+    return (viewport as { isRotated?: unknown }).isRotated === true;
+  }
+  return false;
+}
+
 function resolveStoreVariants(variant: StoreVariant, viewport: unknown) {
   const viewportValue = getViewportValue(viewport);
   const isTabletViewport = viewportValue ? TABLET_VIEWPORTS.has(viewportValue) : false;
+  const isTabletLandscapeViewport = isTabletViewport && getViewportIsRotated(viewport);
   const layoutVariant: CardVariant =
     variant === 'auto' ? (isTabletViewport ? 'grid' : 'list') : variant;
   const cardSize: StoreCardSize | undefined =
     layoutVariant === 'grid' && isTabletViewport ? 'regular' : undefined;
 
-  return { isTabletViewport, layoutVariant, cardVariant: layoutVariant, cardSize };
+  return {
+    isTabletViewport,
+    isTabletLandscapeViewport,
+    layoutVariant,
+    cardVariant: layoutVariant,
+    cardSize,
+  };
 }
 
 function GridWrapper({ grid, children }: { grid: boolean; children: React.ReactNode }) {
@@ -316,10 +330,13 @@ type Story = StoryObj<StoreArgs>;
  */
 export const Default: Story = {
   render: ({ isLoading, variant }, context) => {
-    const { layoutVariant, cardVariant, cardSize } = resolveStoreVariants(
-      variant,
-      context.globals.viewport
-    );
+    const {
+      isTabletViewport,
+      isTabletLandscapeViewport,
+      layoutVariant,
+      cardVariant,
+      cardSize,
+    } = resolveStoreVariants(variant, context.globals.viewport);
     const isGrid = layoutVariant === 'grid';
 
     return (
@@ -328,14 +345,22 @@ export const Default: Story = {
         style={{ width: '100%' }}
         contentContainerStyle={{ width: '100%' }}>
         <View className="p-4" style={{ gap: 16, width: '100%' }}>
-          <Wallet
-            balances={[
-              { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
-              { key: 'rp', iconUrl: radianitePoints, amount: 420 },
-              { key: 'kc', iconUrl: kingdomCredits, amount: 12850 },
-            ]}
-            isLoading={isLoading}
-          />
+          <View
+            style={
+              isTabletLandscapeViewport
+                ? { width: 360, maxWidth: '100%', alignSelf: 'flex-start' }
+                : undefined
+            }>
+            <Wallet
+              balances={[
+                { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
+                { key: 'rp', iconUrl: radianitePoints, amount: 420 },
+                { key: 'kc', iconUrl: kingdomCredits, amount: 12850 },
+              ]}
+              size={isTabletViewport ? 'large' : undefined}
+              isLoading={isLoading}
+            />
+          </View>
 
           <View>
             <SectionTitle title="Daily Offers" rightElement={<Countdown text="18h 42m" />} />
