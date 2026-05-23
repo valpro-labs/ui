@@ -8,6 +8,7 @@ import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
 type FriendStatus = 'online' | 'away' | 'busy' | 'offline' | 'none';
+type FriendRowSize = 'regular' | 'large';
 
 const STATUS_DOT: Record<FriendStatus, string> = {
   online: 'bg-val-green-ui/80',
@@ -29,27 +30,52 @@ interface FriendAvatarProps {
   avatarUrl?: string;
   status: FriendStatus;
   showPlaceholder?: boolean;
+  /** Visual density. Use `large` for wider tablet layouts. */
+  size?: FriendRowSize;
 }
 
-function FriendAvatar({ avatarUrl, status, showPlaceholder = false }: FriendAvatarProps) {
+function FriendAvatar({
+  avatarUrl,
+  status,
+  showPlaceholder = false,
+  size = 'regular',
+}: FriendAvatarProps) {
   if (!avatarUrl && !showPlaceholder) {
     return null;
   }
+
+  const isLarge = size === 'large';
+  const avatarSize = isLarge ? 56 : 44;
+  const avatarRadius = isLarge ? 12 : 10;
+  const statusOuterSize = isLarge ? 18 : 16;
+  const statusInnerSize = isLarge ? 13 : 12;
 
   return (
     <View>
       <View
         className="bg-secondary overflow-hidden"
-        style={{ width: 44, height: 44, borderRadius: 10 }}>
+        style={{ width: avatarSize, height: avatarSize, borderRadius: avatarRadius }}>
         {avatarUrl ? (
-          <Image source={avatarUrl} style={{ width: 44, height: 44 }} contentFit="cover" />
+          <Image
+            source={avatarUrl}
+            style={{ width: avatarSize, height: avatarSize }}
+            contentFit="cover"
+          />
         ) : null}
       </View>
-      <View className="bg-card absolute -right-1 -bottom-1 size-4 items-center justify-center rounded-full">
+      <View
+        className="bg-card absolute -right-1 -bottom-1 items-center justify-center rounded-full"
+        style={{ width: statusOuterSize, height: statusOuterSize }}>
         {status === 'offline' ? (
-          <View className="border-border bg-card size-3 rounded-full border-2" />
+          <View
+            className="border-border bg-card rounded-full border-2"
+            style={{ width: statusInnerSize, height: statusInnerSize }}
+          />
         ) : (
-          <View className={cn('size-3 rounded-full', STATUS_DOT[status])} />
+          <View
+            className={cn('rounded-full', STATUS_DOT[status])}
+            style={{ width: statusInnerSize, height: statusInnerSize }}
+          />
         )}
       </View>
     </View>
@@ -61,19 +87,27 @@ interface FriendInfoProps {
   gameLabel?: string;
   status: FriendStatus;
   ownerBadge?: React.ReactNode;
+  /** Visual density. Use `large` for wider tablet layouts. */
+  size?: FriendRowSize;
 }
 
-function FriendInfo({ name, gameLabel, status, ownerBadge }: FriendInfoProps) {
+function FriendInfo({ name, gameLabel, status, ownerBadge, size = 'regular' }: FriendInfoProps) {
+  const isLarge = size === 'large';
+
   return (
-    <View className="flex-1">
+    <View className={cn('flex-1', isLarge && 'gap-y-0.5')}>
       <View className="flex-row items-center gap-x-1">
-        <Text className="text-foreground text-base font-semibold" numberOfLines={1}>
+        <Text
+          className={cn('text-foreground font-semibold', isLarge ? 'text-lg' : 'text-base')}
+          numberOfLines={1}>
           {name}
         </Text>
         {ownerBadge}
       </View>
       {gameLabel ? (
-        <Text className={cn('text-xs', STATUS_TEXT[status])} numberOfLines={1}>
+        <Text
+          className={cn(isLarge ? 'text-sm' : 'text-xs', STATUS_TEXT[status])}
+          numberOfLines={1}>
           {gameLabel}
         </Text>
       ) : null}
@@ -98,6 +132,8 @@ interface FriendRowProps {
   rightContent?: React.ReactNode;
   /** Chevron rendered on the far right. Consumer supplies (e.g. phosphor `<CaretRight />`). */
   chevron?: React.ReactNode;
+  /** Visual density. Use `large` for wider tablet layouts. */
+  size?: FriendRowSize;
   /** Row opacity (0–1). Consumers use this to dim non-Valorant / offline variants. */
   opacity?: number;
   /** Show the skeleton placeholder instead of the real row. */
@@ -126,25 +162,39 @@ function FriendRow({
   ownerBadge,
   rightContent,
   chevron,
+  size = 'regular',
   opacity = 1,
   isLoading = false,
   className,
 }: FriendRowProps) {
   if (isLoading) {
-    return <FriendRowSkeleton className={className} />;
+    return <FriendRowSkeleton size={size} className={className} />;
   }
+
+  const isLarge = size === 'large';
 
   return (
     <View
-      className={cn('flex-row items-center gap-x-3 px-3.5 py-3', className)}
+      className={cn(
+        'flex-row items-center',
+        isLarge ? 'gap-x-4 px-5 py-4' : 'gap-x-3 px-3.5 py-3',
+        className
+      )}
       style={opacity === 1 ? undefined : { opacity }}>
       <FriendAvatar
         avatarUrl={avatarUrl}
         status={status}
         showPlaceholder={showAvatarPlaceholder}
+        size={size}
       />
 
-      <FriendInfo name={name} gameLabel={gameLabel} status={status} ownerBadge={ownerBadge} />
+      <FriendInfo
+        name={name}
+        gameLabel={gameLabel}
+        status={status}
+        ownerBadge={ownerBadge}
+        size={size}
+      />
 
       {rightContent}
       {chevron}
@@ -153,4 +203,4 @@ function FriendRow({
 }
 
 export { FriendAvatar, FriendInfo, FriendRow };
-export type { FriendAvatarProps, FriendInfoProps, FriendRowProps, FriendStatus };
+export type { FriendAvatarProps, FriendInfoProps, FriendRowProps, FriendRowSize, FriendStatus };
