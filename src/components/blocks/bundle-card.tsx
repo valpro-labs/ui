@@ -20,8 +20,10 @@ interface BundleCardProps {
   price?: number;
   /** Pre-formatted countdown text (e.g. `"2h 3m"`). Rendered over the image. */
   countdownText?: string;
-  /** Layout: `list` (default) vs `grid` (tighter padding + smaller text). */
+  /** Layout shape: `list` (default) vs `grid`. */
   variant?: 'list' | 'grid';
+  /** Visual density. Defaults to `compact` for grid and `regular` for list. */
+  size?: 'compact' | 'regular';
   /** Tap handler. When omitted the card renders without `Pressable`. */
   onPress?: () => void;
   /** Absolutely-positioned node rendered over the image (e.g. an "owned" overlay). */
@@ -49,6 +51,7 @@ function BundleCard({
   price,
   countdownText,
   variant = 'list',
+  size,
   onPress,
   imageOverlay,
   missingFallback,
@@ -58,6 +61,8 @@ function BundleCard({
   const foregroundRaw = useCSSVariable('--color-foreground');
   const foreground = typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
   const isGrid = variant === 'grid';
+  const resolvedSize = size ?? (isGrid ? 'compact' : 'regular');
+  const isCompact = resolvedSize === 'compact';
 
   if (isLoading) {
     return <Skeleton className={cn('aspect-video w-full rounded-xl', className)} />;
@@ -82,12 +87,12 @@ function BundleCard({
           <View
             className={cn(
               'absolute rounded-md bg-black/60',
-              isGrid ? 'right-1.5 bottom-1.5 px-1.5 py-0.5' : 'right-2 bottom-2 px-2 py-1'
+              isCompact ? 'right-1.5 bottom-1.5 px-1.5 py-0.5' : 'right-2 bottom-2 px-2 py-1'
             )}>
             <Text
               className={cn(
                 'text-val-white font-semibold tabular-nums',
-                isGrid ? 'text-xs' : 'text-sm'
+                isCompact ? 'text-xs' : 'text-sm'
               )}
               numberOfLines={1}>
               {countdownText}
@@ -100,13 +105,13 @@ function BundleCard({
       <View
         className={cn(
           'flex-row items-center justify-between',
-          isGrid ? 'gap-1.5 px-2 py-1.5' : 'gap-3 px-3 py-2'
+          isCompact ? 'gap-1.5 px-2 py-1.5' : 'gap-3 px-3 py-2'
         )}>
         <View className="min-w-0 flex-1 flex-row items-center gap-1.5">
           <Text
             className={cn(
               'text-foreground min-w-0 flex-1 font-semibold tracking-tight uppercase',
-              isGrid ? 'text-sm' : 'text-base'
+              isCompact ? 'text-sm' : 'text-base'
             )}
             numberOfLines={1}>
             {name}
@@ -115,13 +120,13 @@ function BundleCard({
 
         {price !== undefined && (
           <View
-            className={cn('shrink-0 flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
+            className={cn('shrink-0 flex-row items-center', isCompact ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image
                 source={currencyIconUrl}
                 style={{
-                  width: isGrid ? 12 : 16,
-                  height: isGrid ? 12 : 16,
+                  width: isCompact ? 12 : 16,
+                  height: isCompact ? 12 : 16,
                   tintColor: foreground,
                 }}
                 contentFit="contain"
@@ -130,7 +135,7 @@ function BundleCard({
             <Text
               className={cn(
                 'text-foreground font-bold',
-                isGrid ? 'text-sm' : 'text-base'
+                isCompact ? 'text-sm' : 'text-base'
               )}>
               {price.toLocaleString()}
             </Text>

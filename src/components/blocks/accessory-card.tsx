@@ -20,8 +20,10 @@ interface AccessoryCardProps {
   currencyIconUrl?: string;
   /** Price in the accessory's currency. Omit to hide the price block. */
   price?: number;
-  /** Layout: `list` (wide 10:4) vs `grid` (16:9). */
+  /** Layout shape: `list` (wide 10:4) vs `grid` (16:9). */
   variant?: 'list' | 'grid';
+  /** Visual density. Defaults to `compact` for grid and `regular` for list. */
+  size?: 'compact' | 'regular';
   /** Tap handler. When omitted the card renders without `Pressable`. */
   onPress?: () => void;
   /** Absolutely-positioned node rendered over the image (e.g. an "owned" overlay). */
@@ -54,6 +56,7 @@ function AccessoryCard({
   currencyIconUrl,
   price,
   variant = 'list',
+  size,
   onPress,
   imageOverlay,
   isLoading = false,
@@ -61,6 +64,8 @@ function AccessoryCard({
 }: AccessoryCardProps) {
   const foreground = useColorVar('--color-foreground');
   const isGrid = variant === 'grid';
+  const resolvedSize = size ?? (isGrid ? 'compact' : 'regular');
+  const isCompact = resolvedSize === 'compact';
 
   if (isLoading) {
     return (
@@ -98,12 +103,12 @@ function AccessoryCard({
       <View
         className={cn(
           'flex-row items-center justify-between',
-          isGrid ? 'px-2 py-1.5' : 'px-3 py-2'
+          isCompact ? 'px-2 py-1.5' : 'px-3 py-2'
         )}>
         <Text
           className={cn(
             'text-foreground flex-1 font-semibold tracking-tight uppercase',
-            isGrid ? 'text-sm' : 'text-base'
+            isCompact ? 'text-sm' : 'text-base'
           )}
           numberOfLines={1}>
           {name}
@@ -111,13 +116,13 @@ function AccessoryCard({
 
         {price !== undefined && (
           <View
-            className={cn('flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
+            className={cn('flex-row items-center', isCompact ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image
                 source={currencyIconUrl}
                 style={{
-                  width: isGrid ? 12 : 16,
-                  height: isGrid ? 12 : 16,
+                  width: isCompact ? 12 : 16,
+                  height: isCompact ? 12 : 16,
                   tintColor: foreground,
                 }}
                 contentFit="contain"
@@ -126,7 +131,7 @@ function AccessoryCard({
             <Text
               className={cn(
                 'text-foreground font-bold',
-                isGrid ? 'text-sm' : 'text-base'
+                isCompact ? 'text-sm' : 'text-base'
               )}>
               {price.toLocaleString()}
             </Text>

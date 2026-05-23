@@ -235,6 +235,7 @@ function MissingBundleFallback() {
 
 type StoreVariant = 'auto' | 'list' | 'grid';
 type CardVariant = Exclude<StoreVariant, 'auto'>;
+type StoreCardSize = 'compact' | 'regular';
 type StoreArgs = { isLoading: boolean; variant: StoreVariant };
 
 const GRID_GAP = 8;
@@ -254,10 +255,10 @@ function resolveStoreVariants(variant: StoreVariant, viewport: unknown) {
   const isTabletViewport = viewportValue ? TABLET_VIEWPORTS.has(viewportValue) : false;
   const layoutVariant: CardVariant =
     variant === 'auto' ? (isTabletViewport ? 'grid' : 'list') : variant;
-  const cardVariant: CardVariant =
-    layoutVariant === 'grid' && isTabletViewport ? 'list' : layoutVariant;
+  const cardSize: StoreCardSize | undefined =
+    layoutVariant === 'grid' && isTabletViewport ? 'regular' : undefined;
 
-  return { isTabletViewport, layoutVariant, cardVariant };
+  return { isTabletViewport, layoutVariant, cardVariant: layoutVariant, cardSize };
 }
 
 function GridWrapper({ grid, children }: { grid: boolean; children: React.ReactNode }) {
@@ -315,7 +316,7 @@ type Story = StoryObj<StoreArgs>;
  */
 export const Default: Story = {
   render: ({ isLoading, variant }, context) => {
-    const { layoutVariant, cardVariant } = resolveStoreVariants(
+    const { layoutVariant, cardVariant, cardSize } = resolveStoreVariants(
       variant,
       context.globals.viewport
     );
@@ -350,6 +351,7 @@ export const Default: Story = {
                     price={offer.price}
                     discount={offer.discount}
                     variant={cardVariant}
+                    size={cardSize}
                     imageWidthPercent={resolveWeaponCategoryWidth(
                       offer.weaponCategory,
                       cardVariant
@@ -375,6 +377,7 @@ export const Default: Story = {
                   price={8700}
                   countdownText="2d 14h"
                   variant={cardVariant}
+                  size={cardSize}
                   imageOverlay={isLoading ? undefined : <BoughtOverlay />}
                   isLoading={isLoading}
                 />
@@ -386,6 +389,7 @@ export const Default: Story = {
                   price={7440}
                   countdownText="5d 8h"
                   variant={cardVariant}
+                  size={cardSize}
                   missingFallback={<MissingBundleFallback />}
                   isLoading={isLoading}
                 />
@@ -403,6 +407,7 @@ export const Default: Story = {
                   currencyIconUrl={kingdomCredits}
                   price={325}
                   variant={cardVariant}
+                  size={cardSize}
                   imageOverlay={isLoading ? undefined : <BoughtOverlay />}
                   isLoading={isLoading}
                 />
@@ -414,6 +419,7 @@ export const Default: Story = {
                   currencyIconUrl={kingdomCredits}
                   price={475}
                   variant={cardVariant}
+                  size={cardSize}
                   isLoading={isLoading}
                 />
               </GridItem>
@@ -424,6 +430,7 @@ export const Default: Story = {
                   currencyIconUrl={kingdomCredits}
                   price={1375}
                   variant={cardVariant}
+                  size={cardSize}
                   isLoading={isLoading}
                 />
               </GridItem>

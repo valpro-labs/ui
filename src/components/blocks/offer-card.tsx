@@ -24,8 +24,10 @@ interface OfferCardProps {
   price?: number;
   /** Discount percentage (0-100). Renders the slanted discount badge when set. */
   discount?: number;
-  /** Layout: `list` (wide 10:4) vs `grid` (16:9). */
+  /** Layout shape: `list` (wide 10:4) vs `grid` (16:9). */
   variant?: 'list' | 'grid';
+  /** Visual density. Defaults to `compact` for grid and `regular` for list. */
+  size?: 'compact' | 'regular';
   /** Image width as a percentage of card width (0-100). Defaults to 80. */
   imageWidthPercent?: number;
   /** Tap handler. When omitted the card renders without `Pressable`. */
@@ -61,6 +63,7 @@ function OfferCard({
   price,
   discount,
   variant = 'list',
+  size,
   imageWidthPercent,
   onPress,
   imageOverlay,
@@ -70,6 +73,8 @@ function OfferCard({
   const foregroundRaw = useCSSVariable('--color-foreground');
   const foreground = typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
   const isGrid = variant === 'grid';
+  const resolvedSize = size ?? (isGrid ? 'compact' : 'regular');
+  const isCompact = resolvedSize === 'compact';
 
   if (isLoading) {
     return (
@@ -112,7 +117,7 @@ function OfferCard({
                 <Text
                   className={cn(
                     'text-foreground dark:text-val-white font-black tracking-tighter',
-                    isGrid ? 'text-sm' : 'text-base'
+                    isCompact ? 'text-sm' : 'text-base'
                   )}>
                   -{discount}%
                 </Text>
@@ -120,7 +125,7 @@ function OfferCard({
               <View
                 className={cn(
                   'border-r-transparent',
-                  isGrid ? 'border-t-20 border-r-10' : 'border-t-24 border-r-12'
+                  isCompact ? 'border-t-20 border-r-10' : 'border-t-24 border-r-12'
                 )}
                 style={{ borderTopColor: color ?? 'transparent' }}
               />
@@ -134,21 +139,21 @@ function OfferCard({
       <View
         className={cn(
           'flex-row items-center justify-between',
-          isGrid ? 'px-2 py-1.5' : 'px-3 py-2'
+          isCompact ? 'px-2 py-1.5' : 'px-3 py-2'
         )}>
         <View
-          className={cn('flex-1 flex-row items-center', isGrid ? 'gap-1' : 'gap-1.5')}>
+          className={cn('flex-1 flex-row items-center', isCompact ? 'gap-1' : 'gap-1.5')}>
           {tierIconUrl ? (
             <Image
               source={tierIconUrl}
-              style={{ width: isGrid ? 14 : 18, height: isGrid ? 14 : 18 }}
+              style={{ width: isCompact ? 14 : 18, height: isCompact ? 14 : 18 }}
               contentFit="contain"
             />
           ) : null}
           <Text
             className={cn(
               'text-foreground flex-1 font-semibold tracking-tight uppercase',
-              isGrid ? 'text-sm' : 'text-base'
+              isCompact ? 'text-sm' : 'text-base'
             )}
             numberOfLines={1}>
             {name}
@@ -156,19 +161,19 @@ function OfferCard({
         </View>
 
         {price !== undefined ? (
-          <View className={cn('flex-row items-center', isGrid ? 'gap-0.5' : 'gap-1')}>
+          <View className={cn('flex-row items-center', isCompact ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image
                 source={currencyIconUrl}
                 style={{
-                  width: isGrid ? 12 : 16,
-                  height: isGrid ? 12 : 16,
+                  width: isCompact ? 12 : 16,
+                  height: isCompact ? 12 : 16,
                   tintColor: foreground,
                 }}
                 contentFit="contain"
               />
             ) : null}
-            <Text className={cn('text-foreground font-bold', isGrid ? 'text-sm' : 'text-base')}>
+            <Text className={cn('text-foreground font-bold', isCompact ? 'text-sm' : 'text-base')}>
               {price.toLocaleString()}
             </Text>
           </View>
