@@ -42,6 +42,16 @@ const customViewports = {
     styles: { width: '744px', height: '1133px' },
     type: 'tablet' as const,
   },
+  iPadAir11M4: {
+    name: 'iPad Air 11-inch (M4)',
+    styles: { width: '820px', height: '1180px' },
+    type: 'tablet' as const,
+  },
+  iPadPro13M5: {
+    name: 'iPad Pro 13-inch (M5)',
+    styles: { width: '1032px', height: '1376px' },
+    type: 'tablet' as const,
+  },
   desktop: {
     name: 'Desktop',
     // 100% fills the available Storybook canvas instead of a fixed width,

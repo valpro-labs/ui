@@ -233,7 +233,58 @@ function MissingBundleFallback() {
   return <Package size={40} weight="duotone" color="rgba(237,233,226,0.6)" />;
 }
 
-type StoreArgs = { isLoading: boolean; variant: 'list' | 'grid' };
+type StoreVariant = 'auto' | 'list' | 'grid';
+type CardVariant = Exclude<StoreVariant, 'auto'>;
+type StoreArgs = { isLoading: boolean; variant: StoreVariant };
+
+const GRID_GAP = 8;
+const TABLET_VIEWPORTS = new Set(['iPadMini', 'iPadAir11M4', 'iPadPro13M5']);
+
+function getViewportValue(viewport: unknown): string | undefined {
+  if (typeof viewport === 'string') return viewport;
+  if (viewport && typeof viewport === 'object' && 'value' in viewport) {
+    const value = (viewport as { value?: unknown }).value;
+    return typeof value === 'string' ? value : undefined;
+  }
+  return undefined;
+}
+
+function resolveStoreVariants(variant: StoreVariant, viewport: unknown) {
+  const viewportValue = getViewportValue(viewport);
+  const isTabletViewport = viewportValue ? TABLET_VIEWPORTS.has(viewportValue) : false;
+  const layoutVariant: CardVariant =
+    variant === 'auto' ? (isTabletViewport ? 'grid' : 'list') : variant;
+  const cardVariant: CardVariant =
+    layoutVariant === 'grid' && isTabletViewport ? 'list' : layoutVariant;
+
+  return { isTabletViewport, layoutVariant, cardVariant };
+}
+
+function GridWrapper({ grid, children }: { grid: boolean; children: React.ReactNode }) {
+  if (!grid) return <View style={{ gap: GRID_GAP }}>{children}</View>;
+
+  const items = React.Children.toArray(children);
+  const rows = [];
+  for (let i = 0; i < items.length; i += 2) {
+    rows.push(items.slice(i, i + 2));
+  }
+
+  return (
+    <View style={{ gap: GRID_GAP }}>
+      {rows.map((row, index) => (
+        <View key={index} className="flex-row" style={{ gap: GRID_GAP }}>
+          {row}
+          {row.length === 1 ? <View className="flex-1" /> : null}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function GridItem({ grid, children }: { grid: boolean; children: React.ReactNode }) {
+  if (!grid) return <>{children}</>;
+  return <View className="flex-1">{children}</View>;
+}
 
 const meta: Meta<StoreArgs> = {
   title: 'Pages/Store',
@@ -242,10 +293,10 @@ const meta: Meta<StoreArgs> = {
     isLoading: { control: 'boolean' },
     variant: {
       control: { type: 'radio' },
-      options: ['list', 'grid'],
+      options: ['auto', 'list', 'grid'],
     },
   },
-  args: { isLoading: false, variant: 'list' },
+  args: { isLoading: false, variant: 'auto' },
 };
 
 export default meta;
@@ -263,16 +314,19 @@ type Story = StoryObj<StoreArgs>;
  * every card for its skeleton.
  */
 export const Default: Story = {
-  render: ({ isLoading, variant }) => {
-    const isGrid = variant === 'grid';
-    const rowStyle = isGrid
-      ? { flexDirection: 'row' as const, flexWrap: 'wrap' as const, gap: 8 }
-      : { gap: 8 };
-    const cellStyle = isGrid ? { width: '48%' as const } : undefined;
+  render: ({ isLoading, variant }, context) => {
+    const { layoutVariant, cardVariant } = resolveStoreVariants(
+      variant,
+      context.globals.viewport
+    );
+    const isGrid = layoutVariant === 'grid';
 
     return (
-      <ScrollView className="bg-background flex-1">
-        <View className="p-4" style={{ gap: 16 }}>
+      <ScrollView
+        className="bg-background flex-1"
+        style={{ width: '100%' }}
+        contentContainerStyle={{ width: '100%' }}>
+        <View className="p-4" style={{ gap: 16, width: '100%' }}>
           <Wallet
             balances={[
               { key: 'vp', iconUrl: valorantPoints, amount: 5175 },
@@ -284,9 +338,9 @@ export const Default: Story = {
 
           <View>
             <SectionTitle title="Daily Offers" rightElement={<Countdown text="18h 42m" />} />
-            <View style={rowStyle}>
+            <GridWrapper grid={isGrid}>
               {dailyOffers.map((offer) => (
-                <View key={offer.name} style={cellStyle}>
+                <GridItem key={offer.name} grid={isGrid}>
                   <OfferCard
                     name={offer.name}
                     iconUrl={offer.iconUrl}
@@ -295,82 +349,85 @@ export const Default: Story = {
                     currencyIconUrl={valorantPoints}
                     price={offer.price}
                     discount={offer.discount}
-                    variant={variant}
-                    imageWidthPercent={resolveWeaponCategoryWidth(offer.weaponCategory, variant)}
+                    variant={cardVariant}
+                    imageWidthPercent={resolveWeaponCategoryWidth(
+                      offer.weaponCategory,
+                      cardVariant
+                    )}
                     imageOverlay={
                       !isLoading && offer.owned ? <BoughtOverlay /> : undefined
                     }
                     isLoading={isLoading}
                   />
-                </View>
+                </GridItem>
               ))}
-            </View>
+            </GridWrapper>
           </View>
 
           <View>
             <SectionTitle title="Featured" />
-            <View style={rowStyle}>
-              <View style={cellStyle}>
+            <GridWrapper grid={isGrid}>
+              <GridItem grid={isGrid}>
                 <BundleCard
                   name="RGX 11z Pro"
                   iconUrl={rgxBundleArt}
                   currencyIconUrl={valorantPoints}
                   price={8700}
                   countdownText="2d 14h"
-                  variant={variant}
+                  variant={cardVariant}
                   imageOverlay={isLoading ? undefined : <BoughtOverlay />}
                   isLoading={isLoading}
                 />
-              </View>
-              <View style={cellStyle}>
+              </GridItem>
+              <GridItem grid={isGrid}>
                 <BundleCard
                   name="Unknown Bundle"
                   currencyIconUrl={valorantPoints}
                   price={7440}
                   countdownText="5d 8h"
-                  variant={variant}
+                  variant={cardVariant}
                   missingFallback={<MissingBundleFallback />}
                   isLoading={isLoading}
                 />
-              </View>
-            </View>
+              </GridItem>
+            </GridWrapper>
           </View>
 
           <View>
             <SectionTitle title="Accessories" rightElement={<Countdown text="6d 02h" />} />
-            <View style={rowStyle}>
-              <View style={cellStyle}>
+            <GridWrapper grid={isGrid}>
+              <GridItem grid={isGrid}>
                 <AccessoryCard
                   name="Abilities Don't Kill Spray"
                   iconUrl={sprayIcon}
                   currencyIconUrl={kingdomCredits}
                   price={325}
-                  variant={variant}
+                  variant={cardVariant}
                   imageOverlay={isLoading ? undefined : <BoughtOverlay />}
                   isLoading={isLoading}
                 />
-              </View>
-              <View style={cellStyle}>
+              </GridItem>
+              <GridItem grid={isGrid}>
                 <AccessoryCard
                   name="809 Buddy"
                   iconUrl={buddyIcon}
                   currencyIconUrl={kingdomCredits}
                   price={475}
-                  variant={variant}
+                  variant={cardVariant}
                   isLoading={isLoading}
                 />
-              </View>
-              <View style={cellStyle}>
+              </GridItem>
+              <GridItem grid={isGrid}>
                 <AccessoryCard
                   name="Valorant Go! Vol. 1 Card"
                   iconUrl={playerCardIcon}
                   currencyIconUrl={kingdomCredits}
                   price={1375}
-                  variant={variant}
+                  variant={cardVariant}
                   isLoading={isLoading}
                 />
-              </View>
-            </View>
+              </GridItem>
+            </GridWrapper>
           </View>
         </View>
       </ScrollView>
