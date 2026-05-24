@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Pressable, View } from 'react-native';
+import { Pressable, View, type ImageStyle, type StyleProp } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
@@ -14,6 +14,8 @@ interface AccessoryCardProps {
   name: string;
   /** Accessory icon. */
   iconUrl?: string;
+  /** Optional image style merged onto the accessory icon. */
+  iconStyle?: StyleProp<ImageStyle>;
   /** Tint the icon with the current `--color-foreground` token. Useful for title SVGs shipped as text masks. */
   tinted?: boolean;
   /** Currency icon next to the price. */
@@ -52,6 +54,7 @@ function useColorVar(name: string): string | undefined {
 function AccessoryCard({
   name,
   iconUrl,
+  iconStyle,
   tinted = false,
   currencyIconUrl,
   price,
@@ -87,12 +90,15 @@ function AccessoryCard({
         {iconUrl ? (
           <Image
             source={iconUrl}
-            style={{
-              width: '80%',
-              height: '80%',
-              borderRadius: 8,
-              tintColor: tinted ? foreground : undefined,
-            }}
+            style={[
+              {
+                width: '80%',
+                height: '80%',
+                borderRadius: 8,
+                tintColor: tinted ? foreground : undefined,
+              },
+              iconStyle,
+            ]}
             contentFit="contain"
           />
         ) : null}
