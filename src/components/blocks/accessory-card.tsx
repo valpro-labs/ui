@@ -94,7 +94,6 @@ function AccessoryCard({
               {
                 width: '80%',
                 height: '80%',
-                borderRadius: 8,
                 tintColor: tinted ? foreground : undefined,
               },
               iconStyle,
