@@ -136,7 +136,11 @@ export { FriendPartyOthersRow } from '@/components/blocks/friend-party-others-ro
 export type { FriendPartyOthersRowProps } from '@/components/blocks/friend-party-others-row';
 
 export { OwnedItemCard } from '@/components/blocks/owned-item-card';
-export type { OwnedItemCardProps, OwnedItemVariant } from '@/components/blocks/owned-item-card';
+export type {
+  OwnedItemCardProps,
+  OwnedItemProgressPlacement,
+  OwnedItemVariant,
+} from '@/components/blocks/owned-item-card';
 
 export { ItemBoughtOverlay } from '@/components/blocks/item-bought-overlay';
 export type { ItemBoughtOverlayProps } from '@/components/blocks/item-bought-overlay';

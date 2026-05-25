@@ -151,6 +151,40 @@ export const Depleted: Story = {
   },
 };
 
+export const ProgressInside: Story = {
+  args: {
+    iconUrl: weaponSkinArt,
+    progressionXp: 3200,
+    xp: 8000,
+  },
+};
+
+export const ProgressBelow: Story = {
+  args: {
+    iconUrl: weaponSkinArt,
+    progressionXp: 3200,
+    progressPlacement: 'below',
+    xp: 8000,
+  },
+};
+
+export const ProgressBelowFixedCell: Story = {
+  decorators: [
+    (Story) => (
+      <View style={{ height: 72, width: 72 }}>
+        <Story />
+      </View>
+    ),
+  ],
+  args: {
+    iconUrl: sprayArt,
+    progressCellSize: 72,
+    progressionXp: 3200,
+    progressPlacement: 'below',
+    xp: 8000,
+  },
+};
+
 export const Loading: Story = {
   args: {
     isLoading: true,

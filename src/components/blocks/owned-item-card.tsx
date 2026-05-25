@@ -12,6 +12,10 @@ import { cn } from '@/lib/utils';
 
 type Corner = 'top-left' | 'bottom-left' | 'bottom-right';
 type OwnedItemVariant = 'default' | 'card' | 'title' | 'currency' | 'buddy';
+type OwnedItemProgressPlacement = 'inside' | 'below';
+
+const DEFAULT_PROGRESS_BAR_GAP = 6;
+const DEFAULT_PROGRESS_BAR_HEIGHT = 4;
 
 function CornerGradient({ corner }: { corner: Corner }) {
   const isTopLeft = corner === 'top-left';
@@ -100,6 +104,10 @@ interface OwnedItemCardProps {
   xp?: number;
   /** Progress stripe fills 100% green — tile is completed. */
   isCompleted?: boolean;
+  /** Draw progress inside the tile or as a separate bar below it. */
+  progressPlacement?: OwnedItemProgressPlacement;
+  /** Fixed square cell size for below-tile progress layouts. */
+  progressCellSize?: number;
   /** Extra classes merged onto the outer tile wrapper. */
   className?: string;
 }
@@ -139,6 +147,8 @@ function OwnedItemCard({
   progressionXp,
   xp,
   isCompleted = false,
+  progressPlacement = 'inside',
+  progressCellSize,
   className,
 }: OwnedItemCardProps) {
   const foregroundRaw = useCSSVariable('--color-foreground');
@@ -153,14 +163,45 @@ function OwnedItemCard({
     return <Skeleton className={cn('aspect-square w-full rounded-xl', className)} />;
   }
 
-  return (
+  const showProgress = isCompleted || progressionXp != null;
+  const progressRatio = isCompleted
+    ? 1
+    : Math.min(Math.max((progressionXp ?? 0) / (xp && xp > 0 ? xp : 1), 0), 1);
+  const cardSize =
+    showProgress && progressPlacement === 'below' && progressCellSize
+      ? Math.max(1, progressCellSize - DEFAULT_PROGRESS_BAR_GAP - DEFAULT_PROGRESS_BAR_HEIGHT)
+      : undefined;
+
+  const progressFillClassName = isCompleted ? 'bg-val-green-ui' : 'bg-val-green-ui/50';
+  const progressFillStyle = { width: `${progressRatio * 100}%` as `${number}%` };
+  const insideProgressBar = showProgress ? (
+    <View className="bg-border absolute right-0 bottom-0 left-0 h-1">
+      <View
+        className={cn('absolute top-0 bottom-0 left-0', progressFillClassName)}
+        style={progressFillStyle}
+      />
+    </View>
+  ) : null;
+  const belowProgressBar = showProgress ? (
+    <View
+      className="bg-border w-full overflow-hidden rounded-full"
+      style={{
+        height: DEFAULT_PROGRESS_BAR_HEIGHT,
+        width: cardSize ?? '100%',
+      }}>
+      <View className={cn('h-full', progressFillClassName)} style={progressFillStyle} />
+    </View>
+  ) : null;
+
+  const card = (
     <View
       className={cn(
         'bg-card relative aspect-square w-full items-center justify-center overflow-hidden rounded-xl',
         isSelected && 'ring-val-green-ui ring-2',
         isDepleted && 'opacity-30',
         className
-      )}>
+      )}
+      style={cardSize ? { height: cardSize, width: cardSize } : undefined}>
       {iconUrl ? (
         <Image
           source={iconUrl}
@@ -208,21 +249,26 @@ function OwnedItemCard({
         </View>
       ) : null}
 
-      {(isCompleted || progressionXp != null) ? (
-        <View className="bg-border absolute right-0 bottom-0 left-0 h-1">
-          <View
-            className={cn('absolute top-0 bottom-0 left-0', isCompleted ? 'bg-val-green-ui' : 'bg-val-green-ui/50')}
-            style={{
-              width: isCompleted
-                ? '100%'
-                : `${Math.min((progressionXp ?? 0) / (xp ?? 1), 1) * 100}%`,
-            }}
-          />
-        </View>
-      ) : null}
+      {progressPlacement === 'inside' ? insideProgressBar : null}
+    </View>
+  );
+
+  if (!showProgress || progressPlacement === 'inside') {
+    return card;
+  }
+
+  return (
+    <View
+      className="w-full items-center"
+      style={[
+        { gap: DEFAULT_PROGRESS_BAR_GAP },
+        progressCellSize ? { height: progressCellSize, width: progressCellSize } : undefined,
+      ]}>
+      {card}
+      {belowProgressBar}
     </View>
   );
 }
 
 export { OwnedItemCard };
-export type { OwnedItemCardProps, OwnedItemVariant };
+export type { OwnedItemCardProps, OwnedItemVariant, OwnedItemProgressPlacement };
