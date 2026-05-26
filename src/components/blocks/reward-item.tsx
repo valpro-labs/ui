@@ -1,59 +1,39 @@
+import React from 'react';
+
 import { View } from 'react-native';
 
 import { OwnedItemCard } from '@/components/blocks/owned-item-card';
-import type { OwnedItemCardProps, OwnedItemVariant } from '@/components/blocks/owned-item-card';
-import { RewardItemSkeleton } from '@/components/blocks/reward-item-skeleton';
+import type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
-
-type RewardThumbnailProps = Pick<OwnedItemCardProps, 'iconUrl'>;
-type RewardThumbnailVariant = OwnedItemVariant;
 
 const DEFAULT_REWARD_THUMBNAIL_SIZE = 40;
 const OWNED_ITEM_REFERENCE_SIZE = 114;
 
-interface RewardItemProps extends RewardThumbnailProps {
-  /**
-   * Applies the same default thumbnail treatment used by `OwnedItemCard`
-   * stories for common reward types.
-   */
-  thumbnailVariant?: RewardThumbnailVariant;
-  /** Thumbnail tile size in px. Defaults to the source app's 40px reward row icon. */
-  thumbnailSize?: number;
-  /** Optional image style passed through to the inner `OwnedItemCard` icon. */
-  iconStyle?: OwnedItemCardProps['iconStyle'];
-  /** Reward display name (main label). */
-  name: string;
-  /** Quantity multiplier; suffixes `"x{amount}"` after the name when > 1. */
+type RewardThumbnailVariant = OwnedItemCardProps['itemVariant'];
+
+interface RewardItemProps extends Pick<OwnedItemCardProps, 'iconUrl'> {
   amount?: number;
-  /** Sub-label shown under the name — e.g. `"TIER 5"` or `"EPILOGUE 2"`. Consumer resolves the string (i18n, etc.). */
-  tierLabel?: string;
-  /** XP accumulated toward this level. Pair with `xp` to draw the next-level progress stripe. */
-  progressionXp?: number;
-  /** XP required to reach this level. */
-  xp?: number;
-  /** Paints the row with a green completed tint. */
-  isCompleted?: boolean;
-  /** Enables the progress stripe underlay (needs `xp` + `progressionXp`). */
-  isNext?: boolean;
-  /** Hide the tier sub-label while keeping its height, so adjacent rows line up. */
-  hideTier?: boolean;
-  /** Show the skeleton placeholder instead of the real row. */
-  isLoading?: boolean;
-  /** Extra classes merged onto the outer row wrapper. */
   className?: string;
+  hideTier?: boolean;
+  iconStyle?: OwnedItemCardProps['iconStyle'];
+  isCompleted?: boolean;
+  isLoading?: boolean;
+  isNext?: boolean;
+  name: string;
+  progressionXp?: number;
+  thumbnailSize?: number;
+  thumbnailVariant?: RewardThumbnailVariant;
+  tierLabel?: string;
+  xp?: number;
 }
 
-/**
- * One row inside a battle-pass / event-pass reward list — thumbnail on the
- * left, reward name + tier sub-label stacked on the right. Completed rows
- * get a green wash; the current "next" row gets an XP progress stripe.
- *
- * Data-free: the consumer resolves the reward metadata, chooses when to
- * render `"TIER N"` / `"EPILOGUE N"`, and passes the raw icon URL + flags.
- * Stack instances with `<Separator />` in between to rebuild the app's
- * `RewardList` container on the caller side.
- */
+interface RewardItemSkeletonProps {
+  className?: string;
+  thumbnailSize?: number;
+}
+
 function RewardItem({
   iconUrl,
   iconStyle,
@@ -91,15 +71,14 @@ function RewardItem({
           style={{ width: `${progressPct}%` }}
         />
       ) : null}
-
       <View
         className="bg-secondary shrink-0 items-center justify-center overflow-hidden rounded-lg"
-        style={{ width: thumbnailSize, height: thumbnailSize }}>
+        style={{ height: thumbnailSize, width: thumbnailSize }}>
         <View
           style={{
-            width: OWNED_ITEM_REFERENCE_SIZE,
             height: OWNED_ITEM_REFERENCE_SIZE,
             transform: [{ scale: thumbnailScale }],
+            width: OWNED_ITEM_REFERENCE_SIZE,
           }}>
           <OwnedItemCard
             iconUrl={iconUrl}
@@ -109,7 +88,6 @@ function RewardItem({
           />
         </View>
       </View>
-
       <View className="flex-1">
         <Text
           className="text-foreground text-base font-bold tracking-tight uppercase"
@@ -133,5 +111,20 @@ function RewardItem({
   );
 }
 
-export { RewardItem };
-export type { RewardItemProps, RewardThumbnailVariant };
+function RewardItemSkeleton({
+  thumbnailSize = DEFAULT_REWARD_THUMBNAIL_SIZE,
+  className,
+}: RewardItemSkeletonProps) {
+  return (
+    <View className={cn('flex-row items-center gap-x-4 px-4 py-3', className)}>
+      <Skeleton className="rounded-lg" style={{ height: thumbnailSize, width: thumbnailSize }} />
+      <View className="flex-1 gap-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-3 w-24" />
+      </View>
+    </View>
+  );
+}
+
+export { RewardItem, RewardItemSkeleton };
+export type { RewardItemProps, RewardItemSkeletonProps, RewardThumbnailVariant };
