@@ -30,7 +30,7 @@ interface RankCardProps {
   seasonTitle: string;
   /** Competitive tier display icon URL. */
   tierIcon?: string;
-  /** Competitive tier id. Tier `0` is unranked and hides RR/progress. */
+  /** Competitive tier id. Tier `0` is unranked and hides RR unless progress is supplied. */
   tier?: number;
   /** Tier name, e.g. `"Diamond 2"`. */
   tierName?: string;
@@ -144,7 +144,7 @@ function RankCard({
 }: RankCardProps) {
   const color = normalizeHex(tierColor);
   const isUnrankedTier = tier === 0;
-  const visibleRankProgress = isUnrankedTier ? undefined : rankProgress;
+  const visibleRankProgress = rankProgress;
   const progressPercent = visibleRankProgress ? getProgressPercent(visibleRankProgress) : undefined;
   const showProgressSkeleton = !isUnrankedTier && isLoading && showRankProgressSkeleton;
   const showProgressRail = showProgressSkeleton || (!isLoading && !!visibleRankProgress);
