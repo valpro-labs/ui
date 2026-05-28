@@ -80,15 +80,11 @@ function getProgressValueLabel(progress: RankProgress): string {
 function getRankedRatingProgress(
   rankedRating: number | undefined,
   rrLabel: string | undefined
-): RankProgress | undefined {
-  if (rankedRating === undefined) return undefined;
-
+): RankProgress {
+  const rating = rankedRating ?? 0;
   return {
     value: 100,
-    valueLabel:
-      rrLabel === ''
-        ? rankedRating.toString()
-        : `${rankedRating} ${rrLabel ?? 'RR'}`,
+    valueLabel: rrLabel === '' ? rating.toString() : `${rating} ${rrLabel ?? 'RR'}`,
   };
 }
 
