@@ -74,7 +74,24 @@ function getProgressPercent(progress: RankProgress): number {
 }
 
 function getProgressValueLabel(progress: RankProgress): string {
+  const max = progress.max ?? 100;
+  if (progress.value > max) return progress.valueLabel ?? progress.value.toString();
   return progress.valueLabel ?? `${progress.value}/${progress.max ?? 100}`;
+}
+
+function getRankedRatingProgress(
+  rankedRating: number | undefined,
+  rrLabel: string | undefined
+): RankProgress | undefined {
+  if (rankedRating === undefined || rankedRating <= 100) return undefined;
+
+  return {
+    value: rankedRating,
+    valueLabel:
+      rrLabel === ''
+        ? rankedRating.toString()
+        : `${rankedRating} ${rrLabel ?? 'RR'}`,
+  };
 }
 
 function RankProgressRail({
@@ -144,7 +161,7 @@ function RankCard({
 }: RankCardProps) {
   const color = normalizeHex(tierColor);
   const isUnrankedTier = tier === 0;
-  const visibleRankProgress = rankProgress;
+  const visibleRankProgress = rankProgress ?? getRankedRatingProgress(rankedRating, rrLabel);
   const progressPercent = visibleRankProgress ? getProgressPercent(visibleRankProgress) : undefined;
   const showProgressSkeleton = !isUnrankedTier && isLoading && showRankProgressSkeleton;
   const showProgressRail = showProgressSkeleton || (!isLoading && !!visibleRankProgress);
