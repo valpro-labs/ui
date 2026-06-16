@@ -32,6 +32,21 @@ const customViewports = {
     styles: { width: '375px', height: '667px' },
     type: 'mobile' as const,
   },
+  smallAndroid360: {
+    name: 'Small Android 360',
+    styles: { width: '360px', height: '740px' },
+    type: 'mobile' as const,
+  },
+  iPhoneSE1stGen: {
+    name: 'iPhone SE 1st Gen',
+    styles: { width: '320px', height: '568px' },
+    type: 'mobile' as const,
+  },
+  narrow280: {
+    name: 'Narrow 280',
+    styles: { width: '280px', height: '653px' },
+    type: 'mobile' as const,
+  },
   pixel7: {
     name: 'Pixel 7',
     styles: { width: '412px', height: '915px' },
