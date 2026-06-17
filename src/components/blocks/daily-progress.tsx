@@ -239,10 +239,12 @@ interface DailyProgressProps {
   isLoading?: boolean;
   /** Skeleton slot count while loading. Defaults to `milestones.length || 4`. */
   skeletonCount?: number;
+  /** Horizontal spacing between milestone diamonds. Defaults to 6. */
+  gap?: number;
 }
 
 const SIZE = 76;
-const SPACING = 12;
+const DEFAULT_GAP = 6;
 
 /**
  * `useCSSVariable` returns `string | number | undefined` (numbers come from
@@ -312,12 +314,17 @@ function DiamondRing({ index, progress }: { index: number; progress: number }) {
   );
 }
 
-function DailyProgress({ milestones, isLoading = false, skeletonCount }: DailyProgressProps) {
+function DailyProgress({
+  milestones,
+  isLoading = false,
+  skeletonCount,
+  gap = DEFAULT_GAP,
+}: DailyProgressProps) {
   if (isLoading) {
-    return <DailyProgressSkeleton count={skeletonCount ?? (milestones.length || 4)} />;
+    return <DailyProgressSkeleton count={skeletonCount ?? (milestones.length || 4)} gap={gap} />;
   }
   return (
-    <View className="flex-row items-center justify-center" style={{ gap: SPACING }}>
+    <View className="flex-row items-center justify-center" style={{ gap }}>
       {milestones.map((milestone, index) => (
         <DiamondRing key={index} index={index} progress={milestone.progress} />
       ))}

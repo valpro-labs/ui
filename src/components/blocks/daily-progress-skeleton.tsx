@@ -5,11 +5,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 interface DailyProgressSkeletonProps {
   /** Number of milestones to render. Defaults to 4 to match a standard daily ticket. */
   count?: number;
+  /** Horizontal spacing between skeleton slots. Defaults to 6. */
+  gap?: number;
 }
 
 /**
  * Loading placeholder for `DailyProgress`. Matches the real component's
- * outer frame (four 76×76 slots, 12px gap, row centered) and renders a
+ * outer frame (four 76×76 slots, 6px gap, row centered) and renders a
  * rotated square skeleton in each slot so the layout doesn't shift when
  * the diamond rings replace them.
  */
@@ -26,13 +28,14 @@ interface DailyProgressSkeletonProps {
 // rendered   = 86.5 * (76 / 100) ≈ 65.74 px
 // side       = 65.74 / sqrt(2) + buffer ≈ 46.5 + 2 ≈ 49
 const SKELETON_SIZE = Math.round(((42 * 2 + 2.5) * (76 / 100)) / Math.SQRT2) + 2;
+const DEFAULT_GAP = 6;
 
-function DailyProgressSkeleton({ count = 4 }: DailyProgressSkeletonProps) {
+function DailyProgressSkeleton({ count = 4, gap = DEFAULT_GAP }: DailyProgressSkeletonProps) {
   return (
     <View className="items-center justify-center">
       <View
         className="flex-row items-center justify-center"
-        style={{ height: 76, gap: 12 }}>
+        style={{ height: 76, gap }}>
         {Array.from({ length: count }).map((_, index) => (
           <View
             key={index}
