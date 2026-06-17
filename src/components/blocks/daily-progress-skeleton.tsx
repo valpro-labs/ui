@@ -5,15 +5,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 interface DailyProgressSkeletonProps {
   /** Number of milestones to render. Defaults to 4 to match a standard daily ticket. */
   count?: number;
-  /** Width/height of each milestone slot. Defaults to the regular loaded milestone size. */
-  size?: number;
-  /** Horizontal gap between milestone slots. Defaults to the regular loaded milestone gap. */
-  spacing?: number;
 }
 
 /**
  * Loading placeholder for `DailyProgress`. Matches the real component's
- * outer frame (four 76x76 slots by default, 12px gap, row centered) and renders a
+ * outer frame (four 76×76 slots, 12px gap, row centered) and renders a
  * rotated square skeleton in each slot so the layout doesn't shift when
  * the diamond rings replace them.
  */
@@ -29,38 +25,23 @@ interface DailyProgressSkeletonProps {
 // tip-to-tip = (OUTER_R * 2 + TRACK_WIDTH) viewBox units = 86.5
 // rendered   = 86.5 * (76 / 100) ≈ 65.74 px
 // side       = 65.74 / sqrt(2) + buffer ≈ 46.5 + 2 ≈ 49
-const DEFAULT_SIZE = 76;
-const DEFAULT_SPACING = 12;
-const OUTER_R = 42;
-const TRACK_WIDTH = 2.5;
-const SKELETON_BUFFER = 2;
+const SKELETON_SIZE = Math.round(((42 * 2 + 2.5) * (76 / 100)) / Math.SQRT2) + 2;
 
-function getSkeletonSize(size: number): number {
-  const renderedTipToTip = (OUTER_R * 2 + TRACK_WIDTH) * (size / 100);
-  return Math.round(renderedTipToTip / Math.SQRT2) + SKELETON_BUFFER;
-}
-
-function DailyProgressSkeleton({
-  count = 4,
-  size = DEFAULT_SIZE,
-  spacing = DEFAULT_SPACING,
-}: DailyProgressSkeletonProps) {
-  const skeletonSize = getSkeletonSize(size);
-
+function DailyProgressSkeleton({ count = 4 }: DailyProgressSkeletonProps) {
   return (
     <View className="items-center justify-center">
       <View
         className="flex-row items-center justify-center"
-        style={{ height: size, gap: spacing }}>
+        style={{ height: 76, gap: 12 }}>
         {Array.from({ length: count }).map((_, index) => (
           <View
             key={index}
-            style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+            style={{ width: 76, height: 76, alignItems: 'center', justifyContent: 'center' }}>
             <Skeleton
               className="rounded-md"
               style={{
-                width: skeletonSize,
-                height: skeletonSize,
+                width: SKELETON_SIZE,
+                height: SKELETON_SIZE,
                 transform: [{ rotate: '45deg' }],
               }}
             />

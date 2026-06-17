@@ -1,7 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { View, useWindowDimensions } from 'react-native';
-import type { LayoutChangeEvent } from 'react-native';
+import { View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
@@ -242,33 +241,8 @@ interface DailyProgressProps {
   skeletonCount?: number;
 }
 
-const REGULAR_SIZE = 76;
-const REGULAR_SPACING = 12;
-const COMPACT_SIZE = 64;
-const COMPACT_SPACING = 8;
-const MIN_SIZE = 52;
-const REGULAR_SIDE_BREATHING = 32;
-const COMPACT_SIDE_BREATHING = 16;
-
-function getRowWidth(count: number, size: number, spacing: number): number {
-  return count > 0 ? count * size + (count - 1) * spacing : 0;
-}
-
-function clampSize(size: number): number {
-  return Math.max(MIN_SIZE, Math.min(COMPACT_SIZE, Math.floor(size)));
-}
-
-function getMilestoneLayout(count: number, availableWidth: number): { size: number; spacing: number } {
-  const regularRowWidth = getRowWidth(count, REGULAR_SIZE, REGULAR_SPACING);
-  if (availableWidth >= regularRowWidth + REGULAR_SIDE_BREATHING) {
-    return { size: REGULAR_SIZE, spacing: REGULAR_SPACING };
-  }
-
-  const spacing = COMPACT_SPACING;
-  const fitWidth = Math.max(0, availableWidth - COMPACT_SIDE_BREATHING);
-  const size = count > 0 ? (fitWidth - (count - 1) * spacing) / count : COMPACT_SIZE;
-  return { size: clampSize(size), spacing };
-}
+const SIZE = 76;
+const SPACING = 12;
 
 /**
  * `useCSSVariable` returns `string | number | undefined` (numbers come from
@@ -280,7 +254,7 @@ function useColorVar(name: string): string {
   return typeof value === 'string' ? value : '';
 }
 
-function DiamondRing({ index, progress, size }: { index: number; progress: number; size: number }) {
+function DiamondRing({ index, progress }: { index: number; progress: number }) {
   const border = useColorVar('--color-border');
   const background = useColorVar('--color-background');
   const foreground = useColorVar('--color-foreground');
@@ -295,7 +269,7 @@ function DiamondRing({ index, progress, size }: { index: number; progress: numbe
   }, [pct]);
 
   return (
-    <Svg width={size} height={size} viewBox={`0 0 ${VB} ${VB}`}>
+    <Svg width={SIZE} height={SIZE} viewBox={`0 0 ${VB} ${VB}`}>
       {/* Track */}
       <Path d={PRECOMPUTED.trackPath} fill="none" stroke={border} strokeWidth={TRACK_WIDTH} />
 
@@ -339,33 +313,14 @@ function DiamondRing({ index, progress, size }: { index: number; progress: numbe
 }
 
 function DailyProgress({ milestones, isLoading = false, skeletonCount }: DailyProgressProps) {
-  const { width: windowWidth } = useWindowDimensions();
-  const [availableWidth, setAvailableWidth] = useState<number | null>(null);
-  const count = isLoading ? (skeletonCount ?? (milestones.length || 4)) : milestones.length;
-  const measuredWidth = availableWidth ?? windowWidth;
-  const { size, spacing } = getMilestoneLayout(count, measuredWidth);
-
-  const handleLayout = useCallback((event: LayoutChangeEvent) => {
-    const nextWidth = event.nativeEvent.layout.width;
-    setAvailableWidth((currentWidth) =>
-      currentWidth === null || Math.abs(currentWidth - nextWidth) >= 1 ? nextWidth : currentWidth
-    );
-  }, []);
-
+  if (isLoading) {
+    return <DailyProgressSkeleton count={skeletonCount ?? (milestones.length || 4)} />;
+  }
   return (
-    <View
-      className="items-center justify-center"
-      onLayout={handleLayout}
-      style={{ minHeight: size, width: '100%' }}>
-      {isLoading ? (
-        <DailyProgressSkeleton count={count} size={size} spacing={spacing} />
-      ) : (
-        <View className="flex-row items-center justify-center" style={{ gap: spacing }}>
-          {milestones.map((milestone, index) => (
-            <DiamondRing key={index} index={index} progress={milestone.progress} size={size} />
-          ))}
-        </View>
-      )}
+    <View className="flex-row items-center justify-center" style={{ gap: SPACING }}>
+      {milestones.map((milestone, index) => (
+        <DiamondRing key={index} index={index} progress={milestone.progress} />
+      ))}
     </View>
   );
 }
