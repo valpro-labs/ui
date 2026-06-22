@@ -15,7 +15,7 @@ interface PlayerRowProps {
   name?: string;
   /** Row tint: `me` → yellow, `ally` → green, `enemy` → red. */
   role: PlayerRowRole;
-  /** Left-side party marker color. Pass the same color for players in the same party. */
+  /** Party marker color. Pass the same color for players in the same party. */
   partyColor?: string;
   /** Pre-formatted KDA, e.g. `"21/14/8"`. */
   kda?: string;
@@ -63,7 +63,7 @@ function PlayerRow({
         className
       )}>
       <View
-        className="absolute left-0"
+        className="absolute right-0"
         style={{
           top: 8,
           bottom: 8,
@@ -76,11 +76,11 @@ function PlayerRow({
             position: 'absolute',
             top: 0,
             bottom: 0,
-            left: -6,
+            right: -6,
             width: 10,
             backgroundColor: partyColor ?? 'transparent',
-            borderTopRightRadius: 999,
-            borderBottomRightRadius: 999,
+            borderTopLeftRadius: 999,
+            borderBottomLeftRadius: 999,
           }}
         />
       </View>
