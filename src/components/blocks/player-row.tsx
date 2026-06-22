@@ -15,6 +15,8 @@ interface PlayerRowProps {
   name?: string;
   /** Row tint: `me` → yellow, `ally` → green, `enemy` → red. */
   role: PlayerRowRole;
+  /** Left-side party marker color. Pass the same color for players in the same party. */
+  partyColor?: string;
   /** Pre-formatted KDA, e.g. `"21/14/8"`. */
   kda?: string;
   /** Average combat score shown under the KDA line. */
@@ -44,6 +46,7 @@ function PlayerRow({
   agentIconUrl,
   name,
   role,
+  partyColor,
   kda,
   avgScore,
   tierIconUrl,
@@ -53,12 +56,34 @@ function PlayerRow({
   return (
     <View
       className={cn(
-        'flex-row items-center',
+        'relative flex-row items-center',
         role === 'me' && 'bg-val-yellow/80 dark:bg-val-yellow/80',
         role === 'ally' && 'bg-val-green/80 dark:bg-val-green/60',
         role === 'enemy' && 'bg-val-red/80 dark:bg-val-red/65',
         className
       )}>
+      <View
+        className="absolute left-0"
+        style={{
+          top: 8,
+          bottom: 8,
+          width: 4,
+          overflow: 'hidden',
+          zIndex: 1,
+        }}>
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: -6,
+            width: 10,
+            backgroundColor: partyColor ?? 'transparent',
+            borderTopRightRadius: 999,
+            borderBottomRightRadius: 999,
+          }}
+        />
+      </View>
       <View className="aspect-square h-16">
         {agentIconUrl ? (
           <Image

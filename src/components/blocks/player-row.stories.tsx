@@ -32,6 +32,7 @@ const meta: Meta<typeof PlayerRow> = {
   component: PlayerRow,
   argTypes: {
     role: { control: { type: 'inline-radio' }, options: ['me', 'ally', 'enemy'] },
+    partyColor: { control: 'color' },
   },
   decorators: [
     (Story) => (
@@ -92,6 +93,19 @@ export const NoTier: Story = {
   },
 };
 
+export const PartyMarked: Story = {
+  args: {
+    agentIconUrl: sageAgent,
+    name: 'Tia#NA1',
+    role: 'ally',
+    partyColor: '#ff4655',
+    kda: '8/11/14',
+    avgScore: 175,
+    tierIconUrl: platinum2Tier,
+    scoreIcon: <ScoreIcon />,
+  },
+};
+
 /**
  * Full scoreboard card — me + 4 allies on top, 5 enemies below, matching
  * how the match-detail screen stacks player rows inside a single rounded
@@ -105,6 +119,7 @@ export const Scoreboard: Story = {
         agentIconUrl={jettAgent}
         name="Rick#NA1"
         role="me"
+        partyColor="#ff4655"
         kda="21/14/8"
         avgScore={280}
         tierIconUrl={ascendant1Tier}
@@ -115,6 +130,7 @@ export const Scoreboard: Story = {
         agentIconUrl={phoenixAgent}
         name="Alex#APAC"
         role="ally"
+        partyColor="#ff4655"
         kda="15/12/6"
         avgScore={220}
         tierIconUrl={diamond3Tier}
@@ -125,6 +141,7 @@ export const Scoreboard: Story = {
         agentIconUrl={sageAgent}
         name="Tia#NA1"
         role="ally"
+        partyColor="#ff4655"
         kda="8/11/14"
         avgScore={175}
         tierIconUrl={platinum2Tier}
@@ -135,6 +152,7 @@ export const Scoreboard: Story = {
         agentIconUrl={reynaAgent}
         name="Mia#EU1"
         role="enemy"
+        partyColor="#7c3aed"
         kda="18/16/3"
         avgScore={245}
         tierIconUrl={platinum2Tier}
@@ -145,6 +163,7 @@ export const Scoreboard: Story = {
         agentIconUrl={viperAgent}
         name="Sho#JP1"
         role="enemy"
+        partyColor="#7c3aed"
         kda="12/17/5"
         avgScore={190}
         tierIconUrl={diamond3Tier}
