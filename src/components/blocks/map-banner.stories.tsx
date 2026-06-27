@@ -16,6 +16,7 @@ const meta: Meta<typeof MapBanner> = {
     result: { control: { type: 'inline-radio' }, options: ['win', 'loss', 'draw'] },
     myTeamScore: { control: { type: 'number', min: 0, max: 30, step: 1 } },
     enemyTeamScore: { control: { type: 'number', min: 0, max: 30, step: 1 } },
+    centerContent: { control: 'boolean' },
   },
 };
 
@@ -52,6 +53,18 @@ export const Draw: Story = {
     result: 'draw',
     myTeamScore: 12,
     enemyTeamScore: 12,
+  },
+};
+
+export const CenteredContent: Story = {
+  args: {
+    splashUrl: ascentSplash,
+    mapName: 'Ascent',
+    outcomeLabel: 'VICTORY',
+    result: 'win',
+    myTeamScore: 13,
+    enemyTeamScore: 9,
+    centerContent: true,
   },
 };
 

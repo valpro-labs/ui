@@ -28,6 +28,8 @@ interface MapBannerProps {
    * flips the score colours. `"draw"` leaves everything white.
    */
   result?: MapBannerResult;
+  /** Centers the score/outcome group as a whole instead of using the full-width three-column layout. */
+  centerContent?: boolean;
   /** Extra classes merged onto the outer wrapper. */
   className?: string;
 }
@@ -49,12 +51,46 @@ function MapBanner({
   outcomeLabel,
   placementLabel,
   result = 'draw',
+  centerContent = false,
   className,
 }: MapBannerProps) {
   const isPlacement = placementLabel !== undefined;
   const won = result === 'win';
   const lost = result === 'loss';
   const drew = result === 'draw';
+  const scoreContent = (
+    <>
+      <View className={cn(centerContent ? 'items-end' : 'flex-1 items-end')}>
+        <Text
+          className={cn(
+            'text-val-white text-4xl font-black tabular-nums',
+            won && 'text-val-green',
+            lost && 'text-val-red',
+            drew && 'text-val-green'
+          )}>
+          {myTeamScore}
+        </Text>
+      </View>
+
+      <View className="items-center px-4">
+        <Text className="text-val-white text-4xl font-black tracking-tighter uppercase">
+          {outcomeLabel}
+        </Text>
+      </View>
+
+      <View className={cn(centerContent ? 'items-start' : 'flex-1 items-start')}>
+        <Text
+          className={cn(
+            'text-val-white text-4xl font-black tabular-nums',
+            won && 'text-val-red',
+            lost && 'text-val-green',
+            drew && 'text-val-red'
+          )}>
+          {enemyTeamScore}
+        </Text>
+      </View>
+    </>
+  );
 
   return (
     <View
@@ -71,9 +107,13 @@ function MapBanner({
       ) : null}
       <View className="absolute inset-0 bg-black/40" />
 
-      <View className="absolute inset-0 flex-row items-center">
+      <View
+        className={cn(
+          'absolute inset-0 items-center',
+          isPlacement || centerContent ? 'justify-center' : 'flex-row'
+        )}>
         {isPlacement ? (
-          <View className="flex-1 items-center justify-center">
+          <View className="items-center justify-center">
             <Text
               className={cn(
                 'text-val-white text-4xl font-black tracking-tighter uppercase',
@@ -82,38 +122,10 @@ function MapBanner({
               {placementLabel}
             </Text>
           </View>
+        ) : centerContent ? (
+          <View className="flex-row items-center">{scoreContent}</View>
         ) : (
-          <>
-            <View className="flex-1 items-end">
-              <Text
-                className={cn(
-                  'text-val-white text-4xl font-black tabular-nums',
-                  won && 'text-val-green',
-                  lost && 'text-val-red',
-                  drew && 'text-val-green'
-                )}>
-                {myTeamScore}
-              </Text>
-            </View>
-
-            <View className="items-center px-4">
-              <Text className="text-val-white text-4xl font-black tracking-tighter uppercase">
-                {outcomeLabel}
-              </Text>
-            </View>
-
-            <View className="flex-1 items-start">
-              <Text
-                className={cn(
-                  'text-val-white text-4xl font-black tabular-nums',
-                  won && 'text-val-red',
-                  lost && 'text-val-green',
-                  drew && 'text-val-red'
-                )}>
-                {enemyTeamScore}
-              </Text>
-            </View>
-          </>
+          scoreContent
         )}
       </View>
 
