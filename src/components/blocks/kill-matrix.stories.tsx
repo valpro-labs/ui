@@ -30,7 +30,7 @@ const sovaAgent =
   'https://media.valorant-api.com/agents/ded3520f-4264-bfed-162d-b080e2abccf9/displayicon.png';
 
 const allyPlayers = [
-  { id: 'me', agentIconUrl: jettAgent },
+  { id: 'me', agentIconUrl: jettAgent, isCurrentPlayer: true },
   { id: 'ally-1', agentIconUrl: phoenixAgent },
   { id: 'ally-2', agentIconUrl: sageAgent },
   { id: 'ally-3', agentIconUrl: omenAgent },

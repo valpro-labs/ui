@@ -390,7 +390,11 @@ const enemyTeamMultiKills: MatchMultiKillRow[] = [
 
 // ── Kill matrix data ────────────────────────────────────────────────────────
 
-const matrixAllies = myTeamPlayers.map((p) => ({ id: p.id, agentIconUrl: p.agentIconUrl }));
+const matrixAllies = myTeamPlayers.map((p) => ({
+  id: p.id,
+  agentIconUrl: p.agentIconUrl,
+  isCurrentPlayer: p.role === 'me',
+}));
 const matrixEnemies = enemyTeamPlayers.map((p) => ({ id: p.id, agentIconUrl: p.agentIconUrl }));
 
 const allMatrix: KillMatrixCell[][] = [

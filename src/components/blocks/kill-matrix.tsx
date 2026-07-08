@@ -11,6 +11,8 @@ interface KillMatrixPlayer {
   id: string;
   /** Agent display icon URL. Falls back to a muted placeholder square. */
   agentIconUrl?: string;
+  /** When true, the row gets a yellow tint to mark the viewing player. */
+  isCurrentPlayer?: boolean;
 }
 
 interface KillMatrixCell {
@@ -60,7 +62,11 @@ function KillMatrix({ allyPlayers, enemyPlayers, cells, className }: KillMatrixP
       </View>
       {allyPlayers.map((ally, allyIndex) => (
         <View key={ally.id} className="flex-row items-center gap-x-1">
-          <View className="w-10 items-center">
+          <View
+            className={cn(
+              'w-10 items-center rounded-md py-1',
+              ally.isCurrentPlayer && 'bg-val-yellow/20 dark:bg-val-yellow/20'
+            )}>
             <AgentIcon uri={ally.agentIconUrl} />
           </View>
           {enemyPlayers.map((enemy, enemyIndex) => {
