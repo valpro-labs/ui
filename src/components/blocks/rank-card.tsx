@@ -42,6 +42,10 @@ interface RankCardProps {
   rrLabel?: string;
   /** Optional rank-rating rail shown below the rank summary. */
   rankProgress?: RankProgress;
+  /** Icon displayed to the right of the rank-progress value. */
+  rankProgressIcon?: React.ReactNode;
+  /** Tap handler for `rankProgressIcon`. The card's `onPress` is not invoked by this action. */
+  onRankProgressIconPress?: () => void;
   /** Header shown above the pyramid, e.g. `"ACT RANK"`. */
   actRankLabel: string;
   /** Pre-sorted (highest first) filled-slot list forwarded to the pyramid. */
@@ -93,11 +97,15 @@ function RankProgressRail({
   progress,
   progressPercent,
   showSkeleton,
+  icon,
+  onIconPress,
 }: {
   color?: string;
   progress?: RankProgress;
   progressPercent?: number;
   showSkeleton: boolean;
+  icon?: React.ReactNode;
+  onIconPress?: () => void;
 }) {
   return (
     <View className="w-full flex-row items-center gap-x-2">
@@ -119,6 +127,20 @@ function RankProgressRail({
               numberOfLines={1}>
               {getProgressValueLabel(progress)}
             </Text>
+          ) : null}
+          {icon ? (
+            <Pressable
+              className="self-stretch items-center justify-center"
+              accessibilityRole="button"
+              accessibilityLabel="Rank progress action"
+              hitSlop={8}
+              onPress={(event) => {
+                event.stopPropagation();
+                onIconPress?.();
+              }}
+              disabled={!onIconPress}>
+              {icon}
+            </Pressable>
           ) : null}
         </>
       )}
@@ -143,6 +165,8 @@ function RankCard({
   rankedRating,
   rrLabel,
   rankProgress,
+  rankProgressIcon,
+  onRankProgressIconPress,
   actRankLabel,
   filledTiers,
   borderIcon,
@@ -202,6 +226,8 @@ function RankCard({
             progress={visibleRankProgress}
             progressPercent={progressPercent}
             showSkeleton={showProgressSkeleton}
+            icon={rankProgressIcon}
+            onIconPress={onRankProgressIconPress}
           />
         </View>
       ) : null}

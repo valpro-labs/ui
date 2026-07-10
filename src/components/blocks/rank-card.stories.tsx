@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CaretRight } from 'phosphor-react';
+import { CaretRight, Shield } from 'phosphor-react';
 import { View } from 'react-native';
 
 import { RankCard } from '@/components/blocks/rank-card';
@@ -99,6 +99,26 @@ export const Pressable: Story = {
     borderIcon: BORDER_LEVEL_2,
     chevron: <Chevron />,
     onPress: () => {},
+  },
+};
+
+export const ProgressIcon: Story = {
+  args: {
+    seasonTitle: 'E11 A2',
+    tierIcon: diamond2Tier,
+    tier: 19,
+    tierName: 'Diamond 2',
+    tierColor: TIER_COLORS.diamond,
+    rankedRating: 47,
+    rrLabel: 'RR',
+    rankProgress: { value: 47 },
+    rankProgressIcon: (
+      <Shield size={18} color="rgba(237,233,226,0.6)" style={{ transform: 'translateY(-1px)' }} />
+    ),
+    onRankProgressIconPress: () => {},
+    actRankLabel: 'ACT RANK',
+    filledTiers: diamondMix,
+    borderIcon: BORDER_LEVEL_1,
   },
 };
 
