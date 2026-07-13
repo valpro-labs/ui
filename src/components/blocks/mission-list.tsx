@@ -62,7 +62,7 @@ function MissionList({
           <React.Fragment key={index}>
             {index > 0 && <Separator />}
             <View className="px-4 py-3">
-              <MissionCardSkeleton />
+              <MissionCardSkeleton variant={index} />
             </View>
           </React.Fragment>
         ))}
