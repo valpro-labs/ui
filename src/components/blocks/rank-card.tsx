@@ -41,6 +41,8 @@ interface RankCardProps {
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
   rrLabel?: string;
+  /** Optional leaderboard position shown as `Rank {n}` in the tier summary. */
+  leaderboardRank?: number;
   /** Optional rank-rating rail shown below the rank summary. */
   rankProgress?: RankProgress;
   /** Icon displayed to the right of the rank-progress value. */
@@ -167,6 +169,7 @@ function RankCard({
   tierColor,
   rankedRating,
   rrLabel,
+  leaderboardRank,
   rankProgress,
   rankProgressIcon,
   onRankProgressIconPress,
@@ -186,7 +189,8 @@ function RankCard({
     rankProgress ?? (isUnrankedTier ? undefined : getRankedRatingProgress(rankedRating, rrLabel));
   const progressPercent = visibleRankProgress ? getProgressPercent(visibleRankProgress) : undefined;
   const showProgressSkeleton = !isUnrankedTier && isLoading && showRankProgressSkeleton;
-  const showProgressRail = showProgressSkeleton || (!isLoading && !!visibleRankProgress);
+  const showProgressRail =
+    leaderboardRank == null && (showProgressSkeleton || (!isLoading && !!visibleRankProgress));
   const showChevron = !!chevron && !!onPress;
 
   const content = (
@@ -202,23 +206,29 @@ function RankCard({
             tierColor={tierColor}
             rankedRating={rankedRating}
             rrLabel={rrLabel}
-            showRankedRating={!isUnrankedTier && !visibleRankProgress && !showProgressSkeleton}
+            leaderboardRank={leaderboardRank}
+            showRankedRating={
+              !isUnrankedTier &&
+              (leaderboardRank != null || (!visibleRankProgress && !showProgressSkeleton))
+            }
             isLoading={isLoading}
           />
 
-          <View className="items-center">
+          <View className="self-stretch items-center">
             <Text
               className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
               style={{ marginBottom: 10 }}>
               {actRankLabel}
             </Text>
-            <RankPyramid
-              filledTiers={isLoading ? undefined : filledTiers}
-              borderIcon={isLoading ? undefined : borderIcon}
-              reserveBorderSpace={isLoading}
-              size={pyramidSize}
-              visualOffsetY={RANK_PYRAMID_VISUAL_OFFSET_Y}
-            />
+            <View className="flex-1 items-center justify-center">
+              <RankPyramid
+                filledTiers={isLoading ? undefined : filledTiers}
+                borderIcon={isLoading ? undefined : borderIcon}
+                reserveBorderSpace={isLoading}
+                size={pyramidSize}
+                visualOffsetY={RANK_PYRAMID_VISUAL_OFFSET_Y}
+              />
+            </View>
           </View>
         </View>
       </View>

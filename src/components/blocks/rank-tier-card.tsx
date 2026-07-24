@@ -18,6 +18,8 @@ interface RankTierCardProps {
   rankedRating?: number;
   /** Suffix shown after the RR value (default `"RR"`). Pass `""` to hide. */
   rrLabel?: string;
+  /** Optional leaderboard position shown as `Rank {n}` below the rank summary. */
+  leaderboardRank?: number;
   /** Show the ranked rating row under the tier name. */
   showRankedRating?: boolean;
   /** Show the skeleton placeholder instead of the real content. */
@@ -31,6 +33,11 @@ interface RankTierCardProps {
 function normalizeHex(input?: string): string | undefined {
   if (!input) return undefined;
   return input.startsWith('#') ? input : `#${input}`;
+}
+
+function withAlpha(color: string | undefined, alpha: string): string | undefined {
+  if (!color) return undefined;
+  return color.length === 9 ? `${color.slice(0, 7)}${alpha}` : color;
 }
 
 /**
@@ -47,6 +54,7 @@ function RankTierCard({
   tierColor,
   rankedRating,
   rrLabel = 'RR',
+  leaderboardRank,
   showRankedRating = true,
   isLoading = false,
   className,
@@ -94,6 +102,21 @@ function RankTierCard({
             {rankedRating ?? 0}
             {rrLabel ? ` ${rrLabel}` : ''}
           </Text>
+        ) : null}
+        {leaderboardRank != null ? (
+          <View
+            className="rounded-full border-2 px-5 py-1"
+            style={
+              color
+                ? { backgroundColor: withAlpha(color, '24'), borderColor: withAlpha(color, '80') }
+                : undefined
+            }>
+            <Text
+              className="text-xs font-bold tabular-nums"
+              style={color ? { color } : undefined}>
+              Rank {leaderboardRank}
+            </Text>
+          </View>
         ) : null}
       </View>
     </View>

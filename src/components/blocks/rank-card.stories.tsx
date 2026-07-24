@@ -17,6 +17,7 @@ function tier(n: number): RankPyramidTier {
 const diamond2Tier = `https://media.valorant-api.com/competitivetiers/${TIER_SET}/19/largeicon.png`;
 const ascendant1Tier = `https://media.valorant-api.com/competitivetiers/${TIER_SET}/21/largeicon.png`;
 const immortal3Tier = `https://media.valorant-api.com/competitivetiers/${TIER_SET}/26/largeicon.png`;
+const radiantTier = `https://media.valorant-api.com/competitivetiers/${TIER_SET}/27/largeicon.png`;
 const unrankedTier = `https://media.valorant-api.com/competitivetiers/${TIER_SET}/0/largeicon.png`;
 
 const diamondMix = [tier(20), tier(19), tier(19), tier(18), tier(18), tier(17)];
@@ -136,6 +137,22 @@ export const Immortal: Story = {
     borderIcon: BORDER_LEVEL_5,
     chevron: <Chevron />,
     onPress: () => {},
+  },
+};
+
+export const RadiantRankOne: Story = {
+  args: {
+    seasonTitle: 'E11 A2',
+    tierIcon: radiantTier,
+    tier: 27,
+    tierName: 'Radiant',
+    tierColor: TIER_COLORS.radiant,
+    rankedRating: 842,
+    rrLabel: 'RR',
+    leaderboardRank: 1,
+    actRankLabel: 'ACT RANK',
+    filledTiers: immortalClimb,
+    borderIcon: BORDER_LEVEL_5,
   },
 };
 
