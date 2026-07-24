@@ -84,17 +84,6 @@ function getProgressValueLabel(progress: RankProgress): string {
   return progress.valueLabel ?? `${progress.value}/${progress.max ?? 100}`;
 }
 
-function getRankedRatingProgress(
-  rankedRating: number | undefined,
-  rrLabel: string | undefined
-): RankProgress {
-  const rating = rankedRating ?? 0;
-  return {
-    value: 100,
-    valueLabel: rrLabel === '' ? rating.toString() : `${rating} ${rrLabel ?? 'RR'}`,
-  };
-}
-
 function RankProgressRail({
   color,
   progress,
@@ -185,8 +174,9 @@ function RankCard({
 }: RankCardProps) {
   const color = normalizeHex(tierColor);
   const isUnrankedTier = tier === 0;
-  const visibleRankProgress =
-    rankProgress ?? (isUnrankedTier ? undefined : getRankedRatingProgress(rankedRating, rrLabel));
+  // A rail is opt-in. Tiers without meaningful RR progress keep their RR in
+  // the tier summary, alongside leaderboard ranks such as "Rank 1".
+  const visibleRankProgress = rankProgress;
   const progressPercent = visibleRankProgress ? getProgressPercent(visibleRankProgress) : undefined;
   const showProgressSkeleton = !isUnrankedTier && isLoading && showRankProgressSkeleton;
   const showProgressRail =
