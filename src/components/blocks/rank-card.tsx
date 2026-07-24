@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 
 const RANK_PYRAMID_VISUAL_OFFSET_Y = -8;
 const RANK_SUMMARY_MIN_HEIGHT = 100;
+const RANK_PROGRESS_RAIL_HEIGHT = 18;
 const CHEVRON_WIDTH = 14;
 const CHEVRON_RIGHT_OFFSET = 12;
 
@@ -108,7 +109,9 @@ function RankProgressRail({
   onIconPress?: () => void;
 }) {
   return (
-    <View className="w-full flex-row items-center gap-x-2">
+    <View
+      className="w-full flex-row items-center gap-x-2"
+      style={{ height: RANK_PROGRESS_RAIL_HEIGHT }}>
       {showSkeleton ? (
         <>
           <Skeleton className="h-1 flex-1 rounded-full" />
