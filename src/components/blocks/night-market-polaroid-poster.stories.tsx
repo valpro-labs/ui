@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { toPng } from 'html-to-image';
+import { useRef, useState } from 'react';
 
-import { NightMarketPolaroidPoster } from '@/components/blocks/night-market-polaroid-poster';
+import {
+  NightMarketPolaroidPoster,
+  type NightMarketPolaroidPosterProps,
+} from '@/components/blocks/night-market-polaroid-poster';
 import type { NightMarketOffer } from '@/components/blocks/night-market-offer';
 
 const offers: NightMarketOffer[] = [
@@ -55,6 +60,55 @@ const meta: Meta<typeof NightMarketPolaroidPoster> = {
 export default meta;
 type Story = StoryObj<typeof NightMarketPolaroidPoster>;
 
+function PosterWithDownload(args: NightMarketPolaroidPosterProps) {
+  const posterRef = useRef<HTMLDivElement>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function handleDownload() {
+    if (!posterRef.current) return;
+    setBusy(true);
+    try {
+      const dataUrl = await toPng(posterRef.current, { cacheBust: true, pixelRatio: 1 });
+      const link = document.createElement('a');
+      link.download =
+        `night-market-polaroid-${args.playerTag.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'poster'}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error('Failed to export polaroid poster as PNG:', err);
+      window.alert('Failed to export poster. See console for details.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <button
+        type="button"
+        onClick={handleDownload}
+        disabled={busy}
+        style={{
+          padding: '8px 16px',
+          background: busy ? 'rgba(255, 70, 85, 0.6)' : 'rgb(255, 70, 85)',
+          color: 'white',
+          border: 'none',
+          borderRadius: 4,
+          fontSize: 14,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          cursor: busy ? 'wait' : 'pointer',
+        }}>
+        {busy ? 'Generating…' : 'Download PNG'}
+      </button>
+      <div ref={posterRef}>
+        <NightMarketPolaroidPoster {...args} />
+      </div>
+    </div>
+  );
+}
+
 export const Default: Story = {
   args: { offers, playerTag: '@N0CT#TW1' },
+  render: (args) => <PosterWithDownload {...args} />,
 };
