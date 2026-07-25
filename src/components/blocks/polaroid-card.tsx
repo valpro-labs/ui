@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 const LATIN_ONLY = /^[\x20-\u024F\s]*$/;
 const CARD_BG = 'rgb(237, 233, 226)';
@@ -59,7 +60,7 @@ function PolaroidCard({ offer, priceSuffix = 'VP' }: PolaroidCardProps) {
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
           style={{
-            width: '100%',
+            width: `${resolveWeaponCategoryWidth(offer.weaponCategory, 'grid')}%`,
             height: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '40%' : '80%',
           }}
           contentFit="contain"
