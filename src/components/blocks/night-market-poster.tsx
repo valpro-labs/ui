@@ -138,7 +138,7 @@ function OfferCard({
           accessibilityLabel={offer.name}
           style={{
             width: '100%',
-            height: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '45%' : '100%',
+            height: '60%',
           }}
           contentFit="contain"
         />
@@ -224,7 +224,7 @@ function PolaroidOfferCard({
           accessibilityLabel={offer.name}
           style={{
             width: '100%',
-            height: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '38%' : '78%',
+            height: '60%',
           }}
           contentFit="contain"
         />

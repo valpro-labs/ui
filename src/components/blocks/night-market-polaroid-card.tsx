@@ -44,7 +44,7 @@ function NightMarketPolaroidCard({
           accessibilityLabel={offer.name}
           style={{
             width: '100%',
-            height: offer.weaponCategory === 'EEquippableCategory::Sidearm' ? '38%' : '78%',
+            height: '60%',
           }}
           contentFit="contain"
         />
