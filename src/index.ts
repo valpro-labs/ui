@@ -174,6 +174,8 @@ export type {
   ShopDiaryPosterProps,
   ShopDiaryOffer,
 } from '@/components/blocks/shop-diary-poster';
+export { PolaroidCard } from '@/components/blocks/polaroid-card';
+export type { PolaroidCardProps } from '@/components/blocks/polaroid-card';
 
 // ── Utilities ──
 export { cn } from '@/lib/utils';
