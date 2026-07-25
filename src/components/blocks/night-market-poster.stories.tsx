@@ -42,14 +42,14 @@ const offers = [
     weaponCategory: 'EEquippableCategory::Rifle',
   },
   {
-    tierLabel: 'PREMIUM',
-    tierColor: 'rgb(209, 84, 141)',
-    name: 'Oni Guardian',
+    tierLabel: 'DELUXE',
+    tierColor: 'rgb(0, 153, 135)',
+    name: '鉻風引擎 短管',
     iconUrl:
-      'https://media.valorant-api.com/weaponskinchromas/b8ddad9b-4622-3e0e-6821-56bf2e901bcf/fullrender.png',
+      'https://media.valorant-api.com/weaponskinchromas/d48011de-4ccc-18e8-6352-e18cd9d02b6c/fullrender.png',
     originalPrice: 1275,
-    discountedPrice: 995,
-    discountPercent: 22,
+    discountedPrice: 1020,
+    discountPercent: 20,
     weaponCategory: 'EEquippableCategory::Sidearm',
   },
   {

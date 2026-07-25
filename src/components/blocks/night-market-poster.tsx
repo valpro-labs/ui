@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { Image } from '@/components/ui/image';
 import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
 import { Text } from '@/components/ui/text';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 
 type NightMarketOffer = {
@@ -54,12 +55,6 @@ const BACKGROUND = 'rgb(15, 12, 21)';
 const CARD_BACKGROUND = 'rgb(28, 24, 38)';
 const TEXT_PRIMARY = 'rgb(237, 233, 226)';
 const TEXT_GOLD = 'rgb(240, 203, 116)';
-const SIDEARM_CATEGORY = 'EEquippableCategory::Sidearm';
-
-function getWeaponImageHeight(weaponCategory?: string): '40%' | '80%' {
-  return weaponCategory === SIDEARM_CATEGORY ? '40%' : '80%';
-}
-
 
 function withAlpha(color: string, alpha: number): string {
   if (color.startsWith('rgb(')) {
@@ -138,8 +133,8 @@ function OfferCard({
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
           style={{
-            width: '100%',
-            height: getWeaponImageHeight(offer.weaponCategory),
+            width: `${resolveWeaponCategoryWidth(offer.weaponCategory, 'grid')}%`,
+            height: '100%',
           }}
           contentFit="contain"
         />
@@ -224,8 +219,8 @@ function PolaroidOfferCard({
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
           style={{
-            width: '100%',
-            height: getWeaponImageHeight(offer.weaponCategory),
+            width: `${resolveWeaponCategoryWidth(offer.weaponCategory, 'grid')}%`,
+            height: '100%',
           }}
           contentFit="contain"
         />

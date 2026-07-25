@@ -5,13 +5,12 @@ import { View } from 'react-native';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import type { NightMarketOffer } from '@/components/blocks/night-market-offer';
+import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 type NightMarketPolaroidCardProps = {
   offer: NightMarketOffer;
   priceSuffix?: string;
 };
-
-const SIDEARM_CATEGORY = 'EEquippableCategory::Sidearm';
 
 function withAlpha(color: string, alpha: number): string {
   return color.startsWith('rgb(') ? color.replace('rgb(', 'rgba(').replace(')', `, ${alpha})`) : color;
@@ -45,8 +44,8 @@ function NightMarketPolaroidCard({
           source={offer.iconUrl}
           accessibilityLabel={offer.name}
           style={{
-            width: '100%',
-            height: offer.weaponCategory === SIDEARM_CATEGORY ? '40%' : '80%',
+            width: `${resolveWeaponCategoryWidth(offer.weaponCategory, 'grid')}%`,
+            height: '100%',
           }}
           contentFit="contain"
         />
