@@ -3,6 +3,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { PolaroidCard, type ShopDiaryOffer } from '@/components/blocks/polaroid-card';
+import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
 import { Text } from '@/components/ui/text';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 
@@ -15,6 +16,8 @@ type ShopDiaryPosterProps = {
   issueLabel: string;
   /** Long date shown in the header (e.g. `"APR 23 · 2026"`). */
   dateLabel: string;
+  /** Optional player tag shown in the poster footer. */
+  playerTag?: string;
   /** Currency suffix shown after the price. Defaults to `"VP"`. */
   priceSuffix?: string;
   /** Override the default 1080px canvas width. */
@@ -25,7 +28,6 @@ type ShopDiaryPosterProps = {
 
 const BACKGROUND = 'rgb(20, 20, 26)';
 const CARD_BG = 'rgb(237, 233, 226)';
-const ACCENT = 'rgb(255, 70, 85)';
 
 /**
  * "Daily Four" share poster — a 1080×1920 magazine-style layout wrapping
@@ -37,6 +39,7 @@ function ShopDiaryPoster({
   brandLabel,
   issueLabel,
   dateLabel,
+  playerTag,
   priceSuffix = 'VP',
   width = 1080,
   height = 1920,
@@ -78,46 +81,17 @@ function ShopDiaryPoster({
       </View>
 
       <View style={{ position: 'absolute', top: 140, left: 60, right: 60, zIndex: 20 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 14,
-            marginBottom: 18,
-          }}>
-          <View style={{ width: 18, height: 18, backgroundColor: ACCENT, borderRadius: 2 }} />
-          <Text
-            style={{
-              color: CARD_BG,
-              fontSize: 46,
-              lineHeight: 54,
-              fontWeight: '900',
-              letterSpacing: 20,
-            }}>
-            {brandLabel}
-          </Text>
-          <View style={{ flex: 1, height: 2, backgroundColor: 'rgba(237,233,226,0.25)' }} />
-          <Text
-            style={{
-              color: CARD_BG,
-              opacity: 0.55,
-              fontSize: 28,
-              lineHeight: 34,
-              fontWeight: '700',
-              letterSpacing: 6,
-              fontFamily: 'Menlo',
-            }}>
-            {dateLabel}
-          </Text>
+        <View style={{ marginBottom: 18 }}>
+          <NightMarketBrandMark label={brandLabel} size={46} />
         </View>
         <Text
           className="uppercase"
           style={{
             color: CARD_BG,
-            fontSize: 34,
-            lineHeight: 42,
+            fontSize: 32,
+            lineHeight: 40,
             fontWeight: '800',
-            letterSpacing: 11,
+            letterSpacing: 8,
             opacity: 0.7,
           }}>
           {issueLabel}
@@ -140,6 +114,46 @@ function ShopDiaryPoster({
             ))}
           </View>
         ))}
+      </View>
+
+      <View
+        style={{
+          position: 'absolute',
+          right: 60,
+          bottom: 62,
+          left: 60,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        {playerTag ? (
+          <Text
+            style={{
+              color: CARD_BG,
+              opacity: 0.5,
+              fontSize: 24,
+              lineHeight: 28,
+              fontWeight: '700',
+              letterSpacing: 3.6,
+              fontFamily: 'Menlo',
+            }}>
+            {playerTag}
+          </Text>
+        ) : (
+          <View />
+        )}
+        <Text
+          style={{
+            color: CARD_BG,
+            opacity: 0.55,
+            fontSize: 24,
+            lineHeight: 28,
+            fontWeight: '700',
+            letterSpacing: 5,
+            fontFamily: 'Menlo',
+          }}>
+          {dateLabel}
+        </Text>
       </View>
     </View>
   );

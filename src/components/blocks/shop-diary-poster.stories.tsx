@@ -110,8 +110,9 @@ const meta: Meta<typeof ShopDiaryPoster> = {
   args: {
     offers: OFFERS,
     brandLabel: 'VALPRO',
-    issueLabel: 'Daily Offer',
+    issueLabel: 'THE DAILY FOUR',
     dateLabel: 'APR 23 · 2026',
+    playerTag: '@N0CT#TW1',
   },
 };
 
