@@ -13,10 +13,16 @@ const rifleOffer: PolaroidCardProps['offer'] = {
   weaponCategory: 'EEquippableCategory::Rifle',
 };
 
+// Matches one tile in ShopDiaryPoster's 1080×1920 two-column grid:
+// (1080 - 60 * 2 - 28) / 2 by (1920 - 320 - 140 - 28) / 2.
+const POSTER_TILE_WIDTH = 466;
+const POSTER_TILE_HEIGHT = 716;
+
 const meta: Meta<typeof PolaroidCard> = {
   title: 'Blocks/PolaroidCard',
   component: PolaroidCard,
-  parameters: { layout: 'centered' },
+  globals: { viewport: { value: 'desktop', isRotated: false } },
+  parameters: { layout: 'centered', viewport: { defaultViewport: 'desktop' } },
   args: { offer: rifleOffer },
 };
 
@@ -25,7 +31,7 @@ type Story = StoryObj<typeof PolaroidCard>;
 
 function CardFrame(args: PolaroidCardProps) {
   return (
-    <View style={{ width: '100%', maxWidth: 420, height: 720 }}>
+    <View style={{ width: POSTER_TILE_WIDTH, height: POSTER_TILE_HEIGHT }}>
       <PolaroidCard {...args} />
     </View>
   );
