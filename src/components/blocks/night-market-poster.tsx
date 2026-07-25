@@ -252,20 +252,8 @@ function PolaroidOfferCard({
 
       <View style={{ paddingTop: 10 }}>
         <Text
-          numberOfLines={1}
-          style={{
-            color: offer.tierColor,
-            fontSize: 15,
-            lineHeight: 18,
-            fontWeight: '900',
-            letterSpacing: 2.2,
-          }}>
-          {offer.tierLabel}
-        </Text>
-        <Text
           numberOfLines={2}
           style={{
-            marginTop: 2,
             color: 'rgb(18, 18, 18)',
             fontSize: 26,
             lineHeight: 28,
@@ -278,8 +266,9 @@ function PolaroidOfferCard({
           style={{
             marginTop: 8,
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             alignItems: 'flex-end',
+            gap: 10,
           }}>
           <Text
             style={{
