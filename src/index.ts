@@ -167,7 +167,15 @@ export type {
 export { NightMarketIcon } from '@/components/blocks/night-market-icon';
 export type { NightMarketIconProps } from '@/components/blocks/night-market-icon';
 export { NightMarketPoster } from '@/components/blocks/night-market-poster';
-export type { NightMarketPosterProps, NightMarketOffer } from '@/components/blocks/night-market-poster';
+export type {
+  NightMarketPosterProps,
+  NightMarketOffer,
+  NightMarketOfferCardStyle,
+} from '@/components/blocks/night-market-poster';
+export { NightMarketPolaroidCard } from '@/components/blocks/night-market-polaroid-card';
+export type { NightMarketPolaroidCardProps } from '@/components/blocks/night-market-polaroid-card';
+export { NightMarketPolaroidPoster } from '@/components/blocks/night-market-polaroid-poster';
+export type { NightMarketPolaroidPosterProps } from '@/components/blocks/night-market-polaroid-poster';
 
 export { ShopDiaryPoster } from '@/components/blocks/shop-diary-poster';
 export type {
