@@ -137,7 +137,6 @@ function PosterWithDownload(args: NightMarketPosterProps) {
 export const Default: Story = {
   args: {
     offers,
-    countdownValue: '72H 00M',
     playerTag: '@N0CT#TW1',
   },
   render: (args) => <PosterWithDownload {...args} />,

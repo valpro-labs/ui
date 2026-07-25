@@ -35,10 +35,6 @@ type NightMarketPosterProps = {
   /** Big headline, typically broken into two lines like `"ALL"` and `"6."`. */
   titleTopLine?: string;
   titleBottomLine?: string;
-  /** Small label above the countdown. */
-  countdownLabel?: string;
-  /** Primary countdown text. */
-  countdownValue: string;
   /** Footer player tag. */
   playerTag: string;
   /** Footer brand label. */
@@ -299,16 +295,13 @@ function PolaroidOfferCard({
 
 /**
  * Night Market share poster inspired by the in-client 2x3 discount board:
- * oversized left headline, countdown on the right, and six discounted offers
- * in a dense neon-accent grid.
+ * oversized left headline and six discounted offers in a dense neon-accent grid.
  */
 function NightMarketPoster({
   offers,
   kickerLabel = 'NIGHT MARKET',
   titleTopLine = 'ALL',
   titleBottomLine = '6.',
-  countdownLabel = 'ENDS IN',
-  countdownValue,
   playerTag,
   brandLabel = 'VALPRO',
   priceSuffix = 'VP',
@@ -371,50 +364,19 @@ function NightMarketPoster({
             {kickerLabel}
           </Text>
 
-          <View
+          <Text
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
+              color: TEXT_PRIMARY,
+              fontSize: 100,
+              lineHeight: 86,
+              fontWeight: '900',
+              fontStyle: 'italic',
+              letterSpacing: -6,
             }}>
-            <Text
-              style={{
-                color: TEXT_PRIMARY,
-                fontSize: 100,
-                lineHeight: 86,
-                fontWeight: '900',
-                fontStyle: 'italic',
-                letterSpacing: -6,
-              }}>
-              {titleTopLine}
-              {'\n'}
-              {titleBottomLine}
-            </Text>
-
-            <View style={{ alignItems: 'flex-end' }}>
-              <Text
-                style={{
-                  color: TEXT_PRIMARY,
-                  opacity: 0.5,
-                  fontSize: 24,
-                  lineHeight: 28,
-                  fontWeight: '700',
-                  letterSpacing: 3.6,
-                }}>
-                {countdownLabel}
-              </Text>
-              <Text
-                style={{
-                  color: TEXT_GOLD,
-                  fontSize: 44,
-                  lineHeight: 48,
-                  fontWeight: '900',
-                  letterSpacing: -0.9,
-                }}>
-                {countdownValue}
-              </Text>
-            </View>
-          </View>
+            {titleTopLine}
+            {'\n'}
+            {titleBottomLine}
+          </Text>
         </View>
 
         <View style={{ flex: 1, gap: 18 }}>

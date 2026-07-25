@@ -12,8 +12,6 @@ type NightMarketPolaroidPosterProps = {
   kickerLabel?: string;
   titleTopLine?: string;
   titleBottomLine?: string;
-  countdownLabel?: string;
-  countdownValue: string;
   playerTag: string;
   brandLabel?: string;
   priceSuffix?: string;
@@ -42,8 +40,6 @@ function NightMarketPolaroidPoster({
   kickerLabel = 'NIGHT MARKET',
   titleTopLine = 'ALL',
   titleBottomLine = '6.',
-  countdownLabel = 'ENDS IN',
-  countdownValue,
   playerTag,
   brandLabel = 'VALPRO',
   priceSuffix = 'VP',
@@ -104,44 +100,19 @@ function NightMarketPolaroidPoster({
             }}>
             {kickerLabel}
           </Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-            <Text
-              style={{
-                color: TEXT_PRIMARY,
-                fontSize: 100,
-                lineHeight: 86,
-                fontWeight: '900',
-                fontStyle: 'italic',
-                letterSpacing: -6,
-              }}>
-              {titleTopLine}
-              {'\n'}
-              {titleBottomLine}
-            </Text>
-            <View style={{ alignItems: 'flex-end' }}>
-              <Text
-                style={{
-                  color: TEXT_PRIMARY,
-                  opacity: 0.5,
-                  fontSize: 24,
-                  lineHeight: 28,
-                  fontWeight: '700',
-                  letterSpacing: 3.6,
-                }}>
-                {countdownLabel}
-              </Text>
-              <Text
-                style={{
-                  color: TEXT_GOLD,
-                  fontSize: 44,
-                  lineHeight: 48,
-                  fontWeight: '900',
-                  letterSpacing: -0.9,
-                }}>
-                {countdownValue}
-              </Text>
-            </View>
-          </View>
+          <Text
+            style={{
+              color: TEXT_PRIMARY,
+              fontSize: 100,
+              lineHeight: 86,
+              fontWeight: '900',
+              fontStyle: 'italic',
+              letterSpacing: -6,
+            }}>
+            {titleTopLine}
+            {'\n'}
+            {titleBottomLine}
+          </Text>
         </View>
 
         <View style={{ flex: 1, gap: 18 }}>

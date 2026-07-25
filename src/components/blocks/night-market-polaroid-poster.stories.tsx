@@ -56,5 +56,5 @@ export default meta;
 type Story = StoryObj<typeof NightMarketPolaroidPoster>;
 
 export const Default: Story = {
-  args: { offers, countdownValue: '72H 00M', playerTag: '@N0CT#TW1' },
+  args: { offers, playerTag: '@N0CT#TW1' },
 };
