@@ -53,7 +53,6 @@ const BACKGROUND = 'rgb(15, 12, 21)';
 const CARD_BACKGROUND = 'rgb(28, 24, 38)';
 const TEXT_PRIMARY = 'rgb(237, 233, 226)';
 const TEXT_GOLD = 'rgb(240, 203, 116)';
-const VALPRO_RED = 'rgb(255, 70, 85)';
 
 
 function withAlpha(color: string, alpha: number): string {
@@ -413,26 +412,16 @@ function NightMarketPoster({
             {playerTag}
           </Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <View
-              style={{
-                width: 14,
-                height: 14,
-                backgroundColor: VALPRO_RED,
-                transform: [{ rotate: '45deg' }],
-              }}
-            />
-            <Text
-              style={{
-                color: TEXT_PRIMARY,
-                fontSize: 14,
-                lineHeight: 18,
-                fontWeight: '800',
-                letterSpacing: 3.5,
-              }}>
-              {brandLabel}
-            </Text>
-          </View>
+          <Text
+            style={{
+              color: TEXT_PRIMARY,
+              fontSize: 14,
+              lineHeight: 18,
+              fontWeight: '800',
+              letterSpacing: 3.5,
+            }}>
+            {brandLabel}
+          </Text>
         </View>
       </View>
     </View>
