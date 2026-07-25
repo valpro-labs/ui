@@ -54,6 +54,11 @@ const BACKGROUND = 'rgb(15, 12, 21)';
 const CARD_BACKGROUND = 'rgb(28, 24, 38)';
 const TEXT_PRIMARY = 'rgb(237, 233, 226)';
 const TEXT_GOLD = 'rgb(240, 203, 116)';
+const SIDEARM_CATEGORY = 'EEquippableCategory::Sidearm';
+
+function getWeaponImageHeight(weaponCategory?: string): '40%' | '80%' {
+  return weaponCategory === SIDEARM_CATEGORY ? '40%' : '80%';
+}
 
 
 function withAlpha(color: string, alpha: number): string {
@@ -134,7 +139,7 @@ function OfferCard({
           accessibilityLabel={offer.name}
           style={{
             width: '100%',
-            height: '60%',
+            height: getWeaponImageHeight(offer.weaponCategory),
           }}
           contentFit="contain"
         />
@@ -220,7 +225,7 @@ function PolaroidOfferCard({
           accessibilityLabel={offer.name}
           style={{
             width: '100%',
-            height: '60%',
+            height: getWeaponImageHeight(offer.weaponCategory),
           }}
           contentFit="contain"
         />

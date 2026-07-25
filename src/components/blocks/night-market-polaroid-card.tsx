@@ -11,6 +11,8 @@ type NightMarketPolaroidCardProps = {
   priceSuffix?: string;
 };
 
+const SIDEARM_CATEGORY = 'EEquippableCategory::Sidearm';
+
 function withAlpha(color: string, alpha: number): string {
   return color.startsWith('rgb(') ? color.replace('rgb(', 'rgba(').replace(')', `, ${alpha})`) : color;
 }
@@ -44,7 +46,7 @@ function NightMarketPolaroidCard({
           accessibilityLabel={offer.name}
           style={{
             width: '100%',
-            height: '60%',
+            height: offer.weaponCategory === SIDEARM_CATEGORY ? '40%' : '80%',
           }}
           contentFit="contain"
         />
