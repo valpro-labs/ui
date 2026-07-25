@@ -120,7 +120,7 @@ function ShopDiaryPoster({
         style={{
           position: 'absolute',
           right: 60,
-          bottom: 62,
+          bottom: 88,
           left: 60,
           flexDirection: 'row',
           justifyContent: 'space-between',
