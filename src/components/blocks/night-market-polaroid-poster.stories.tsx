@@ -7,12 +7,12 @@ const offers: NightMarketOffer[] = [
   {
     tierLabel: 'PREMIUM',
     tierColor: 'rgb(209, 84, 141)',
-    name: 'Prime Vandal',
-    iconUrl: 'https://media.valorant-api.com/weaponskinchromas/64c51524-43da-875e-ff0d-db97f3e6194e/fullrender.png',
-    originalPrice: 1775,
-    discountedPrice: 1170,
+    name: '靈爭鬪魂 鐮刀',
+    iconUrl: 'https://media.valorant-api.com/weaponskinchromas/252c202e-4f8f-c064-8059-0ea0c851cc3c/fullrender.png',
+    originalPrice: 3550,
+    discountedPrice: 2343,
     discountPercent: 34,
-    weaponCategory: 'EEquippableCategory::Rifle',
+    weaponCategory: 'EEquippableCategory::Melee',
   },
   {
     tierLabel: 'EXCLUSIVE',
