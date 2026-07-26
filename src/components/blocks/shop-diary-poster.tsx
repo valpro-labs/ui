@@ -10,7 +10,7 @@ import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 type ShopDiaryPosterProps = {
   /** The four (or more/less) offers to lay out in the 2-column grid. */
   offers: ShopDiaryOffer[];
-  /** Brand wordmark shown top-left. */
+  /** Brand wordmark shown in the footer. */
   brandLabel: string;
   /** Small kicker above the big title (e.g. `"THE DAILY FOUR"`). */
   issueLabel: string;
@@ -31,8 +31,9 @@ const CARD_BG = 'rgb(237, 233, 226)';
 
 /**
  * "Daily Four" share poster — a 1080×1920 magazine-style layout wrapping
- * the day's shop rotation. Header carries a brand wordmark + issue date,
- * while `PolaroidCard` renders each polaroid-style offer tile.
+ * the day's shop rotation. Header carries the issue label while
+ * `PolaroidCard` renders each polaroid-style offer tile. The footer carries
+ * the brand mark alongside the player tag.
  */
 function ShopDiaryPoster({
   offers,
@@ -81,27 +82,37 @@ function ShopDiaryPoster({
       </View>
 
       <View style={{ position: 'absolute', top: 140, left: 60, right: 60, zIndex: 20 }}>
-        <View style={{ marginBottom: 18 }}>
-          <NightMarketBrandMark label={brandLabel} size={46} />
-        </View>
         <Text
           className="uppercase"
           style={{
             color: CARD_BG,
-            fontSize: 32,
-            lineHeight: 40,
-            fontWeight: '800',
-            letterSpacing: 8,
-            opacity: 0.7,
+            fontSize: 52,
+            lineHeight: 60,
+            fontWeight: '900',
+            letterSpacing: 2,
+            opacity: 0.9,
           }}>
           {issueLabel}
+        </Text>
+        <Text
+          style={{
+            marginTop: 10,
+            color: CARD_BG,
+            opacity: 0.55,
+            fontSize: 24,
+            lineHeight: 28,
+            fontWeight: '700',
+            letterSpacing: 5,
+            fontFamily: 'Menlo',
+          }}>
+          {dateLabel}
         </Text>
       </View>
 
       <View
         style={{
           position: 'absolute',
-          top: 320,
+          top: 260,
           right: 60,
           bottom: 140,
           left: 60,
@@ -142,18 +153,7 @@ function ShopDiaryPoster({
         ) : (
           <View />
         )}
-        <Text
-          style={{
-            color: CARD_BG,
-            opacity: 0.55,
-            fontSize: 24,
-            lineHeight: 28,
-            fontWeight: '700',
-            letterSpacing: 5,
-            fontFamily: 'Menlo',
-          }}>
-          {dateLabel}
-        </Text>
+        <NightMarketBrandMark label={brandLabel} />
       </View>
     </View>
   );
