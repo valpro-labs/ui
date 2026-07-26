@@ -163,7 +163,9 @@ function OfferCard({
         }}>
         <View style={{ flex: 1, marginRight: 8 }}>
           <Text
-            numberOfLines={2}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.4}
             style={{
               color: TEXT_PRIMARY,
               fontSize: 30,
@@ -246,9 +248,16 @@ function PolaroidOfferCard({
         </View>
       </View>
 
-      <View style={{ paddingTop: 10 }}>
+      <View
+        style={{
+          height: 96,
+          paddingTop: 10,
+          justifyContent: 'space-between',
+        }}>
         <Text
-          numberOfLines={2}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.4}
           style={{
             color: 'rgb(18, 18, 18)',
             fontSize: 26,

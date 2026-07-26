@@ -50,6 +50,18 @@ const offers: NightMarketOffer[] = [
   },
 ];
 
+const longNameOffers = offers.map((offer, index) => ({
+  ...offer,
+  name: [
+    'Glitchpop Champions Edition Signature Vandal Variant',
+    'Reaver Sovereign Limited Anniversary Phantom Collection',
+    'SuperExtremelyLongUnbrokenSkinNameWithNoSpaces-Sheriff',
+    'Sentinels of Light Ruination Protocol Spectre',
+    'Prelude to Chaos Doodle Buds Tactical Knife',
+    'Radiant Entertainment System Retro Future Operator',
+  ][index] ?? offer.name,
+}));
+
 const meta: Meta<typeof NightMarketPolaroidPoster> = {
   title: 'Blocks/NightMarketPolaroidPoster',
   component: NightMarketPolaroidPoster,
@@ -110,5 +122,11 @@ function PosterWithDownload(args: NightMarketPolaroidPosterProps) {
 
 export const Default: Story = {
   args: { offers, playerTag: '@N0CT#TW1' },
+  render: (args) => <PosterWithDownload {...args} />,
+};
+
+/** Verifies long offer names shrink within the reserved one-line card name area. */
+export const LongNames: Story = {
+  args: { offers: longNameOffers, playerTag: '@N0CT#TW1' },
   render: (args) => <PosterWithDownload {...args} />,
 };

@@ -71,9 +71,16 @@ function NightMarketPolaroidCard({
         </View>
       </View>
 
-      <View style={{ paddingTop: 10 }}>
+      <View
+        style={{
+          height: 116,
+          paddingTop: 10,
+          justifyContent: 'space-between',
+        }}>
         <Text
-          numberOfLines={2}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.4}
           style={{
             color: 'rgb(18, 18, 18)',
             fontSize: 40,
