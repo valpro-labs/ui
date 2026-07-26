@@ -61,8 +61,8 @@ function NightMarketPolaroidCard({
           <Text
             style={{
               color: 'rgb(28, 24, 38)',
-              fontSize: 18,
-              lineHeight: 20,
+              fontSize: 22,
+              lineHeight: 24,
               fontWeight: '900',
               letterSpacing: -0.4,
             }}>
@@ -76,8 +76,8 @@ function NightMarketPolaroidCard({
           numberOfLines={2}
           style={{
             color: 'rgb(18, 18, 18)',
-            fontSize: 26,
-            lineHeight: 28,
+            fontSize: 40,
+            lineHeight: 44,
             fontWeight: '900',
             letterSpacing: -0.8,
           }}>
@@ -95,8 +95,8 @@ function NightMarketPolaroidCard({
             style={{
               color: 'rgb(18, 18, 18)',
               opacity: 0.45,
-              fontSize: 16,
-              lineHeight: 20,
+              fontSize: 18,
+              lineHeight: 22,
               fontWeight: '700',
               textDecorationLine: 'line-through',
             }}>
@@ -105,8 +105,8 @@ function NightMarketPolaroidCard({
           <Text
             style={{
               color: offer.tierColor,
-              fontSize: 30,
-              lineHeight: 34,
+              fontSize: 44,
+              lineHeight: 48,
               fontWeight: '900',
               letterSpacing: -0.8,
             }}>
