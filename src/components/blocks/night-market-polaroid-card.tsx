@@ -7,6 +7,8 @@ import { Text } from '@/components/ui/text';
 import type { NightMarketOffer } from '@/components/blocks/night-market-offer';
 import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
+const LATIN_ONLY = /^[\x20-\u024F\s]*$/;
+
 type NightMarketPolaroidCardProps = {
   offer: NightMarketOffer;
   index?: string;
@@ -89,6 +91,7 @@ function NightMarketPolaroidCard({
             lineHeight: 44,
             fontWeight: '900',
             letterSpacing: -0.8,
+            fontFamily: LATIN_ONLY.test(offer.name) ? 'Bradley Hand' : undefined,
           }}>
           {offer.name}
         </Text>

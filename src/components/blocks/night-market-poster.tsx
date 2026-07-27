@@ -37,6 +37,7 @@ const BACKGROUND = 'rgb(15, 12, 21)';
 const CARD_BACKGROUND = 'rgb(28, 24, 38)';
 const TEXT_PRIMARY = 'rgb(237, 233, 226)';
 const TEXT_GOLD = 'rgb(240, 203, 116)';
+const LATIN_ONLY = /^[\x20-\u024F\s]*$/;
 
 function withAlpha(color: string, alpha: number): string {
   if (color.startsWith('rgb(')) {
@@ -169,6 +170,7 @@ function OfferCard({
               lineHeight: 32,
               fontWeight: '900',
               letterSpacing: -0.5,
+              fontFamily: LATIN_ONLY.test(offer.name) ? 'Bradley Hand' : undefined,
             }}>
             {offer.name}
           </Text>
@@ -263,6 +265,7 @@ function PolaroidOfferCard({
             lineHeight: 28,
             fontWeight: '900',
             letterSpacing: -0.8,
+            fontFamily: LATIN_ONLY.test(offer.name) ? 'Bradley Hand' : undefined,
           }}>
           {offer.name}
         </Text>
