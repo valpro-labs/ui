@@ -4,28 +4,10 @@ import { View } from 'react-native';
 
 import { Image } from '@/components/ui/image';
 import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
+import type { NightMarketOffer } from '@/components/blocks/night-market-offer';
 import { Text } from '@/components/ui/text';
 import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
-
-type NightMarketOffer = {
-  /** Tier text shown above the item name, e.g. `"PREMIUM"`. */
-  tierLabel: string;
-  /** Accent color used for the border, glow, and tier text. */
-  tierColor: string;
-  /** Item display name. */
-  name: string;
-  /** Weapon render URL. */
-  iconUrl: string;
-  /** Original price shown with strikethrough. */
-  originalPrice: number;
-  /** Discounted price shown as the primary value. */
-  discountedPrice: number;
-  /** Discount percent badge, e.g. `34` for `-34%`. */
-  discountPercent: number;
-  /** Riot `EEquippableCategory::*` string used to scale the render. */
-  weaponCategory?: string;
-};
 
 type NightMarketOfferCardStyle = 'neon' | 'polaroid';
 
@@ -93,9 +75,11 @@ function chunkOffers(offers: NightMarketOffer[]): NightMarketOffer[][] {
 
 function OfferCard({
   offer,
+  index,
   priceSuffix,
 }: {
   offer: NightMarketOffer;
+  index: string;
   priceSuffix: string;
 }) {
   return (
@@ -161,6 +145,19 @@ function OfferCard({
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
+        <Text
+          style={{
+            width: 76,
+            color: TEXT_PRIMARY,
+            opacity: 0.5,
+            fontSize: 28,
+            lineHeight: 32,
+            fontWeight: '700',
+            letterSpacing: 3.8,
+            fontFamily: 'Menlo',
+          }}>
+          #{index}
+        </Text>
         <View style={{ flex: 1, marginRight: 8 }}>
           <Text
             numberOfLines={1}
@@ -193,9 +190,11 @@ function OfferCard({
 
 function PolaroidOfferCard({
   offer,
+  index,
   priceSuffix,
 }: {
   offer: NightMarketOffer;
+  index: string;
   priceSuffix: string;
 }) {
   return (
@@ -271,10 +270,23 @@ function PolaroidOfferCard({
           style={{
             marginTop: 8,
             flexDirection: 'row',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             alignItems: 'flex-end',
             gap: 10,
           }}>
+          <Text
+            style={{
+              color: 'rgb(18, 18, 18)',
+              opacity: 0.55,
+              fontSize: 26,
+              lineHeight: 30,
+              fontWeight: '700',
+              letterSpacing: 3.8,
+              fontFamily: 'Menlo',
+            }}>
+            #{index}
+          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
           <Text
             style={{
               color: 'rgb(18, 18, 18)',
@@ -296,6 +308,7 @@ function PolaroidOfferCard({
             }}>
             {offer.discountedPrice} {priceSuffix}
           </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -391,11 +404,21 @@ function NightMarketPoster({
         <View style={{ flex: 1, gap: 18 }}>
           {rows.map((row, rowIndex) => (
             <View key={rowIndex} style={{ flex: 1, flexDirection: 'row', gap: 18 }}>
-              {row.map((offer) =>
+              {row.map((offer, columnIndex) =>
                 offerCardStyle === 'polaroid' ? (
-                  <PolaroidOfferCard key={`${offer.name}-${rowIndex}`} offer={offer} priceSuffix={priceSuffix} />
+                  <PolaroidOfferCard
+                    key={`${offer.name}-${rowIndex}`}
+                    offer={offer}
+                    index={offer.index ?? String(rowIndex * 2 + columnIndex + 1).padStart(2, '0')}
+                    priceSuffix={priceSuffix}
+                  />
                 ) : (
-                  <OfferCard key={`${offer.name}-${rowIndex}`} offer={offer} priceSuffix={priceSuffix} />
+                  <OfferCard
+                    key={`${offer.name}-${rowIndex}`}
+                    offer={offer}
+                    index={offer.index ?? String(rowIndex * 2 + columnIndex + 1).padStart(2, '0')}
+                    priceSuffix={priceSuffix}
+                  />
                 )
               )}
             </View>

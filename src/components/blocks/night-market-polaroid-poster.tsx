@@ -118,10 +118,11 @@ function NightMarketPolaroidPoster({
         <View style={{ flex: 1, gap: 18 }}>
           {rows.map((row, rowIndex) => (
             <View key={rowIndex} style={{ flex: 1, flexDirection: 'row', gap: 18 }}>
-              {row.map((offer) => (
+              {row.map((offer, columnIndex) => (
                 <NightMarketPolaroidCard
                   key={`${offer.name}-${rowIndex}`}
                   offer={offer}
+                  index={offer.index ?? String(rowIndex * 2 + columnIndex + 1).padStart(2, '0')}
                   priceSuffix={priceSuffix}
                 />
               ))}

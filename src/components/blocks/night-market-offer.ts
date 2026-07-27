@@ -1,4 +1,6 @@
 type NightMarketOffer = {
+  /** Position badge shown in the card footer, e.g. `"01"`. Auto-generated from array order when omitted. */
+  index?: string;
   /** Tier text shown above the item name, e.g. `"PREMIUM"`. */
   tierLabel: string;
   /** Accent color used for the card and discount badge. */

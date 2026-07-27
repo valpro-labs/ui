@@ -9,6 +9,7 @@ import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
 
 type NightMarketPolaroidCardProps = {
   offer: NightMarketOffer;
+  index?: string;
   priceSuffix?: string;
 };
 
@@ -19,6 +20,7 @@ function withAlpha(color: string, alpha: number): string {
 /** A discounted Night Market offer in the cream polaroid treatment. */
 function NightMarketPolaroidCard({
   offer,
+  index = '01',
   priceSuffix = 'VP',
 }: NightMarketPolaroidCardProps) {
   return (
@@ -94,31 +96,45 @@ function NightMarketPolaroidCard({
           style={{
             marginTop: 8,
             flexDirection: 'row',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             alignItems: 'flex-end',
             gap: 10,
           }}>
           <Text
             style={{
               color: 'rgb(18, 18, 18)',
-              opacity: 0.45,
-              fontSize: 18,
-              lineHeight: 22,
+              opacity: 0.55,
+              fontSize: 34,
+              lineHeight: 38,
               fontWeight: '700',
-              textDecorationLine: 'line-through',
+              letterSpacing: 4.8,
+              fontFamily: 'Menlo',
             }}>
-            {offer.originalPrice}
+            #{index}
           </Text>
-          <Text
-            style={{
-              color: offer.tierColor,
-              fontSize: 44,
-              lineHeight: 48,
-              fontWeight: '900',
-              letterSpacing: -0.8,
-            }}>
-            {offer.discountedPrice} {priceSuffix}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
+            <Text
+              style={{
+                color: 'rgb(18, 18, 18)',
+                opacity: 0.45,
+                fontSize: 18,
+                lineHeight: 22,
+                fontWeight: '700',
+                textDecorationLine: 'line-through',
+              }}>
+              {offer.originalPrice}
+            </Text>
+            <Text
+              style={{
+                color: offer.tierColor,
+                fontSize: 44,
+                lineHeight: 48,
+                fontWeight: '900',
+                letterSpacing: -0.8,
+              }}>
+              {offer.discountedPrice} {priceSuffix}
+            </Text>
+          </View>
         </View>
       </View>
     </View>
