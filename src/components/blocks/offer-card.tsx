@@ -24,6 +24,12 @@ interface OfferCardProps {
   price?: number;
   /** Discount percentage (0-100). Renders the slanted discount badge when set. */
   discount?: number;
+  /** Badge pinned to the top-left of the image - typically the equipped checkmark. */
+  equippedBadge?: React.ReactNode;
+  /** Badge pinned to the top-right of the image - typically the favorite star. */
+  favoriteBadge?: React.ReactNode;
+  /** Replaces the price with a status badge, typically the lock state icon. */
+  lockedBadge?: React.ReactNode;
   /** Layout shape: `list` (wide 10:4) vs `grid` (16:9). */
   variant?: 'list' | 'grid';
   /** Visual density. Defaults to `compact` for grid and `regular` for list. */
@@ -51,8 +57,9 @@ function normalizeHex(input?: string): string | undefined {
  * wide list row and the narrower 2-up grid tile.
  *
  * Data-free: the consumer resolves the skin/tier/currency assets and
- * passes URLs + strings. Pair with an `imageOverlay` slot to layer owned
- * badges, sold-out states, etc. without forking the card.
+ * passes URLs + strings. Status badges can be supplied directly for the
+ * common equipped / favorite / locked states; use `imageOverlay` for other
+ * overlays such as an owned or sold-out state.
  */
 function OfferCard({
   name,
@@ -62,6 +69,9 @@ function OfferCard({
   currencyIconUrl,
   price,
   discount,
+  equippedBadge,
+  favoriteBadge,
+  lockedBadge,
   variant = 'list',
   size,
   imageWidthPercent,
@@ -75,6 +85,8 @@ function OfferCard({
   const isGrid = variant === 'grid';
   const resolvedSize = size ?? (isGrid ? 'compact' : 'regular');
   const isCompact = resolvedSize === 'compact';
+  const badgeInsetClassName = isCompact ? 'top-1.5 left-2' : 'top-2 left-3';
+  const favoriteBadgeInsetClassName = isCompact ? 'top-1.5 right-2' : 'top-2 right-3';
 
   if (isLoading) {
     return (
@@ -90,7 +102,7 @@ function OfferCard({
   const card = (
     <View
       className={cn(
-        'bg-card overflow-hidden rounded-xl',
+        'bg-card w-full overflow-hidden rounded-xl',
         isGrid ? 'aspect-video' : 'aspect-10/4',
         className
       )}>
@@ -134,6 +146,20 @@ function OfferCard({
         ) : null}
 
         {imageOverlay}
+
+        {equippedBadge ? (
+          <>
+            <View className={cn('absolute', badgeInsetClassName)}>{equippedBadge}</View>
+          </>
+        ) : null}
+
+        {favoriteBadge ? (
+          <>
+            <View className={cn('absolute', favoriteBadgeInsetClassName)}>
+              {favoriteBadge}
+            </View>
+          </>
+        ) : null}
       </View>
 
       <View
@@ -160,7 +186,9 @@ function OfferCard({
           </Text>
         </View>
 
-        {price !== undefined ? (
+        {lockedBadge ? (
+          <View className="items-center justify-center">{lockedBadge}</View>
+        ) : price !== undefined ? (
           <View className={cn('flex-row items-center', isCompact ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image

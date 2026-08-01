@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Check, Lock, Star } from 'phosphor-react';
 import { View } from 'react-native';
 
 import { OfferCard, type OfferCardProps } from '@/components/blocks/offer-card';
@@ -120,6 +121,17 @@ export const WithDiscount: Story = {
       </View>
     );
   },
+};
+
+export const StatusBadges: Story = {
+  render: () => (
+    <OfferCard
+      {...select}
+      equippedBadge={<Check size={20} weight="fill" color="#009970" />}
+      favoriteBadge={<Star size={18} weight="fill" color="#f0cb74" />}
+      lockedBadge={<Lock size={18} weight="fill" color="white" />}
+    />
+  ),
 };
 
 export const LoadingList: Story = {
