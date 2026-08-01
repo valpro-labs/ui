@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Check, Star } from 'phosphor-react';
+import { Check, Lock, Star } from 'phosphor-react';
 import { View } from 'react-native';
 
 import { OwnedItemCard } from '@/components/blocks/owned-item-card';
-import { Image } from '@/components/ui/image';
 import { getWeaponGridIconStyle } from '@/lib/weapon-grid-transform';
 
 const weaponIcon = (uuid: string) =>
@@ -31,8 +30,6 @@ const radianiteIcon =
   'https://media.valorant-api.com/currencies/e59aa87c-4cbf-517a-5983-6e81511be9b7/displayicon.png';
 const weaponSkinArt =
   'https://media.valorant-api.com/weaponskinlevels/9a03c64b-4e92-e5cf-2f4f-8db3f6f2e80f/displayicon.png';
-const premiumTierIcon =
-  'https://media.valorant-api.com/contenttiers/60bca009-4182-7998-dee7-b8a2558dc369/displayicon.png';
 
 function EquippedBadge() {
   return <Check size={20} weight="fill" color="#009970" />;
@@ -42,14 +39,8 @@ function FavoriteBadge() {
   return <Star size={18} weight="fill" color="#f0cb74" />;
 }
 
-function TierBadge() {
-  return (
-    <Image
-      source={premiumTierIcon}
-      style={{ width: 18, height: 18 }}
-      contentFit="contain"
-    />
-  );
+function LockedBadge() {
+  return <Lock size={18} weight="fill" color="white" />;
 }
 
 const meta: Meta<typeof OwnedItemCard> = {
@@ -116,7 +107,6 @@ export const Buddy: Story = {
   args: {
     iconUrl: buddyArt,
     itemVariant: 'buddy',
-    tierBadge: <TierBadge />,
     remainingCount: 3,
   },
 };
@@ -135,10 +125,12 @@ export const Radianite: Story = {
   },
 };
 
-export const WithTierBadge: Story = {
+export const Locked: Story = {
   args: {
     iconUrl: weaponSkinArt,
-    tierBadge: <TierBadge />,
+    badgeShadow: true,
+    lockedBadge: <LockedBadge />,
+    remainingCount: 3,
   },
 };
 
@@ -296,7 +288,6 @@ export const Grid: Story = {
         <OwnedItemCard
           iconUrl={buddyArt}
           itemVariant="buddy"
-          tierBadge={<TierBadge />}
           remainingCount={2}
           isLoading={isLoading}
         />
@@ -317,7 +308,7 @@ export const Grid: Story = {
         <OwnedItemCard iconUrl={radianiteIcon} itemVariant="currency" isLoading={isLoading} />
       </View>
       <View style={{ width: 114 }}>
-        <OwnedItemCard iconUrl={weaponSkinArt} tierBadge={<TierBadge />} isLoading={isLoading} />
+        <OwnedItemCard iconUrl={weaponSkinArt} isLoading={isLoading} />
       </View>
     </View>
   ),

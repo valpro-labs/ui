@@ -86,8 +86,8 @@ interface OwnedItemCardProps {
   isDepleted?: boolean;
   /** Badge pinned to the top-left - typically the equipped checkmark. */
   equippedBadge?: React.ReactNode;
-  /** Badge pinned to the bottom-left - typically the tier icon. */
-  tierBadge?: React.ReactNode;
+  /** Badge pinned to the bottom-left - typically the lock state icon. */
+  lockedBadge?: React.ReactNode;
   /** Badge pinned to the bottom-right - typically the favorite star. */
   favoriteBadge?: React.ReactNode;
   /** Remaining stack count rendered in the top-right (`X{count}`). Omit to hide. */
@@ -115,7 +115,7 @@ interface OwnedItemCardProps {
 /**
  * Square owned-inventory tile used in every customize picker - player
  * cards, titles, sprays, gun buddies, weapon skins. Shows the item's
- * icon, optional equipped + tier + favorite badges, a red selection
+ * icon, optional equipped + locked + favorite badges, a red selection
  * ring, and an optional `X{n}` remaining count.
  *
  * Data-free: the consumer resolves the icon URL + favorite / equipped
@@ -140,7 +140,7 @@ function OwnedItemCard({
   isSelected = false,
   isDepleted = false,
   equippedBadge,
-  tierBadge,
+  lockedBadge,
   favoriteBadge,
   remainingCount,
   isLoading = false,
@@ -230,9 +230,10 @@ function OwnedItemCard({
         </>
       ) : null}
 
-      {tierBadge ? (
+      {lockedBadge ? (
         <>
-          <View className="absolute bottom-1 left-1">{tierBadge}</View>
+          {badgeShadow ? <CornerGradient corner="bottom-left" /> : null}
+          <View className="absolute bottom-1 left-1">{lockedBadge}</View>
         </>
       ) : null}
 
