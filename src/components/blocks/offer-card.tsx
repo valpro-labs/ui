@@ -26,9 +26,9 @@ interface OfferCardProps {
   discount?: number;
   /** Badge pinned to the top-left of the image - typically the equipped checkmark. */
   equippedBadge?: React.ReactNode;
-  /** Badge pinned to the top-right of the image - typically the favorite star. */
+  /** Badge pinned to the bottom-right of the image - typically the favorite star. */
   favoriteBadge?: React.ReactNode;
-  /** Replaces the price with a status badge, typically the lock state icon. */
+  /** Badge pinned to the bottom-left of the image - typically the lock state icon. */
   lockedBadge?: React.ReactNode;
   /** Layout shape: `list` (wide 10:4) vs `grid` (16:9). */
   variant?: 'list' | 'grid';
@@ -86,7 +86,8 @@ function OfferCard({
   const resolvedSize = size ?? (isGrid ? 'compact' : 'regular');
   const isCompact = resolvedSize === 'compact';
   const badgeInsetClassName = isCompact ? 'top-1.5 left-2' : 'top-2 left-3';
-  const favoriteBadgeInsetClassName = isCompact ? 'top-1.5 right-2' : 'top-2 right-3';
+  const lockedBadgeInsetClassName = isCompact ? 'bottom-1.5 left-2' : 'bottom-2 left-3';
+  const favoriteBadgeInsetClassName = isCompact ? 'right-2 bottom-1.5' : 'right-3 bottom-2';
 
   if (isLoading) {
     return (
@@ -160,6 +161,10 @@ function OfferCard({
             </View>
           </>
         ) : null}
+
+        {lockedBadge ? (
+          <View className={cn('absolute', lockedBadgeInsetClassName)}>{lockedBadge}</View>
+        ) : null}
       </View>
 
       <View
@@ -186,9 +191,7 @@ function OfferCard({
           </Text>
         </View>
 
-        {lockedBadge ? (
-          <View className="items-center justify-center">{lockedBadge}</View>
-        ) : price !== undefined ? (
+        {price !== undefined ? (
           <View className={cn('flex-row items-center', isCompact ? 'gap-0.5' : 'gap-1')}>
             {currencyIconUrl ? (
               <Image
