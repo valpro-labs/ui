@@ -188,7 +188,7 @@ function RankCard({
       <View className="flex-row" style={{ minHeight: RANK_SUMMARY_MIN_HEIGHT }}>
         <View className="flex-1 flex-row items-stretch justify-center gap-x-6">
           <RankTierCard
-            className="w-36 self-stretch"
+            className="w-36 shrink-0 self-stretch"
             bodyClassName="flex-1 justify-center"
             seasonTitle={seasonTitle}
             tierIcon={tierIcon}
@@ -204,7 +204,7 @@ function RankCard({
             isLoading={isLoading}
           />
 
-          <View className="self-stretch items-center">
+          <View className="shrink-0 self-stretch items-center">
             <Text
               className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
               style={{ marginBottom: 10 }}>
