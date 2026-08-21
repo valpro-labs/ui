@@ -10,7 +10,10 @@ import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
 const RANK_PYRAMID_VISUAL_OFFSET_Y = -8;
-const RANK_SUMMARY_MIN_HEIGHT = 100;
+// The pyramid's border frame plus the ACT RANK label needs about 140px. Keep
+// this as a minimum so Fabric/Yoga cannot collapse the summary to the old
+// 100px fallback during a later measurement pass.
+const RANK_SUMMARY_MIN_HEIGHT = 140;
 const RANK_PROGRESS_RAIL_HEIGHT = 18;
 const CHEVRON_WIDTH = 14;
 const CHEVRON_RIGHT_OFFSET = 12;
@@ -189,7 +192,7 @@ function RankCard({
         <View className="flex-1 flex-row items-stretch justify-center gap-x-6">
           <RankTierCard
             className="w-36 shrink-0 self-stretch"
-            bodyClassName="flex-1 justify-center"
+            bodyClassName="grow shrink-0 justify-center"
             seasonTitle={seasonTitle}
             tierIcon={tierIcon}
             tierName={tierName}
