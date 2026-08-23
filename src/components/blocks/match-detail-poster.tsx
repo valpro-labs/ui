@@ -763,9 +763,6 @@ function MatchDetailPoster({
               justifyContent: 'flex-end',
               alignItems: 'center',
               marginTop: 20,
-              paddingTop: 18,
-              borderTopWidth: 1,
-              borderTopColor: 'rgba(255, 255, 255, 0.14)',
             }}>
             <BrandMark label={brandLabel} size={29} />
           </View>
