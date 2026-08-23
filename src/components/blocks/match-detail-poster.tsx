@@ -120,6 +120,7 @@ const WIN_ACCENT = 'rgb(34, 255, 197)';
 const LOSS_ACCENT = VALPRO_RED;
 const DRAW_ACCENT = 'rgb(240, 203, 116)';
 const CARD_BACKGROUND = 'rgba(21, 24, 26, 0.72)';
+const POSTER_CONTENT_DENSITY = 1.1;
 
 function withAlpha(color: string, alpha: number): string {
   if (color.startsWith('rgb(')) {
@@ -473,6 +474,10 @@ function MatchDetailPoster({
         };
       }) ?? [];
   const hasInsights = visibleInsights.length > 0;
+  const contentWidth = width / POSTER_CONTENT_DENSITY;
+  const contentHeight = height / POSTER_CONTENT_DENSITY;
+  const contentOffsetX = (width - contentWidth) / 2;
+  const contentOffsetY = (height - contentHeight) / 2;
 
   return (
     <View
@@ -524,12 +529,16 @@ function MatchDetailPoster({
       </View>
       <View
         style={{
-          flex: 1,
+          position: 'absolute',
+          top: contentOffsetY,
+          left: contentOffsetX,
+          width: contentWidth,
+          height: contentHeight,
+          transform: [{ scale: POSTER_CONTENT_DENSITY }],
           paddingTop: 58,
           paddingRight: 76,
           paddingBottom: 58,
           paddingLeft: 76,
-          position: 'relative',
         }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <View>
@@ -587,12 +596,10 @@ function MatchDetailPoster({
           style={{
             marginTop: 38,
             flexDirection: 'row',
-            justifyContent: 'center',
             alignItems: 'center',
           }}>
           <Text
             style={{
-              width: 230,
               flexShrink: 0,
               color: result === 'win' ? accentColor : TEXT_PRIMARY,
               fontSize: 190,
@@ -600,13 +607,12 @@ function MatchDetailPoster({
               fontWeight: '900',
               letterSpacing: -15,
               fontVariant: ['tabular-nums'],
-              textAlign: 'center',
+              textAlign: 'left',
             }}>
             {myTeamScore}
           </Text>
           <Text
             style={{
-              width: 54,
               flexShrink: 0,
               marginHorizontal: 12,
               color: TEXT_PRIMARY,
@@ -619,7 +625,6 @@ function MatchDetailPoster({
           </Text>
           <Text
             style={{
-              width: 230,
               flexShrink: 0,
               color: result === 'loss' ? accentColor : TEXT_PRIMARY,
               opacity: result === 'loss' ? 1 : 0.48,
@@ -628,7 +633,7 @@ function MatchDetailPoster({
               fontWeight: '900',
               letterSpacing: -15,
               fontVariant: ['tabular-nums'],
-              textAlign: 'center',
+              textAlign: 'left',
             }}>
             {enemyTeamScore}
           </Text>
