@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { Image } from '@/components/ui/image';
-import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
+import { BrandMark } from '@/components/blocks/brand-mark';
 import type { NightMarketOffer } from '@/components/blocks/night-market-offer';
 import { Text } from '@/components/ui/text';
 import { resolveWeaponCategoryWidth } from '@/lib/weapon-grid-transform';
@@ -448,7 +448,7 @@ function NightMarketPoster({
             {playerTag}
           </Text>
 
-          <NightMarketBrandMark label={brandLabel} />
+          <BrandMark label={brandLabel} />
         </View>
       </View>
     </View>

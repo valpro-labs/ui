@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
 
-import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
+import { BrandMark } from '@/components/blocks/brand-mark';
 
-const meta: Meta<typeof NightMarketBrandMark> = {
-  title: 'Blocks/NightMarketBrandMark',
-  component: NightMarketBrandMark,
+const meta: Meta<typeof BrandMark> = {
+  title: 'Blocks/BrandMark',
+  component: BrandMark,
   parameters: { layout: 'centered' },
   argTypes: {
     label: { control: 'text' },
@@ -18,16 +18,16 @@ const meta: Meta<typeof NightMarketBrandMark> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof NightMarketBrandMark>;
+type Story = StoryObj<typeof BrandMark>;
 
 export const Default: Story = {};
 
 export const Sizes: Story = {
   render: () => (
     <View style={{ gap: 24 }}>
-      <NightMarketBrandMark label="VALPRO" size={24} />
-      <NightMarketBrandMark label="VALPRO" size={36} />
-      <NightMarketBrandMark label="VALPRO" size={52} />
+      <BrandMark label="VALPRO" size={24} />
+      <BrandMark label="VALPRO" size={36} />
+      <BrandMark label="VALPRO" size={52} />
     </View>
   ),
 };

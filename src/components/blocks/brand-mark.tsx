@@ -4,12 +4,12 @@ import { View } from 'react-native';
 
 import { Text } from '@/components/ui/text';
 
-type NightMarketBrandMarkProps = {
+type BrandMarkProps = {
   label: string;
   size?: number;
 };
 
-function NightMarketBrandMark({ label, size = 27 }: NightMarketBrandMarkProps) {
+function BrandMark({ label, size = 27 }: BrandMarkProps) {
   const normalizedLabel = label.trim().toUpperCase();
   const accentLabel = normalizedLabel.slice(0, 3);
   const remainingLabel = normalizedLabel.slice(3);
@@ -44,5 +44,5 @@ function NightMarketBrandMark({ label, size = 27 }: NightMarketBrandMarkProps) {
   );
 }
 
-export { NightMarketBrandMark };
-export type { NightMarketBrandMarkProps };
+export { BrandMark };
+export type { BrandMarkProps };

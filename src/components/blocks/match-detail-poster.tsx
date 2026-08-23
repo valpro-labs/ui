@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
-import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
+import { BrandMark } from '@/components/blocks/brand-mark';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
@@ -767,7 +767,7 @@ function MatchDetailPoster({
               borderTopWidth: 1,
               borderTopColor: 'rgba(255, 255, 255, 0.14)',
             }}>
-            <NightMarketBrandMark label={brandLabel} size={29} />
+            <BrandMark label={brandLabel} size={29} />
           </View>
         </View>
       </View>

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { PolaroidCard, type ShopDiaryOffer } from '@/components/blocks/polaroid-card';
-import { NightMarketBrandMark } from '@/components/blocks/night-market-brand-mark';
+import { BrandMark } from '@/components/blocks/brand-mark';
 import { Text } from '@/components/ui/text';
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 
@@ -153,7 +153,7 @@ function ShopDiaryPoster({
         ) : (
           <View />
         )}
-        <NightMarketBrandMark label={brandLabel} />
+        <BrandMark label={brandLabel} />
       </View>
     </View>
   );
