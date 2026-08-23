@@ -82,11 +82,11 @@ const preview: Preview = {
   },
   // Force initial globals on every session. `defaultValue` / `defaultViewport`
   // only kick in when the user has no existing choice in localStorage, so
-  // once you ever pick a viewport those defaults stop applying — the iPhone
-  // preset would then only show after a manual refresh. `initialGlobals` wins.
+  // once you ever pick a viewport those defaults stop applying. `initialGlobals`
+  // keeps the component stories in the desktop canvas by default.
   initialGlobals: {
     theme: 'dark',
-    viewport: { value: 'iPhone15', isRotated: false },
+    viewport: { value: 'desktop', isRotated: false },
   },
   decorators: [
     (Story, context) => {
@@ -112,7 +112,7 @@ const preview: Preview = {
     },
     viewport: {
       viewports: customViewports,
-      defaultViewport: 'iPhone15',
+      defaultViewport: 'desktop',
     },
   },
 };

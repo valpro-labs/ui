@@ -93,6 +93,12 @@ export { MatchInfoRow } from '@/components/blocks/match-info-row';
 export type { MatchInfoRowProps } from '@/components/blocks/match-info-row';
 export { MatchDetailPoster } from '@/components/blocks/match-detail-poster';
 export type {
+  MatchDetailPosterBadge,
+  MatchDetailPosterBadgeTone,
+  MatchDetailPosterInsight,
+  MatchDetailPosterLabels,
+  MatchDetailPosterComparison,
+  MatchDetailPosterMoment,
   MatchDetailPosterProps,
   MatchDetailPosterMetric,
 } from '@/components/blocks/match-detail-poster';
