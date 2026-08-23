@@ -5,10 +5,13 @@ import { Uniwind } from 'uniwind';
 // Load Inter — the free SF-Pro-alike used by shadcn/Vercel/Figma.
 // Only loaded in Storybook; the real app uses whatever system font the
 // device provides.
+import '@fontsource/inter/300.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/900.css';
 
 import '../src/styles/global.css';
 

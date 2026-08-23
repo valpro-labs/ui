@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { toPng } from 'html-to-image';
+import { getFontEmbedCSS, toPng } from 'html-to-image';
 import { useRef, useState } from 'react';
 
 import {
@@ -26,9 +26,15 @@ function PosterWithDownload(args: MatchDetailPosterProps) {
     if (!posterRef.current) return;
     setBusy(true);
     try {
+      // Make the export use the same loaded font faces as the live poster.
+      // Without this, html-to-image can fall back while rendering its SVG
+      // foreignObject and change the width of large score text.
+      await document.fonts.ready;
+      const fontEmbedCSS = await getFontEmbedCSS(posterRef.current);
       const dataUrl = await toPng(posterRef.current, {
         cacheBust: true,
         pixelRatio: 1,
+        fontEmbedCSS,
       });
       const link = document.createElement('a');
       link.download = `match-detail-${args.mapName.toLowerCase()}-${args.outcomeLabel.toLowerCase()}.png`;

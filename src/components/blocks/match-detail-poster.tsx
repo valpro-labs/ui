@@ -248,9 +248,6 @@ function SummaryCard({
               borderLeftColor: 'rgba(255, 255, 255, 0.15)',
             }}>
             <Text
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.65}
               style={{
                 color: TEXT_PRIMARY,
                 fontSize: 42,
@@ -262,9 +259,6 @@ function SummaryCard({
               {stat.value}
             </Text>
             <Text
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.55}
               style={{
                 marginTop: 5,
                 color: TEXT_MUTED,
@@ -382,9 +376,6 @@ function MomentCard({
           }}
         />
         <Text
-          numberOfLines={1}
-          adjustsFontSizeToFit
-          minimumFontScale={0.6}
           style={{
             flex: 1,
             color: TEXT_MUTED,
@@ -397,9 +388,6 @@ function MomentCard({
         </Text>
       </View>
       <Text
-        numberOfLines={1}
-        adjustsFontSizeToFit
-        minimumFontScale={0.5}
         style={{
           marginTop: 13,
           color: TEXT_PRIMARY,
@@ -412,7 +400,6 @@ function MomentCard({
       </Text>
       {moment.description ? (
         <Text
-          numberOfLines={1}
           style={{
             marginTop: 6,
             color: TEXT_MUTED,
@@ -596,20 +583,31 @@ function MatchDetailPoster({
           </View>
         </View>
 
-        <View style={{ marginTop: 38, flexDirection: 'row', alignItems: 'center' }}>
+        <View
+          style={{
+            marginTop: 38,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Text
             style={{
+              width: 230,
+              flexShrink: 0,
               color: result === 'win' ? accentColor : TEXT_PRIMARY,
               fontSize: 190,
               lineHeight: 174,
               fontWeight: '900',
               letterSpacing: -15,
               fontVariant: ['tabular-nums'],
+              textAlign: 'center',
             }}>
             {myTeamScore}
           </Text>
           <Text
             style={{
+              width: 54,
+              flexShrink: 0,
               marginHorizontal: 12,
               color: TEXT_PRIMARY,
               opacity: 0.3,
@@ -621,6 +619,8 @@ function MatchDetailPoster({
           </Text>
           <Text
             style={{
+              width: 230,
+              flexShrink: 0,
               color: result === 'loss' ? accentColor : TEXT_PRIMARY,
               opacity: result === 'loss' ? 1 : 0.48,
               fontSize: 190,
@@ -628,6 +628,7 @@ function MatchDetailPoster({
               fontWeight: '900',
               letterSpacing: -15,
               fontVariant: ['tabular-nums'],
+              textAlign: 'center',
             }}>
             {enemyTeamScore}
           </Text>
@@ -760,6 +761,7 @@ function MatchDetailPoster({
           <View
             style={{
               flexDirection: 'row',
+              flexShrink: 0,
               justifyContent: 'flex-end',
               alignItems: 'center',
               marginTop: 20,
