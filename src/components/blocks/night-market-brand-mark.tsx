@@ -45,3 +45,4 @@ function NightMarketBrandMark({ label, size = 27 }: NightMarketBrandMarkProps) {
 }
 
 export { NightMarketBrandMark };
+export type { NightMarketBrandMarkProps };
