@@ -120,7 +120,6 @@ const WIN_ACCENT = 'rgb(34, 255, 197)';
 const LOSS_ACCENT = VALPRO_RED;
 const DRAW_ACCENT = 'rgb(240, 203, 116)';
 const CARD_BACKGROUND = 'rgba(21, 24, 26, 0.72)';
-const POSTER_CONTENT_DENSITY = 1.1;
 
 function withAlpha(color: string, alpha: number): string {
   if (color.startsWith('rgb(')) {
@@ -174,7 +173,7 @@ function ComparisonBar({
     <View
       style={{
         flex: 1,
-        height: 20,
+        height: 22,
         position: 'relative',
         overflow: 'hidden',
         borderRadius: 999,
@@ -211,12 +210,12 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <Text
       style={{
-        marginBottom: 14,
+        marginBottom: 15,
         color: TEXT_MUTED,
-        fontSize: 20,
-        lineHeight: 24,
+        fontSize: 22,
+        lineHeight: 26,
         fontWeight: '800',
-        letterSpacing: 4.4,
+        letterSpacing: 4.8,
       }}>
       {children}
     </Text>
@@ -231,13 +230,13 @@ function SummaryCard({
   return (
     <View
       style={{
-        borderRadius: 28,
+        borderRadius: 31,
         overflow: 'hidden',
         backgroundColor: CARD_BACKGROUND,
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.16)',
       }}>
-      <View style={{ flexDirection: 'row', paddingVertical: 24, paddingHorizontal: 16 }}>
+      <View style={{ flexDirection: 'row', paddingVertical: 26, paddingHorizontal: 18 }}>
         {stats.map((stat, index) => (
           <View
             key={`${stat.label}-${index}`}
@@ -251,22 +250,22 @@ function SummaryCard({
             <Text
               style={{
                 color: TEXT_PRIMARY,
-                fontSize: 42,
-                lineHeight: 46,
+                fontSize: 46,
+                lineHeight: 51,
                 fontWeight: '800',
-                letterSpacing: -1.4,
+                letterSpacing: -1.5,
                 fontVariant: ['tabular-nums'],
               }}>
               {stat.value}
             </Text>
             <Text
               style={{
-                marginTop: 5,
+                marginTop: 6,
                 color: TEXT_MUTED,
-                fontSize: 15,
-                lineHeight: 18,
+                fontSize: 17,
+                lineHeight: 20,
                 fontWeight: '600',
-                letterSpacing: 2.2,
+                letterSpacing: 2.4,
               }}>
               {stat.label}
             </Text>
@@ -285,9 +284,9 @@ function ComparisonCard({
   return (
     <View
       style={{
-        paddingVertical: 24,
-        paddingHorizontal: 26,
-        borderRadius: 28,
+        paddingVertical: 26,
+        paddingHorizontal: 29,
+        borderRadius: 31,
         backgroundColor: 'rgba(21, 24, 26, 0.66)',
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.15)',
@@ -298,32 +297,32 @@ function ComparisonCard({
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            minHeight: 54,
-            marginBottom: index === comparisons.length - 1 ? 0 : 8,
+            minHeight: 59,
+            marginBottom: index === comparisons.length - 1 ? 0 : 9,
           }}>
           <Text
             style={{
-              width: 82,
+              width: 90,
               color: TEXT_MUTED,
-              fontSize: 18,
-              lineHeight: 22,
+              fontSize: 20,
+              lineHeight: 24,
               fontWeight: '600',
-              letterSpacing: 1.2,
+              letterSpacing: 1.3,
             }}>
             {comparison.label}
           </Text>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 13 }}>
             <ComparisonBar
               playerPercent={comparison.playerPercent}
               benchmarkPercent={comparison.benchmarkPercent}
             />
             <Text
               style={{
-                width: 70,
+                width: 77,
                 color: TEXT_PRIMARY,
                 textAlign: 'right',
-                fontSize: 22,
-                lineHeight: 26,
+                fontSize: 24,
+                lineHeight: 29,
                 fontWeight: '800',
                 fontVariant: ['tabular-nums'],
               }}>
@@ -331,11 +330,11 @@ function ComparisonCard({
             </Text>
             <Text
               style={{
-                width: 68,
+                width: 75,
                 color: getDeltaColor(comparison.delta),
                 textAlign: 'right',
-                fontSize: 19,
-                lineHeight: 23,
+                fontSize: 21,
+                lineHeight: 25,
                 fontWeight: '600',
                 fontVariant: ['tabular-nums'],
               }}>
@@ -359,18 +358,18 @@ function MomentCard({
     <View
       style={{
         flex: 1,
-        minHeight: 142,
-        padding: 20,
-        borderRadius: 24,
+        minHeight: 156,
+        padding: 22,
+        borderRadius: 26,
         backgroundColor: 'rgba(21, 24, 26, 0.7)',
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.15)',
       }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 13 }}>
         <View
           style={{
-            width: 5,
-            height: 24,
+            width: 6,
+            height: 26,
             borderRadius: 3,
             backgroundColor: accentColor,
             opacity: 0.82,
@@ -380,20 +379,20 @@ function MomentCard({
           style={{
             flex: 1,
             color: TEXT_MUTED,
-            fontSize: 18,
-            lineHeight: 22,
+            fontSize: 20,
+            lineHeight: 24,
             fontWeight: '600',
-            letterSpacing: 1.5,
+            letterSpacing: 1.7,
           }}>
           {moment.label}
         </Text>
       </View>
       <Text
         style={{
-          marginTop: 13,
+          marginTop: 14,
           color: TEXT_PRIMARY,
-          fontSize: 34,
-          lineHeight: 38,
+          fontSize: 37,
+          lineHeight: 42,
           fontWeight: '800',
           fontVariant: ['tabular-nums'],
         }}>
@@ -402,10 +401,10 @@ function MomentCard({
       {moment.description ? (
         <Text
           style={{
-            marginTop: 6,
+            marginTop: 7,
             color: TEXT_MUTED,
-            fontSize: 16,
-            lineHeight: 20,
+            fontSize: 18,
+            lineHeight: 22,
             fontWeight: '600',
           }}>
           {moment.description}
@@ -474,11 +473,6 @@ function MatchDetailPoster({
         };
       }) ?? [];
   const hasInsights = visibleInsights.length > 0;
-  const contentWidth = width / POSTER_CONTENT_DENSITY;
-  const contentHeight = height / POSTER_CONTENT_DENSITY;
-  const contentOffsetX = (width - contentWidth) / 2;
-  const contentOffsetY = (height - contentHeight) / 2;
-
   return (
     <View
       style={{
@@ -530,36 +524,35 @@ function MatchDetailPoster({
       <View
         style={{
           position: 'absolute',
-          top: contentOffsetY,
-          left: contentOffsetX,
-          width: contentWidth,
-          height: contentHeight,
-          transform: [{ scale: POSTER_CONTENT_DENSITY }],
-          paddingTop: 58,
-          paddingRight: 76,
-          paddingBottom: 58,
-          paddingLeft: 76,
+          top: 0,
+          left: 0,
+          width,
+          height,
+          paddingTop: 64,
+          paddingRight: 84,
+          paddingBottom: 64,
+          paddingLeft: 84,
         }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <View>
             <Text
               style={{
                 color: TEXT_PRIMARY,
-                fontSize: 28,
-                lineHeight: 32,
+                fontSize: 31,
+                lineHeight: 35,
                 fontWeight: '800',
-                letterSpacing: 1.2,
+                letterSpacing: 1.3,
               }}>
               {mapName}
             </Text>
             <Text
               style={{
-                marginTop: 18,
+                marginTop: 20,
                 color: accentColor,
-                fontSize: 30,
-                lineHeight: 34,
+                fontSize: 33,
+                lineHeight: 37,
                 fontWeight: '900',
-                letterSpacing: 3.4,
+                letterSpacing: 3.7,
               }}>
               {outcomeLabel}
             </Text>
@@ -569,10 +562,10 @@ function MatchDetailPoster({
               <Text
                 style={{
                   color: TEXT_PRIMARY,
-                  fontSize: 28,
-                  lineHeight: 32,
+                  fontSize: 31,
+                  lineHeight: 35,
                   fontWeight: '900',
-                  letterSpacing: 1.5,
+                  letterSpacing: 1.7,
                 }}>
                 {rankLabel}
               </Text>
@@ -580,10 +573,10 @@ function MatchDetailPoster({
             {dateLabel ? (
               <Text
                 style={{
-                  marginTop: 14,
+                  marginTop: 15,
                   color: TEXT_MUTED,
-                  fontSize: 22,
-                  lineHeight: 26,
+                  fontSize: 24,
+                  lineHeight: 29,
                   fontWeight: '700',
                 }}>
                 {dateLabel}
@@ -594,7 +587,7 @@ function MatchDetailPoster({
 
         <View
           style={{
-            marginTop: 38,
+            marginTop: 42,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
@@ -602,10 +595,10 @@ function MatchDetailPoster({
             style={{
               flexShrink: 0,
               color: result === 'win' ? accentColor : TEXT_PRIMARY,
-              fontSize: 190,
-              lineHeight: 174,
+              fontSize: 209,
+              lineHeight: 191,
               fontWeight: '900',
-              letterSpacing: -15,
+              letterSpacing: -16.5,
               fontVariant: ['tabular-nums'],
               textAlign: 'left',
             }}>
@@ -614,11 +607,11 @@ function MatchDetailPoster({
           <Text
             style={{
               flexShrink: 0,
-              marginHorizontal: 12,
+              marginHorizontal: 13,
               color: TEXT_PRIMARY,
               opacity: 0.3,
-              fontSize: 92,
-              lineHeight: 174,
+              fontSize: 101,
+              lineHeight: 191,
               fontWeight: '300',
             }}>
             -
@@ -628,10 +621,10 @@ function MatchDetailPoster({
               flexShrink: 0,
               color: result === 'loss' ? accentColor : TEXT_PRIMARY,
               opacity: result === 'loss' ? 1 : 0.48,
-              fontSize: 190,
-              lineHeight: 174,
+              fontSize: 209,
+              lineHeight: 191,
               fontWeight: '900',
-              letterSpacing: -15,
+              letterSpacing: -16.5,
               fontVariant: ['tabular-nums'],
               textAlign: 'left',
             }}>
@@ -641,12 +634,12 @@ function MatchDetailPoster({
         <Text
           style={{
             marginTop: 2,
-            marginBottom: 26,
+            marginBottom: 29,
             color: TEXT_MUTED,
-            fontSize: 18,
-            lineHeight: 22,
+            fontSize: 20,
+            lineHeight: 24,
             fontWeight: '800',
-            letterSpacing: 3.7,
+            letterSpacing: 4.1,
           }}>
           {mapName.toUpperCase()} {'·'} {modeLabel.toUpperCase()} {'·'} {durationLabel}
         </Text>
@@ -655,10 +648,10 @@ function MatchDetailPoster({
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            paddingVertical: 16,
-            paddingHorizontal: 20,
-            marginBottom: 24,
-            borderRadius: 22,
+            paddingVertical: 18,
+            paddingHorizontal: 22,
+            marginBottom: 26,
+            borderRadius: 24,
             backgroundColor: 'rgba(12, 16, 18, 0.64)',
             borderWidth: 1,
             borderColor: 'rgba(255, 255, 255, 0.14)',
@@ -666,28 +659,28 @@ function MatchDetailPoster({
           <Image
             source={agentIconUrl}
             accessibilityLabel={agentName}
-            style={{ width: 82, height: 82, borderRadius: 18, backgroundColor: withAlpha(accentColor, 0.2) }}
+            style={{ width: 90, height: 90, borderRadius: 20, backgroundColor: withAlpha(accentColor, 0.2) }}
             contentFit="cover"
           />
-          <View style={{ flex: 1, marginLeft: 16 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8 }}>
-              <Text style={{ color: TEXT_PRIMARY, fontSize: 34, lineHeight: 38, fontWeight: '900' }}>
+          <View style={{ flex: 1, marginLeft: 18 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 9 }}>
+              <Text style={{ color: TEXT_PRIMARY, fontSize: 37, lineHeight: 42, fontWeight: '900' }}>
                 {playerTag.split('#')[0]}
               </Text>
               {playerTag.includes('#') ? (
-                <Text style={{ color: TEXT_MUTED, fontSize: 22, lineHeight: 26, fontWeight: '600' }}>
+                <Text style={{ color: TEXT_MUTED, fontSize: 24, lineHeight: 29, fontWeight: '600' }}>
                   #{playerTag.split('#').slice(1).join('#')}
                 </Text>
               ) : null}
             </View>
             <Text
               style={{
-                marginTop: 5,
+                marginTop: 6,
                 color: TEXT_MUTED,
-                fontSize: 21,
-                lineHeight: 25,
+                fontSize: 23,
+                lineHeight: 28,
                 fontWeight: '700',
-                letterSpacing: 1,
+                letterSpacing: 1.1,
               }}>
               {agentName}
             </Text>
@@ -695,8 +688,8 @@ function MatchDetailPoster({
           <Text
             style={{
               color: TEXT_PRIMARY,
-              fontSize: 58,
-              lineHeight: 62,
+              fontSize: 64,
+              lineHeight: 68,
               fontWeight: '800',
               fontVariant: ['tabular-nums'],
             }}>
@@ -706,24 +699,24 @@ function MatchDetailPoster({
 
         <SummaryCard stats={summaryStats} />
 
-        <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 24 }}>
+        <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 26 }}>
           {hasComparisons ? (
-            <View style={{ marginBottom: 24 }}>
+            <View style={{ marginBottom: 26 }}>
               <SectionLabel>{labels?.vsLobby ?? 'VS. LOBBY'}</SectionLabel>
               <ComparisonCard comparisons={comparisons!} />
             </View>
           ) : null}
 
           {visibleMoments.length > 0 ? (
-            <View style={{ marginBottom: hasInsights ? 24 : 0 }}>
+            <View style={{ marginBottom: hasInsights ? 26 : 0 }}>
               <SectionLabel>{labels?.matchMoments ?? 'MATCH MOMENTS'}</SectionLabel>
-              <View style={{ flexDirection: 'row', gap: 12 }}>
+              <View style={{ flexDirection: 'row', gap: 13 }}>
                 {visibleMoments.slice(0, 2).map((moment, index) => (
                   <MomentCard key={`${moment.label}-${index}`} moment={moment} accentColor={accentColor} />
                 ))}
               </View>
               {visibleMoments.length > 2 ? (
-                <View style={{ flexDirection: 'row', gap: 12, marginTop: 12 }}>
+                <View style={{ flexDirection: 'row', gap: 13, marginTop: 13 }}>
                   {visibleMoments.slice(2, 4).map((moment, index) => (
                     <MomentCard key={`${moment.label}-${index + 2}`} moment={moment} accentColor={accentColor} />
                   ))}
@@ -733,15 +726,15 @@ function MatchDetailPoster({
           ) : null}
 
           {hasInsights ? (
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 13 }}>
               {visibleInsights.map((insight, index) => {
                 const insightColor = insight.color ?? getBadgeColor(insight.tone, accentColor);
                 return (
                   <View
                     key={`${insight.text}-${index}`}
                     style={{
-                      paddingVertical: 11,
-                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      paddingHorizontal: 18,
                       borderRadius: 999,
                       backgroundColor: withAlpha(insightColor, 0.16),
                       borderWidth: 1,
@@ -750,10 +743,10 @@ function MatchDetailPoster({
                     <Text
                       style={{
                         color: insightColor,
-                        fontSize: 17,
-                        lineHeight: 21,
+                        fontSize: 19,
+                        lineHeight: 23,
                         fontWeight: '800',
-                        letterSpacing: 1.2,
+                        letterSpacing: 1.3,
                       }}>
                       {insight.text}
                     </Text>
@@ -769,9 +762,9 @@ function MatchDetailPoster({
               flexShrink: 0,
               justifyContent: 'flex-end',
               alignItems: 'center',
-              marginTop: 20,
+              marginTop: 22,
             }}>
-            <BrandMark label={brandLabel} size={29} />
+            <BrandMark label={brandLabel} size={32} />
           </View>
         </View>
       </View>
