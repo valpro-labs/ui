@@ -21,6 +21,8 @@ const bindSplash =
 function PosterWithDownload(args: MatchDetailPosterProps) {
   const posterRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const posterWidth = args.width ?? 1080;
+  const posterHeight = args.height ?? 1920;
 
   async function handleDownload() {
     if (!posterRef.current) return;
@@ -67,7 +69,13 @@ function PosterWithDownload(args: MatchDetailPosterProps) {
         }}>
         {busy ? 'Generating...' : 'Download PNG'}
       </button>
-      <div ref={posterRef}>
+      <div
+        ref={posterRef}
+        style={{
+          width: posterWidth,
+          height: posterHeight,
+          overflow: 'visible',
+        }}>
         <MatchDetailPoster {...args} />
       </div>
     </div>
