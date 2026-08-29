@@ -74,6 +74,8 @@ type MatchDetailPosterProps = {
   durationLabel: string;
   /** Optional date shown in the top-right metadata block. */
   dateLabel?: string;
+  /** Optional competitive tier colour applied to the rank label. */
+  rankColor?: string;
   /** Optional rank / queue label shown above the date. */
   rankLabel?: string;
   /** Optional map splash art rendered behind the poster content. */
@@ -430,6 +432,7 @@ function MatchDetailPoster({
   modeLabel,
   durationLabel,
   dateLabel,
+  rankColor,
   rankLabel,
   mapBackgroundUrl,
   agentIconUrl,
@@ -561,7 +564,7 @@ function MatchDetailPoster({
             {rankLabel ? (
               <Text
                 style={{
-                  color: TEXT_PRIMARY,
+                  color: rankColor ?? TEXT_PRIMARY,
                   fontSize: 31,
                   lineHeight: 35,
                   fontWeight: '900',

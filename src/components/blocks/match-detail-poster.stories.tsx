@@ -17,6 +17,8 @@ const havenSplash =
   'https://media.valorant-api.com/maps/2bee0dc9-4ffe-519b-1cbd-7fbe763a6047/splash.png';
 const bindSplash =
   'https://media.valorant-api.com/maps/2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba/splash.png';
+const ascendantRankColor = 'rgb(106, 226, 175)';
+const unrankedRankColor = 'rgb(237, 233, 226)';
 
 function PosterWithDownload(args: MatchDetailPosterProps) {
   const posterRef = useRef<HTMLDivElement>(null);
@@ -96,6 +98,7 @@ const meta: Meta<typeof MatchDetailPoster> = {
     modeLabel: 'Competitive',
     durationLabel: '42:17',
     dateLabel: 'August 21, 2026',
+    rankColor: ascendantRankColor,
     rankLabel: 'ASCENDANT 1',
     mapBackgroundUrl: havenSplash,
     agentPortraitUrl: jettPortrait,
@@ -156,6 +159,7 @@ export const Defeat: Story = {
     mapName: 'Bind',
     durationLabel: '37:06',
     dateLabel: 'August 21, 2026',
+    rankColor: unrankedRankColor,
     rankLabel: 'UNRATED',
     mapBackgroundUrl: bindSplash,
     agentIconUrl: reynaIcon,
@@ -210,6 +214,7 @@ export const Draw: Story = {
     modeLabel: 'Unrated',
     durationLabel: '44:08',
     dateLabel: 'August 22, 2026',
+    rankColor: unrankedRankColor,
     rankLabel: 'UNRATED',
     mapBackgroundUrl: havenSplash,
     playerTag: 'N0CT#TW1',
@@ -262,6 +267,7 @@ export const Chinese: Story = {
     modeLabel: '競技模式',
     durationLabel: '42:17',
     dateLabel: '2026年8月21日',
+    rankColor: ascendantRankColor,
     rankLabel: '超凡 1',
     mapBackgroundUrl: havenSplash,
     agentIconUrl: jettIcon,
