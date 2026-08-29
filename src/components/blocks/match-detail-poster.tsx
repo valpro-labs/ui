@@ -592,14 +592,18 @@ function MatchDetailPoster({
           style={{
             marginTop: 42,
             flexDirection: 'row',
+            justifyContent: 'flex-start',
             alignItems: 'center',
           }}>
           <Text
+            allowFontScaling={false}
+            numberOfLines={1}
             style={{
+              width: 280,
               flexShrink: 0,
               color: result === 'win' ? accentColor : TEXT_PRIMARY,
               fontSize: 209,
-              lineHeight: 191,
+              lineHeight: 230,
               fontWeight: '900',
               letterSpacing: -16.5,
               fontVariant: ['tabular-nums'],
@@ -608,24 +612,30 @@ function MatchDetailPoster({
             {myTeamScore}
           </Text>
           <Text
+            allowFontScaling={false}
+            numberOfLines={1}
             style={{
+              width: 54,
               flexShrink: 0,
               marginHorizontal: 13,
               color: TEXT_PRIMARY,
               opacity: 0.3,
               fontSize: 101,
-              lineHeight: 191,
+              lineHeight: 230,
               fontWeight: '300',
             }}>
             -
           </Text>
           <Text
+            allowFontScaling={false}
+            numberOfLines={1}
             style={{
+              width: 280,
               flexShrink: 0,
               color: result === 'loss' ? accentColor : TEXT_PRIMARY,
               opacity: result === 'loss' ? 1 : 0.48,
               fontSize: 209,
-              lineHeight: 191,
+              lineHeight: 230,
               fontWeight: '900',
               letterSpacing: -16.5,
               fontVariant: ['tabular-nums'],
