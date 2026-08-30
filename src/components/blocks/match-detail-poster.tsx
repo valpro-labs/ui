@@ -15,6 +15,7 @@ type MatchDetailPosterMetric = {
 
 type MatchDetailPosterComparison = {
   label: string;
+  /** Raw player value retained for callers; the poster shows it in the summary card. */
   value: string | number;
   delta: string;
   /** Filled portion of the comparison bar, from 0 to 100. */
@@ -68,9 +69,10 @@ type MatchDetailPosterProps = {
   myTeamScore: number;
   /** Right score in the hero row. */
   enemyTeamScore: number;
-  /** Map / mode / duration line under the score. */
+  /** Map and mode shown in the left side of the poster header. */
   mapName: string;
   modeLabel: string;
+  /** Match duration shown with the date in the right side of the poster header. */
   durationLabel: string;
   /** Optional date shown in the top-right metadata block. */
   dateLabel?: string;
@@ -320,19 +322,7 @@ function ComparisonCard({
             />
             <Text
               style={{
-                width: 77,
-                color: TEXT_PRIMARY,
-                textAlign: 'right',
-                fontSize: 24,
-                lineHeight: 29,
-                fontWeight: '800',
-                fontVariant: ['tabular-nums'],
-              }}>
-              {comparison.value}
-            </Text>
-            <Text
-              style={{
-                width: 75,
+                width: 84,
                 color: getDeltaColor(comparison.delta),
                 textAlign: 'right',
                 fontSize: 21,
@@ -420,7 +410,8 @@ function MomentCard({
  * Match-detail share poster inspired by a post-match performance recap.
  * It keeps the original MatchDetailPoster data contract while adding the
  * compact scoreboard hierarchy: summary stats, lobby benchmark bars, moments,
- * and derived performance insights.
+ * and derived performance insights. Summary values are intentionally shown
+ * only once; the lobby panel focuses on relative position and delta.
  */
 function MatchDetailPoster({
   brandLabel = 'VALPRO',
@@ -453,11 +444,9 @@ function MatchDetailPoster({
   height = 1920,
 }: MatchDetailPosterProps) {
   const accentColor = result === 'win' ? WIN_ACCENT : result === 'loss' ? LOSS_ACCENT : DRAW_ACCENT;
-  const kdRatio = deaths > 0 ? (kills / deaths).toFixed(2) : '∞';
-  const summaryStats: MatchDetailPosterMetric[] = [
-    { label: 'K/D', value: kdRatio },
-    ...primaryMetrics.filter((metric) => ['ACS', 'ADR', 'HS%', 'KAST'].includes(metric.label.toUpperCase())),
-  ].slice(0, 5);
+  const summaryStats = primaryMetrics
+    .filter((metric) => ['ACS', 'ADR', 'HS%', 'KAST'].includes(metric.label.toUpperCase()))
+    .slice(0, 4);
   const fallbackMoments: MatchDetailPosterMoment[] = secondaryMetrics
     .slice(0, 4)
     .map((metric) => ({
@@ -540,17 +529,6 @@ function MatchDetailPoster({
           <View>
             <Text
               style={{
-                color: TEXT_PRIMARY,
-                fontSize: 31,
-                lineHeight: 35,
-                fontWeight: '800',
-                letterSpacing: 1.3,
-              }}>
-              {mapName}
-            </Text>
-            <Text
-              style={{
-                marginTop: 20,
                 color: accentColor,
                 fontSize: 33,
                 lineHeight: 37,
@@ -558,6 +536,17 @@ function MatchDetailPoster({
                 letterSpacing: 3.7,
               }}>
               {outcomeLabel}
+            </Text>
+            <Text
+              style={{
+                marginTop: 14,
+                color: TEXT_MUTED,
+                fontSize: 20,
+                lineHeight: 24,
+                fontWeight: '800',
+                letterSpacing: 4.1,
+              }}>
+              {mapName.toUpperCase()} {'·'} {modeLabel.toUpperCase()}
             </Text>
           </View>
           <View style={{ alignItems: 'flex-end' }}>
@@ -573,16 +562,16 @@ function MatchDetailPoster({
                 {rankLabel}
               </Text>
             ) : null}
-            {dateLabel ? (
+            {dateLabel || durationLabel ? (
               <Text
                 style={{
-                  marginTop: 15,
+                  marginTop: 14,
                   color: TEXT_MUTED,
                   fontSize: 24,
                   lineHeight: 29,
                   fontWeight: '700',
                 }}>
-                {dateLabel}
+                {dateLabel ? `${dateLabel} · ${durationLabel}` : durationLabel}
               </Text>
             ) : null}
           </View>
@@ -644,19 +633,6 @@ function MatchDetailPoster({
             {enemyTeamScore}
           </Text>
         </View>
-        <Text
-          style={{
-            marginTop: 2,
-            marginBottom: 29,
-            color: TEXT_MUTED,
-            fontSize: 20,
-            lineHeight: 24,
-            fontWeight: '800',
-            letterSpacing: 4.1,
-          }}>
-          {mapName.toUpperCase()} {'·'} {modeLabel.toUpperCase()} {'·'} {durationLabel}
-        </Text>
-
         <View
           style={{
             flexDirection: 'row',
@@ -712,7 +688,7 @@ function MatchDetailPoster({
 
         <SummaryCard stats={summaryStats} />
 
-        <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 26 }}>
+        <View style={{ flex: 1, justifyContent: 'flex-start', marginTop: 26 }}>
           {hasComparisons ? (
             <View style={{ marginBottom: 26 }}>
               <SectionLabel>{labels?.vsLobby ?? 'VS. LOBBY'}</SectionLabel>
