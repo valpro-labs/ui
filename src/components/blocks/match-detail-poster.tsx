@@ -520,7 +520,7 @@ function MatchDetailPoster({
           left: 0,
           width,
           height,
-          paddingTop: 64,
+          paddingTop: 122,
           paddingRight: 84,
           paddingBottom: 64,
           paddingLeft: 84,
