@@ -102,6 +102,8 @@ const WEAPON_GRID_OVERRIDES: Record<string, Partial<WeaponGridTransform>> = {
   'ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a': { scale: 3.0, offsetX: -8, offsetY: -2, rotate: 35 },
   // Vandal
   '9c82e19d-4575-0200-1a81-3eacf00cf872': { scale: 3.0, offsetX: -6, offsetY: 4, rotate: 35 },
+  // Warden
+  '8db0a1bf-4a50-832a-4566-faaaa6d250ca': { scale: 3.0, offsetX: -8, offsetY: -2, rotate: 35 },
 
   // ── Melee ──
 
