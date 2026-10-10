@@ -65,13 +65,25 @@ function BundleCard({
   const isCompact = resolvedSize === 'compact';
 
   if (isLoading) {
-    return <Skeleton className={cn('aspect-video w-full rounded-xl', className)} />;
+    return (
+      <View className={cn('w-full overflow-hidden rounded-xl bg-card', className)}>
+        <Skeleton className="aspect-video w-full" />
+        <View
+          className={cn(
+            'flex-row items-center justify-between',
+            isCompact ? 'gap-1.5 px-2 py-1.5' : 'gap-3 px-3 py-2'
+          )}>
+          <Skeleton className={cn('h-5', isCompact ? 'w-1/2' : 'w-2/3')} />
+          <Skeleton className={cn('h-5', isCompact ? 'w-12' : 'w-16')} />
+        </View>
+      </View>
+    );
   }
 
   const card = (
-    <View className={cn('bg-card aspect-video overflow-hidden rounded-xl', className)}>
+    <View className={cn('bg-card w-full overflow-hidden rounded-xl', className)}>
       {/* Image */}
-      <View className="bg-val-blue relative flex-1 items-center justify-center overflow-hidden">
+      <View className="bg-val-blue relative aspect-video w-full items-center justify-center overflow-hidden">
         {iconUrl ? (
           <Image source={iconUrl} style={{ width: '100%', height: '100%' }} />
         ) : null}

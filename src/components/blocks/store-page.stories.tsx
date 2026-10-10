@@ -210,8 +210,8 @@ const dailyOffers = [
 ] satisfies ReadonlyArray<DailyOffer>;
 
 // ── Bundles ─────────────────────────────────────────────────────────────────
-const rgxBundleArt =
-  'https://media.valorant-api.com/bundles/35815cab-429d-79e4-43f5-e0af8fdac22b/displayicon.png';
+const champions2026BundleArt =
+  'https://media.valorant-api.com/bundles/82a19267-4739-d2d0-2a6a-5db2e69e3d89/displayicon.png';
 
 // ── Accessories ─────────────────────────────────────────────────────────────
 const sprayIcon =
@@ -396,11 +396,8 @@ export const Default: Story = {
             <GridWrapper grid={isGrid}>
               <GridItem grid={isGrid}>
                 <BundleCard
-                  name="RGX 11z Pro"
-                  iconUrl={rgxBundleArt}
-                  currencyIconUrl={valorantPoints}
-                  price={8700}
-                  countdownText="2d 14h"
+                  name="Champions 2026"
+                  iconUrl={champions2026BundleArt}
                   variant={cardVariant}
                   size={cardSize}
                   imageOverlay={isLoading ? undefined : <BoughtOverlay />}

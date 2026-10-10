@@ -5,8 +5,8 @@ import { BundleCard, type BundleCardProps } from '@/components/blocks/bundle-car
 import { Text } from '@/components/ui/text';
 
 // ── Real Valorant bundle art from the public valorant-api.com CDN ────────
-const rgx =
-  'https://media.valorant-api.com/bundles/35815cab-429d-79e4-43f5-e0af8fdac22b/displayicon.png';
+const champions2026 =
+  'https://media.valorant-api.com/bundles/82a19267-4739-d2d0-2a6a-5db2e69e3d89/displayicon.png';
 const altitude =
   'https://media.valorant-api.com/bundles/a4937ee9-4148-8ff2-2c11-c28891880306/displayicon.png';
 const xenohunter =
@@ -17,12 +17,9 @@ const rgxAlt =
 const currencyIcon =
   'https://media.valorant-api.com/currencies/85ad13f7-3d1b-5128-9eb2-7cd8ee0b5741/displayicon.png';
 
-const rgxBundle: BundleCardProps = {
-  name: 'RGX 11z Pro',
-  iconUrl: rgx,
-  currencyIconUrl: currencyIcon,
-  price: 8700,
-  countdownText: '2d 14h',
+const champions2026Bundle: BundleCardProps = {
+  name: 'Champions 2026',
+  iconUrl: champions2026,
 };
 
 const altitudeBundle: BundleCardProps = {
@@ -78,14 +75,14 @@ export const Showcase: Story = {
   render: ({ isLoading }) => (
     <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
       <View style={{ flex: 1, gap: 8 }}>
-        <BundleCard {...rgxBundle} isLoading={isLoading} />
+        <BundleCard {...champions2026Bundle} isLoading={isLoading} />
         <BundleCard {...altitudeBundle} isLoading={isLoading} />
         <BundleCard {...xenohunterBundle} isLoading={isLoading} />
         <BundleCard {...missingBundle} isLoading={isLoading} />
       </View>
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         <View style={{ width: '48%' }}>
-          <BundleCard {...rgxBundle} variant="grid" isLoading={isLoading} />
+          <BundleCard {...champions2026Bundle} variant="grid" isLoading={isLoading} />
         </View>
         <View style={{ width: '48%' }}>
           <BundleCard {...altitudeBundle} variant="grid" isLoading={isLoading} />
