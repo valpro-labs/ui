@@ -106,15 +106,19 @@ function PlayerRow({
         <Text className="flex-1 text-lg font-bold text-black dark:text-white" numberOfLines={1}>
           {name}
         </Text>
-        {kda != null && avgScore != null ? (
+        {kda != null || avgScore != null ? (
           <View className="items-end">
-            <Text className="text-lg font-bold text-black dark:text-white">{kda}</Text>
-            <View className="flex-row items-center gap-x-1">
-              {scoreIcon}
-              <Text className="text-xs text-black/70 dark:text-white/70">
-                {avgScore.toLocaleString()}
-              </Text>
-            </View>
+            {kda != null ? (
+              <Text className="text-lg font-bold text-black dark:text-white">{kda}</Text>
+            ) : null}
+            {avgScore != null ? (
+              <View className="flex-row items-center gap-x-1">
+                {scoreIcon}
+                <Text className="text-xs text-black/70 dark:text-white/70">
+                  {avgScore.toLocaleString()}
+                </Text>
+              </View>
+            ) : null}
           </View>
         ) : null}
       </View>
