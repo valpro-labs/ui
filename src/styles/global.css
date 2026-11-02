@@ -52,24 +52,24 @@ body {
 @layer theme {
   :root {
     @variant light {
-      /* Pure white base — matches splash screen #FFFFFF */
+      /* Shared iOS-style grouped palette for light mode. */
       --color-val-green-ui: #009970;
       --color-val-yellow-ui: #b8942a;
       --color-icon-muted: rgba(0, 0, 0, 0.4);
       --color-party-border: rgba(0, 0, 0, 0.15);
-      --color-background: oklch(1 0 0);
+      --color-background: oklch(0.967 0.004 286);
       --color-foreground: oklch(0.13 0 0);
-      --color-card: oklch(0.96 0.005 60);
+      --color-card: oklch(1 0 0);
       --color-card-foreground: oklch(0.13 0 0);
-      --color-popover: oklch(0.96 0.005 60);
+      --color-popover: oklch(1 0 0);
       --color-popover-foreground: oklch(0.13 0 0);
       --color-primary: oklch(0.13 0 0);
       --color-primary-foreground: oklch(1 0 0);
-      --color-secondary: oklch(0.92 0.005 60);
+      --color-secondary: oklch(0.922 0.004 286);
       --color-secondary-foreground: oklch(0.13 0 0);
-      --color-muted: oklch(0.92 0.005 60);
+      --color-muted: oklch(0.949 0.004 286);
       --color-muted-foreground: oklch(0.45 0 0);
-      --color-accent: oklch(0.92 0.005 60);
+      --color-accent: oklch(0.922 0.004 286);
       --color-accent-foreground: oklch(0.13 0 0);
       --color-destructive: oklch(0.577 0.245 27.325);
       --color-border: oklch(0 0 0 / 12%);
@@ -80,11 +80,11 @@ body {
       --color-chart-3: oklch(0.398 0.07 227.392);
       --color-chart-4: oklch(0.828 0.189 84.429);
       --color-chart-5: oklch(0.769 0.188 70.08);
-      --color-sidebar: oklch(0.92 0.005 60);
+      --color-sidebar: oklch(0.967 0.004 286);
       --color-sidebar-foreground: oklch(0.13 0 0);
       --color-sidebar-primary: oklch(0.13 0 0);
       --color-sidebar-primary-foreground: oklch(1 0 0);
-      --color-sidebar-accent: oklch(0.96 0.006 60);
+      --color-sidebar-accent: oklch(1 0 0);
       --color-sidebar-accent-foreground: oklch(0.13 0 0);
       --color-sidebar-border: oklch(0 0 0 / 12%);
       --color-sidebar-ring: oklch(0.6 0 0);
@@ -104,7 +104,7 @@ body {
       --color-popover-foreground: oklch(0.93 0.006 60);
       --color-primary: oklch(0.93 0.006 60);
       --color-primary-foreground: oklch(0.20 0.004 286);
-      --color-secondary: oklch(0.33 0.003 286);
+      --color-secondary: oklch(0.33 0 0);
       --color-secondary-foreground: oklch(0.93 0.006 60);
       --color-muted: oklch(0.33 0.003 286);
       --color-muted-foreground: oklch(0.55 0 0);
