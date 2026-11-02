@@ -15,7 +15,7 @@ interface MatchCardSkeletonProps {
  */
 function MatchCardSkeleton({ className }: MatchCardSkeletonProps) {
   return (
-    <View className={cn('bg-card overflow-hidden rounded-xl', className)}>
+    <View className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       <View className="relative h-18 flex-row items-center">
         {/* Left: agent icon + mode/tier slot */}
         <View className="flex-1 flex-row items-center gap-x-1">

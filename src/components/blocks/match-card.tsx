@@ -92,7 +92,7 @@ function MatchCard({
         : 'text-val-yellow';
 
   const card = (
-    <View className={cn('bg-card relative overflow-hidden rounded-xl', className)}>
+    <View className={cn('bg-card relative overflow-hidden rounded-3xl', className)}>
       {/* Map background */}
       {mapIconUrl ? (
         <View style={StyleSheet.absoluteFill}>

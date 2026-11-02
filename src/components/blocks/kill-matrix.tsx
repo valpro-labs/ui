@@ -51,7 +51,7 @@ function KillMatrix({ allyPlayers, enemyPlayers, cells, className }: KillMatrixP
   if (allyPlayers.length === 0 || enemyPlayers.length === 0) return null;
 
   return (
-    <View className={cn('bg-card gap-y-1 rounded-2xl p-2', className)}>
+    <View className={cn('bg-card gap-y-1 rounded-3xl p-2', className)}>
       <View className="flex-row items-center gap-x-1">
         <View className="w-10" />
         {enemyPlayers.map((enemy) => (
