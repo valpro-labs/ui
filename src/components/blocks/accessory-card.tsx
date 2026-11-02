@@ -73,7 +73,12 @@ function AccessoryCard({
   if (isLoading) {
     return (
       <Skeleton
-        className={cn('w-full rounded-xl', isGrid ? 'aspect-video' : 'aspect-10/4', className)}
+        className={cn(
+          'w-full',
+          isGrid ? 'rounded-xl' : 'rounded-3xl',
+          isGrid ? 'aspect-video' : 'aspect-10/4',
+          className
+        )}
       />
     );
   }
@@ -81,7 +86,8 @@ function AccessoryCard({
   const card = (
     <View
       className={cn(
-        'bg-card w-full overflow-hidden rounded-xl',
+        'bg-card w-full overflow-hidden',
+        isGrid ? 'rounded-xl' : 'rounded-3xl',
         isGrid ? 'aspect-video' : 'aspect-10/4',
         className
       )}>

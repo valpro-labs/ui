@@ -66,7 +66,12 @@ function BundleCard({
 
   if (isLoading) {
     return (
-      <View className={cn('w-full overflow-hidden rounded-xl bg-card', className)}>
+      <View
+        className={cn(
+          'w-full overflow-hidden bg-card',
+          isGrid ? 'rounded-xl' : 'rounded-3xl',
+          className
+        )}>
         <Skeleton className="aspect-video w-full" />
         <View
           className={cn(
@@ -81,7 +86,12 @@ function BundleCard({
   }
 
   const card = (
-    <View className={cn('bg-card w-full overflow-hidden rounded-xl', className)}>
+    <View
+      className={cn(
+        'bg-card w-full overflow-hidden',
+        isGrid ? 'rounded-xl' : 'rounded-3xl',
+        className
+      )}>
       {/* Image */}
       <View className="bg-val-blue relative aspect-video w-full items-center justify-center overflow-hidden">
         {iconUrl ? (
