@@ -59,7 +59,7 @@ function Wallet({
   return (
     <View
       className={cn(
-        'bg-card w-full overflow-hidden rounded-2xl',
+        'bg-card w-full overflow-hidden rounded-3xl',
         isLarge ? 'px-5 py-4' : 'px-4 py-3',
         className
       )}

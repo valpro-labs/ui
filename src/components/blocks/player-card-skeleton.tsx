@@ -15,7 +15,7 @@ interface PlayerCardSkeletonProps {
  */
 function PlayerCardSkeleton({ className }: PlayerCardSkeletonProps) {
   return (
-    <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <View className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       {/* Banner placeholder. The outer wrapper clips the corners, so the
           skeleton itself stays square. */}
       <View className="relative">

@@ -94,7 +94,7 @@ function OfferCard({
       <Skeleton
         className={cn(
           'w-full',
-          isGrid ? 'rounded-xl' : 'rounded-3xl',
+          'rounded-3xl',
           isGrid ? 'aspect-video' : 'aspect-10/4',
           className
         )}
@@ -109,7 +109,7 @@ function OfferCard({
     <View
       className={cn(
         'bg-card w-full overflow-hidden',
-        isGrid ? 'rounded-xl' : 'rounded-3xl',
+        'rounded-3xl',
         isGrid ? 'aspect-video' : 'aspect-10/4',
         className
       )}>

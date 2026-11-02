@@ -50,7 +50,7 @@ function PlayerCard({
     return <PlayerCardSkeleton className={className} />;
   }
   return (
-    <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <View className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       {/* Banner */}
       <View
         style={{ aspectRatio: 452 / 128 }}

@@ -69,7 +69,7 @@ function BundleCard({
       <View
         className={cn(
           'w-full overflow-hidden bg-card',
-          isGrid ? 'rounded-xl' : 'rounded-3xl',
+          'rounded-3xl',
           className
         )}>
         <Skeleton className="aspect-video w-full" />
@@ -89,7 +89,7 @@ function BundleCard({
     <View
       className={cn(
         'bg-card w-full overflow-hidden',
-        isGrid ? 'rounded-xl' : 'rounded-3xl',
+        'rounded-3xl',
         className
       )}>
       {/* Image */}

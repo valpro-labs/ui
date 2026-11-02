@@ -56,7 +56,7 @@ export const Default: Story = {
             title="Dailies"
             rightElement={isLoading ? undefined : <Countdown text="18h 42m" />}
           />
-          <View className="bg-card overflow-hidden rounded-2xl py-2">
+          <View className="bg-card overflow-hidden rounded-3xl py-2">
             <DailyProgress
               milestones={
                 isLoading

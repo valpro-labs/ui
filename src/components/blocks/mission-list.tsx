@@ -53,7 +53,7 @@ function MissionList({
   skeletonCount = 3,
   className,
 }: MissionListProps) {
-  const wrapperClassName = cn('bg-card overflow-hidden rounded-2xl', className);
+  const wrapperClassName = cn('bg-card overflow-hidden rounded-3xl', className);
 
   if (isLoading) {
     return (
