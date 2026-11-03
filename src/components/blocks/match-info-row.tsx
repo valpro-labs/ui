@@ -43,7 +43,7 @@ function MatchInfoRow({
   return (
     <View
       className={cn(
-        'bg-card flex-row items-center justify-between rounded-2xl px-4 py-3',
+        'bg-card flex-row items-center justify-between rounded-3xl px-4 py-3',
         className
       )}>
       <View className="min-w-0 flex-1 flex-row items-center gap-x-2 pr-3">

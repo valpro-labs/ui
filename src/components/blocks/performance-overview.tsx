@@ -35,7 +35,7 @@ function PerformanceOverview({ rows, className }: PerformanceOverviewProps) {
   if (rows.length === 0) return null;
 
   return (
-    <View className={cn('bg-card gap-y-3 rounded-2xl p-4', className)}>
+    <View className={cn('bg-card gap-y-3 rounded-3xl p-4', className)}>
       {rows.map((row) => (
         <View key={row.label} className="flex-row items-center gap-x-2">
           <Text variant="muted" className="w-12 text-sm">

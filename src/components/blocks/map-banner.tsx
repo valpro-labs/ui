@@ -95,7 +95,7 @@ function MapBanner({
   return (
     <View
       className={cn(
-        'bg-card relative aspect-video w-full overflow-hidden rounded-2xl',
+        'bg-card relative aspect-video w-full overflow-hidden rounded-3xl',
         className
       )}>
       {splashUrl ? (
