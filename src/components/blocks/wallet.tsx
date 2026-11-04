@@ -2,9 +2,11 @@ import { View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 type WalletSize = 'regular' | 'large';
@@ -57,7 +59,7 @@ function Wallet({
   const iconSize = isLarge ? 24 : 18;
 
   return (
-    <View
+    <CardSurface
       className={cn(
         'bg-card w-full overflow-hidden rounded-3xl',
         isLarge ? 'px-5 py-4' : 'px-4 py-3',
@@ -96,7 +98,7 @@ function Wallet({
           </View>
         ))}
       </View>
-    </View>
+    </CardSurface>
   );
 }
 

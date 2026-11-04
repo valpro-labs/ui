@@ -1,10 +1,12 @@
 import * as React from 'react';
 
-import { Pressable, View } from 'react-native';
+import { Pressable } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
+
 import { cn } from '@/lib/utils';
 
 interface RoleCardProps {
@@ -45,7 +47,7 @@ function RoleCard({
   const tint = selected ? valGreenUi : foreground;
 
   const card = (
-    <View
+    <CardSurface
       className={cn(
         'bg-card aspect-square items-center justify-center rounded-xl',
         selected && 'bg-val-green/30',
@@ -60,7 +62,7 @@ function RoleCard({
       ) : (
         children
       )}
-    </View>
+    </CardSurface>
   );
 
   if (!onPress) return card;

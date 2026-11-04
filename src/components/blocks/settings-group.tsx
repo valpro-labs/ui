@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface SettingsGroupProps {
@@ -28,7 +30,7 @@ function SettingsGroup({ label, children, className }: SettingsGroupProps) {
           {label}
         </Text>
       ) : null}
-      <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>{children}</View>
+      <CardSurface className={cn('bg-card overflow-hidden rounded-2xl', className)}>{children}</CardSurface>
     </View>
   );
 }

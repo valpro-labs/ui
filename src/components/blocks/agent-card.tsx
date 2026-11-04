@@ -2,9 +2,11 @@ import * as React from 'react';
 
 import { Pressable, View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 type AgentCardVariant = 'tile' | 'row';
@@ -93,7 +95,7 @@ function AgentCard({
 
   const row =
     variant === 'row' ? (
-      <View
+      <CardSurface
         className={cn(
           'bg-card relative w-full overflow-hidden rounded-xl px-4 py-2',
           locked && 'opacity-50',
@@ -139,7 +141,7 @@ function AgentCard({
             <View style={{ flexShrink: 0 }}>{lockOverlay}</View>
           ) : null}
         </View>
-      </View>
+      </CardSurface>
     ) : null;
 
   if (row) {
@@ -158,7 +160,7 @@ function AgentCard({
   }
 
   const card = (
-    <View
+    <CardSurface
       className={cn(
         'bg-card w-full overflow-hidden rounded-xl',
         locked && 'opacity-50',
@@ -180,7 +182,7 @@ function AgentCard({
 
         {locked ? lockOverlay : null}
       </View>
-    </View>
+    </CardSurface>
   );
 
   if (!onPress) return card;

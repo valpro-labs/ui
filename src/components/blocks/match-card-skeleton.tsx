@@ -1,6 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Skeleton } from '@/components/ui/skeleton';
+
 import { cn } from '@/lib/utils';
 
 interface MatchCardSkeletonProps {
@@ -15,7 +17,7 @@ interface MatchCardSkeletonProps {
  */
 function MatchCardSkeleton({ className }: MatchCardSkeletonProps) {
   return (
-    <View className={cn('bg-card overflow-hidden rounded-3xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       <View className="relative h-18 flex-row items-center">
         {/* Left: agent icon + mode/tier slot */}
         <View className="flex-1 flex-row items-center gap-x-1">
@@ -51,7 +53,7 @@ function MatchCardSkeleton({ className }: MatchCardSkeletonProps) {
           </View>
         </View>
       </View>
-    </View>
+    </CardSurface>
   );
 }
 

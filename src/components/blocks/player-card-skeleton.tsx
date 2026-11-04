@@ -1,6 +1,8 @@
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Skeleton } from '@/components/ui/skeleton';
+
 import { cn } from '@/lib/utils';
 
 interface PlayerCardSkeletonProps {
@@ -15,7 +17,7 @@ interface PlayerCardSkeletonProps {
  */
 function PlayerCardSkeleton({ className }: PlayerCardSkeletonProps) {
   return (
-    <View className={cn('bg-card overflow-hidden rounded-3xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       {/* Banner placeholder. The outer wrapper clips the corners, so the
           skeleton itself stays square. */}
       <View className="relative">
@@ -50,7 +52,7 @@ function PlayerCardSkeleton({ className }: PlayerCardSkeletonProps) {
           <Skeleton className="h-3.5 w-24 shrink-0 rounded-md" />
         </View>
       </View>
-    </View>
+    </CardSurface>
   );
 }
 

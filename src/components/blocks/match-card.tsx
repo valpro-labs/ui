@@ -3,8 +3,10 @@ import * as React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { MatchCardSkeleton } from '@/components/blocks/match-card-skeleton';
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 type MatchResult = 'win' | 'loss' | 'draw' | 'placement';
@@ -92,7 +94,7 @@ function MatchCard({
         : 'text-val-yellow';
 
   const card = (
-    <View className={cn('bg-card relative overflow-hidden rounded-3xl', className)}>
+    <CardSurface className={cn('bg-card relative overflow-hidden rounded-3xl', className)}>
       {/* Map background */}
       {mapIconUrl ? (
         <View style={StyleSheet.absoluteFill}>
@@ -190,7 +192,7 @@ function MatchCard({
           ) : null}
         </View>
       </View>
-    </View>
+    </CardSurface>
   );
 
   if (!onPress) return card;

@@ -4,9 +4,11 @@ import { Pressable, View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface BundleCardProps {
@@ -66,7 +68,7 @@ function BundleCard({
 
   if (isLoading) {
     return (
-      <View
+      <CardSurface
         className={cn(
           'w-full overflow-hidden bg-card',
           'rounded-3xl',
@@ -81,12 +83,12 @@ function BundleCard({
           <Skeleton className={cn('h-5', isCompact ? 'w-1/2' : 'w-2/3')} />
           <Skeleton className={cn('h-5', isCompact ? 'w-12' : 'w-16')} />
         </View>
-      </View>
+      </CardSurface>
     );
   }
 
   const card = (
-    <View
+    <CardSurface
       className={cn(
         'bg-card w-full overflow-hidden',
         'rounded-3xl',
@@ -164,7 +166,7 @@ function BundleCard({
           </View>
         )}
       </View>
-    </View>
+    </CardSurface>
   );
 
   if (!onPress) return card;

@@ -3,8 +3,10 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import { FriendRowSkeleton } from '@/components/blocks/friend-row-skeleton';
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 type FriendStatus = 'online' | 'away' | 'busy' | 'offline' | 'none';
@@ -63,11 +65,11 @@ function FriendAvatar({
           />
         ) : null}
       </View>
-      <View
+      <CardSurface
         className="bg-card absolute -right-1 -bottom-1 items-center justify-center rounded-full"
         style={{ width: statusOuterSize, height: statusOuterSize }}>
         {status === 'offline' ? (
-          <View
+          <CardSurface
             className="border-border bg-card rounded-full border-2"
             style={{ width: statusInnerSize, height: statusInnerSize }}
           />
@@ -77,7 +79,7 @@ function FriendAvatar({
             style={{ width: statusInnerSize, height: statusInnerSize }}
           />
         )}
-      </View>
+      </CardSurface>
     </View>
   );
 }

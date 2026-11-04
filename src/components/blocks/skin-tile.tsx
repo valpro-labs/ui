@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
+
 import { cn } from '@/lib/utils';
 
 interface SkinTileProps {
@@ -48,7 +50,7 @@ function SkinTile({
   className,
 }: SkinTileProps) {
   return (
-    <View
+    <CardSurface
       className={cn(
         'bg-card relative items-center justify-center overflow-hidden rounded-lg',
         isSelected && 'ring-val-red ring-2',
@@ -87,7 +89,7 @@ function SkinTile({
       {favoriteBadge ? (
         <View className="absolute right-0.5 bottom-0.5">{favoriteBadge}</View>
       ) : null}
-    </View>
+    </CardSurface>
   );
 }
 

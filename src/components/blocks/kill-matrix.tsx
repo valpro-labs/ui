@@ -2,8 +2,10 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface KillMatrixPlayer {
@@ -51,7 +53,7 @@ function KillMatrix({ allyPlayers, enemyPlayers, cells, className }: KillMatrixP
   if (allyPlayers.length === 0 || enemyPlayers.length === 0) return null;
 
   return (
-    <View className={cn('bg-card gap-y-1 rounded-3xl p-2', className)}>
+    <CardSurface className={cn('bg-card gap-y-1 rounded-3xl p-2', className)}>
       <View className="flex-row items-center gap-x-1">
         <View className="w-10" />
         {enemyPlayers.map((enemy) => (
@@ -89,7 +91,7 @@ function KillMatrix({ allyPlayers, enemyPlayers, cells, className }: KillMatrixP
           })}
         </View>
       ))}
-    </View>
+    </CardSurface>
   );
 }
 

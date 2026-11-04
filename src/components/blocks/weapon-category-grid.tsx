@@ -3,8 +3,10 @@ import * as React from 'react';
 import { Pressable, View } from 'react-native';
 
 import { SectionTitle } from '@/components/blocks/section-title';
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
+
 import { cn } from '@/lib/utils';
 
 interface WeaponCategoryGridItem {
@@ -121,7 +123,7 @@ function WeaponGridCard({
   const isGrid = variant === 'grid';
 
   return (
-    <View
+    <CardSurface
       className={cn(
         'bg-card relative w-full items-center justify-center overflow-hidden rounded-xl',
         isGrid ? 'aspect-video' : 'aspect-10/4'
@@ -152,7 +154,7 @@ function WeaponGridCard({
           {chevronIcon}
         </View>
       ) : null}
-    </View>
+    </CardSurface>
   );
 }
 

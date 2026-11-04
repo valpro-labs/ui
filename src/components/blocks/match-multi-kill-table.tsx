@@ -2,9 +2,11 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface MatchMultiKillCounts {
@@ -77,7 +79,7 @@ function MatchMultiKillTable({ rows, columnLabels, className }: MatchMultiKillTa
   const labels = { ...DEFAULT_LABELS, ...columnLabels };
 
   return (
-    <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-2xl', className)}>
       <MultiKillHeader labels={labels} />
       <Separator className="bg-black/50! dark:bg-black/30!" />
       {rows.map((row, index) => (
@@ -86,7 +88,7 @@ function MatchMultiKillTable({ rows, columnLabels, className }: MatchMultiKillTa
           <MultiKillRow row={row} />
         </View>
       ))}
-    </View>
+    </CardSurface>
   );
 }
 

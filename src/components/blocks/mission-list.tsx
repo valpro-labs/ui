@@ -4,7 +4,9 @@ import { View } from 'react-native';
 
 import { MissionCard } from '@/components/blocks/mission-card';
 import { MissionCardSkeleton } from '@/components/blocks/mission-card-skeleton';
+import { CardSurface } from '@/components/ui/card-surface';
 import { Separator } from '@/components/ui/separator';
+
 import { cn } from '@/lib/utils';
 
 interface MissionListItem {
@@ -57,7 +59,7 @@ function MissionList({
 
   if (isLoading) {
     return (
-      <View className={wrapperClassName}>
+      <CardSurface className={wrapperClassName}>
         {Array.from({ length: skeletonCount }).map((_, index) => (
           <React.Fragment key={index}>
             {index > 0 && <Separator />}
@@ -66,12 +68,12 @@ function MissionList({
             </View>
           </React.Fragment>
         ))}
-      </View>
+      </CardSurface>
     );
   }
 
   return (
-    <View className={wrapperClassName}>
+    <CardSurface className={wrapperClassName}>
       {missions.map((mission, index) => (
         <React.Fragment key={mission.id ?? index}>
           {index > 0 && <Separator />}
@@ -86,7 +88,7 @@ function MissionList({
           </View>
         </React.Fragment>
       ))}
-    </View>
+    </CardSurface>
   );
 }
 

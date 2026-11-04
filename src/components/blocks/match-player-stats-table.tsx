@@ -2,9 +2,11 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface MatchPlayerStatsColumn {
@@ -67,7 +69,7 @@ function MatchPlayerStatsTable({
   if (rows.length === 0) return null;
 
   return (
-    <View className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-2xl', className)}>
       <StatsHeader columns={columns} playerLabel={playerLabel} />
       <Separator className="bg-black/50! dark:bg-black/30!" />
       {rows.map((row, index) => (
@@ -76,7 +78,7 @@ function MatchPlayerStatsTable({
           <StatsRow row={row} columns={columns} />
         </View>
       ))}
-    </View>
+    </CardSurface>
   );
 }
 

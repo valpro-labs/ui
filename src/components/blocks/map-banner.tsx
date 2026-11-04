@@ -1,7 +1,9 @@
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 type MapBannerResult = 'win' | 'loss' | 'draw';
@@ -93,7 +95,7 @@ function MapBanner({
   );
 
   return (
-    <View
+    <CardSurface
       className={cn(
         'bg-card relative aspect-video w-full overflow-hidden rounded-3xl',
         className
@@ -136,7 +138,7 @@ function MapBanner({
           </Text>
         </View>
       ) : null}
-    </View>
+    </CardSurface>
   );
 }
 

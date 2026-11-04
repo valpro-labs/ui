@@ -2,8 +2,10 @@ import { View, StyleSheet } from 'react-native';
 
 import { LevelBorder } from '@/components/blocks/level-border';
 import { PlayerCardSkeleton } from '@/components/blocks/player-card-skeleton';
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface PlayerCardProps {
@@ -50,7 +52,7 @@ function PlayerCard({
     return <PlayerCardSkeleton className={className} />;
   }
   return (
-    <View className={cn('bg-card overflow-hidden rounded-3xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       {/* Banner */}
       <View
         style={{ aspectRatio: 452 / 128 }}
@@ -97,7 +99,7 @@ function PlayerCard({
           ) : null}
         </View>
       </View>
-    </View>
+    </CardSurface>
   );
 }
 

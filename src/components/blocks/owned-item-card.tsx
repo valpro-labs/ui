@@ -4,9 +4,11 @@ import { View, type ImageStyle, type StyleProp } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+
 import { Defs, RadialGradient, Rect, Stop, Svg } from '@/lib/svg-shim';
 import { cn } from '@/lib/utils';
 
@@ -194,7 +196,7 @@ function OwnedItemCard({
   ) : null;
 
   const card = (
-    <View
+    <CardSurface
       className={cn(
         'bg-card relative aspect-square w-full items-center justify-center overflow-hidden rounded-xl',
         isSelected && 'ring-val-green-ui ring-2',
@@ -251,7 +253,7 @@ function OwnedItemCard({
       ) : null}
 
       {progressPlacement === 'inside' ? insideProgressBar : null}
-    </View>
+    </CardSurface>
   );
 
   if (!showProgress || progressPlacement === 'inside') {

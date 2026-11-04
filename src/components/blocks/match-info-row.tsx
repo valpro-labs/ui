@@ -2,7 +2,9 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface MatchInfoRowProps {
@@ -41,7 +43,7 @@ function MatchInfoRow({
   className,
 }: MatchInfoRowProps) {
   return (
-    <View
+    <CardSurface
       className={cn(
         'bg-card flex-row items-center justify-between rounded-3xl px-4 py-3',
         className
@@ -65,7 +67,7 @@ function MatchInfoRow({
           <Text className="text-muted-foreground shrink-0 text-xs">{duration}</Text>
         </View>
       </View>
-    </View>
+    </CardSurface>
   );
 }
 

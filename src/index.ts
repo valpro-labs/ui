@@ -1,4 +1,7 @@
 // ── Tier 1: Primitives (ui/) ──
+export { CardSurface } from '@/components/ui/card-surface';
+export type { CardSurfaceProps } from '@/components/ui/card-surface';
+
 export { Button, buttonVariants, buttonTextVariants } from '@/components/ui/button';
 export type { ButtonProps } from '@/components/ui/button';
 

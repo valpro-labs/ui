@@ -4,9 +4,11 @@ import { Pressable, View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface OfferCardProps {
@@ -106,7 +108,7 @@ function OfferCard({
   const widthPercent = imageWidthPercent ?? 80;
 
   const card = (
-    <View
+    <CardSurface
       className={cn(
         'bg-card w-full overflow-hidden',
         'rounded-3xl',
@@ -216,7 +218,7 @@ function OfferCard({
           </View>
         ) : null}
       </View>
-    </View>
+    </CardSurface>
   );
 
   if (!onPress) return card;

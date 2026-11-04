@@ -4,9 +4,11 @@ import { Pressable, View, type ImageStyle, type StyleProp } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
+import { CardSurface } from '@/components/ui/card-surface';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
+
 import { cn } from '@/lib/utils';
 
 interface AccessoryCardProps {
@@ -84,7 +86,7 @@ function AccessoryCard({
   }
 
   const card = (
-    <View
+    <CardSurface
       className={cn(
         'bg-card w-full overflow-hidden',
         'rounded-3xl',
@@ -149,7 +151,7 @@ function AccessoryCard({
           </View>
         )}
       </View>
-    </View>
+    </CardSurface>
   );
 
   if (!onPress) return card;
