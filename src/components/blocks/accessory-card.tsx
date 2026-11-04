@@ -94,7 +94,7 @@ function AccessoryCard({
         className
       )}>
       {/* Image */}
-      <View className="bg-secondary relative flex-1 items-center justify-center overflow-hidden">
+      <CardSurface className="bg-secondary relative flex-1 items-center justify-center overflow-hidden">
         {iconUrl ? (
           <Image
             source={iconUrl}
@@ -110,7 +110,7 @@ function AccessoryCard({
           />
         ) : null}
         {imageOverlay}
-      </View>
+      </CardSurface>
 
       {/* Info bar */}
       <View

@@ -115,7 +115,7 @@ function OfferCard({
         isGrid ? 'aspect-video' : 'aspect-10/4',
         className
       )}>
-      <View
+      <CardSurface
         className="bg-secondary relative flex-1 items-center justify-center"
         style={color ? { backgroundColor: color } : undefined}>
         {iconUrl ? (
@@ -173,7 +173,7 @@ function OfferCard({
         {lockedBadge ? (
           <View className={cn('absolute', lockedBadgeInsetClassName)}>{lockedBadge}</View>
         ) : null}
-      </View>
+      </CardSurface>
 
       <View
         className={cn(

@@ -54,7 +54,7 @@ function PlayerCard({
   return (
     <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       {/* Banner */}
-      <View
+      <CardSurface
         style={{ aspectRatio: 452 / 128 }}
         className="bg-muted relative w-full overflow-hidden">
         {cardWideArt ? (
@@ -73,7 +73,7 @@ function PlayerCard({
             }}
           />
         ) : null}
-      </View>
+      </CardSurface>
 
       {/* Name Area */}
       <View className={cn('px-4 py-2', nameAreaClassName)}>

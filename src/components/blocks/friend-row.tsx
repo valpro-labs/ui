@@ -54,7 +54,7 @@ function FriendAvatar({
 
   return (
     <View>
-      <View
+      <CardSurface
         className="bg-secondary overflow-hidden"
         style={{ width: avatarSize, height: avatarSize, borderRadius: avatarRadius }}>
         {avatarUrl ? (
@@ -64,7 +64,7 @@ function FriendAvatar({
             contentFit="cover"
           />
         ) : null}
-      </View>
+      </CardSurface>
       <CardSurface
         className="bg-card absolute -right-1 -bottom-1 items-center justify-center rounded-full"
         style={{ width: statusOuterSize, height: statusOuterSize }}>

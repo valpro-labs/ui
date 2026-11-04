@@ -218,7 +218,7 @@ function OwnedItemCard({
           tintColor={tintColor}
         />
       ) : (
-        <View className="bg-muted h-full w-full" />
+        <CardSurface className="bg-muted h-full w-full" />
       )}
 
       {isSelected ? (

@@ -97,7 +97,7 @@ function KillMatrix({ allyPlayers, enemyPlayers, cells, className }: KillMatrixP
 
 function AgentIcon({ uri }: { uri?: string }) {
   if (!uri) {
-    return <View className="bg-muted h-8 w-8 rounded" />;
+    return <CardSurface className="bg-muted h-8 w-8 rounded" />;
   }
   return (
     <Image source={uri} style={{ width: 32, height: 32, borderRadius: 4 }} contentFit="cover" />

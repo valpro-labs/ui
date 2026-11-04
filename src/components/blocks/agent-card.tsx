@@ -115,12 +115,12 @@ function AgentCard({
           />
         ) : null}
 
-        <View
+        <CardSurface
           className="bg-secondary relative shrink-0 items-center justify-center overflow-hidden rounded-lg"
           style={{ width: 40, height: 40, zIndex: 1 }}>
           {icon}
           {imageOverlay}
-        </View>
+        </CardSurface>
 
         <View
           style={{

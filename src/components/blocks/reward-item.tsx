@@ -7,6 +7,7 @@ import type { OwnedItemCardProps } from '@/components/blocks/owned-item-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
+import { CardSurface } from '@/components/ui/card-surface';
 
 const DEFAULT_REWARD_THUMBNAIL_SIZE = 40;
 const OWNED_ITEM_REFERENCE_SIZE = 114;
@@ -71,7 +72,7 @@ function RewardItem({
           style={{ width: `${progressPct}%` }}
         />
       ) : null}
-      <View
+      <CardSurface
         className="bg-secondary shrink-0 items-center justify-center overflow-hidden rounded-lg"
         style={{ height: thumbnailSize, width: thumbnailSize }}>
         <View
@@ -87,7 +88,7 @@ function RewardItem({
             className="bg-secondary h-full w-full"
           />
         </View>
-      </View>
+      </CardSurface>
       <View className="flex-1">
         <Text
           className="text-foreground text-base font-bold tracking-tight uppercase"

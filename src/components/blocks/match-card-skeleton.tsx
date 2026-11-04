@@ -33,7 +33,7 @@ function MatchCardSkeleton({ className }: MatchCardSkeletonProps) {
           <Skeleton className="h-5 w-12 rounded-md" />
           <View className="mt-1 flex-row items-center gap-x-1">
             <Skeleton className="h-4 w-5 rounded-md" />
-            <View className="bg-muted h-0.5 w-3 rounded-full" />
+            <CardSurface className="bg-muted h-0.5 w-3 rounded-full" />
             <Skeleton className="h-4 w-5 rounded-md" />
           </View>
         </View>

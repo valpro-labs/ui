@@ -128,7 +128,7 @@ function StatsRow({
             contentFit="cover"
           />
         ) : (
-          <View className="bg-muted h-7 w-7 rounded" />
+          <CardSurface className="bg-muted h-7 w-7 rounded" />
         )}
         <Text className="flex-1 text-sm font-medium" numberOfLines={1}>
           {row.name}
