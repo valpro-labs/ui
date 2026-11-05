@@ -177,7 +177,7 @@ export const Default: Story = {
       <View className="px-4 pt-4" style={{ gap: 16 }}>
         <View>
           <SectionTitle title="Rank" />
-          <View className="bg-card overflow-hidden rounded-2xl">
+          <View className="bg-card overflow-hidden rounded-3xl">
             {isLoading ? (
               <RankCard
                 seasonTitle="V26"

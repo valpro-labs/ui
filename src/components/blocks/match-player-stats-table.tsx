@@ -69,7 +69,7 @@ function MatchPlayerStatsTable({
   if (rows.length === 0) return null;
 
   return (
-    <CardSurface className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       <StatsHeader columns={columns} playerLabel={playerLabel} />
       <Separator className="bg-black/50! dark:bg-black/30!" />
       {rows.map((row, index) => (

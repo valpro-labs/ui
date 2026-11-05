@@ -32,7 +32,7 @@ const meta: Meta<typeof SettingsRow> = {
   decorators: [
     (Story) => (
       <View style={{ width: 360, padding: 16 }}>
-        <View className="bg-card overflow-hidden rounded-2xl">
+        <View className="bg-card overflow-hidden rounded-3xl">
           <Story />
         </View>
       </View>

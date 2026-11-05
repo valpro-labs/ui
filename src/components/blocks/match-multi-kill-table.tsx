@@ -79,7 +79,7 @@ function MatchMultiKillTable({ rows, columnLabels, className }: MatchMultiKillTa
   const labels = { ...DEFAULT_LABELS, ...columnLabels };
 
   return (
-    <CardSurface className={cn('bg-card overflow-hidden rounded-2xl', className)}>
+    <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>
       <MultiKillHeader labels={labels} />
       <Separator className="bg-black/50! dark:bg-black/30!" />
       {rows.map((row, index) => (

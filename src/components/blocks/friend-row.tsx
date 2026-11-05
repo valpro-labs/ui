@@ -152,7 +152,7 @@ interface FriendRowProps {
  * Data-free: the consumer resolves the avatar URL, formats the presence
  * label, maps XMPP presence → `FriendStatus`, and supplies the owner /
  * chevron icons as `ReactNode`. The row renders no card chrome — stack
- * instances inside a `bg-card rounded-2xl overflow-hidden` container with
+ * instances inside a `bg-card rounded-3xl overflow-hidden` container with
  * `<Separator />` between them to match the app's friends list.
  */
 function FriendRow({

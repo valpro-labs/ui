@@ -162,7 +162,7 @@ function OwnedItemCard({
   const tintColor = resolvedTinted && typeof foregroundRaw === 'string' ? foregroundRaw : undefined;
 
   if (isLoading) {
-    return <Skeleton className={cn('aspect-square w-full rounded-xl', className)} />;
+    return <Skeleton className={cn('aspect-square w-full rounded-3xl', className)} />;
   }
 
   const showProgress = isCompleted || progressionXp != null;
@@ -198,7 +198,7 @@ function OwnedItemCard({
   const card = (
     <CardSurface
       className={cn(
-        'bg-card relative aspect-square w-full items-center justify-center overflow-hidden rounded-xl',
+        'bg-card relative aspect-square w-full items-center justify-center overflow-hidden rounded-3xl',
         isSelected && 'ring-val-green-ui ring-2',
         isDepleted && 'opacity-30',
         className

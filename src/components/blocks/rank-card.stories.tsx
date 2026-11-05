@@ -59,7 +59,7 @@ const meta: Meta<typeof RankCard> = {
   component: RankCard,
   decorators: [
     (Story) => (
-      <View className="bg-card overflow-hidden rounded-2xl">
+      <View className="bg-card overflow-hidden rounded-3xl">
         <Story />
       </View>
     ),

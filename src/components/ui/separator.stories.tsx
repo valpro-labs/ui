@@ -44,7 +44,7 @@ export const Vertical: Story = {
 
 export const BetweenListItems: Story = {
   render: () => (
-    <View className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-3xl">
       {['Headshots', 'First bloods', 'Spike plants'].map((label, index) => (
         <View key={label}>
           {index > 0 && <Separator />}

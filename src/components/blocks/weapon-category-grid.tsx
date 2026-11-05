@@ -79,7 +79,7 @@ function WeaponCategoryGrid({
                 key={item.key}
                 className={cn(isGrid ? 'w-[48%] grow' : 'w-full')}>
                 {isLoading ? (
-                  <Skeleton className="aspect-video w-full rounded-xl" />
+                  <Skeleton className="aspect-video w-full rounded-3xl" />
                 ) : (
                   <Pressable
                     onPress={item.onPress}
@@ -125,7 +125,7 @@ function WeaponGridCard({
   return (
     <CardSurface
       className={cn(
-        'bg-card relative w-full items-center justify-center overflow-hidden rounded-xl',
+        'bg-card relative w-full items-center justify-center overflow-hidden rounded-3xl',
         isGrid ? 'aspect-video' : 'aspect-10/4'
       )}>
       {imageUrl ? (

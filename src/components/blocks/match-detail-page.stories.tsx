@@ -569,7 +569,7 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
           durationIcon={<Clock size={16} weight="bold" color={mutedForeground} />}
         />
 
-        <View className="bg-card overflow-hidden rounded-2xl">
+        <View className="bg-card overflow-hidden rounded-3xl">
           {scoreboard.map((row, index) => (
             <View key={row.id}>
               {index > 0 && <Separator className="bg-black/50! dark:bg-black/30!" />}

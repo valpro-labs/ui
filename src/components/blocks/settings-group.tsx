@@ -30,7 +30,7 @@ function SettingsGroup({ label, children, className }: SettingsGroupProps) {
           {label}
         </Text>
       ) : null}
-      <CardSurface className={cn('bg-card overflow-hidden rounded-2xl', className)}>{children}</CardSurface>
+      <CardSurface className={cn('bg-card overflow-hidden rounded-3xl', className)}>{children}</CardSurface>
     </View>
   );
 }

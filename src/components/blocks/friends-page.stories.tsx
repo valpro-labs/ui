@@ -57,13 +57,13 @@ export const Default: Story = {
       return (
         <ScrollView className="bg-background flex-1">
           <View className="p-4" style={{ gap: 16 }}>
-            <View className="bg-card overflow-hidden rounded-2xl">
+            <View className="bg-card overflow-hidden rounded-3xl">
               <FriendRow name="" status="none" isLoading />
             </View>
             <View>
               <SectionLabel title="Valorant" />
               <View style={{ gap: 8 }}>
-                <View className="bg-card overflow-hidden rounded-2xl">
+                <View className="bg-card overflow-hidden rounded-3xl">
                   {Array.from({ length: 3 }).map((_, i) => (
                     <React.Fragment key={i}>
                       {i > 0 && <Separator />}
@@ -71,7 +71,7 @@ export const Default: Story = {
                     </React.Fragment>
                   ))}
                 </View>
-                <View className="bg-card overflow-hidden rounded-2xl">
+                <View className="bg-card overflow-hidden rounded-3xl">
                   {Array.from({ length: 4 }).map((_, i) => (
                     <React.Fragment key={i}>
                       {i > 0 && <Separator />}
@@ -90,7 +90,7 @@ export const Default: Story = {
       <ScrollView className="bg-background flex-1">
         <View className="p-4" style={{ gap: 16 }}>
           {/* Me */}
-          <View className="bg-card overflow-hidden rounded-2xl">
+          <View className="bg-card overflow-hidden rounded-3xl">
             <FriendRow
               name="Rick#NA1"
               gameLabel="Competitive 11-7 - Ascent"
@@ -103,7 +103,7 @@ export const Default: Story = {
           <View>
             <SectionLabel title="Valorant" />
             <View style={{ gap: 8 }}>
-              <View className="bg-card overflow-hidden rounded-2xl">
+              <View className="bg-card overflow-hidden rounded-3xl">
                 <FriendRow
                   name="Tia#NA1"
                   gameLabel="Competitive 11-7 - Ascent"
@@ -122,7 +122,7 @@ export const Default: Story = {
                 <FriendPartyOthersRow count={2} label="Other Players" />
               </View>
 
-              <View className="bg-card overflow-hidden rounded-2xl">
+              <View className="bg-card overflow-hidden rounded-3xl">
                 <FriendRow
                   name="Mia#EU1"
                   gameLabel="In Agent Select"
@@ -143,7 +143,7 @@ export const Default: Story = {
           {/* Other games */}
           <View>
             <SectionLabel title="Other" />
-            <View className="bg-card overflow-hidden rounded-2xl">
+            <View className="bg-card overflow-hidden rounded-3xl">
               <FriendRow
                 name="Ren#KR1"
                 gameLabel="In Game"
@@ -163,7 +163,7 @@ export const Default: Story = {
           {/* Offline */}
           <View>
             <SectionLabel title="Offline" />
-            <View className="bg-card overflow-hidden rounded-2xl">
+            <View className="bg-card overflow-hidden rounded-3xl">
               <FriendRow name="Kai#NA1" gameLabel="Offline" status="offline" opacity={0.5} />
               <Separator />
               <FriendRow name="Leo#BR1" gameLabel="Offline" status="offline" opacity={0.5} />

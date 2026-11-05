@@ -116,7 +116,7 @@ export const Default: Story = {
             <Pressable
               disabled={isLoading}
               style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>
-              <View className="bg-card flex-row items-center justify-between overflow-hidden rounded-2xl p-4">
+              <View className="bg-card flex-row items-center justify-between overflow-hidden rounded-3xl p-4">
                 <Text className="text-foreground text-lg font-bold tracking-wider uppercase">
                   Agents
                 </Text>

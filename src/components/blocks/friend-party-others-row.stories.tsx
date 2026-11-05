@@ -8,7 +8,7 @@ const meta: Meta<typeof FriendPartyOthersRow> = {
   component: FriendPartyOthersRow,
   decorators: [
     (Story) => (
-      <View className="bg-card overflow-hidden rounded-2xl py-3">
+      <View className="bg-card overflow-hidden rounded-3xl py-3">
         <Story />
       </View>
     ),

@@ -39,7 +39,7 @@ interface PlayerRowProps {
  *
  * Data-free: the consumer resolves the agent + tier icons, formats KDA,
  * and decides role. Stack instances with a `<Separator />` between rows
- * inside a `bg-card rounded-2xl overflow-hidden` container to match the
+ * inside a `bg-card rounded-3xl overflow-hidden` container to match the
  * app's scoreboard card.
  */
 function PlayerRow({

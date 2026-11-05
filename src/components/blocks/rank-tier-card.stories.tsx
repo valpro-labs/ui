@@ -24,7 +24,7 @@ const meta: Meta<typeof RankTierCard> = {
   component: RankTierCard,
   decorators: [
     (Story) => (
-      <View className="bg-card rounded-2xl px-4 py-3">
+      <View className="bg-card rounded-3xl px-4 py-3">
         <Story />
       </View>
     ),

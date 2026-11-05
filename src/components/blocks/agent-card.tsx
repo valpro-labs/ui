@@ -78,7 +78,7 @@ function AgentCard({
 
     return (
       <Skeleton
-        className={cn('aspect-square w-full rounded-xl', className)}
+        className={cn('aspect-square w-full rounded-3xl', className)}
         style={{ width: '100%' }}
       />
     );
@@ -97,7 +97,7 @@ function AgentCard({
     variant === 'row' ? (
       <CardSurface
         className={cn(
-          'bg-card relative w-full overflow-hidden rounded-xl px-4 py-2',
+          'bg-card relative w-full overflow-hidden rounded-3xl px-4 py-2',
           locked && 'opacity-50',
           className
         )}
@@ -162,7 +162,7 @@ function AgentCard({
   const card = (
     <CardSurface
       className={cn(
-        'bg-card w-full overflow-hidden rounded-xl',
+        'bg-card w-full overflow-hidden rounded-3xl',
         locked && 'opacity-50',
         className
       )}

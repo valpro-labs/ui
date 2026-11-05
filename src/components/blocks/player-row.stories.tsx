@@ -36,7 +36,7 @@ const meta: Meta<typeof PlayerRow> = {
   },
   decorators: [
     (Story) => (
-      <View className="bg-card overflow-hidden rounded-2xl">
+      <View className="bg-card overflow-hidden rounded-3xl">
         <Story />
       </View>
     ),
@@ -114,7 +114,7 @@ export const PartyMarked: Story = {
 export const Scoreboard: Story = {
   decorators: [],
   render: () => (
-    <View className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-3xl">
       <PlayerRow
         agentIconUrl={jettAgent}
         name="Rick#NA1"

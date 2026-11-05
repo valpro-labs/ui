@@ -31,7 +31,7 @@ const meta: Meta<typeof RankPyramid> = {
   component: RankPyramid,
   decorators: [
     (Story) => (
-      <View className="bg-card items-center justify-center rounded-2xl p-6">
+      <View className="bg-card items-center justify-center rounded-3xl p-6">
         <Story />
       </View>
     ),

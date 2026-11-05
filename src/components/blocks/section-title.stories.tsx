@@ -75,22 +75,22 @@ export const InHomeContext: Story = {
     <View className="gap-y-4">
       <View>
         <SectionTitle title="Party" rightElement={<RefreshIcon />} />
-        <View className="bg-card h-20 rounded-2xl" />
+        <View className="bg-card h-20 rounded-3xl" />
       </View>
       <View>
         <SectionTitle title="Dailies" rightElement={<Countdown label="18:42:10" />} />
-        <View className="bg-card h-24 rounded-2xl" />
+        <View className="bg-card h-24 rounded-3xl" />
       </View>
       <View>
         <SectionTitle
           title="Weekly Mission"
           rightElement={<Countdown label="4d 03:21:55" />}
         />
-        <View className="bg-card h-24 rounded-2xl" />
+        <View className="bg-card h-24 rounded-3xl" />
       </View>
       <View>
         <SectionTitle title="Battle Pass" />
-        <View className="bg-card h-20 rounded-2xl" />
+        <View className="bg-card h-20 rounded-3xl" />
       </View>
     </View>
   ),

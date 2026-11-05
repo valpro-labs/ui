@@ -66,7 +66,7 @@ const meta: Meta<typeof FriendRow> = {
   },
   decorators: [
     (Story) => (
-      <View className="bg-card overflow-hidden rounded-2xl">
+      <View className="bg-card overflow-hidden rounded-3xl">
         <Story />
       </View>
     ),
@@ -193,7 +193,7 @@ export const Loading: Story = {
 export const PartyGroup: Story = {
   decorators: [],
   render: () => (
-    <View className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-3xl">
       <FriendRow
         name="Tia#NA1"
         gameLabel="Competitive 11-7 - Ascent"
@@ -227,7 +227,7 @@ export const List: Story = {
   args: { isLoading: false },
   decorators: [],
   render: ({ isLoading }) => (
-    <View className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-3xl">
       <FriendRow
         name="Rick#NA1"
         gameLabel="Competitive 11-7 - Ascent"
@@ -297,7 +297,7 @@ export const IPadLayout: Story = {
           padding: 24,
           gap: 16,
         }}>
-        <View className="bg-card overflow-hidden rounded-2xl">
+        <View className="bg-card overflow-hidden rounded-3xl">
           <FriendRow
             name="Rick#NA1"
             gameLabel="Competitive 11-7 - Ascent"
@@ -311,7 +311,7 @@ export const IPadLayout: Story = {
 
         <View>
           <SectionLabel title="Valorant" size="large" />
-          <View className="bg-card overflow-hidden rounded-2xl">
+          <View className="bg-card overflow-hidden rounded-3xl">
             <FriendRow
               name="Tia#NA1"
               gameLabel="Competitive 11-7 - Ascent"
@@ -337,7 +337,7 @@ export const IPadLayout: Story = {
 
         <View>
           <SectionLabel title="Queue" size="large" />
-          <View className="bg-card overflow-hidden rounded-2xl">
+          <View className="bg-card overflow-hidden rounded-3xl">
             <FriendRow
               name="Mia#EU1"
               gameLabel="In Agent Select"
@@ -360,7 +360,7 @@ export const IPadLayout: Story = {
 
         <View>
           <SectionLabel title="Other" size="large" />
-          <View className="bg-card overflow-hidden rounded-2xl">
+          <View className="bg-card overflow-hidden rounded-3xl">
             <FriendRow
               name="Ren#KR1"
               gameLabel="In Game"
@@ -383,7 +383,7 @@ export const IPadLayout: Story = {
 
         <View>
           <SectionLabel title="Offline" size="large" />
-          <View className="bg-card overflow-hidden rounded-2xl">
+          <View className="bg-card overflow-hidden rounded-3xl">
             <FriendRow
               name="Kai#NA1"
               gameLabel="Offline"

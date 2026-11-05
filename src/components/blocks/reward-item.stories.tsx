@@ -38,7 +38,7 @@ const meta: Meta<typeof RewardItem> = {
   },
   decorators: [
     (Story) => (
-      <View className="bg-card overflow-hidden rounded-2xl">
+      <View className="bg-card overflow-hidden rounded-3xl">
         <Story />
       </View>
     ),
@@ -159,7 +159,7 @@ export const AsList: Story = {
   args: { isLoading: false },
   decorators: [],
   render: ({ isLoading }) => (
-    <View className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-3xl">
       <RewardItem
         iconUrl={playerCard}
         thumbnailVariant="card"
@@ -219,7 +219,7 @@ export const AsList: Story = {
 export const MixedTypes: Story = {
   decorators: [],
   render: () => (
-    <View className="bg-card overflow-hidden rounded-2xl">
+    <View className="bg-card overflow-hidden rounded-3xl">
       <RewardItem
         iconUrl={playerCard}
         thumbnailVariant="card"
