@@ -106,6 +106,8 @@ interface OwnedItemCardProps {
   xp?: number;
   /** Progress stripe fills 100% green — tile is completed. */
   isCompleted?: boolean;
+  /** Overrides the green progress fill color, e.g. with an agent accent. */
+  progressColor?: string;
   /** Draw progress inside the tile or as a separate bar below it. */
   progressPlacement?: OwnedItemProgressPlacement;
   /** Fixed square cell size for below-tile progress layouts. */
@@ -149,6 +151,7 @@ function OwnedItemCard({
   progressionXp,
   xp,
   isCompleted = false,
+  progressColor,
   progressPlacement = 'inside',
   progressCellSize,
   className,
@@ -174,8 +177,15 @@ function OwnedItemCard({
       ? Math.max(1, progressCellSize - DEFAULT_PROGRESS_BAR_GAP - DEFAULT_PROGRESS_BAR_HEIGHT)
       : undefined;
 
-  const progressFillClassName = isCompleted ? 'bg-val-green-ui' : 'bg-val-green-ui/50';
-  const progressFillStyle = { width: `${progressRatio * 100}%` as `${number}%` };
+  const progressFillClassName = progressColor
+    ? undefined
+    : isCompleted
+      ? 'bg-val-green-ui'
+      : 'bg-val-green-ui/50';
+  const progressFillStyle = {
+    width: `${progressRatio * 100}%` as `${number}%`,
+    ...(progressColor ? { backgroundColor: progressColor, opacity: isCompleted ? 1 : 0.5 } : null),
+  };
   const insideProgressBar = showProgress ? (
     <View className="bg-border absolute right-0 bottom-0 left-0 h-1">
       <View
