@@ -20,6 +20,10 @@ interface MatchInfoRowProps {
   dateIcon?: React.ReactNode;
   /** Icon rendered next to `duration`. */
   durationIcon?: React.ReactNode;
+  /** Optional server name, shown after `duration` when provided. */
+  server?: string;
+  /** Icon rendered next to `server`. */
+  serverIcon?: React.ReactNode;
   /** Extra classes merged onto the outer wrapper. */
   className?: string;
 }
@@ -40,15 +44,17 @@ function MatchInfoRow({
   modeIcon,
   dateIcon,
   durationIcon,
+  server,
+  serverIcon,
   className,
 }: MatchInfoRowProps) {
   return (
     <CardSurface
       className={cn(
-        'bg-card flex-row items-center justify-between rounded-3xl px-4 py-3',
+        'bg-card flex-row flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-3xl px-4 py-3',
         className
       )}>
-      <View className="min-w-0 flex-1 flex-row items-center gap-x-2 pr-3">
+      <View className="min-w-0 shrink flex-row items-center gap-x-2">
         {modeIcon ? <View className="shrink-0">{modeIcon}</View> : null}
         <Text
           numberOfLines={1}
@@ -57,7 +63,7 @@ function MatchInfoRow({
           {mode}
         </Text>
       </View>
-      <View className="shrink-0 flex-row items-center gap-x-4">
+      <View className="ml-auto min-w-0 shrink flex-row items-center gap-x-3">
         <View className="shrink-0 flex-row items-center gap-x-1.5">
           {dateIcon ? <View className="shrink-0">{dateIcon}</View> : null}
           <Text className="text-muted-foreground shrink-0 text-xs">{date}</Text>
@@ -66,6 +72,17 @@ function MatchInfoRow({
           {durationIcon ? <View className="shrink-0">{durationIcon}</View> : null}
           <Text className="text-muted-foreground shrink-0 text-xs">{duration}</Text>
         </View>
+        {server ? (
+          <View className="min-w-0 shrink flex-row items-center gap-x-1.5">
+            {serverIcon ? <View className="shrink-0">{serverIcon}</View> : null}
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              className="text-muted-foreground min-w-0 shrink text-xs">
+              {server}
+            </Text>
+          </View>
+        ) : null}
       </View>
     </CardSurface>
   );
