@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View } from 'react-native';
+import { View, type StyleProp, type TextStyle } from 'react-native';
 
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
@@ -29,6 +29,7 @@ interface SettingsRowProps {
   className?: string;
   /** Extra classes merged onto the label `<Text>` (e.g. `text-destructive` for a destructive row). */
   labelClassName?: string;
+  labelStyle?: StyleProp<TextStyle>;
   /** Extra classes merged onto the sub-label `<Text>`. */
   subClassName?: string;
 }
@@ -53,13 +54,14 @@ function SettingsRow({
   disabled,
   className,
   labelClassName,
+  labelStyle,
   subClassName,
 }: SettingsRowProps) {
   const content = (
     <>
       {icon}
       <View className="flex-1">
-        <Text className={cn('text-foreground text-sm font-normal', labelClassName)}>{label}</Text>
+        <Text style={labelStyle} className={cn('text-foreground text-sm font-normal', labelClassName)}>{label}</Text>
         {sub ? (
           <Text className={cn('text-muted-foreground mt-px text-xs font-normal', subClassName)}>
             {sub}
