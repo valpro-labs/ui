@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { RankTierCardSkeleton } from '@/components/blocks/rank-tier-card-skeleton';
-import { Image } from '@/components/ui/image';
+import { Image, type ImageProps } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +10,8 @@ interface RankTierCardProps {
   seasonTitle: string;
   /** Competitive tier display icon URL. */
   tierIcon?: string;
+  /** Extra style for the tier icon image, e.g. a shadow for icons that vanish on white. */
+  tierIconStyle?: ImageProps['style'];
   /** Tier name, e.g. `"Diamond 2"`. */
   tierName?: string;
   /** Tier name accent color from the competitive tier API, with or without the leading `#`. */
@@ -50,6 +52,7 @@ function withAlpha(color: string | undefined, alpha: string): string | undefined
 function RankTierCard({
   seasonTitle,
   tierIcon,
+  tierIconStyle,
   tierName,
   tierColor,
   rankedRating,
@@ -82,7 +85,7 @@ function RankTierCard({
           {tierIcon ? (
             <Image
               source={tierIcon}
-              style={{ width: '100%', height: '100%' }}
+              style={[{ width: '100%', height: '100%' }, tierIconStyle]}
               contentFit="contain"
             />
           ) : null}

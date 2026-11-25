@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { View } from 'react-native';
 
-import { Image } from '@/components/ui/image';
+import { Image, type ImageProps } from '@/components/ui/image';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 
@@ -23,6 +23,8 @@ interface PlayerRowProps {
   avgScore?: number;
   /** Competitive tier icon URL — small badge rendered before the name. */
   tierIconUrl?: string;
+  /** Extra style for the tier icon image, e.g. a shadow for icons that vanish on a light row. */
+  tierIconStyle?: ImageProps['style'];
   /** Marker shown next to the avg-score line. Consumer supplies (e.g. phosphor `<ChartBar />`). */
   scoreIcon?: React.ReactNode;
   /** Extra classes merged onto the outer row wrapper. */
@@ -50,6 +52,7 @@ function PlayerRow({
   kda,
   avgScore,
   tierIconUrl,
+  tierIconStyle,
   scoreIcon,
   className,
 }: PlayerRowProps) {
@@ -97,7 +100,7 @@ function PlayerRow({
         <View className="h-10 w-10">
           <Image
             source={tierIconUrl}
-            style={{ width: '100%', height: '100%' }}
+            style={[{ width: '100%', height: '100%' }, tierIconStyle]}
             contentFit="contain"
           />
         </View>

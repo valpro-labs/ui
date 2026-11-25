@@ -4,6 +4,7 @@ import { Pressable, View } from 'react-native';
 
 import { RankPyramid, type RankPyramidTier } from '@/components/blocks/rank-pyramid';
 import { RankTierCard } from '@/components/blocks/rank-tier-card';
+import { type ImageProps } from '@/components/ui/image';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
@@ -34,6 +35,8 @@ interface RankCardProps {
   seasonTitle: string;
   /** Competitive tier display icon URL. */
   tierIcon?: string;
+  /** Extra style for the tier icon image, e.g. a shadow for icons that vanish on white. */
+  tierIconStyle?: ImageProps['style'];
   /** Competitive tier id. Tier `0` is unranked and hides RR unless progress is supplied. */
   tier?: number;
   /** Tier name, e.g. `"Diamond 2"`. */
@@ -156,6 +159,7 @@ function RankProgressRail({
 function RankCard({
   seasonTitle,
   tierIcon,
+  tierIconStyle,
   tier,
   tierName,
   tierColor,
@@ -195,6 +199,7 @@ function RankCard({
             bodyClassName="grow shrink-0 justify-center"
             seasonTitle={seasonTitle}
             tierIcon={tierIcon}
+            tierIconStyle={tierIconStyle}
             tierName={tierName}
             tierColor={tierColor}
             rankedRating={rankedRating}
