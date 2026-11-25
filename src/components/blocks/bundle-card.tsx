@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Pressable, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
@@ -80,8 +80,28 @@ function BundleCard({
             'flex-row items-center justify-between',
             isCompact ? 'gap-1.5 px-2 py-1.5' : 'gap-3 px-3 py-2'
           )}>
-          <Skeleton className={cn('h-5', isCompact ? 'w-1/2' : 'w-2/3')} />
-          <Skeleton className={cn('h-5', isCompact ? 'w-12' : 'w-16')} />
+          <View className={cn(isCompact ? 'w-1/2' : 'w-2/3')}>
+            <Text
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
+              numberOfLines={1}
+              className={cn('font-semibold tracking-tight uppercase', isCompact ? 'text-sm' : 'text-base')}
+              style={{ opacity: 0 }}>
+              {'\u00a0'}
+            </Text>
+            <Skeleton style={StyleSheet.absoluteFill} />
+          </View>
+          <View className={cn(isCompact ? 'w-12' : 'w-16')}>
+            <Text
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
+              numberOfLines={1}
+              className={cn('font-bold', isCompact ? 'text-sm' : 'text-base')}
+              style={{ opacity: 0 }}>
+              0
+            </Text>
+            <Skeleton style={StyleSheet.absoluteFill} />
+          </View>
         </View>
       </CardSurface>
     );

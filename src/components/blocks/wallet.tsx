@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { useCSSVariable } from 'uniwind';
 
@@ -83,7 +83,16 @@ function Wallet({
               />
             ) : null}
             {isLoading ? (
-              <Skeleton className={cn('rounded-sm', isLarge ? 'h-6 w-16' : 'h-5 w-12')} />
+              <View className={cn(isLarge ? 'w-16' : 'w-12')}>
+                <Text
+                  accessibilityElementsHidden
+                  importantForAccessibility="no-hide-descendants"
+                  className={cn('font-bold', isLarge ? 'text-base leading-6' : 'text-sm leading-5')}
+                  style={{ opacity: 0 }}>
+                  0
+                </Text>
+                <Skeleton style={StyleSheet.absoluteFill} className="rounded-sm" />
+              </View>
             ) : (
               <Text
                 className={cn(
