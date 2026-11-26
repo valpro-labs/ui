@@ -25,6 +25,8 @@ function CardSurface({ className, style, ...props }: CardSurfaceProps) {
         Platform.OS === 'ios' && backgroundToken
           ? { backgroundColor: PlatformColor(IOS_BACKGROUND_COLORS[backgroundToken]) }
           : undefined,
+        // iOS draws native cards with continuous (squircle) corners; match them.
+        Platform.OS === 'ios' ? { borderCurve: 'continuous' } : undefined,
         style,
       ]}
     />
