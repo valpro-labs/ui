@@ -14,7 +14,7 @@ type FriendRowSize = 'regular' | 'large';
 
 const STATUS_DOT: Record<FriendStatus, string> = {
   online: 'bg-val-green-ui/80',
-  away: 'bg-val-yellow',
+  away: 'bg-val-yellow-ui',
   busy: 'bg-blue-400',
   offline: '',
   none: '',
@@ -22,7 +22,7 @@ const STATUS_DOT: Record<FriendStatus, string> = {
 
 const STATUS_TEXT: Record<FriendStatus, string> = {
   online: 'text-val-green-ui/80',
-  away: 'text-val-yellow',
+  away: 'text-val-yellow-ui',
   busy: 'text-blue-400',
   offline: 'text-muted-foreground',
   none: 'text-muted-foreground',
