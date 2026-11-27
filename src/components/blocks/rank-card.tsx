@@ -130,7 +130,10 @@ function RankProgressRail({
           ) : null}
           {icon ? (
             <Pressable
-              className="self-stretch items-center justify-center"
+              className="items-center justify-center"
+              // The icon (20pt) is taller than the rail; give it its own height without growing the
+              // rail, or Android clips the bottom of the glyph.
+              style={{ height: 24, marginVertical: -3 }}
               accessibilityRole="button"
               accessibilityLabel="Rank progress action"
               hitSlop={8}
