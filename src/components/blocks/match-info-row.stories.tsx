@@ -30,8 +30,8 @@ export const Competitive: Story = {
     date: 'Apr 12, 2026',
     duration: '38:12',
     modeIcon: <ModeIcon />,
-    dateIcon: <DateIcon />,
-    durationIcon: <DurationIcon />,
+    dateLabel: 'Date',
+    durationLabel: 'Duration',
   },
 };
 
@@ -41,8 +41,8 @@ export const Deathmatch: Story = {
     date: 'Yesterday',
     duration: '06:45',
     modeIcon: <ModeIcon />,
-    dateIcon: <DateIcon />,
-    durationIcon: <DurationIcon />,
+    dateLabel: 'Date',
+    durationLabel: 'Duration',
   },
 };
 
@@ -60,8 +60,8 @@ export const LongMode: Story = {
     date: 'May 2, 2026',
     duration: '52:41',
     modeIcon: <ModeIcon />,
-    dateIcon: <DateIcon />,
-    durationIcon: <DurationIcon />,
+    dateLabel: 'Date',
+    durationLabel: 'Duration',
   },
   render: (args) => (
     <View style={{ width: 320 }}>

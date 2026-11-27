@@ -565,8 +565,8 @@ function MatchDetailPage({ variant }: { variant: 'victory' | 'defeat' }) {
           date="Apr 21, 2026"
           duration="38m 14s"
           modeIcon={<GameController size={16} weight="bold" color={mutedForeground} />}
-          dateIcon={<Calendar size={16} weight="bold" color={mutedForeground} />}
-          durationIcon={<Clock size={16} weight="bold" color={mutedForeground} />}
+          dateLabel="Date"
+          durationLabel="Duration"
         />
 
         <View className="bg-card overflow-hidden rounded-3xl">

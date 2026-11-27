@@ -16,22 +16,20 @@ interface MatchInfoRowProps {
   duration: string;
   /** Icon rendered next to `mode`. Consumer supplies (e.g. phosphor `<GameController />`). */
   modeIcon?: React.ReactNode;
-  /** Icon rendered next to `date`. */
-  dateIcon?: React.ReactNode;
-  /** Icon rendered next to `duration`. */
-  durationIcon?: React.ReactNode;
   /** Optional server name, shown after `duration` when provided. */
   server?: string;
-  /** Icon rendered next to `server`. */
-  serverIcon?: React.ReactNode;
+  /** Captions under the date, duration and server values (e.g. "Date", "Duration", "Server"). */
+  dateLabel?: string;
+  durationLabel?: string;
+  serverLabel?: string;
   /** Extra classes merged onto the outer wrapper. */
   className?: string;
 }
 
 /**
- * Metadata strip shown under the map banner on the match-detail screen —
- * game mode on the left, date + duration on the right, each paired with a
- * caller-supplied icon.
+ * Metadata card shown under the map banner on the match-detail screen —
+ * the game mode as the title, then date, duration and (optional) server in
+ * equal columns, each value over its caption.
  *
  * Data-free: the consumer formats all three strings and supplies the
  * icons as `ReactNode` slots. Wrapping in a `<View>` is unnecessary;
@@ -42,19 +40,22 @@ function MatchInfoRow({
   date,
   duration,
   modeIcon,
-  dateIcon,
-  durationIcon,
   server,
-  serverIcon,
+  dateLabel,
+  durationLabel,
+  serverLabel,
   className,
 }: MatchInfoRowProps) {
+  const facts = [
+    { key: 'date', value: date, label: dateLabel },
+    { key: 'duration', value: duration, label: durationLabel },
+    ...(server ? [{ key: 'server', value: server, label: serverLabel }] : []),
+  ];
   return (
-    <CardSurface
-      className={cn(
-        'bg-card flex-row flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-3xl px-4 py-3',
-        className
-      )}>
-      <View className="min-w-0 shrink flex-row items-center gap-x-2">
+    // The mode as the card title, then the match facts in equal columns (value over caption),
+    // so long server names or locales never push the layout around.
+    <CardSurface className={cn('bg-card rounded-3xl', className)}>
+      <View className="min-w-0 flex-row items-center gap-x-2 px-4 pt-3">
         {modeIcon ? <View className="shrink-0">{modeIcon}</View> : null}
         <Text
           numberOfLines={1}
@@ -63,26 +64,24 @@ function MatchInfoRow({
           {mode}
         </Text>
       </View>
-      <View className="ml-auto min-w-0 shrink flex-row items-center gap-x-3">
-        <View className="shrink-0 flex-row items-center gap-x-1.5">
-          {dateIcon ? <View className="shrink-0">{dateIcon}</View> : null}
-          <Text className="text-muted-foreground shrink-0 text-xs">{date}</Text>
-        </View>
-        <View className="shrink-0 flex-row items-center gap-x-1.5">
-          {durationIcon ? <View className="shrink-0">{durationIcon}</View> : null}
-          <Text className="text-muted-foreground shrink-0 text-xs">{duration}</Text>
-        </View>
-        {server ? (
-          <View className="min-w-0 shrink flex-row items-center gap-x-1.5">
-            {serverIcon ? <View className="shrink-0">{serverIcon}</View> : null}
+      <View className="flex-row py-3">
+        {facts.map((fact, index) => (
+          <View
+            key={fact.key}
+            className={cn('min-w-0 shrink grow basis-auto items-center px-2', index > 0 && 'border-border border-l')}>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              className="text-muted-foreground min-w-0 shrink text-xs">
-              {server}
+              className="text-foreground text-sm font-semibold tabular-nums">
+              {fact.value}
             </Text>
+            {fact.label ? (
+              <Text numberOfLines={1} className="text-muted-foreground mt-0.5 text-xs">
+                {fact.label}
+              </Text>
+            ) : null}
           </View>
-        ) : null}
+        ))}
       </View>
     </CardSurface>
   );
